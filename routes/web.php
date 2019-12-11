@@ -14,3 +14,4 @@
 Route::get('/', function () {
     return view('home');
 });
+Route::post('/register_agent', 'AgentController@signup');

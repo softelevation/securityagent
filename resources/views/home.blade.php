@@ -275,25 +275,64 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" placeholder="Enter Your Name" />
-          </div>
-          <div class="form-group">
-            <label>Email</label>
-            <input type="text" class="form-control" placeholder="Enter Your Email" />
-          </div>
-          <div class="form-group">
-            <label>Phone Number</label>
-            <input type="text" class="form-control" placeholder="Enter Your Phone Number" />
-          </div>
-          <div class="form-group">
-            <label>Message</label>
-            <textarea class="form-control" placeholder="Enter Your Message"></textarea>
-          </div>
-          <div class="form-group">
-            <input type="submit" class="yellow_btn" value="Become Agent"/>
-          </div>
+        <form method="post" action="{{url('register_agent')}}">
+            @csrf
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>First Name</label>
+                    <input type="text" name="first_name" class="form-control" placeholder="Enter Your First Name" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Last Name</label>
+                    <input type="text" name="last_name" class="form-control" placeholder="Enter Your last Name" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Enter Your Email" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Phone Number</label>
+                    <input type="text" name="phone" class="form-control" placeholder="Enter Your Phone Number" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="Enter Your Password" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Confirm Password</label>
+                    <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Your Password" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>ID Proof</label>
+                    <input type="file" name="id_proof" class="form-control" placeholder="Upload Your ID Proof Document" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Agent Number Proof</label>
+                    <input type="file" name="agent_number_proof" class="form-control" placeholder="Upload Your Agent Number Document" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Agent Type</label>
+                    <select class="form-control" name="agent_type">
+                        <option>Select</option>
+                        <option value="1">Agent SSIP 1</option>
+                        <option value="2">Agent SSIP 2</option>
+                        <option value="3">Agent SSIP 3</option>
+
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>City</label>
+                    <input type="text" name="city" class="form-control" placeholder="Confirm Your Password" />
+                </div>
+                <div class="form-group col-md-12">
+                    <label>Work Location</label>
+                    <input type="text" name="work_location" class="form-control" placeholder="Confirm Your Password" />
+                </div>
+                <div class="form-group col-md-12">
+                    <input type="submit" class="yellow_btn" value="Register"/>
+                </div>
+            </div>
+        </form>
       </div>
     </div>
 
