@@ -1,0 +1,377 @@
+/*!
+ * Start Bootstrap - Full Width Pics (https://startbootstrap.com/template-overviews/full-width-pics)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-full-width-pics/blob/master/LICENSE)
+ */
+*{margin: 0; padding: 0;}
+@font-face {
+    font-family: 'SignikaRegular';
+    src: url('../fonts/SignikaRegular.eot');
+    src: url('../fonts/SignikaRegular.eot') format('embedded-opentype'),
+         url('../fonts/SignikaRegular.woff2') format('woff2'),
+         url('../fonts/SignikaRegular.woff') format('woff'),
+         url('../fonts/SignikaRegular.ttf') format('truetype'),
+         url('../fonts/SignikaRegular.svg#SignikaRegular') format('svg');
+}
+body{font-family: 'SignikaRegular';font-size: 14px;}
+a:hover{text-decoration: none;}
+
+.main_menu {
+    float: right; text-transform: uppercase;
+    width: 100%;
+}
+.menu_left {
+    float: left;
+    width:65%; margin-right:3%;
+    text-align: right;
+}
+.menu_right {
+    float: left;
+    width:32%;
+    text-align: right;
+}
+.top_menu {
+    float: right;
+    margin: 0 0 9px;
+}
+.top_menu ul li{display: inline-block;}
+.top_menu ul li a {color:#000; display: block;
+    padding: 2px 18px;
+}
+.primary ul {
+    float: right;
+}
+.primary ul li {
+    display:block; float: left;
+}
+
+.primary ul li a {
+    
+    color: #9a9a9a;
+    background: #f2f3f8;
+    font-weight: 600;
+    border: 1px solid #ccc;
+    padding: 6px 30px;
+}
+.primary ul li a.active, .primary ul li a:hover{ background: #e5f015; color:#000;}
+.primary ul li:first-child a {
+    border-right: 0;
+}
+.primary ul li:last-child a {
+    border-left: 0;
+}
+.menu_right a {
+    font-size: 20px;
+    color: #54580c;
+    background: #e5f015;
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-align: center;
+    height: 61px;
+    line-height: 61px;
+}
+.menu_right a:hover{background: #ffdb3f;}
+.main_menu ul {
+    margin:0;
+}
+
+
+
+
+.banner {
+    background: url(../images/banner_bg.jpg) no-repeat center top;
+    background-size: 100%;
+    float: left;
+    width: 100%;
+    padding:106px 0;
+}
+.banner_cont {
+    padding: 100px 0;
+}
+.banner_cont h1 {
+    font-size: 65px;
+    font-weight: 600;
+    line-height: 65px;
+}
+.banner_cont p{font-size: 18px; margin: 0;}
+.map_panel {
+    background: url(../images/banner_map.jpg) no-repeat center top;
+    padding: 85px 65px;
+    border-radius: 12px; background-size: 100% 100%; 
+    box-shadow: 0 0 8px #9c9c9c;
+}
+.map_panel h2 {
+    font-size: 32px;
+    color: #000;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.map_panel p {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.locationSearch {
+    position: relative;
+    margin-bottom: 28px;
+}
+.locationSearch input.form-control {
+    background: #fdde59;
+    height: 54px;
+    padding-left:65px;
+    border: 1px solid #cbb03b;
+    border-radius: 0;
+}
+.locationSearch span {
+    background: #cbb03b;
+    position: absolute;
+    left: 0;
+    width: 55px;
+    height: 54px;
+    line-height: 54px;
+    top: 0;
+    font-size: 23px;
+    color: #fff;
+}
+.locationSearch span i {
+    text-shadow: 1px 1px 8px #775656;
+}
+.locationSearch input.form-control::placeholder {
+    color: #a68c1e;
+    font-size: 18px;
+}
+.yellow_btn {
+    background: #e5f015;
+    font-size: 16px;
+    color: #282828;
+    text-transform: uppercase;
+    font-weight: 600;
+    height: 59px;
+    display: inline-block;
+    line-height: 59px; text-decoration: none;
+    width: 100%;
+    max-width: 226px;
+    box-shadow: 0 0 8px #999;
+}
+.yellow_btn:hover{text-decoration: none; background: #fdde59;color: #282828;}
+
+
+
+.comment_panel {
+    padding: 50px 0;
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+
+
+.feature_panel{padding:106px 0; float: left;
+    width: 100%;}
+.feature_panel_inner{ background: url("../images/feature_bg.jpg") repeat;padding: 50px 0;}
+.feature_img {
+    position: absolute;
+    top:-130px;
+    left: 0;
+    right: 0;
+    width: 322px;
+    margin: auto;
+}
+.feature_box {
+    padding: 25px 0;
+}
+.feature_box h3 {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 5px 0;
+}
+.feature_box p {
+    font-size: 17px;
+    margin: 5px 0;
+}
+
+
+.testimonial_panel {
+    padding: 50px 0;
+    float: left;
+    width: 100%;
+}
+.testimonial_cont {
+    border: 1px dotted #ccc;
+    padding: 10px;
+    background: #f2f3f8;
+    margin-bottom: 15px;
+}
+.testimonial_img {
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.testimonial_img img{
+    width: 100%;
+    height: 100%;
+}
+
+.footer { position: relative;
+    background: #000000;
+    color: #8a8a8a;float: left;
+    width: 100%;
+    padding:65px 0;
+}
+.copyright {
+    padding: 10px 0;
+    border-top: 1px solid #222222;
+}
+.copyright p{margin: 0; color:#696969;}
+.footer:before{content: ''; position: absolute; bottom: 0; left: 0; background: url("../images/footer_before_left.png") no-repeat; width:363px; height: 212px;}
+.footer:after{content: ''; position: absolute; top: 0; right: 0; background: url("../images/footer_after_right.png") no-repeat; width:363px; height: 212px;}
+
+.footer h3 {
+    text-transform: uppercase;
+    color: #e5f015;
+    font-size: 19px;margin-bottom: 15px;
+}
+
+.heading h2 {
+    font-size: 34px;
+    font-weight: 600;
+}
+.comment_panel p {
+    color: #8b8b8b;
+    font-size: 17px;
+}
+.heading {
+    margin-bottom: 15px;
+}
+.social_sprite a {
+    background: url(../images/social_sprite.png) no-repeat center top;
+    height: 36px;
+    width: 36px;display: inline-block;
+    background-position: 0 0;
+    padding: 0;
+}
+.social_sprite a.google {
+    background-position: -40px 0;
+}
+.social_sprite a.twitter {
+    background-position:-82px 0;
+}
+.social_sprite a.instagram {
+    background-position: -122px 0 ;
+}
+.android_apple {
+    padding: 16px 0;
+}
+.shortLink li a {
+    text-transform: uppercase;
+    color: #909090;
+}
+.shortLink li a i{margin-right: 5px;}
+.shortLink li {
+    display: block;
+}
+
+.newsletter_box {
+    position: relative;
+}
+.newsletter_box input.form-control {
+    background: #ffffff;
+    height: 45px;
+    padding-left: 65px;
+    border: 1px solid #fff;
+    border-radius: 0;
+}
+.newsletter_box span {
+    background: #e5f015;
+    position: absolute;
+    left: 0;
+    width: 55px;
+    height: 45px;text-align: center;
+    line-height: 45px;
+    top: 0;
+    font-size: 23px;
+    color: #000;
+}
+input.btn_submit {
+    background: #fdda42;
+    border: none;
+    padding: 6px 20px;
+    margin: 15px 0 0;
+    font-size: 16px;
+}
+input.btn_submit:hover{background: #e5f015;}
+.shortLink li a:hover {
+    color: #e5f015;
+}
+.about_info p{ line-height: 22px;}
+
+.testimonial_name {
+    margin-top: 15px;
+}
+button.navbar-toggler {
+    background: #fdde59;
+}
+button.navbar-toggler i.fa.fa-bars {
+    line-height: 35px;
+}
+.top_menu em{font-style: normal;}
+
+@media(max-width:640px)
+{
+.banner_cont {padding:20px 0;}    
+.banner_cont h1 {font-size: 26px; line-height: normal;}
+.feature_img { position: static;} 
+.banner{padding: 0;}   
+.feature_panel {padding: 0;}
+.feature_box {text-align: left;}
+.main_menu li {
+    display: block !important;
+}    
+    .menu_right, .menu_left {
+    float: left;
+    width: 100%;
+    text-align: left;
+}
+    .top_menu {
+    float: left;
+    width: 100%;
+}
+.primary ul li { width: 100%;}
+    .primary ul li a {
+    display: block;
+}
+.top_menu em{display: none;}
+}
+.modal-header{ background: #e8ea57;}
+.modal-body{ background: #0a0b45;}
+
+.modal-body label {
+    color: #fff;
+}
+.modal-body .form-control {
+    border-radius: 30px;
+    border: none;
+    height: 48px;
+    padding: 0 25px;
+}
+.modal-body input.yellow_btn {
+    height: 48px;
+    line-height: 51px;
+    border: navajowhite;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 30px;
+    margin: 24px 0 0;
+}
+body textarea.form-control {
+    height: 100px !important;
+    resize: none;
+    padding-top: 10px !important;
+}
+.yellow_btn:focus {
+    outline: none;
+    border: none;
+}
