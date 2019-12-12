@@ -383,7 +383,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Work Location</label>
-                <input type="text" name="work_location" class="form-control" placeholder="Enter Your Password" />
+                <input type="text" name="work_location" class="form-control" placeholder="Enter Your Work Location" />
               </div>
             </div>
           </div>
