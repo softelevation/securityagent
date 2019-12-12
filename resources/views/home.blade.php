@@ -15,8 +15,15 @@
 
   <!-- Custom styles for this template -->
   <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/css/location.css')}}" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet">
-
+<!--       <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+ -->
+<style type="text/css">
+    .pac-container{
+        z-index: 9999;
+    }
+</style>
 </head>
 
 <body>
@@ -295,7 +302,7 @@
 
 
 <!-- Modal -->
-<div id="become_agent" class="modal fade" role="dialog">
+<div id="become_agent" class="modal fade " role="dialog" >
   <div class="modal-dialog modal-lg">
     <!-- Modal content-->
     <div class="modal-content">
@@ -332,7 +339,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label>Password</label>
@@ -345,18 +352,18 @@
                 <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Your Password" />
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>ID Proof</label><br>
-                <input type="file" name="id_proof" class="" placeholder="Upload Your ID Proof Document" />
+                <label>Identity Card</label><br>
+                <input type="file" name="identity_card" class="" placeholder="Upload Your ID Proof Document" />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label>Agent Number Proof</label><br>
-                <input type="file" name="agent_number_proof" class="" placeholder="Upload Your Agent Number Document" />
+                <label>Social Security Number</label><br>
+                <input type="file" name="social_security_number" class="" placeholder="Upload Your Agent Number Document" />
               </div>
             </div>
           </div>
@@ -369,13 +376,25 @@
                     <option value="1">Agent SSIP 1</option>
                     <option value="2">Agent SSIP 2</option>
                     <option value="3">Agent SSIP 3</option>
+                    <option value="4">ADS With Vehicule or Not</option>
+                    <option value="5">Body Guard Without Weapon</option>
+                    <option value="7">Hostesses</option>
+                    <option value="6">Dog Handler</option>
                 </select>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label>City</label>
-                    <input type="text" name="city" class="form-control" placeholder="Enter Your City" />
+                <label>CNAPS Number</label>
+                    <input type="text" name="cnaps_number" class="form-control" placeholder="Enter Your CNAPS Number " />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+               <div class="col-md-12">
+              <div class="form-group">
+                <label>Home Address</label>
+                    <input type="text" name="home_address" class="form-control" placeholder="Enter Your home address " />
               </div>
             </div>
           </div>
@@ -383,12 +402,18 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Work Location</label>
-                <input type="text" name="work_location" class="form-control" placeholder="Enter Your Work Location" />
+                <input id="autocomplete" placeholder="Enter your address" class="form-control"  onFocus="geolocate()" type="text"/>
+                <!--Work Location Lat Longs  -->
+                <input type="hidden" name="work_location[lat]" />
+                <input type="hidden" name="work_location[long]" />
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-12">
+                <input type="hidden" name="current_location[lat]" />
+                <input type="hidden" name="current_location[long]" />
+              
               <div class="form-group">
                 <input type="submit" class="yellow_btn" value="Become Agent"/>
               </div>
@@ -402,6 +427,98 @@
   <script src="{{asset('assets/js/jquery.min.js')}}"></script>
   <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
 
+    <script>
+// This sample uses the Autocomplete widget to help the user select a
+// place, then it retrieves the address components associated with that
+// place, and then it populates the form fields with those details.
+// This sample requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script
+// src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+var placeSearch, autocomplete;
+
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  country: 'long_name',
+  postal_code: 'short_name'
+};
+
+function initAutocomplete() {
+  // Create the autocomplete object, restricting the search predictions to
+  // geographical location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autocomplete'), {types: ['geocode']});
+
+  // Avoid paying for data that you don't need by restricting the set of
+  // place fields that are returned to just the address components.
+  // autocomplete.setFields(['address_component']);
+
+  // When the user selects an address from the drop-down, populate the
+  // address fields in the form.
+  autocomplete.addListener('place_changed', fillInAddress);
+}
+
+function fillInAddress() {
+  // Get the place details from the autocomplete object.
+  var place = autocomplete.getPlace();
+  var work_location_lat = document.querySelector("input[name='work_location[lat]']");
+  var work_location_long = document.querySelector("input[name='work_location[long]']");
+  work_location_lat.value = place.geometry.location.lat(); 
+  work_location_long.value = place.geometry.location.lng(); 
+  console.log(place.geometry.location.lat());
+  console.log(place.geometry.location.lng());
+  for (var component in componentForm) {
+    document.getElementById(component).value = '';
+    document.getElementById(component).disabled = false;
+  }
+
+  // Get each component of the address from the place details,
+  // and then fill-in the corresponding field on the form.
+  for (var i = 0; i < place.address_components.length; i++) {
+    var addressType = place.address_components[i].types[0];
+    if (componentForm[addressType]) {
+      var val = place.address_components[i][componentForm[addressType]];
+      document.getElementById(addressType).value = val;
+    }
+  }
+}
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      console.log(geolocation);
+      var circle = new google.maps.Circle(
+          {center: geolocation, radius: position.coords.accuracy});
+      autocomplete.setBounds(circle.getBounds());
+    });
+  }
+}
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } 
+}
+getLocation();
+function showPosition(position) {
+  var current_location_lat = document.querySelector("input[name='current_location[lat]']");
+  var current_location_long = document.querySelector("input[name='current_location[long]']");
+  current_location_lat.value = position.coords.latitude; 
+  current_location_long.value = position.coords.longitude;
+}
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA&libraries=places&callback=initAutocomplete"
+        async defer></script>
 </body>
 
 </html>
