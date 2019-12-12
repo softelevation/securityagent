@@ -234,89 +234,45 @@ a:hover{text-decoration: none;}
     font-size: 19px;margin-bottom: 15px;
 }
 
-.heading h2 {
-    font-size: 34px;
-    font-weight: 600;
-}
-.comment_panel p {
-    color: #8b8b8b;
-    font-size: 17px;
-}
-.heading {
-    margin-bottom: 15px;
-}
-.social_sprite a {
-    background: url(../images/social_sprite.png) no-repeat center top;
-    height: 36px;
-    width: 36px;display: inline-block;
-    background-position: 0 0;
-    padding: 0;
-}
-.social_sprite a.google {
-    background-position: -40px 0;
-}
-.social_sprite a.twitter {
-    background-position:-82px 0;
-}
-.social_sprite a.instagram {
-    background-position: -122px 0 ;
-}
-.android_apple {
-    padding: 16px 0;
-}
-.shortLink li a {
-    text-transform: uppercase;
-    color: #909090;
-}
+.heading h2 { font-size: 34px; font-weight: 600;}
+.comment_panel p { color: #8b8b8b;font-size: 17px;}
+.heading {margin-bottom: 15px;}
+.social_sprite a { background: url(../images/social_sprite.png) no-repeat center top;height: 36px;width: 36px;display: inline-block; background-position: 0 0;padding: 0;}
+.social_sprite a.google { background-position: -40px 0;}
+.social_sprite a.twitter {background-position:-82px 0;}
+.social_sprite a.instagram { background-position: -122px 0 ;}
+.android_apple {padding: 16px 0;}
+.shortLink li a {text-transform: uppercase; color: #909090;}
 .shortLink li a i{margin-right: 5px;}
-.shortLink li {
-    display: block;
-}
-
-.newsletter_box {
-    position: relative;
-}
-.newsletter_box input.form-control {
-    background: #ffffff;
-    height: 45px;
-    padding-left: 65px;
-    border: 1px solid #fff;
-    border-radius: 0;
-}
-.newsletter_box span {
-    background: #e5f015;
-    position: absolute;
-    left: 0;
-    width: 55px;
-    height: 45px;text-align: center;
-    line-height: 45px;
-    top: 0;
-    font-size: 23px;
-    color: #000;
-}
-input.btn_submit {
-    background: #fdda42;
-    border: none;
-    padding: 6px 20px;
-    margin: 15px 0 0;
-    font-size: 16px;
-}
+.shortLink li {display: block;}
+.newsletter_box {position: relative;}
+.newsletter_box input.form-control { background: #ffffff;    height: 45px;    padding-left: 65px; border: 1px solid #fff;border-radius: 0;}
+.newsletter_box span { background: #e5f015;    position: absolute;    left: 0;    width: 55px; height: 45px;text-align: center; line-height: 45px;top: 0; font-size: 23px; color: #000;}
+input.btn_submit {background: #fdda42;border: none;padding: 6px 20px;
+    margin: 15px 0 0;font-size: 16px;}
 input.btn_submit:hover{background: #e5f015;}
-.shortLink li a:hover {
-    color: #e5f015;
-}
+.shortLink li a:hover {color: #e5f015;}
 .about_info p{ line-height: 22px;}
-
-.testimonial_name {
-    margin-top: 15px;
-}
-button.navbar-toggler {
-    background: #fdde59;
-}
-button.navbar-toggler i.fa.fa-bars {
-    line-height: 35px;
-}
+.testimonial_name {margin-top: 15px;}
+button.navbar-toggler { background: #fdde59;}
+button.navbar-toggler i.fa.fa-bars { line-height: 35px;}
 .top_menu em{font-style: normal;}
+.modal-header { background: #ffd948;}
+.modal-body label { color: #505050; font-size: 16px;}
+.modal-body .form-control { border: none;    height: 48px;border-radius: 0;    padding: 0 15px;    box-shadow: 0 0 7px #ccc inset;}
+.modal-body input.yellow_btn {height: 48px; line-height: 51px; border: 1px solid #ccc; display: block; width: 100%; max-width: 100%;    margin:10px 0 0; box-shadow: 0 0 8px #d4de18 inset;}
+body textarea.form-control { height: 100px !important; resize: none; padding-top: 10px !important;}
+.yellow_btn:focus {outline: none; border: none;}
+.how_work_listing li{display: block;}
+.how_work_listing li a img {float: left;}
+.how_work_listing li a{background: #72727a; float: left; padding: 10px 20px; color: #fff; font-size: 24px; text-align: center;line-height: 57px; margin: 5px 0; width: 100%;}
+.how_work_listing li a:hover{background:#ffdb3f;}
+.agent, .customer {text-align: center;margin-top: 40px;}
+.agent h4, .customer h4{ font-size: 26px;font-weight: 600;}
+.how_works {float: left; width: 100%;padding: 50px 0 0;}
+.modal-body .form-control::placeholder {color: #ccc;}
+.modal-title {text-transform: uppercase;}
+.agent img, .customer img { max-width: 140px;}
 
 @media(max-width:640px)
 {
@@ -326,52 +282,10 @@ button.navbar-toggler i.fa.fa-bars {
 .banner{padding: 0;}   
 .feature_panel {padding: 0;}
 .feature_box {text-align: left;}
-.main_menu li {
-    display: block !important;
-}    
-    .menu_right, .menu_left {
-    float: left;
-    width: 100%;
-    text-align: left;
-}
-    .top_menu {
-    float: left;
-    width: 100%;
-}
+.main_menu li {display: block !important;}    
+.menu_right, .menu_left {float: left; width: 100%; text-align: left;}
+.top_menu {float: left; width: 100%;}
 .primary ul li { width: 100%;}
-    .primary ul li a {
-    display: block;
-}
+.primary ul li a { display: block;}
 .top_menu em{display: none;}
-}
-.modal-header{ background: #e8ea57;}
-.modal-body{ background: #0a0b45;}
-
-.modal-body label {
-    color: #fff;
-}
-.modal-body .form-control {
-    border-radius: 30px;
-    border: none;
-    height: 48px;
-    padding: 0 25px;
-}
-.modal-body input.yellow_btn {
-    height: 48px;
-    line-height: 51px;
-    border: navajowhite;
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    border-radius: 30px;
-    margin: 24px 0 0;
-}
-body textarea.form-control {
-    height: 100px !important;
-    resize: none;
-    padding-top: 10px !important;
-}
-.yellow_btn:focus {
-    outline: none;
-    border: none;
 }

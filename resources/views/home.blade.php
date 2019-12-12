@@ -130,6 +130,39 @@
     </div>                      
 </div>  
     </div>
+    <div class="how_works">
+        <div class="container">
+            <div class="heading text-center">
+                <h2>How It Works?</h2>
+                <img src="{{asset('assets/images/heading_bottom.png')}}"/>
+            </div> 
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="agent">
+                        <h4>Agent</h4>
+                        <img src="{{asset('assets/images/agent.jpg')}}"/>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="customer">
+                        <h4>Customer</h4>
+                        <img src="{{asset('assets/images/customer.jpg')}}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="how_work_listing">
+                        <ul>
+                            <li><a href=""><img src="{{asset('assets/images/search_img.png')}}"/> Inscrivez-vous et creez votre annonce</a></li>
+                            <li><a href=""><img src="{{asset('assets/images/copy_img.png')}}"/> Effectuez vos recherches</a></li>
+                            <li><a href=""><img src="{{asset('assets/images/calling_img.png')}}"/> Contactez les agents dispoibles</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <div class="testimonial_panel">
     <div class="container">
         <div class="heading text-center">
@@ -219,7 +252,7 @@
        <div class="row">
            <div class="col-md-4">
             <div class="about_info">
-                <h3>About the App</h3>
+                <h3>About our platform</h3>
                 <p>Lorem Ipsum est un générateur de faux textes aléatoires. Vous choisissez le nombre de paragraphes, de mots ou de listes. Vous obtenez alors un texte aléatoire que vous pourrez ensuite utiliser librement dans vos maquettes. Lorem Ipsum est un générateur de faux textes aléatoires. Vous choisissez le nombre de paragraphes, listes. obtenez alors un texte aléatoire que vous pourrez ensuite utiliser librement dans vos maquettes.</p>   
             </div>
            </div>
@@ -230,10 +263,6 @@
                     <li><a href=""><i class="fa fa-share" aria-hidden="true"></i> contact</a></li>
                     <li><a href=""><i class="fa fa-share" aria-hidden="true"></i> available agent on map</a></li>
                 </ul> 
-                <div class="android_apple">
-                    <a href="#"><img src="{{asset('assets/images/apple.png')}}"/></a>
-                    <a href="#"><img src="{{asset('assets/images/android.png')}}"/></a>
-                </div>
                 <div class="social_sprite">
                     <a class="facebook" href=""></a>
                     <a class="google" href=""></a>
@@ -267,7 +296,7 @@
 
 <!-- Modal -->
 <div id="become_agent" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">        
@@ -275,67 +304,98 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <form method="post" action="{{url('register_agent')}}">
-            @csrf
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label>First Name</label>
-                    <input type="text" name="first_name" class="form-control" placeholder="Enter Your First Name" />
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Last Name</label>
-                    <input type="text" name="last_name" class="form-control" placeholder="Enter Your last Name" />
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="Enter Your Email" />
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Phone Number</label>
-                    <input type="text" name="phone" class="form-control" placeholder="Enter Your Phone Number" />
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="Enter Your Password" />
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Confirm Password</label>
-                    <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Your Password" />
-                </div>
-                <div class="form-group col-md-6">
-                    <label>ID Proof</label>
-                    <input type="file" name="id_proof" class="form-control" placeholder="Upload Your ID Proof Document" />
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Agent Number Proof</label>
-                    <input type="file" name="agent_number_proof" class="form-control" placeholder="Upload Your Agent Number Document" />
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Agent Type</label>
-                    <select class="form-control" name="agent_type">
-                        <option>Select</option>
-                        <option value="1">Agent SSIP 1</option>
-                        <option value="2">Agent SSIP 2</option>
-                        <option value="3">Agent SSIP 3</option>
-
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                    <label>City</label>
-                    <input type="text" name="city" class="form-control" placeholder="Confirm Your Password" />
-                </div>
-                <div class="form-group col-md-12">
-                    <label>Work Location</label>
-                    <input type="text" name="work_location" class="form-control" placeholder="Confirm Your Password" />
-                </div>
-                <div class="form-group col-md-12">
-                    <input type="submit" class="yellow_btn" value="Register"/>
-                </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" name="first_name" class="form-control" placeholder="Enter Your First Name" />
+              </div>
             </div>
-        </form>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" name="last_name" class="form-control" placeholder="Enter Your last Name" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" class="form-control" placeholder="Enter Your Email" />
+              </div>
+            </div>
+              <div class="col-md-6">
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" name="phone" class="form-control" placeholder="Enter Your Phone Number" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Enter Your Password" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Your Password" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>ID Proof</label><br>
+                <input type="file" name="id_proof" class="" placeholder="Upload Your ID Proof Document" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Agent Number Proof</label><br>
+                <input type="file" name="agent_number_proof" class="" placeholder="Upload Your Agent Number Document" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Agent Type</label>
+                <select class="form-control" name="agent_type">
+                    <option>Select</option>
+                    <option value="1">Agent SSIP 1</option>
+                    <option value="2">Agent SSIP 2</option>
+                    <option value="3">Agent SSIP 3</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>City</label>
+                    <input type="text" name="city" class="form-control" placeholder="Enter Your City" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Work Location</label>
+                <input type="text" name="work_location" class="form-control" placeholder="Enter Your Password" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input type="submit" class="yellow_btn" value="Become Agent"/>
+              </div>
+            </div>
+          </div>          
       </div>
     </div>
-
   </div>
 </div>
   <!-- Bootstrap core JavaScript -->
