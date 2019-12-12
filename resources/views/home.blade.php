@@ -284,7 +284,7 @@
            </div>
         </div>
         <div class="copyright text-center">
-            <p>Copyright © 2019 - Alright reserved by <b>OnTimeBee</b>. Design By: <b>Toukir Rahman</b></p>
+            <p>Copyright © 2019 - Alright reserved by <b>OnTimeBee</b>. Design By: <b>CMO Agency</b></p>
         </div>
     </div>
   </footer>
