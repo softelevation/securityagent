@@ -90,62 +90,82 @@
         output.innerHTML = slider.value; // Display the default slider value
         // Update the current slider value (each time you drag the slider handle)
         slider.oninput = function() {
-            let radius = parseInt(this.value);
-            output.innerHTML = radius;
-            radius = radius*1000;
-            initMap(radius);
+            output.innerHTML = this.value;
         }
-    </script>
-    <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA"></script> -->
-    <script type="text/javascript">
-    var map;
-    var markers;
-    function initMap(radiusVal=10000) {
-            map = new google.maps.Map(document.getElementById('agentMap'),   {
-            zoom: 8,
-            center: new google.maps.LatLng(48.8566, 2.3522),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+        $(document).on('mouseup','#mapZommRange',function(){
+            var radius = $(this).val();
+            radius = parseInt(radius);
+            radius = radius*1000;
+            setTimeout(function(){ initMap(radius); }, 500);
         });
+    </script>
+    
+    <script type="text/javascript">
+    var map,
+        markArray = [];
+    function initMap(radius) {
+        var mapOptions = {
+            center: new google.maps.LatLng(48.8566, 2.3522),
+            zoom: 8,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };    
+        map = new google.maps.Map(document.getElementById("agentMap"), mapOptions);
+        // Adding our markers from our "big database"
+        addMarkers();
+        setRadius(radius);
+        // Fired when the map becomes idle after panning or zooming.
+        google.maps.event.addListener(map, 'idle', function() {
+            showVisibleMarkers();
+        });
+    }
+
+    function addMarkers() {
         var locations = JSON.parse('@php echo $data @endphp');
-        if(locations.length > 0){
-            var infowindow = new google.maps.InfoWindow();
-            var bounds = new google.maps.LatLngBounds();
-            var marker, i;
-            var markArray = [];
-            for (i = 0; i < locations.length; i++) {
-              marker = new google.maps.Marker({
-                position: new google.maps.LatLng(locations[i][3], locations[i][4]),
-                map: map,
-              });
-              bounds.extend(marker.position);
-              google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                return function() {
-                  var contentString = locations[i][0];
-                  infowindow.setContent(contentString);
-                  infowindow.open(map, marker);
-                }
-              })(marker, i));
-              markArray.push(marker);
+        var infowindow = new google.maps.InfoWindow();
+        var bounds = new google.maps.LatLngBounds();
+        var marker, i;
+        for (i = 0; i < locations.length; i++) {
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][3], locations[i][4]),
+            map: map,
+          });
+          bounds.extend(marker.position);
+          google.maps.event.addListener(marker, 'tilesloaded', (function(marker, i) {
+            return function() {
+              var contentString = locations[i][0];
+              infowindow.setContent(contentString);
+              infowindow.open(map, marker);
             }
-            var circleOptions = {
-                center: new google.maps.LatLng(48.8566, 2.3522),
-                fillOpacity: 0,
-                strokeOpacity:0,
-                map: map,
-                radius: radiusVal 
-            }
-            var myCircle = new google.maps.Circle(circleOptions);
-            map.fitBounds(myCircle.getBounds());
-            google.maps.event.addListener(map, 'idle', function() {
-                showVisibleMarkers();
-            });
-            // Get visible markers
-            for (var i=0; i<markers.length; i++){
-                if( map.getBounds().contains(markers[i].getPosition()) ){
-                    // code for showing your object, associated with markers[i]
-                }
-            }
+          })(marker, i));
+          markArray.push(marker);
         }
     }
+
+    function setRadius(radius){
+        var circleOptions = {
+            center: new google.maps.LatLng(48.8566, 2.3522),
+            fillOpacity: 0,
+            strokeOpacity:0,
+            map: map,
+            radius: radius 
+        }
+        var myCircle = new google.maps.Circle(circleOptions);
+        map.fitBounds(myCircle.getBounds());
+    }
+
+    function showVisibleMarkers() {
+        var bounds = map.getBounds(),
+        count = 0;
+        for (var i = 0; i < markArray.length; i++) {
+            var marker = markArray[i];
+            var inMap = bounds.contains(marker.getPosition());
+            if(inMap===true) {
+                count++;
+            }
+        }
+        console.log(count);
+    }
+    window.onload = function(){ initMap(10000); };
     </script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA"></script>
 @endsection

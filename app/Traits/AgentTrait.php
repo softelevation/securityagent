@@ -12,7 +12,7 @@ use App\Traits\ResponseTrait;
 
 trait AgentTrait
 {
-    use HelperTrait, ResponseTrait;
+    use HelperTrait;
 
     /**
     * Save agent data to database

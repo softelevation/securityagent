@@ -207,18 +207,15 @@ function showPosition(position) {
   current_location_lat.value = position.coords.latitude; 
   current_location_long.value = position.coords.longitude;
 }
-function initialize() {
-  initMap();
+function initialize(){
   initAutocomplete();
 }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA&libraries=places&callback=initialize"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA&libraries=places&callback=initAutocomplete"
     async defer></script>
-
 <!-- Bootstrap core JavaScript -->
 <script> var app_base_url = "{{url('/')}}"; </script>
-<script src="{{asset('assets/js/jquery.min.js')}}"></script>
-<script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+
 <script src="{{asset('js/jquery.toast.js')}}"></script>
 <script src="{{asset('js/form-validate.js')}}"></script>
 <script src="{{asset('js/jquery.validate.js')}}"></script>

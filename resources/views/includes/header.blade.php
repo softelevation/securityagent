@@ -13,6 +13,8 @@
   <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
   <link href="{{asset('css/toaster.css')}}" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet">
+  <script src="{{asset('assets/js/jquery.min.js')}}"></script>
+  <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
   <style type="text/css">
     .pac-container{
         z-index: 9999;
@@ -51,8 +53,8 @@
                 </div>
                 <div class="primary">
                     <ul>
-                        <li><a class="active" href="{{url('/')}}">Home</a></li>
-                        <li><a href="{{url('/available-agents')}}">Available Agent on Map</a></li>
+                        <li><a class="@if(url()->current()==url('/')) active @endif" href="{{url('/')}}">Home</a></li>
+                        <li><a class="@if(url()->current()==url('/available-agents')) active @endif" href="{{url('/available-agents')}}">Available Agent on Map</a></li>
                         <li><a href="{{url('/contact-us')}}">Contact us</a></li>
                     </ul>
                 </div>
