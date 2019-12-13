@@ -15,6 +15,5 @@ Route::get('/', function () {
     return view('home');
 });
 Route::post('/register_agent', 'AgentController@signup');
-Route::get('/search', function () {
-    return view('search');
-});
+Route::get('/available-agents', 'AgentController@showAvailableAgents');
+

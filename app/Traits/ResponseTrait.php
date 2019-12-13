@@ -28,6 +28,7 @@ trait ResponseTrait
     public function getSuccessResponse($response){
         $response['success']  = true;
         $response['error']    = false;
+        $response['delayTime'] = 2000;
         return $response;
     }
 
@@ -41,6 +42,7 @@ trait ResponseTrait
         $response['success'] = false;
         $response['error'] = true;
         $response['message'] = $message;
+        $response['delayTime'] = 2000;
         return $response;
     }
 }

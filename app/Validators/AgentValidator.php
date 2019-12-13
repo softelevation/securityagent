@@ -25,12 +25,12 @@ trait AgentValidator
                 'last_name'     => 'required',
                 'email'         => 'required|email|unique:agents',
                 'phone'         => 'required',
-                'password'      => 'required|confirmed|min:6',
-                'id_proof'      => 'required',
-                'agent_number_proof' => 'required',
+                'identity_card'      => 'required',
+                'social_security_number' => 'required',
                 'agent_type'    => 'required',
-                'city'          => 'required',
-                'work_location' => 'required',
+                'cnaps_number'          => 'required',
+                'home_address'          => 'required',
+                'work_location_address' => 'required',
             );
             $validator = Validator::make($request->all(),$validations);
             $this->response = $this->validateData($validator);

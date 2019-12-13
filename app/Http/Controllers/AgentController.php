@@ -11,6 +11,7 @@ use App\Traits\ResponseTrait;
 class AgentController extends Controller
 {
 	use AgentValidator, AgentTrait, ResponseTrait;
+    
     /**
      * @param $request
      * @return mixed
@@ -23,11 +24,28 @@ class AgentController extends Controller
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
             }
-            $this->registerAgent($request);
+            if(!isset($request->work_location['lat']) || empty($request->work_location['lat'])){
+                return $this->getErrorResponse('GPS location is not enabled.');
+            }
+            if(!isset($request->current_location['lat']) || empty($request->current_location['lat'])){
+                return $this->getErrorResponse('GPS location is not enabled.');
+            }
+            return $this->registerAgent($request);
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }
-
-
     }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method showAvailableAgents
+     * @purpose Show available agents on map
+     */
+    public function showAvailableAgents(){
+        $agents = $this->getAvailableAgents();
+        // $this->print($agents);
+        return view('available_agents',['data'=>json_encode($agents)]);
+    }
+
 }
