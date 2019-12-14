@@ -188,6 +188,12 @@ function geolocate() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
+      // set current position
+      var current_location_lat = document.querySelector("input[name='current_location[lat]']");
+      var current_location_long = document.querySelector("input[name='current_location[long]']");
+      current_location_lat.value = position.coords.latitude; 
+      current_location_long.value = position.coords.longitude;
+      
       var circle = new google.maps.Circle(
           {center: geolocation, radius: position.coords.accuracy});
       autocomplete.setBounds(circle.getBounds());
@@ -195,21 +201,21 @@ function geolocate() {
   }
 }
 
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } 
-}
-getLocation();
-function showPosition(position) {
-  var current_location_lat = document.querySelector("input[name='current_location[lat]']");
-  var current_location_long = document.querySelector("input[name='current_location[long]']");
-  current_location_lat.value = position.coords.latitude; 
-  current_location_long.value = position.coords.longitude;
-}
-function initialize(){
-  initAutocomplete();
-}
+// function getLocation() {
+//   if (navigator.geolocation) {
+//     navigator.geolocation.getCurrentPosition(showPosition);
+//   } 
+// }
+// getLocation();
+// function showPosition(position) {
+//   var current_location_lat = document.querySelector("input[name='current_location[lat]']");
+//   var current_location_long = document.querySelector("input[name='current_location[long]']");
+//   current_location_lat.value = position.coords.latitude; 
+//   current_location_long.value = position.coords.longitude;
+// }
+// function initialize(){
+//   initAutocomplete();
+// }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA&libraries=places&callback=initAutocomplete"
     async defer></script>

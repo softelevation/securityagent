@@ -27,9 +27,10 @@ class AgentController extends Controller
             if(!isset($request->work_location['lat']) || empty($request->work_location['lat'])){
                 return $this->getErrorResponse('GPS location is not enabled.');
             }
-            if(!isset($request->current_location['lat']) || empty($request->current_location['lat'])){
-                return $this->getErrorResponse('GPS location is not enabled.');
-            }
+            // Works on HTTPS
+            // if(!isset($request->current_location['lat']) || empty($request->current_location['lat'])){
+            //     return $this->getErrorResponse('GPS location is not enabled.');
+            // }
             return $this->registerAgent($request);
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));

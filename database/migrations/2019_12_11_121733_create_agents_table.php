@@ -28,8 +28,8 @@ class CreateAgentsTable extends Migration
             $table->string('cnaps_number');
             $table->string('home_address');
             $table->string('work_location_address');
-            $table->string('work_location_lat_long');
-            $table->string('current_location_lat_long');
+            $table->string('work_location_lat_long')->nullable();
+            $table->string('current_location_lat_long')->nullable();
             $table->tinyInteger('status');
             $table->timestamps();
         });
