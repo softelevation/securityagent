@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>{{ config('app.name', 'Laravel') }}</title>
+  <title>{{ config('app.name', 'On Time') }}</title>
   <!-- Bootstrap core CSS -->
   <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
   <!-- Custom styles for this template -->
@@ -55,7 +55,7 @@
                     <ul>
                         <li><a class="@if(url()->current()==url('/')) active @endif" href="{{url('/')}}">Home</a></li>
                         <li><a class="@if(url()->current()==url('/available-agents')) active @endif" href="{{url('/available-agents')}}">Available Agent on Map</a></li>
-                        <li><a href="{{url('/contact-us')}}">Contact us</a></li>
+                        <li><a class="@if(url()->current()==url('/contact-us')) active @endif" href="{{url('/contact-us')}}">Contact us</a></li>
                     </ul>
                 </div>
             </div>  
