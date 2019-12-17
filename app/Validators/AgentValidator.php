@@ -28,7 +28,9 @@ trait AgentValidator
                 'identity_card'      => 'required',
                 'social_security_number' => 'required',
                 'agent_type'    => 'required',
-                'cnaps_number'          => 'required',
+                'cv'    => 'required',
+                'iban'    => 'required',
+                // 'cnaps_number'          => 'required',
                 'home_address'          => 'required',
                 'work_location_address' => 'required',
             );

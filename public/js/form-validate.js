@@ -100,6 +100,7 @@ function formSubmit(form)
             $("button[type=submit]").removeAttr("disabled");
         },
         success: function (response) {
+            console.log(response);
             $("#preloader").hide();
             $("input[type=submit]").removeAttr("disabled");
             var delayTime=0;

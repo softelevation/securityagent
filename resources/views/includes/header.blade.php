@@ -60,7 +60,7 @@
                 </div>
             </div>  
             <div class="menu_right">
-                <a type="button" data-toggle="modal" data-target="#become_agent">Become an Agent</a>
+                <a href="{{url('/register-agent-view')}}" >Become an Agent</a>
             </div>
         </div>
       </div>

@@ -18,7 +18,11 @@ class AgentController extends Controller
      * @method agentRegister
      * @purpose To register as an agent
      */
+    public function index(){
+        return view('agent-register');
+    }
     public function signup(Request $request){
+    $this->print($request->all());
     	try{
         	$validation = $this->agentSignupValidations($request);
             if($validation['status']==false){
@@ -31,7 +35,8 @@ class AgentController extends Controller
             // if(!isset($request->current_location['lat']) || empty($request->current_location['lat'])){
             //     return $this->getErrorResponse('GPS location is not enabled.');
             // }
-            return $this->registerAgent($request);
+            print_r($this->registerAgent($request));
+            die;
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }

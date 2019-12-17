@@ -17,6 +17,7 @@ Route::get('/', function () {
 Route::get('/contact-us', function () {
     return view('contact');
 });
+Route::get('/register-agent-view','AgentController@index');
 Route::post('/register_agent', 'AgentController@signup');
 Route::get('/available-agents', 'AgentController@showAvailableAgents');
 

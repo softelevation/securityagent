@@ -24,8 +24,10 @@ class CreateAgentsTable extends Migration
             $table->string('password')->nullable();
             $table->string('identity_card');
             $table->string('social_security_number');
+            $table->string('cv');
+            $table->string('iban');
             $table->integer('agent_type');
-            $table->string('cnaps_number');
+            $table->string('cnaps_number')->nullable();
             $table->string('home_address');
             $table->string('work_location_address');
             $table->string('work_location_lat_long')->nullable();
