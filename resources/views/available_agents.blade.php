@@ -7,9 +7,8 @@
                     <div class="location_btn">
                         <form method="get" action="{{url('/available-agents')}}">
                         <div class="locationSearch">
-                            <input id="autocomplete" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
+                            <input id="autocomplete" name="location" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
                             <span><i class="fa fa-paper-plane"></i></span>
-
                         </div>
                         <input type="hidden" name="latitude" />
                         <input type="hidden" name="longitude" />
@@ -33,7 +32,7 @@
         <div class="row">
             <div class="col-md-4 padding_right_0">
                 <div class="Agent_list">
-                    <h3>Agent In USA <span>How to choose ?</span></h3>
+                    <h3>Agent In {{$search['location']}} <span>How to choose ?</span></h3>
                     @forelse(json_decode($data) as $agent)
                     <div class="list_box">
                         <div class="row">

@@ -56,12 +56,15 @@ class AgentController extends Controller
     public function showAvailableAgents(Request $request){
         $latitude = '48.8566';
         $longitude = '2.3522';
+        $location = 'Paris, France';
         if(isset($request->latitude) && isset($request->longitude)){
             $latitude = $request->latitude;
             $longitude = $request->longitude;
+            $location = $request->location;
         }
         $search['latitude'] = $latitude;
-        $search['longitude'] = $longitude; 
+        $search['longitude'] = $longitude;
+        $search['location'] = $location; 
         $agents = $this->getAvailableAgents();
         // $this->print($agents);
         return view('available_agents',['data'=>json_encode($agents),'search'=>$search]);

@@ -15,7 +15,7 @@
                     <p>Search by city, address, postalcode, etc...</p>
                     <form method="get" action="{{url('/available-agents')}}">
                     <div class="locationSearch">
-                        <input id="autocomplete" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
+                        <input id="autocomplete" name="location" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
                             <!--Work Location Lat Longs  -->
                         <input type="hidden" name="latitude" />
                         <input type="hidden" name="longitude" />
@@ -46,12 +46,12 @@
             <div class="col-md-6">
                 <div class="agent">
                     <h4>I’m an Agent</h4>
-                    <img src="{{asset('assets/images/agent.jpg')}}"/>
+                    <img src="{{asset('assets/images/agent.png')}}"/>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="customer">
-                    <img src="{{asset('assets/images/customer.jpg')}}"/>
+                    <img src="{{asset('assets/images/customer.png')}}"/>
                     <h4>I’m an User</h4>                        
                 </div>
             </div>
@@ -60,9 +60,9 @@
             <div class="col-md-12">
                 <div class="how_work_listing">
                     <ul>
-                        <li><a href="#"><span><i class="fa fa-search"></i></span> Find an agent available right now or schedule a mission</a></li>
-                        <li><a href="#"><span><i class="fa fa-copy"></i></span>  Register and post your mission requested</a></li>
-                        <li><a href="#"><span><i class="fa fa-phone"></i></span> Receive a quick answer with quotation</a></li>
+                        <li><a href=""><span><i class="fa fa-search"></i></span> Find an agent available right now or schedule a mission</a></li>
+                        <li><a href=""><span><i class="fa fa-copy"></i></span>  Register and post your mission requested</a></li>
+                        <li><a href=""><span><i class="fa fa-phone"></i></span> Receive a quick answer with quotation</a></li>
                     </ul>
                 </div>
             </div>
