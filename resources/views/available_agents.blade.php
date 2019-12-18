@@ -5,11 +5,15 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="location_btn">
+                        <form method="get" action="{{url('/available-agents')}}">
                         <div class="locationSearch">
-                            <input type="search" class="form-control" placeholder="Type location here">
+                            <input id="autocomplete" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
                             <span><i class="fa fa-paper-plane"></i></span>
+
                         </div>
-                        <a href="#" class="yellow_btn">Search Now</a>
+                        <input type="hidden" name="latitude" />
+                        <input type="hidden" name="longitude" />
+                        <button class="yellow_btn">Search Now</button>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -101,11 +105,13 @@
     </script>
     
     <script type="text/javascript">
+    var latitude = '@php echo $search["latitude"]; @endphp';
+    var longitude = '@php echo $search["longitude"]; @endphp';
     var map,
         markArray = [];
     function initMap(radius) {
         var mapOptions = {
-            center: new google.maps.LatLng(48.8566, 2.3522),
+            center: new google.maps.LatLng(latitude, longitude),
             zoom: 8,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };    
@@ -143,7 +149,7 @@
 
     function setRadius(radius){
         var circleOptions = {
-            center: new google.maps.LatLng(48.8566, 2.3522),
+            center: new google.maps.LatLng(latitude, longitude),
             fillOpacity: 0,
             strokeOpacity:0,
             map: map,
@@ -168,4 +174,51 @@
     window.onload = function(){ initMap(10000); };
     </script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA"></script>
+
+    <!-- Google Places API -->
+    <script>
+    var placeSearch, autocomplete;
+
+    function initAutocomplete() {
+      // Create the autocomplete object, restricting the search predictions to
+      // geographical location types.
+      autocomplete = new google.maps.places.Autocomplete(
+          document.getElementById('autocomplete'), {types: ['geocode']});
+
+      // Avoid paying for data that you don't need by restricting the set of
+      // place fields that are returned to just the address components.
+      // autocomplete.setFields(['address_component']);
+
+      // When the user selects an address from the drop-down, populate the
+      // address fields in the form.
+      autocomplete.addListener('place_changed', fillInAddress);
+    }
+
+    function fillInAddress() {
+      // Get the place details from the autocomplete object.
+      var place = autocomplete.getPlace();
+      var search_location_lat = document.querySelector("input[name='latitude']");
+      var search_location_long = document.querySelector("input[name='longitude']");
+      search_location_lat.value = place.geometry.location.lat(); 
+      search_location_long.value = place.geometry.location.lng(); 
+    }
+
+    // Bias the autocomplete object to the user's geographical location,
+    // as supplied by the browser's 'navigator.geolocation' object.
+    function geolocate() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var geolocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          var circle = new google.maps.Circle(
+              {center: geolocation, radius: position.coords.accuracy});
+          autocomplete.setBounds(circle.getBounds());
+        });
+      }
+    }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA&libraries=places&callback=initAutocomplete"
+        async defer></script>
 @endsection
