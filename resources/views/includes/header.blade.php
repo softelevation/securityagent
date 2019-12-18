@@ -39,7 +39,7 @@
             <div class="menu_left">
                 <div class="top_menu">
                     <ul>
-                        <li><a href="{{url('operator/login')}}">Login</a></li> <em>|</em>  <li><a href="">Registration</a></li>
+                        <li><a href="#">Login</a></li> <em>|</em>  <li><a href="">Registration</a></li>
                         <li><div class="dropdown">
                           <a class="dropdown-toggle" data-toggle="dropdown"><img src="{{asset('assets/images/usa_flag.png')}}"/> USA
                           <span class="caret"></span></a>

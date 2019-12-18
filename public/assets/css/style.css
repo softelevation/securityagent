@@ -556,7 +556,7 @@ border-radius: 50%;}
   }
  .login_form .div_header .lock-icon{
     position: relative;
-    top:-60px;
+    top:-35px;
     left:8px;
     color: rgb(253, 218, 66);
     font-size: 32px;
@@ -565,7 +565,7 @@ border-radius: 50%;}
 .login_form .div_header{
     text-align: center;
     padding: 5px;
-    padding-top: 25px;
+    padding-top: 0px;
 }
 .login_form .div_header h3{
     font-weight: 800;
