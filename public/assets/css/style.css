@@ -579,3 +579,85 @@ border-radius: 50%;}
     height: calc(1.5em + 0.75rem + 2px);
     margin-bottom: 0;
 }
+/*Ghanshyam*/
+ .login_form{
+    background: #fff;
+    margin: 25px 0;
+        box-shadow: 0 0 15px #999;
+  }
+  .login_form .login_inner{
+        padding:5px 50px;
+
+  }
+  .login_form::after{
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    left: 36%;
+    top: -16%;
+    border: 60px solid transparent;
+    border-bottom: 50px solid white;
+    z-index: 1;
+  }
+ .login_form .div_header .lock-icon{
+    position: relative;
+    top:-60px;
+    left:8px;
+    color: rgb(253, 218, 66);
+    font-size: 32px;
+    z-index: 2;
+ }
+.login_form .div_header{
+    text-align: center;
+    padding: 5px;
+    padding-top: 25px;
+}
+.login_form .div_header h3{
+    font-weight: 800;
+}
+.login_form input[type="text"]{
+  border:none;
+  border-radius: 0 !important;
+  box-shadow: none;
+  padding: 0;
+  border-bottom: #ccc solid 2px;
+}
+.login_form label{
+    color:#6c757d;
+}
+.login_form button{
+    outline: none;
+    border: none;
+    box-shadow: 0 0 2px #999;
+}
+.login_form .div_body{
+    padding: 0 8px;
+}
+.div_body .help{
+    color:#6c757d;
+    text-align: center;
+}
+.div_body .help a{
+    color:#000;
+    text-decoration: underline;
+}
+.login_form .div_body button{
+    max-width: 100%;
+    line-height: normal;
+    max-height: 40px;
+}
+.login_form .footer_login{
+    text-align: center;
+    margin-top: 15px;
+    padding:10px 0;
+    background: rgba(204, 204, 204, 0.54);
+} 
+.footer_login .register_btn{
+   font-size: 12px !important;
+    height: 30px;
+    line-height: 5px;
+    text-transform: none;
+    max-width: 80px;
+    margin-left: 8px;
+}
