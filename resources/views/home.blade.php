@@ -32,43 +32,6 @@
         <p>Lorem Ipsum est un générateur de faux textes aléatoires. Vous choisissez le nombre de paragraphes, de mots ou de listes. Vous obtenez alors un texte aléatoire que vous pourrez ensuite utiliser librement dans vos maquettes. Lorem Ipsum est un générateur de faux textes aléatoires. Vous choisissez  Vous obtenez alors un librement dans vos maquettes.</p>
     </div>
 </div>    
-<div class="feature_panel">
-    <div class="feature_panel_inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 text-right">
-                    <div class="feature_box">
-                        <span><img src="{{asset('assets/images/awesome_icon.png')}}"/></span>
-                        <h3>Awesome Features</h3>
-                        <p>Purus ipsum neque primis libero tempor posuere in ligula varius ipsum</p>
-                    </div>
-                     <div class="feature_box">
-                        <span><img src="{{asset('assets/images/platform_icon.png')}}"/></span>
-                        <h3>Cross-Platform</h3>
-                        <p>Semper a augue suscript, luctus neque purus ipsum neque primis libero</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature_img">
-                        <img src="{{asset('assets/images/mobile_img.png')}}" alt=""/>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="feature_box">
-                        <span><img src="{{asset('assets/images/update_icon.png')}}"/></span>
-                        <h3>Free Updates</h3>
-                        <p>Purus ipsum neque primis libero tempor posuere in ligula varius ipsum</p>
-                    </div>
-                     <div class="feature_box">
-                        <span><img src="{{asset('assets/images/support_icon.png')}}"/></span>
-                        <h3>Fast-Support</h3>
-                        <p>Purus ipsum neque primis libero tempor posuere in ligula varius ipsum</p>
-                    </div>
-                </div>
-            </div>
-        </div>                      
-    </div>  
-</div>
 <div class="how_works">
     <div class="container">
         <div class="heading text-center">
@@ -78,14 +41,14 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="agent">
-                    <h4>Agent</h4>
+                    <h4>I’m an Agent</h4>
                     <img src="{{asset('assets/images/agent.jpg')}}"/>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="customer">
-                    <h4>Customer</h4>
                     <img src="{{asset('assets/images/customer.jpg')}}"/>
+                    <h4>I’m an User</h4>                        
                 </div>
             </div>
         </div>
@@ -93,9 +56,9 @@
             <div class="col-md-12">
                 <div class="how_work_listing">
                     <ul>
-                        <li><a href=""><img src="{{asset('assets/images/search_img.png')}}"/> Inscrivez-vous et creez votre annonce</a></li>
-                        <li><a href=""><img src="{{asset('assets/images/copy_img.png')}}"/> Effectuez vos recherches</a></li>
-                        <li><a href=""><img src="{{asset('assets/images/calling_img.png')}}"/> Contactez les agents dispoibles</a></li>
+                        <li><a href="#"><span><i class="fa fa-search"></i></span> Find an agent available right now or schedule a mission</a></li>
+                        <li><a href="#"><span><i class="fa fa-copy"></i></span>  Register and post your mission requested</a></li>
+                        <li><a href="#"><span><i class="fa fa-phone"></i></span> Receive a quick answer with quotation</a></li>
                     </ul>
                 </div>
             </div>
