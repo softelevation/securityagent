@@ -30,7 +30,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand" href="#"><img src="{{asset('assets/images/logo.jpg')}}"/></a>
+      <a class="navbar-brand" href="{{url('/')}}"><img src="{{asset('assets/images/logo.jpg')}}"/></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
       </button>
@@ -58,10 +58,11 @@
                         <li><a class="@if(url()->current()==url('/contact-us')) active @endif" href="{{url('/contact-us')}}">Contact us</a></li>
                     </ul>
                 </div>
-            </div>  
-            <div class="menu_right">
-                <a type="button" data-toggle="modal" data-target="#become_agent">Become an Agent</a>
             </div>
+            <div class="menu_right">
+              <a href="{{url('/register-agent-view')}}">Become an Agent</a>
+              <a href="#">Become an User</a>
+            </div>  
         </div>
       </div>
     </div>
