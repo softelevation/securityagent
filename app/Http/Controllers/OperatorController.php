@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Validators\OperatorValidator;
 use App\Traits\ResponseTrait;
 use Auth;
+use App\Agent;
 
 
 class OperatorController extends Controller
@@ -64,6 +65,7 @@ class OperatorController extends Controller
      * @purpose Load pending agents list view
      */
     public function loadPendingAgentsView(){
-    	return view('operator.agents_pending');
+    	$agents = Agent::where('status',0)->paginate(10);
+    	return view('operator.agents_pending',['data'=>$agents]);
     }
 }

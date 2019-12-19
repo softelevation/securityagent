@@ -28,17 +28,17 @@
                                           <th>Agent Name</th>
                                           <th>Agent Type</th>
                                           <th>E-mail Address</th>
-                                          <th>Manager Job Title</th>
+                                          <th>Work Location</th>
                                           <th>Action</th>
                                       </tr>
                                   </thead>
                                   <tbody>
+                                    @forelse($data as $agent)
                                       <tr>
-                                          <td><a href="">James Martin</a></td>
-                                          <td>Replacement Electric</td>
-                                          <td>jamesmartin@gmail.com</td>
-
-                                          <td>Replacement Electric</td>
+                                          <td>{{$agent->first_name}} {{$agent->last_name}}</td>
+                                          <td>{{$agent->agent_type}}</td>
+                                          <td>{{$agent->user->email}}</td>
+                                          <td>{{$agent->work_location_address}}</td>
                                           <td>
                                               <div class="dropdown ac-cstm">
                                                   <a class="dropdown-toggle" data-toggle="dropdown">
@@ -53,6 +53,8 @@
                                               </div>
                                           </td>
                                       </tr>
+                                    @empty
+                                    @endforelse
                                   </tbody>
                               </table>
                           </div>
