@@ -20,4 +20,6 @@ Route::get('/contact-us', function () {
 Route::get('/register-agent-view','AgentController@index');
 Route::post('/register_agent', 'AgentController@signup');
 Route::get('/available-agents', 'AgentController@showAvailableAgents');
-
+Route::prefix('operator')->group(function () {
+    Route::get('/login', 'OperatorController@login');
+});

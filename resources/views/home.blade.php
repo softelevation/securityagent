@@ -10,14 +10,18 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="map_panel text-center">
+                <div class="map_panel text-center contact_box ">
                     <h2>Les Meilleurs sont pres de chez vous</h2>    
                     <p>Search by city, address, postalcode, etc...</p>
+                    <form method="get" action="{{url('/available-agents')}}">
                     <div class="locationSearch">
-                        <input type="search" class="form-control" placeholder="Type location here"/>
+                        <input id="autocomplete" name="location" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
+                            <!--Work Location Lat Longs  -->
+                        <input type="hidden" name="latitude" />
+                        <input type="hidden" name="longitude" />
                         <span><i class="fa fa-paper-plane"></i></span>
                     </div>
-                    <a href="#" class="yellow_btn">Search Now</a>
+                    <button class="yellow_btn">Search Now</button>
                 </div>
             </div>
         </div>
@@ -42,12 +46,12 @@
             <div class="col-md-6">
                 <div class="agent">
                     <h4>I’m an Agent</h4>
-                    <img src="{{asset('assets/images/agent.jpg')}}"/>
+                    <img src="{{asset('assets/images/agent.png')}}"/>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="customer">
-                    <img src="{{asset('assets/images/customer.jpg')}}"/>
+                    <img src="{{asset('assets/images/customer.png')}}"/>
                     <h4>I’m an User</h4>                        
                 </div>
             </div>
@@ -56,9 +60,9 @@
             <div class="col-md-12">
                 <div class="how_work_listing">
                     <ul>
-                        <li><a href="#"><span><i class="fa fa-search"></i></span> Find an agent available right now or schedule a mission</a></li>
-                        <li><a href="#"><span><i class="fa fa-copy"></i></span>  Register and post your mission requested</a></li>
-                        <li><a href="#"><span><i class="fa fa-phone"></i></span> Receive a quick answer with quotation</a></li>
+                        <li><a href=""><span><i class="fa fa-search"></i></span> Find an agent available right now or schedule a mission</a></li>
+                        <li><a href=""><span><i class="fa fa-copy"></i></span>  Register and post your mission requested</a></li>
+                        <li><a href=""><span><i class="fa fa-phone"></i></span> Receive a quick answer with quotation</a></li>
                     </ul>
                 </div>
             </div>
@@ -146,5 +150,50 @@
             </div>
         </div>
     </div>
-</div>     
+</div> 
+<script>
+var placeSearch, autocomplete;
+
+function initAutocomplete() {
+  // Create the autocomplete object, restricting the search predictions to
+  // geographical location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      document.getElementById('autocomplete'), {types: ['geocode']});
+
+  // Avoid paying for data that you don't need by restricting the set of
+  // place fields that are returned to just the address components.
+  // autocomplete.setFields(['address_component']);
+
+  // When the user selects an address from the drop-down, populate the
+  // address fields in the form.
+  autocomplete.addListener('place_changed', fillInAddress);
+}
+
+function fillInAddress() {
+  // Get the place details from the autocomplete object.
+  var place = autocomplete.getPlace();
+  var search_location_lat = document.querySelector("input[name='latitude']");
+  var search_location_long = document.querySelector("input[name='longitude']");
+  search_location_lat.value = place.geometry.location.lat(); 
+  search_location_long.value = place.geometry.location.lng(); 
+}
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var circle = new google.maps.Circle(
+          {center: geolocation, radius: position.coords.accuracy});
+      autocomplete.setBounds(circle.getBounds());
+    });
+  }
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA&libraries=places&callback=initAutocomplete"
+    async defer></script>    
 @endsection  
