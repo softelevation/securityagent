@@ -59,19 +59,23 @@ trait AgentTrait
         $agentID = Agent::insertGetId($post);
         if($agentID){
             //Add diploma certificates
-            $i=0;
-            foreach($certificates as $certificate) {
-                $fileName = $username.'_dip_'.time().'.'.$certificate->getClientOriginalExtension();
-                $filePath = public_path('agent/documents');
-                $uploadStatus = $certificate->move($filePath,$fileName);
-                $data = [
-                    'user_id' => $agentID,
-                    'file_name' => $fileName,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now()
-                ];
-                AgentDiplomaCertificate::insert($data);
-                $i++;
+            if($post['agent_type']==1 || $post['agent_type']==2 || $post['agent_type']==3){
+                if(isset($certificates) && !empty($certificates)){
+                    $i=0;
+                    foreach($certificates as $certificate) {
+                        $fileName = $username.'_dip_'.time().'.'.$certificate->getClientOriginalExtension();
+                        $filePath = public_path('agent/documents');
+                        $uploadStatus = $certificate->move($filePath,$fileName);
+                        $data = [
+                            'user_id' => $agentID,
+                            'file_name' => $fileName,
+                            'created_at' => Carbon::now(),
+                            'updated_at' => Carbon::now()
+                        ];
+                        AgentDiplomaCertificate::insert($data);
+                        $i++;
+                    }
+                }
             }
         }
         if($agentID){
