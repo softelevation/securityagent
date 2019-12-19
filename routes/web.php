@@ -20,6 +20,17 @@ Route::get('/contact-us', function () {
 Route::get('/register-agent-view','AgentController@index');
 Route::post('/register_agent', 'AgentController@signup');
 Route::get('/available-agents', 'AgentController@showAvailableAgents');
+
 Route::prefix('operator')->group(function () {
     Route::get('/login', 'OperatorController@login');
+    Route::post('/operator_login', 'OperatorController@operatorLogin');
+    Route::get('/dashboard', 'OperatorController@loadDashboardView');
+    Route::get('/agents/pending', 'OperatorController@loadPendingAgentsView');
 });
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

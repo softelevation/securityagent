@@ -58,4 +58,20 @@ trait HelperTrait
         $string = preg_replace('/[^a-zA-Z0-9_ -]/s','',$string);
         return Str::kebab($string);
     }
+
+
+    /*
+     * @method       : get_user_role_id
+     * @created_date : 12-19-2019 (dd-mm-yyyy)
+     * @purpose      : get role id of user
+     */
+    public static function get_user_role_id($key){
+        $roles = array(
+            'customer'=>1,
+            'agent'=>2,
+            'aperator'=>3,
+            'admin'=>4
+        );
+        return $roles[$key];
+    }
 }
