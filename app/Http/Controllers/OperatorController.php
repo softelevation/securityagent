@@ -7,6 +7,7 @@ use App\Validators\OperatorValidator;
 use App\Traits\ResponseTrait;
 use Auth;
 use App\Agent;
+use App\Helpers\Helper;
 
 
 class OperatorController extends Controller
@@ -36,10 +37,11 @@ class OperatorController extends Controller
 	            return response($this->getValidationsErrors($validation));
 	        }
 	        $credentials = $request->only('email', 'password');
+            $credentials['role_id'] = Helper::get_role_id('operator');
         	if (Auth::attempt($credentials)) {
             	$response['message'] = 'Login Success.';
 	            $response['delayTime'] = 2000;
-	            $response['url'] = url('operator/dashboard');
+	            $response['url'] = url('operator/profile');
 	            return $this->getSuccessResponse($response);
         	}else{
         		return response($this->getErrorResponse('Invalid login credentials !'));	
@@ -55,8 +57,8 @@ class OperatorController extends Controller
      * @method loadDashboardView
      * @purpose Load dashboard view
      */
-    public function loadDashboardView(){
-    	return view('operator.dashboard');
+    public function loadProfileView(){
+    	return view('operator.profile');
     }
 
     /**

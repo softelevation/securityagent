@@ -7,7 +7,7 @@
                     <div class="tabs_menu">
                         <ul class="nav flex-column" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link"><img src="{{asset('assets/images/change_profile_icon.png')}}" /> Change My Profile</a>
+                                <a href="{{url('operator/profile')}}" class="nav-link"><img src="{{asset('assets/images/change_profile_icon.png')}}" /> Change My Profile</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link"><img src="{{asset('assets/images/create_mission_icon.png')}}" /> Create a Mission</a>

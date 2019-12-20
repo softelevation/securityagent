@@ -36,7 +36,7 @@
                                     @forelse($data as $agent)
                                       <tr>
                                           <td>{{$agent->first_name}} {{$agent->last_name}}</td>
-                                          <td>{{$agent->agent_type}}</td>
+                                          <td>{{Helper::get_agent_type_name($agent->agent_type)}}</td>
                                           <td>{{$agent->user->email}}</td>
                                           <td>{{$agent->work_location_address}}</td>
                                           <td>
@@ -54,13 +54,17 @@
                                           </td>
                                       </tr>
                                     @empty
+                                    <tr>
+                                          <td colspan="">No record found !</td>
+                                      </tr>
                                     @endforelse
                                   </tbody>
                               </table>
                           </div>
                           <div class="row">
                               <div class="ml-auto mr-auto">
-                                  <nav class="navigation2 text-center" aria-label="Page navigation">
+                                {{$data->links()}}
+                                  <!-- <nav class="navigation2 text-center" aria-label="Page navigation">
                                       <ul class="pagination mb-3">
                                           <li class="page-item"><a class="page-link" href="#"><span aria-hidden="true">←</span>Prev</a></li>
                                           <li class="page-item active"><a class="page-link" href="#">1</a></li>
@@ -68,7 +72,7 @@
                                           <li class="page-item"><a class="page-link" href="#">3</a></li>
                                           <li class="page-item"><a class="page-link" href="#">Next <span aria-hidden="true">→</span></a></li>
                                       </ul>
-                                  </nav>
+                                  </nav> -->
                               </div>
                           </div>
                       </div>
