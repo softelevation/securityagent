@@ -9,7 +9,6 @@ use Auth;
 use App\Agent;
 use App\Helpers\Helper;
 
-
 class OperatorController extends Controller
 {
 
@@ -70,4 +69,17 @@ class OperatorController extends Controller
     	$agents = Agent::where('status',0)->paginate(10);
     	return view('operator.agents_pending',['data'=>$agents]);
     }
+
+    /**
+     * @return mixed
+     * @method viewPendingAgentDetails
+     * @purpose View details of verification pending agent
+     */
+    public function viewPendingAgentDetails($en_id){
+        $id = Helper::decrypt($en_id);
+        $agent = Agent::where('id',$id)->first();
+        return view('operator.pending_agent_details',['data'=>$agent]);
+    }
+
+    
 }
