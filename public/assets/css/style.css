@@ -724,13 +724,14 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
 .login_form .div_header h3{
     font-weight: 800;
 }
-.login_form input[type="text"]{
+.login_form input[type="text"], input[type="password"], input[type="password"]:focus{
   border:none;
   border-radius: 0 !important;
   box-shadow: none;
   padding: 0;
   border-bottom: #ccc solid 2px;
 }
+
 .login_form label{
     color:#6c757d;
 }

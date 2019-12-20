@@ -30,6 +30,7 @@ class AgentController extends Controller
      */
     public function signup(Request $request){
     	try{
+            // Check Agent Table Validation
         	$validation = $this->agentSignupValidations($request);
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
