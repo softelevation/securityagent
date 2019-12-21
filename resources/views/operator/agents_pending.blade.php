@@ -28,7 +28,6 @@
                                           <th>Agent Name</th>
                                           <th>Agent Type</th>
                                           <th>E-mail Address</th>
-                                          <th>Work Location</th>
                                           <th>Action</th>
                                       </tr>
                                   </thead>
@@ -39,7 +38,6 @@
                                           <td>{{$agent->first_name}} {{$agent->last_name}}</td>
                                           <td>{{Helper::get_agent_type_name($agent->agent_type)}}</td>
                                           <td>{{$agent->user->email}}</td>
-                                          <td>{{$agent->work_location_address}}</td>
                                           <td>
                                             <a class="action_icons" href="{{url('operator/agents/pending/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View details</a>
                                               <!-- <div class="dropdown ac-cstm">
@@ -57,7 +55,7 @@
                                       </tr>
                                     @empty
                                     <tr>
-                                          <td colspan="">No record found !</td>
+                                          <td colspan="4">No record found !</td>
                                       </tr>
                                     @endforelse
                                   </tbody>

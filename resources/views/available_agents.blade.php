@@ -16,14 +16,26 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="dropdown">
-                      <span class="filterSearch dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Search by Filter</span>
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                      </div>
-                    </div>
+                    <ul class="dropdown filter-wrap">
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle filterSearch" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Filter Agents By
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <li class="dropdown-submenu">
+                            <a class="dropdown-item dropdown-toggle" href="#">Agent Type</a>
+                            <ul class="dropdown-menu agent_types">
+                                <li><a href="#">Agent SIAP 1</a></li>
+                                <li><a href="#">Agent SIAP 2</a></li>
+                                <li><a href="#">Agent SIAP 3</a></li>
+                                <li><a href="#">ADS With Vehicule or Not</a></li>
+                                <li><a href="#">Body Guard Without Weapon</a></li>
+                                <li><a href="#">Hostesses</a></li>
+                                <li><a href="#">Dog Handler</a></li>
+                            </ul>
+                          <li><a class="dropdown-item" href="#">Agent With Veichle</a></li>
+                          <li><a class="dropdown-item" href="#">Agent Without Veichle</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -109,12 +121,15 @@
     var map,
         markArray = [];
     function initMap(radius) {
+
+        var maplis = {
+            center: new google.maps.LatLng(48.8566, 2.3522),
         var mapOptions = {
             center: new google.maps.LatLng(latitude, longitude),
             zoom: 8,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };    
-        map = new google.maps.Map(document.getElementById("agentMap"), mapOptions);
+        map = new google.maps.Map(document.getElementById("agentMap"), maplis);
         // Adding our markers from our "big database"
         addMarkers();
         setRadius(radius);
@@ -147,6 +162,9 @@
     }
 
     function setRadius(radius){
+        var circlelis = {
+            center: new google.maps.LatLng(48.8566, 2.3522),
+
         var circleOptions = {
             center: new google.maps.LatLng(latitude, longitude),
             fillOpacity: 0,
@@ -154,7 +172,7 @@
             map: map,
             radius: radius 
         }
-        var myCircle = new google.maps.Circle(circleOptions);
+        var myCircle = new google.maps.Circle(circlelis);
         map.fitBounds(myCircle.getBounds());
     }
 
