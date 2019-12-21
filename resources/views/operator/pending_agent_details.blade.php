@@ -84,7 +84,12 @@
                     <span class="form-control">@if($data->is_vehicle==1) Yes @else No @endif</span>
                   </div>
                 </div>
-
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                      <button class="button success_btn"><i class="fa fa-check"></i> Approve</button>
+                      <button class="button danger_btn"><i class="fa fa-times"></i> Reject</button>
+                  </div>
+                </div>
               </div>
             </div>
             <!-- /.col-md-8 -->
