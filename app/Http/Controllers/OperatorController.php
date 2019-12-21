@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Validators\OperatorValidator;
 use App\Traits\ResponseTrait;
+use App\Traits\HelperTrait;
 use Auth;
 use App\Agent;
+use App\User;
 use App\Helpers\Helper;
+use Hash;
 
 class OperatorController extends Controller
 {
@@ -81,5 +84,38 @@ class OperatorController extends Controller
         return view('operator.pending_agent_details',['data'=>$agent]);
     }
 
+    /**
+     * @return mixed
+     * @method agentVerificationAction
+     * @purpose To process agent verification
+     */
+    public function agentVerificationAction(Request $request){
+        $status = $request->verify_status;
+        $user_id = Helper::decrypt($request->user_id);
+        $result = Agent::where('user_id',$user_id)->update(['status'=>$status]);
+        if($result){
+            $password1 = Helper::generateToken(8);
+            $password = Hash::make($password1);
+            User::where('id',$user_id)->update(['password'=>$password]);
+            $user = User::where('id',$user_id)->first();
+            if($status==1){
+                $message = "<b>Congratulations</b><br>Your agent verification is completed successfully and your details are approved.<br><br>Your login credentials are:<br><br>Email:".$user->email." Password:".$user->password1;
+            }else{
+                $message = "Your agent verification is completed successfully and your details are rejected.<br><br>Thanks";
+            }
+            $templateName = 'emails.general';
+            $data['message'] = $message;
+            $toEmail = $user->email;
+            $toName = $user->email;
+            $subject = "Agent Verification";
+            // Helper::sendCommonMail($templateName,$data,$toEmail,$toName,$subject);
+            $response['message'] = 'Agent verification completed successfully.';
+            $response['delayTime'] = 2000;
+            $response['url'] = url('operator/agents/pending');
+            return $this->getSuccessResponse($response);
+        }else{
+            return response($this->getErrorResponse('Something went wrong. Try again later !'));
+        }
+    }
     
 }

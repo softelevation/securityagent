@@ -50,7 +50,7 @@ $(document).ready(function ()
     }, "Numbers are not allowed in this field.");
 
     /**
-     * Login Form Validations
+     *  Form Validations
      */
     $("#general_form").validate({
       errorClass   : "has-error",

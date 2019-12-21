@@ -28,6 +28,7 @@ Route::group(['prefix'=>'operator'], function () {
 	    Route::get('/profile', 'OperatorController@loadProfileView');
 	    Route::get('/agents/pending', 'OperatorController@loadPendingAgentsView');
         Route::get('/agents/pending/view/{id}', 'OperatorController@viewPendingAgentDetails');
+        Route::post('/agent_verification', 'OperatorController@agentVerificationAction');
     });
 });
 

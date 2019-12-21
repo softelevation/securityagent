@@ -4,6 +4,7 @@ namespace App\Helpers;
 use Auth;
 use Crypt;
 use Edujugon\PushNotification\PushNotification;
+use Mail;
 
 
 class Helper {
@@ -125,6 +126,28 @@ class Helper {
         }catch(\Exception $e){
             return $e->getMessage();
         }
+    }
+
+    /*
+    * @method      : sendCommonMail
+    * @purpose     : To send mail
+    */
+    public static function sendCommonMail($templateName,$data,$toEmail,$toName,$subject){
+        $response = Mail::send($templateName, ['data' => $data], function($message) use ($toEmail,$toName,$subject) {
+            $message->from(config('mail.from.address'), config('mail.from.name'));
+            $message->to($toEmail, $toName)->subject($subject);
+        });
+
+        return $response;
+    }
+
+    /**
+     * @param int $length
+     * @return string
+     * @method generateToken
+     */
+    public static function generateToken($length = 100){
+        return str_random($length);
     }
 
 }
