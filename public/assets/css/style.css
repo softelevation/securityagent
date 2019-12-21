@@ -781,3 +781,34 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
     border-bottom: solid 1px #ccc;
     box-shadow:none;
 }
+.button {
+    box-shadow: none;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #282828;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: inline-block;
+    text-decoration: none;
+    width: 100%;
+    max-width: 226px;
+}
+.success_btn{
+    background: #e5f015;
+    border: 1px solid #c0c90c;
+}
+.success_btn:hover {
+    text-decoration: none;
+    background: #fdde59;
+}
+
+.danger_btn{
+    background: #dc3545;
+    border: 1px solid #9e4c54;
+    color: #fff;
+}
+.danger_btn:hover {
+    text-decoration: none;
+    background: #ec5462;
+}
