@@ -319,7 +319,8 @@ body textarea.form-control { height: 100px !important; resize: none; padding-top
     z-index: 9;
     box-shadow: 0 2px 4px #AFAFB0;
 }
-.location_search span.filterSearch.dropdown-toggle {cursor: pointer;background:#f2ce32;height: 70px;float: right;font-size: 18px;line-height: 70px;    padding: 0 25px;}
+.location_search li {list-style: none;}
+.location_search a.filterSearch.dropdown-toggle {cursor: pointer;background:#f2ce32;height: 70px;float: right;font-size: 18px;line-height: 70px;    padding: 0 25px;}
 .location_search .locationSearch { max-width: 380px; float: left; min-width: 320px;    margin: 0;}
 .location_search .yellow_btn {
     max-width: 200px;
@@ -770,17 +771,43 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
     max-width: 80px;
     margin-left: 8px;
 }
+<<<<<<< HEAD
+
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu a::after {
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 6px;
+  top: .8em;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: -3px;
+  left: -124.5%;
+  margin-left: .1rem;
+  margin-right: .1rem;
+}
+.filter-wrap a{
+    color: #000;
+}
+.agent_types li:hover{
+    background: #f8f9fa;
+}
+.agent_types li{
+    cursor: pointer;
+    padding:.25rem 1.5rem;
+}
+.agent_types li a{
+    width:100%;
+}
 .action_icons{
     color: #dca500 !important;
 }
-.view_agent_details .form-control{
-    border: none;
-    border-radius: none: 
-    box-shadow: none;
-    padding: 0;
-    border-bottom: solid 1px #ccc;
-    box-shadow:none;
-}
+
 .button {
     box-shadow: none;
     height: 40px;
@@ -803,12 +830,30 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
     background: #fdde59;
 }
 
-.danger_btn{
-    background: #dc3545;
+.pending-details{
+    padding:0 15px 30px 15px;
+}
+
+.pending-details .button {
+    font-size: 14px;
+    width: auto;
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-align: center;
+    height: 47px;
+    padding: 0 25px;
+    line-height: 47px;
+    margin-top: 14px;
+    max-width: 250px;
+}
+.pending-details .danger_btn{
+    background: #d60e21;
+     padding: 0 30px;
     border: 1px solid #9e4c54;
     color: #fff;
 }
-.danger_btn:hover {
+.pending-details .danger_btn:hover {
     text-decoration: none;
-    background: #ec5462;
+    background: #ed4242;
 }

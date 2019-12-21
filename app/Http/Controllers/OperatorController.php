@@ -66,7 +66,7 @@ class OperatorController extends Controller
      * @purpose Load pending agents list view
      */
     public function loadPendingAgentsView(){
-    	$agents = Agent::where('status',0)->paginate(10);
+    	$agents = Agent::where('status',0)->orderBy('id','DESC')->paginate(10);
     	return view('operator.agents_pending',['data'=>$agents]);
     }
 
