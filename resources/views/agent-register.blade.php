@@ -53,13 +53,19 @@
 	                		<div class="col-md-6">
 		                      <div class="form-group">
 				                <label>Identity Card</label><br>
-				                <input type="file" name="identity_card" class="" placeholder="Upload Your ID Proof Document" />
+	                      		<div class="custom-file">
+				                	<input type="file" name="identity_card" class="custom-file-input" id="identityCard"/>
+		                         	<label class="custom-file-label" for="identityCard"> Upload Your ID Proof Document </label>
+	                     		</div>
 		                      </div>
 	                    	</div>
 		                  <div class="col-md-6">
 		                      <div class="form-group ">
 				                <label>Social Security Number</label><br>
-				                <input type="file" name="social_security_number" class="" placeholder="Upload Your Agent Number Document" />
+				                <div class="custom-file">
+				                	<input type="file" name="social_security_number" class="custom-file-input" id="socialSecurityNumber"/>
+		                         	<label class="custom-file-label" for="socialSecurityNumber"> Upload Your Agent Number Document </label>
+	                     		</div>
 		                      </div>
 		                    </div>
 	                	</div> 
@@ -67,7 +73,10 @@
 	                		<div class="col-md-6">
 		                      <div class="form-group">
 				                <label>Curriculum Vitae</label><br>
-				                <input type="file" name="cv" class="" placeholder="Upload Your Curriculum Vitae" />
+				                <div class="custom-file">
+				                	<input type="file" name="cv" class="custom-file-input" id="cv"/>
+		                         	<label class="custom-file-label" for="cv"> Upload Your Curriculum Vitae </label>
+	                     		</div>
 		                      </div>
 	                    	</div>
 		                  <div class="col-md-6">
@@ -94,25 +103,25 @@
 					                </select>
 			                    </div>
 		                    </div>
-							<div class="col-md-6 cnaps_number" >
+							<div class="col-md-6" >
 		                      	<div class="form-group ">
 					                <label>CNAPS Number</label>
-				                    <input type="text" name="cnaps_number" class="form-control" placeholder="Enter Your CNAPS Number " />
+				                    <input type="text" name="cnaps_number" class="form-control cnaps_number" placeholder="Enter Your CNAPS Number" />
 		                     	</div>
 		                    </div>
 	                  </div>   
 	                  <div class="row diploma  d-none">
 	                		<div class="col-md-6">
 		                      <div class="form-group">
-				                <label>Diploma </label><br>
-				                <div class=" d-inline" id="diploma-group">
-				                	<label for="diploma" class="lbl-diploma btn btn-light"><i class="fa fa-upload"></i></label>
+				                <label>Diploma Certificate </label><br>
+				                <div id="diploma-group">
+					                <div class="custom-file mt-2">
+					                	<input type="file" name="diploma[]" class="custom-file-input" id="diploma1"/>
+			                         	<label class="custom-file-label" for="diploma1"> Upload Your Diploma Certificate 1</label>
+		                     		</div>
 				                </div>
-
-				                <button type="button" class="add-diploma-btn btn btn-secondary" title="Add files">+</button>
-				                <button type="button" class="remove-diploma-btn btn btn-danger d-none" title="Remove files">-</button>
-
-				                <input type="file" id="diploma" name="diploma[]" multiple="multiple" class="d-none" placeholder="Upload Your Diploma Certificate" />
+				                <button type="button" class="add-diploma-btn btn btn-secondary mt-3" title="Add files">+</button>
+				                <button type="button" class="remove-diploma-btn btn btn-danger d-none mt-3" title="Remove files">-</button>
 		                      </div>
 	                    	</div>
 	                    </div>
@@ -133,6 +142,15 @@
 	                      </div>
 	                    </div>
 	                  </div>  
+	                  	<div class="row">
+		                    <div class="col-md-6">
+		                      <div class="form-group ">
+				                <label>Do you have a vehicle to do the missions ?</label><br>
+			                    <input type="radio" name="is_vehicle" value="1"> Yes
+			                    <input type="radio" name="is_vehicle" value="0"> No
+		                      </div>
+		                    </div>
+	                  	</div>  
 	                  <div class="row text-center pt-5">
 	                    <div class="col-md-12">
 		                    <input type="hidden" name="current_location[lat]" />
@@ -157,26 +175,18 @@
 //script for SIAP 
 $('#select_agent_type').change(function(){
 	let value = $(this).val();
-	$('.cnaps_number').removeClass('d-none');
+	$('.cnaps_number').prop('disabled',false);
 	$('.diploma').addClass('d-none');
 	if(value <=3){
-		$('.cnaps_number').addClass('d-none');
+		$('.cnaps_number').prop('disabled',true);
 		$('.diploma').removeClass('d-none');
 	}
 });
 
-// $('#diploma').change(function(){
-// 	let value = $(this).val();
-// 	return false;
-// 	let lbl_length = $('#diploma-group').children().length;
-// 	if(lbl_length == ''){
-// 		let last_label = $('#diploma-group').children().last();
-// 		last_label.attr('for','');
-// 	}
-// });
-
 $('.add-diploma-btn').click(function(){
-	let diploma_label = '<label for="diploma" class="lbl-diploma btn btn-light"><i class="fa fa-upload"></i></label>';
+	let totalItems = $('#diploma-group').children().length+1;
+
+	let diploma_label = '<div class="custom-file mt-2"><input type="file" name="diploma[]" class="custom-file-input" id="diploma'+totalItems+'"/><label class="custom-file-label" for="diploma'+totalItems+'"> Upload Your Diploma Certificate '+totalItems+'</label></div>';
 	$('#diploma-group').append(diploma_label);
 	$('.remove-diploma-btn').removeClass('d-none');
 });
@@ -191,6 +201,13 @@ $('.remove-diploma-btn').click(function(){
 	}
 	last_label.remove();
 });
+
+$(document).on('change','input[type="file"]', function(e){
+    var fileName = e.target.files[0].name;
+    $(this).next().text(fileName);
+});
+
+
 
 var placeSearch, autocomplete;
 
@@ -239,22 +256,6 @@ function geolocate() {
     });
   }
 }
-
-// function getLocation() {
-//   if (navigator.geolocation) {
-//     navigator.geolocation.getCurrentPosition(showPosition);
-//   } 
-// }
-// getLocation();
-// function showPosition(position) {
-//   var current_location_lat = document.querySelector("input[name='current_location[lat]']");
-//   var current_location_long = document.querySelector("input[name='current_location[long]']");
-//   current_location_lat.value = position.coords.latitude; 
-//   current_location_long.value = position.coords.longitude;
-// }
-// function initialize(){
-//   initAutocomplete();
-// }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA&libraries=places&callback=initAutocomplete"
     async defer></script>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDiplomaCertificatesTable extends Migration
+class CreateAgentsDiplomaCertificatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateDiplomaCertificatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('diploma_certificates', function (Blueprint $table) {
+        Schema::create('agents_diploma_certificates', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->string('file');
+            $table->string('file_name');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateDiplomaCertificatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diploma_certificates');
+        Schema::dropIfExists('agents_diploma_certificates');
     }
 }

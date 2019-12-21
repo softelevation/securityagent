@@ -15,15 +15,22 @@ class AgentController extends Controller
     /**
      * @param $request
      * @return mixed
-     * @method agentRegister
-     * @purpose To register as an agent
+     * @method index
+     * @purpose Load agent signup view 
      */
     public function index(){
         return view('agent-register');
     }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method agentRegister
+     * @purpose To register as an agent
+     */
     public function signup(Request $request){
-    $this->print($request->all());
     	try{
+            // Check Agent Table Validation
         	$validation = $this->agentSignupValidations($request);
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
@@ -35,8 +42,7 @@ class AgentController extends Controller
             // if(!isset($request->current_location['lat']) || empty($request->current_location['lat'])){
             //     return $this->getErrorResponse('GPS location is not enabled.');
             // }
-            print_r($this->registerAgent($request));
-            die;
+            return $this->registerAgent($request);
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }
@@ -48,10 +54,21 @@ class AgentController extends Controller
      * @method showAvailableAgents
      * @purpose Show available agents on map
      */
-    public function showAvailableAgents(){
+    public function showAvailableAgents(Request $request){
+        $latitude = '48.8566';
+        $longitude = '2.3522';
+        $location = 'Paris, France';
+        if(isset($request->latitude) && isset($request->longitude)){
+            $latitude = $request->latitude;
+            $longitude = $request->longitude;
+            $location = $request->location;
+        }
+        $search['latitude'] = $latitude;
+        $search['longitude'] = $longitude;
+        $search['location'] = $location; 
         $agents = $this->getAvailableAgents();
         // $this->print($agents);
-        return view('available_agents',['data'=>json_encode($agents)]);
+        return view('available_agents',['data'=>json_encode($agents),'search'=>$search]);
     }
 
 }

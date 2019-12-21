@@ -21,9 +21,9 @@ trait AgentValidator
     public function agentSignupValidations(Request $request){
         try{
             $validations = array(
+                'email' => 'required|email|unique:users',
                 'first_name'    => 'required',
                 'last_name'     => 'required',
-                'email'         => 'required|email|unique:agents',
                 'phone'         => 'required',
                 'identity_card'      => 'required',
                 'social_security_number' => 'required',
