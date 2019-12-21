@@ -6,7 +6,7 @@ Use Illuminate\Support\Facades\Validator;
 use App\Validators\BaseValidator;
 use Illuminate\Validation\Rule;
 
-trait AgentValidator
+trait OperatorValidator
 {
     use BaseValidator;
 
@@ -18,21 +18,11 @@ trait AgentValidator
      * @method  : addMusicFileValidations
      * @purpose : Validation rule for add page
      */
-    public function agentSignupValidations(Request $request){
+    public function loginValidation(Request $request){
         try{
             $validations = array(
-                'email' => 'required|email|unique:users',
-                'first_name'    => 'required',
-                'last_name'     => 'required',
-                'phone'         => 'required',
-                'identity_card'      => 'required',
-                'social_security_number' => 'required',
-                'agent_type'    => 'required',
-                'cv'    => 'required',
-                'iban'    => 'required',
-                // 'cnaps_number'          => 'required',
-                'home_address'          => 'required',
-                'work_location_address' => 'required',
+                'email' => 'required',
+                'password' => 'required',
             );
             $validator = Validator::make($request->all(),$validations);
             $this->response = $this->validateData($validator);

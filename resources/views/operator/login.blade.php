@@ -13,18 +13,19 @@
                 </div>
 
                 <div class="div_body">
-                  <form>
+                  <form id="general_form" method="post" action="{{url('operator/operator_login')}}">
+                    @csrf
                     <div class="form-group">
-                      <input type="text" placeholder="User Name" class="form-control" >
+                      <input type="text" name="email" placeholder="Email Address" class="form-control" >
                     </div>
                     <div class="form-group">
-                      <input type="text" placeholder="Password" class="form-control" >
+                      <input type="password" name="password" placeholder="Password" class="form-control" >
                     </div>
                     <div class="form-group">
                       <label><input type="checkbox"> Remember Me</label>
                     </div>
                     <div class="form-group">
-                      <button class="yellow_btn"> LOGIN</button>
+                      <button type="submit" class="yellow_btn"> LOGIN</button>
                     </div>
                     <div class="help">
                       Forgot Your Password ? 
