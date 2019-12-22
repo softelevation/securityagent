@@ -105,7 +105,7 @@
 </div>
 <!-- Modal -->
 <div id="agent_verification_action" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-md">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">        
@@ -117,7 +117,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <p>Are you sure you want to approve the agent verification?</p>
+              <p class="confirm_text"></p>
             </div>
           </div>
         </div>
@@ -142,7 +142,7 @@
           @csrf
           <input id="model_action_value" type="hidden" name="verify_status">
           <input type="hidden" name="user_id" value="{{Helper::encrypt($data->user_id)}}">
-          <button type="submit" class="btn btn-primary success_btn" >Save changes</button>
+          <button type="submit" class="btn btn-primary success_btn" >Yes</button>
         </form>
         <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">Close</button>
       </div>
@@ -152,6 +152,11 @@
 <script>
   $(document).on('click','.verificationBtn', function(){
     let action = $(this).attr('data-action');
+    if(action==1){
+      $(document).find('.confirm_text').text('Are you sure you want to approve this agent?');
+    }else{
+      $(document).find('.confirm_text').text('Are you sure you want to decline this agent?');
+    }
     $(document).find('#model_action_value').val(action);
   });
 </script>

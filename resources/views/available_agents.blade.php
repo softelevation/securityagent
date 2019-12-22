@@ -23,7 +23,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                           <li class="dropdown-submenu">
-                            <a class="dropdown-item dropdown-toggle" href="#">Agent Type</a>
+                            <a class="dropdown-item dropdown-toggle" style="border:none;" href="#">Agent Type</a>
                             <ul class="dropdown-menu agent_types">
                                 <li><a href="#">Agent SSIAP 1</a></li>
                                 <li><a href="#">Agent SSIAP 2</a></li>
