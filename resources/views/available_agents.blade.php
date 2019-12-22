@@ -25,9 +25,9 @@
                           <li class="dropdown-submenu">
                             <a class="dropdown-item dropdown-toggle" href="#">Agent Type</a>
                             <ul class="dropdown-menu agent_types">
-                                <li><a href="#">Agent SIAP 1</a></li>
-                                <li><a href="#">Agent SIAP 2</a></li>
-                                <li><a href="#">Agent SIAP 3</a></li>
+                                <li><a href="#">Agent SSIAP 1</a></li>
+                                <li><a href="#">Agent SSIAP 2</a></li>
+                                <li><a href="#">Agent SSIAP 3</a></li>
                                 <li><a href="#">ADS With Vehicule or Not</a></li>
                                 <li><a href="#">Body Guard Without Weapon</a></li>
                                 <li><a href="#">Hostesses</a></li>
@@ -121,15 +121,12 @@
     var map,
         markArray = [];
     function initMap(radius) {
-
-        var maplis = {
-            center: new google.maps.LatLng(48.8566, 2.3522),
         var mapOptions = {
             center: new google.maps.LatLng(latitude, longitude),
             zoom: 8,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };    
-        map = new google.maps.Map(document.getElementById("agentMap"), maplis);
+        map = new google.maps.Map(document.getElementById("agentMap"), mapOptions);
         // Adding our markers from our "big database"
         addMarkers();
         setRadius(radius);
@@ -162,9 +159,6 @@
     }
 
     function setRadius(radius){
-        var circlelis = {
-            center: new google.maps.LatLng(48.8566, 2.3522),
-
         var circleOptions = {
             center: new google.maps.LatLng(latitude, longitude),
             fillOpacity: 0,
@@ -172,7 +166,7 @@
             map: map,
             radius: radius 
         }
-        var myCircle = new google.maps.Circle(circlelis);
+        var myCircle = new google.maps.Circle(circleOptions);
         map.fitBounds(myCircle.getBounds());
     }
 

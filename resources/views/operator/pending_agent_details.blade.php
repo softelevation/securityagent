@@ -88,8 +88,9 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12 text-center">
-                          <button class="button success_btn"><i class="fa fa-check"></i> Approve</button>
-                          <button class="button danger_btn ml-2"><i class="fa fa-times"></i> Decline</button>
+                          <button data-toggle="modal" data-target="#agent_verification_action" class="button success_btn verificationBtn" data-action="1"><i class="fa fa-check"></i> Approve</button>
+                          <button data-toggle="modal" data-target="#agent_verification_action" class="button danger_btn verificationBtn" data-action="2"><i class="fa fa-times"></i> Decline</button>
+
                       </div>
                   </div>
                 </div>
@@ -102,4 +103,56 @@
     </div>
     <!-- /.container -->
 </div>
+<!-- Modal -->
+<div id="agent_verification_action" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">        
+        <h4 class="modal-title">Confirm Action</h4>
+        
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <p>Are you sure you want to approve the agent verification?</p>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Message</label>
+              <textarea class="form-control" placeholder="Enter Your Message"></textarea>
+            </div>
+          </div>
+        </div> -->
+        <!-- <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <input type="submit" class="yellow_btn" value="Become Agent"/>
+            </div>
+          </div>
+        </div> -->          
+      </div>
+      <div class="modal-footer">
+        <form id="general_form" method="post" action="{{url('operator/agent_verification')}}" novalidate="novalidate">
+          @csrf
+          <input id="model_action_value" type="hidden" name="verify_status">
+          <input type="hidden" name="user_id" value="{{Helper::encrypt($data->user_id)}}">
+          <button type="submit" class="btn btn-primary success_btn" >Save changes</button>
+        </form>
+        <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).on('click','.verificationBtn', function(){
+    let action = $(this).attr('data-action');
+    $(document).find('#model_action_value').val(action);
+  });
+</script>
 @endsection
