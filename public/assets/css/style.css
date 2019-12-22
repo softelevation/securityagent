@@ -771,9 +771,6 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
     max-width: 80px;
     margin-left: 8px;
 }
-<<<<<<< HEAD
-
-
 .dropdown-submenu {
   position: relative;
 }
@@ -787,7 +784,8 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
 
 .dropdown-submenu .dropdown-menu {
   top: -3px;
-  left: -124.5%;
+  left: -15.3em;
+  font-size: 12px;
   margin-left: .1rem;
   margin-right: .1rem;
 }
@@ -799,7 +797,7 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
 }
 .agent_types li{
     cursor: pointer;
-    padding:.25rem 1.5rem;
+    padding:8px 15px;
 }
 .agent_types li a{
     width:100%;
@@ -856,4 +854,7 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
 .pending-details .danger_btn:hover {
     text-decoration: none;
     background: #ed4242;
+}
+.view_agent_details span a {
+    float: right;
 }

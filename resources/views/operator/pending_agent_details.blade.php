@@ -89,7 +89,7 @@
                     <div class="row">
                       <div class="col-md-12 text-center">
                           <button class="button success_btn"><i class="fa fa-check"></i> Approve</button>
-                          <button class="button danger_btn"><i class="fa fa-times"></i> Decline</button>
+                          <button class="button danger_btn ml-2"><i class="fa fa-times"></i> Decline</button>
                       </div>
                   </div>
                 </div>
