@@ -69,6 +69,44 @@
         </div>
     </div>
 </div>
+
+<div class="feature_panel">
+    <div class="feature_panel_inner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-right">
+                <div class="feature_box">
+                    <span><img src="{{asset('assets/images/awesome_icon.png')}}"></span>
+                    <h3>Awesome Features</h3>
+                    <p>Purus ipsum neque primis libero tempor posuere in ligula varius ipsum</p>
+                </div>
+                 <div class="feature_box">
+                    <span><img src="{{asset('assets/images/platform_icon.png')}}"></span>
+                    <h3>Cross-Platform</h3>
+                    <p>Semper a augue suscript, luctus neque purus ipsum neque primis libero</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature_img">
+                    <img src="{{asset('assets/images/mobile_img.png')}}" alt="">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature_box">
+                    <span><img src="{{asset('assets/images/update_icon.png')}}"></span>
+                    <h3>Free Updates</h3>
+                    <p>Purus ipsum neque primis libero tempor posuere in ligula varius ipsum</p>
+                </div>
+                 <div class="feature_box">
+                    <span><img src="{{asset('assets/images/support_icon.png')}}"></span>
+                    <h3>Fast-Support</h3>
+                    <p>Purus ipsum neque primis libero tempor posuere in ligula varius ipsum</p>
+                </div>
+            </div>
+        </div>
+    </div>                      
+</div>  
+    </div>
 <div class="testimonial_panel">
     <div class="container">
         <div class="heading text-center">

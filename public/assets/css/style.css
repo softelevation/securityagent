@@ -3,6 +3,11 @@
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-full-width-pics/blob/master/LICENSE)
  */
+
+ 
+ /*backup color #ffdb3f*/
+
+
 *{margin: 0; padding: 0;}
 @font-face {
     font-family: 'SignikaRegular';
@@ -54,7 +59,7 @@ a:hover{text-decoration: none;}
     border: 1px solid #ccc;
     padding: 6px 30px;
 }
-.primary ul li a.active, .primary ul li a:hover{ background: #e5f015; color:#000;}
+.primary ul li a.active, .primary ul li a:hover{ background: #d6fb04 ; color:#000;}
 .primary ul li:first-child a {
     border-right: 0;
 }
@@ -63,8 +68,8 @@ a:hover{text-decoration: none;}
 }
 .menu_right a {
     font-size: 14px;
-    color: #54580c;
-    background: #e5f015;
+    color: #000;
+    background: #d6fb04;
     width: auto;
     display: inline-block;
     border-radius: 4px;
@@ -121,10 +126,10 @@ a:hover{text-decoration: none;}
     margin-bottom: 28px;
 }
 .locationSearch input.form-control {
-    background: #fdde59;
+    background: #d6fb04;
     height: 54px;
-    padding-left:65px;
-    border: 1px solid #cbb03b;
+    padding-left: 65px;
+    border: 1px solid #acca00;
     border-radius: 0;
 }
 .locationSearch span {
@@ -146,9 +151,9 @@ a:hover{text-decoration: none;}
     font-size: 18px;
 }
 .yellow_btn {
-    background: #e5f015;
+    background: #d6fb04;
     font-size: 16px;
-    color: #282828;
+    color: #000;
     text-transform: uppercase;
     font-weight: 600;
     height: 59px;
@@ -233,7 +238,7 @@ a:hover{text-decoration: none;}
 
 .footer h3 {
     text-transform: uppercase;
-    color: #e5f015;
+    color: #d6fb04;
     font-size: 19px;margin-bottom: 15px;
 }
 
@@ -250,11 +255,11 @@ a:hover{text-decoration: none;}
 .shortLink li {display: block;}
 .newsletter_box {position: relative;}
 .newsletter_box input.form-control { background: #ffffff;    height: 45px;    padding-left: 65px; border: 1px solid #fff;border-radius: 0;}
-.newsletter_box span { background: #e5f015;    position: absolute;    left: 0;    width: 55px; height: 45px;text-align: center; line-height: 45px;top: 0; font-size: 23px; color: #000;}
-input.btn_submit {background: #fdda42;border: none;padding: 6px 20px;
+.newsletter_box span { background: #d6fb04;    position: absolute;    left: 0;    width: 55px; height: 45px;text-align: center; line-height: 45px;top: 0; font-size: 23px; color: #000;}
+input.btn_submit {background: #d6fb04;border: none;padding: 6px 20px;
     margin: 15px 0 0;font-size: 16px;}
-input.btn_submit:hover{background: #e5f015;}
-.shortLink li a:hover {color: #e5f015;}
+input.btn_submit:hover{background: #fdda42 ;}
+.shortLink li a:hover {color: #d6fb04 ;}
 .about_info p{ line-height: 22px;}
 .testimonial_name {margin-top: 15px;}
 button.navbar-toggler { background: #fdde59;}
@@ -314,13 +319,13 @@ body textarea.form-control { height: 100px !important; resize: none; padding-top
 
 /******* Agent Page Css Start Here *********/
 .location_search {
-    background: #fdde59;
+    background: #000;
     position: relative;
     z-index: 9;
     box-shadow: 0 2px 4px #AFAFB0;
 }
 .location_search li {list-style: none;}
-.location_search a.filterSearch.dropdown-toggle {cursor: pointer;background:#f2ce32;height: 70px;float: right;font-size: 18px;line-height: 70px;    padding: 0 25px;}
+.location_search a.filterSearch.dropdown-toggle {cursor: pointer;background:#d6fb04;height: 70px;float: right;font-size: 18px;line-height: 70px;    padding: 0 25px;}
 .location_search .locationSearch { max-width: 380px; float: left; min-width: 320px;    margin: 0;}
 .location_search .yellow_btn {
     max-width: 200px;
@@ -382,7 +387,7 @@ border-radius: 50%;}
     position: absolute;
     z-index: 9;
     width: 100%;
-    background: #fdde59;
+    background: #d6fb04;
     bottom: 0;
     height: 124px;
     padding: 0 30px;
@@ -484,7 +489,7 @@ border-radius: 50%;}
     border: 1px solid #c9c9c9; margin-bottom: 15px;
 }
 .contact_box h3 {
-    background: #ffd948;
+    background: #d6fb04;
     margin: 0;
     font-size: 16px;
     text-transform: uppercase;
@@ -544,7 +549,7 @@ border-radius: 50%;}
 .Quick_Order_Agent a {
     font-size: 15px;
     color: #54580c;
-    background: #e5f015;
+    background: #d6fb04 ;
     width: 100%;
     display: inline-block;
     border-radius: 4px;
@@ -629,7 +634,7 @@ table.table td .dropdown.ac-cstm a.dropdown-item:focus {outline: none;}
     border-radius: 0;
     padding: 15px 25px;
 }
-#myTabContent .nav-tabs a.nav-link.active {background: #e5f015;color: #000;border-color: #e5f015;}
+#myTabContent .nav-tabs a.nav-link.active {background: #d6fb04 ;color: #000;border-color: #d6fb04 ;}
 nav.navigation2 {
     max-width: 330px;
     margin: 0 auto;
@@ -820,7 +825,7 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
     max-width: 226px;
 }
 .success_btn{
-    background: #e5f015;
+    background: #d6fb04 ;
     border: 1px solid #c0c90c;
     color: #000;
 }
