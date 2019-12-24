@@ -133,11 +133,12 @@ a:hover{text-decoration: none;}
     border-radius: 0;
 }
 .locationSearch span {
-    background: #cbb03b;
+    /*background: #cbb03b;*/
     position: absolute;
     left: 0;text-align: center;
     width: 55px;
     height: 54px;
+    border: 1px solid #acca00;    
     line-height: 54px;
     top: 0;
     font-size: 23px;
@@ -331,16 +332,18 @@ body textarea.form-control { height: 100px !important; resize: none; padding-top
     max-width: 200px;
     text-align: center;
     height: 42px;
+    background: #d6fb04;
     line-height: 42px;
     box-shadow: none;
-    border: 1px solid #c4ce0e;
+    /*border: 1px solid #c4ce0e;*/
+    border: 1px solid #acca00;
     margin-left: -1px;
     position: relative;
     z-index: 9;
 }
 .location_search input.form-control {
     height: 42px;
-    box-shadow: 0 0 8px #cbb03b inset;
+    /*box-shadow: 0 0 8px #cbb03b inset;*/
 }
 .location_search span {line-height: 42px; height: 42px;font-size: 18px;}
 .location_btn { padding: 14px 0;}
@@ -514,7 +517,7 @@ border-radius: 50%;}
     font-size: 16px; line-height: 24px;
 }
 .form-control {
-    box-shadow: 0 0 7px #ccc inset;
+    /*box-shadow: 0 0 7px #ccc inset;*/
 }
 .contact_box .yellow_btn {
     border: 1px solid #c0c90c;
