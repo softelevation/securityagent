@@ -53,7 +53,7 @@
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>Agent Type</label>
-                        <span class="form-control">{{Helper::get_agent_type_name($data->agent_type)}}</span>
+                        <span class="form-control">{{Helper::get_agent_type_name_multiple($data->types)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>CNAPS Number</label>

@@ -30,8 +30,8 @@
                                 <li><a href="#">Agent SSIAP 3</a></li>
                                 <li><a href="#">ADS With Vehicule or Not</a></li>
                                 <li><a href="#">Body Guard Without Weapon</a></li>
-                                <li><a href="#">Hostesses</a></li>
                                 <li><a href="#">Dog Handler</a></li>
+                                <li><a href="#">Hostesses</a></li>
                             </ul>
                           <li><a class="dropdown-item" href="#">Agent With Veichle</a></li>
                           <li><a class="dropdown-item" href="#">Agent Without Veichle</a></li>
@@ -45,19 +45,21 @@
             <div class="col-md-4 padding_right_0">
                 <div class="Agent_list">
                     <h3>Agent In {{$search['location']}} <span>How to choose ?</span></h3>
+                    @php $i = 0; @endphp
                     @forelse(json_decode($data) as $agent)
-                    <div class="list_box">
+                    @php $i++; @endphp
+                    <div class="list_box agent_detail_{{$i}} agent_list_div">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="agent_img">
-                                    <img src="{{$agent[1]}}"/>
+                                    <img src="{{$agent->avatar_icon}}"/>
                                 </div>
                             </div>
                             <div class="col-md-5">
                                 <div class="agent_cont">
-                                    <h4>{{$agent[0]}}</h4>
-                                    <p>Lorum Ipsum</p>
-                                    <!-- <p>Déjà mère de grands enfants, femme d'expérience (7 années de service) résidant à Paris 3ème. </p> -->
+                                    <h4>{{$agent->username}}</h4>
+                                    <p>{{Helper::get_agent_type_name_multiple($agent->types)}}</p>
+                                    <p>@if($agent->is_vehicle==1) With Vehicle @else Without Vehicle @endif</p>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -71,7 +73,13 @@
                         </div>
                     </div>
                     @empty
+                    <div class="text-center pt-3">
+                        <i>No agent available at the moment on this locaion.</i>
+                    </div>
                     @endforelse
+                    <div class="text-center no_avail_agent_message pt-3 d-none">
+                        <i>No agent available at the moment on this locaion.</i>
+                    </div>
                 </div>
             </div>
             <div class="col-md-8 padding_0">
@@ -116,6 +124,14 @@
     </script>
     
     <script type="text/javascript">
+    function getAvailableAgents(){
+        var count = $(document).find('.agent_list_div').length;
+        if(count > 0){
+            $(document).find('.no_avail_agent_message').addClass('d-none');
+        }else{
+            $(document).find('.no_avail_agent_message').removeClass('d-none');
+        }
+    }
     var latitude = '@php echo $search["latitude"]; @endphp';
     var longitude = '@php echo $search["longitude"]; @endphp';
     var map,
@@ -143,13 +159,13 @@
         var marker, i;
         for (i = 0; i < locations.length; i++) {
           marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][3], locations[i][4]),
+            position: new google.maps.LatLng(locations[i].lat, locations[i].long),
             map: map,
           });
           bounds.extend(marker.position);
           google.maps.event.addListener(marker, 'tilesloaded', (function(marker, i) {
             return function() {
-              var contentString = locations[i][0];
+              var contentString = locations[i].username;
               infowindow.setContent(contentString);
               infowindow.open(map, marker);
             }
@@ -176,11 +192,16 @@
         for (var i = 0; i < markArray.length; i++) {
             var marker = markArray[i];
             var inMap = bounds.contains(marker.getPosition());
+            var agent_details = '.agent_detail_'+(i+1);
             if(inMap===true) {
+                $(document).find(agent_details).show().addClass('agent_list_div');
                 count++;
+            }else{
+                $(document).find(agent_details).hide().removeClass('agent_list_div');
             }
         }
-        console.log(count);
+        getAvailableAgents();
+        // console.log(count);
     }
     window.onload = function(){ initMap(10000); };
     </script>

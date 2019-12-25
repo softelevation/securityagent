@@ -13,8 +13,10 @@
   <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
   <link href="{{asset('css/toaster.css')}}" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet">
+  <link href="{{asset('css/select2.css')}}" rel="stylesheet" />
   <script src="{{asset('assets/js/jquery.min.js')}}"></script>
   <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+
   <style type="text/css">
     .pac-container{
         z-index: 9999;

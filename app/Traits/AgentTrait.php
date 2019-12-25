@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Agent;
 use App\User;
+use App\AgentType;
 use App\Traits\HelperTrait;
 use App\Traits\ResponseTrait;
 use App\AgentDiplomaCertificate;
@@ -25,6 +26,8 @@ trait AgentTrait
     	try{
             DB::beginTransaction();
             $post = array_except($request->all(),['_token']);
+            $agentType = json_decode($post['agent_type']);
+            $dogInfo = $post['dog_info'];
             $roleID = $this->get_user_role_id('agent');
             // Insert data to users table
             $userData = [
@@ -67,11 +70,23 @@ trait AgentTrait
             $post['updated_at'] = Carbon::now();
             //Save Data to Database 
             $certificates = $request->diploma;
-            unset($post['work_location'],$post['current_location'],$post['diploma'],$post['email']);
-            Agent::insertGetId($post);
-
+            unset($post['work_location'],$post['current_location'],$post['diploma'],$post['email'],$post['agent_type'],$post['dog_info']);
+            $agentID = Agent::insertGetId($post);
+            // Insert Agent Types
+            foreach($agentType as $type){
+                $data = [
+                    'agent_id' => $agentID,
+                    'agent_type' => $type,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ];
+                if($type==6){
+                    $data['dog_info'] = $dogInfo;
+                }
+                AgentType::insert($data);
+            } 
             //Add diploma certificates
-            if($post['agent_type']==1 || $post['agent_type']==2 || $post['agent_type']==3){
+            if(in_array(1, $agentType) || in_array(2, $agentType) || in_array(3, $agentType)){
                 if(isset($certificates) && !empty($certificates)){
                     $i=0;
                     foreach($certificates as $certificate) {
@@ -104,16 +119,18 @@ trait AgentTrait
     * Get available agents from database
     */
     public function getAvailableAgents(){
-        $agents = Agent::select('username','avatar_icon','agent_type','work_location_lat_long')->get();
+        $agents = Agent::where('status',1)->get();
         $agentArr = [];
         foreach($agents as $agent){
             $strArr   = [];
-            $strArr[] = $agent->username;
-            $strArr[] = asset('avatars/'.$agent->avatar_icon);
-            $strArr[] = $agent->agent_type;
+            $strArr['username'] = $agent->username;
+            $strArr['avatar_icon'] = asset('avatars/'.$agent->avatar_icon);
+            $strArr['agent_type'] = $agent->agent_type;
             $latlong  = explode(",", $agent->work_location_lat_long);
-            $strArr[] = trim($latlong[0]);
-            $strArr[] = trim($latlong[1]);
+            $strArr['lat'] = trim($latlong[0]);
+            $strArr['long'] = trim($latlong[1]);
+            $strArr['is_vehicle'] = $agent->is_vehicle;
+            $strArr['types'] = $agent->types;
             $agentArr[] = $strArr; 
         }
         return $agentArr;
