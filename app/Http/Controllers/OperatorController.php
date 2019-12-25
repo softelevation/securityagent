@@ -99,7 +99,7 @@ class OperatorController extends Controller
             User::where('id',$user_id)->update(['password'=>$password]);
             $user = User::where('id',$user_id)->first();
             if($status==1){
-                $message = "<b>Congratulations</b><br>Your agent verification is completed successfully and your details are approved.<br><br>Your login credentials are:<br><br>Email:".$user->email." Password:".$user->password1;
+                $message = "<b>Congratulations</b><br>Your agent verification is completed successfully and your details are approved.<br><br>Your login credentials are:<br><br>Email:".$user->email."<br> Password:".$password1;
             }else{
                 $message = "Your agent verification is completed successfully and your details are rejected.<br><br>Thanks";
             }
@@ -108,7 +108,7 @@ class OperatorController extends Controller
             $toEmail = $user->email;
             $toName = $user->email;
             $subject = "Agent Verification";
-            // Helper::sendCommonMail($templateName,$data,$toEmail,$toName,$subject);
+            Helper::sendCommonMail($templateName,$data,$toEmail,$toName,$subject);
             $response['message'] = 'Agent verification completed successfully.';
             $response['delayTime'] = 2000;
             $response['url'] = url('operator/agents/pending');

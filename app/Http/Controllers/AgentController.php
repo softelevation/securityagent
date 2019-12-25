@@ -35,6 +35,10 @@ class AgentController extends Controller
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
             }
+            $agentType = json_decode($request->agent_type);
+            if(empty($agentType)){
+                return $this->getErrorResponse('Choose an agent type');
+            }
             if(!isset($request->work_location['lat']) || empty($request->work_location['lat'])){
                 return $this->getErrorResponse('GPS location is not enabled.');
             }

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Agent Verification</title>
 </head>
 <body>
-	{{$data['message']}}
+	{!!$data['message']!!}
 </body>
 </html>

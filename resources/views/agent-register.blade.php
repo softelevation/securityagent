@@ -91,15 +91,16 @@
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
 					                <label>Agent Type</label>
-					                <select class="form-control" name="agent_type" id="select_agent_type">
+					                <input type="hidden" name="agent_type" id="agent_type_hidden">
+					                <select class="form-control multi_select" multiple="multiple" id="select_agent_type" placeholder="Choose Agent Type">
 					                    <option>Select</option>
-					                    <option value="1">Agent SIAP 1</option>
-					                    <option value="2">Agent SIAP 2</option>
-					                    <option value="3">Agent SIAP 3</option>
-					                    <option value="4">ADS With Vehicule or Not</option>
+					                    <option value="1">Agent SSIAP 1</option>
+					                    <option value="2">Agent SSIAP 2</option>
+					                    <option value="3">Agent SSIAP 3</option>
+					                    <option value="4">ADS With Vehicle or Not</option>
 					                    <option value="5">Body Guard Without Weapon</option>
-					                    <option value="7">Hostesses</option>
 					                    <option value="6">Dog Handler</option>
+					                    <option value="7">Hostesses</option>
 					                </select>
 			                    </div>
 		                    </div>
@@ -125,23 +126,31 @@
 		                      </div>
 	                    	</div>
 	                    </div>
-	                   <div class="row">
-	                    <div class="col-md-6">
-	                      <div class="form-group ">
-			                <label>Home Address</label>
-		                    <input type="text" name="home_address" class="form-control" placeholder="Enter Your home address " />
-	                      </div>
-	                    </div>
-	                    <div class="col-md-6">
-	                      <div class="form-group ">
-			                <label>Work Location</label>
-			                <input id="autocomplete" name="work_location_address" placeholder="Enter your address" class="form-control"  onFocus="geolocate()" type="text"/>
-			                <!--Work Location Lat Longs  -->
-			                <input type="hidden" name="work_location[lat]" />
-			                <input type="hidden" name="work_location[long]" />
-	                      </div>
-	                    </div>
-	                  </div>  
+	                    <div class="row d-none dog_info">
+		                    <div class="col-md-6">
+		                      <div class="form-group ">
+				                <label>Dog Mutual Info</label>
+			                    <input type="text" name="dog_info" class="form-control" placeholder="Enter Dog Mutual Info" />
+		                      </div>
+		                    </div>
+	                  	</div>
+	                   	<div class="row">
+		                    <div class="col-md-6">
+		                      <div class="form-group ">
+				                <label>Home Address</label>
+			                    <input type="text" name="home_address" class="form-control" placeholder="Enter Your home address " />
+		                      </div>
+		                    </div>
+		                    <div class="col-md-6">
+		                      <div class="form-group ">
+				                <label>Work Location</label>
+				                <input id="autocomplete" name="work_location_address" placeholder="Enter your address" class="form-control"  onFocus="geolocate()" type="text"/>
+				                <!--Work Location Lat Longs  -->
+				                <input type="hidden" name="work_location[lat]" />
+				                <input type="hidden" name="work_location[long]" />
+		                      </div>
+		                    </div>
+	                  	</div>  
 	                  	<div class="row">
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
@@ -174,13 +183,26 @@
 <script>
 //script for SIAP 
 $('#select_agent_type').change(function(){
-	let value = $(this).val();
-	$('.cnaps_number').prop('disabled',false);
-	$('.diploma').addClass('d-none');
-	if(value <=3){
+	var values = [];
+	$(this).children("option:selected").each(function(i,val){
+    	let value = $(this).val();
+		values.push(value);
+    });
+    if(values.includes("1") || values.includes("2") || values.includes("3")){
 		$('.cnaps_number').prop('disabled',true);
 		$('.diploma').removeClass('d-none');
+	}else{
+		$('.cnaps_number').prop('disabled',false);
+		$('.diploma').addClass('d-none');
 	}
+	console.log(values);
+	if(values.includes("6")){
+		$('.dog_info').removeClass('d-none');
+	}else{
+		$('.dog_info').addClass('d-none');
+	}
+
+	$(document).find('#agent_type_hidden').val(JSON.stringify(values));
 });
 
 $('.add-diploma-btn').click(function(){
