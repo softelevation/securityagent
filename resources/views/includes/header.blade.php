@@ -28,6 +28,9 @@
   </style>
 </head>
 <body>
+  <div id="preloader">
+    <div id="loader"></div>
+  </div>
 <div id="Header">
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg">
