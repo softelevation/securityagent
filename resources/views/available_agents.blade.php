@@ -5,14 +5,17 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="location_btn">
-                        <form method="get" action="{{url('/available-agents')}}">
-                        <div class="locationSearch">
-                            <input id="autocomplete" name="location" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
-                            <span><i class="fa fa-paper-plane"></i></span>
-                        </div>
-                        <input type="hidden" name="latitude" />
-                        <input type="hidden" name="longitude" />
+                        <form id="search_filter_form" method="get" action="{{url('/available-agents')}}">
+                            <div class="locationSearch">
+                                <input id="autocomplete" name="location" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
+                                <span><i class="fa fa-paper-plane"></i></span>
+                            </div>
+                        <input type="hidden" name="latitude" value="@if(isset($search['latitude'])) {{$search['latitude']}} @endif" />
+                        <input type="hidden" name="longitude" value="@if(isset($search['longitude'])) {{$search['longitude']}} @endif" />
+                        <input id="search_type" type="hidden" name="type">
+                        <input id="search_val" type="hidden" name="value">
                         <button class="yellow_btn">Search Now</button>
+                        </form>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -25,16 +28,16 @@
                           <li class="dropdown-submenu">
                             <a class="dropdown-item dropdown-toggle" style="border:none;" href="#">Agent Type</a>
                             <ul class="dropdown-menu agent_types">
-                                <li><a href="#">Agent SSIAP 1</a></li>
-                                <li><a href="#">Agent SSIAP 2</a></li>
-                                <li><a href="#">Agent SSIAP 3</a></li>
-                                <li><a href="#">ADS With Vehicule or Not</a></li>
-                                <li><a href="#">Body Guard Without Weapon</a></li>
-                                <li><a href="#">Dog Handler</a></li>
-                                <li><a href="#">Hostesses</a></li>
+                                <li class="search_filter" data-type="agent_type" id="1"><a href="javascript:void(0)">Agent SSIAP 1</a></li>
+                                <li class="search_filter" data-type="agent_type" id="2"><a href="javascript:void(0)">Agent SSIAP 2</a></li>
+                                <li class="search_filter" data-type="agent_type" id="3"><a href="javascript:void(0)">Agent SSIAP 3</a></li>
+                                <li class="search_filter" data-type="agent_type" id="4"><a href="javascript:void(0)">ADS With Vehicule or Not</a></li>
+                                <li class="search_filter" data-type="agent_type" id="5"><a href="javascript:void(0)">Body Guard Without Weapon</a></li>
+                                <li class="search_filter" data-type="agent_type" id="6"><a href="javascript:void(0)">Dog Handler</a></li>
+                                <li class="search_filter" data-type="agent_type" id="7"><a href="javascript:void(0)">Hostesses</a></li>
                             </ul>
-                          <li><a class="dropdown-item" href="#">Agent With Veichle</a></li>
-                          <li><a class="dropdown-item" href="#">Agent Without Veichle</a></li>
+                          <li class="search_filter" data-type="is_vehicle" id="1"><a class="dropdown-item" href="javascript:void(0)">Agent With Veichle</a></li>
+                          <li class="search_filter" data-type="is_vehicle" id="0"><a class="dropdown-item" href="javascript:void(0)">Agent Without Veichle</a></li>
                     </ul>
                 </div>
             </div>
@@ -73,9 +76,7 @@
                         </div>
                     </div>
                     @empty
-                    <div class="text-center pt-3">
-                        <i>No agent available at the moment on this locaion.</i>
-                    </div>
+                    
                     @endforelse
                     <div class="text-center no_avail_agent_message pt-3 d-none">
                         <i>No agent available at the moment on this locaion.</i>
@@ -120,6 +121,15 @@
             radius = parseInt(radius);
             radius = radius*1000;
             setTimeout(function(){ initMap(radius); }, 500);
+        });
+
+
+        $(document).on('click','.search_filter', function(){
+            let type = $(this).attr('data-type');
+            let value = $(this).attr('id');
+            $(document).find('#search_type').val(type);
+            $(document).find('#search_val').val(value);
+            $(document).find('#search_filter_form').trigger('submit');
         });
     </script>
     

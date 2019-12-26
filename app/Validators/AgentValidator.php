@@ -33,6 +33,7 @@ trait AgentValidator
                 // 'cnaps_number'          => 'required',
                 'home_address'          => 'required',
                 'work_location_address' => 'required',
+                'is_vehicle' => 'required'
             );
             $validator = Validator::make($request->all(),$validations);
             $this->response = $this->validateData($validator);
