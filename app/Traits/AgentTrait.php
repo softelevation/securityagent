@@ -118,8 +118,18 @@ trait AgentTrait
     /**
     * Get available agents from database
     */
-    public function getAvailableAgents(){
-        $agents = Agent::where('status',1)->get();
+    public function getAvailableAgents($request){
+        $a = Agent::where('status',1);
+        if(isset($request->type) && $request->type=='is_vehicle'){
+            $a->where('is_vehicle',$request->value);
+        }
+        if(isset($request->type) && $request->type=='agent_type'){
+            $typeID = $request->value;
+            $a->whereHas('types',function($q) use ($typeID){
+                $q->where('agent_type',$typeID);
+            });
+        }
+        $agents = $a->get();
         $agentArr = [];
         foreach($agents as $agent){
             $strArr   = [];

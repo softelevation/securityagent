@@ -38,7 +38,14 @@ class AgentController extends Controller
             $agentType = json_decode($request->agent_type);
             if(empty($agentType)){
                 return $this->getErrorResponse('Choose an agent type');
+            }else{
+                if(!in_array(1,$agentType) && !in_array(2,$agentType) && !in_array(3,$agentType)){
+                    if(empty(trim($request->cnaps_number))){
+                        return $this->getErrorResponse('Please enter CNAPS Number');
+                    }
+                }
             }
+
             if(!isset($request->work_location['lat']) || empty($request->work_location['lat'])){
                 return $this->getErrorResponse('GPS location is not enabled.');
             }
@@ -70,7 +77,7 @@ class AgentController extends Controller
         $search['latitude'] = $latitude;
         $search['longitude'] = $longitude;
         $search['location'] = $location; 
-        $agents = $this->getAvailableAgents();
+        $agents = $this->getAvailableAgents($request);
         // $this->print($agents);
         return view('available_agents',['data'=>json_encode($agents),'search'=>$search]);
     }
