@@ -39,13 +39,18 @@ class AgentController extends Controller
             if(empty($agentType)){
                 return $this->getErrorResponse('Choose an agent type');
             }else{
-                if(!in_array(1,$agentType) && !in_array(2,$agentType) && !in_array(3,$agentType)){
+                $cnaps = 0;
+                foreach($agentType as $type){
+                    if($type > 3){
+                        $cnaps = 1;
+                    }
+                }
+                if($cnaps == 1){
                     if(empty(trim($request->cnaps_number))){
                         return $this->getErrorResponse('Please enter CNAPS Number');
                     }
                 }
             }
-
             if(!isset($request->work_location['lat']) || empty($request->work_location['lat'])){
                 return $this->getErrorResponse('GPS location is not enabled.');
             }

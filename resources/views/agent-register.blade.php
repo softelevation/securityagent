@@ -184,18 +184,24 @@
 //script for SIAP 
 $('#select_agent_type').change(function(){
 	var values = [];
+    let cnapsShow = 0;
 	$(this).children("option:selected").each(function(i,val){
     	let value = $(this).val();
+    	if(value > 3){
+    		cnapsShow = 1;
+    	}
 		values.push(value);
     });
-    if(values.includes("1") || values.includes("2") || values.includes("3")){
+	if(cnapsShow == 0){
 		$('.cnaps_number').prop('disabled',true);
-		$('.diploma').removeClass('d-none');
 	}else{
 		$('.cnaps_number').prop('disabled',false);
+	}
+    if(values.includes("1") || values.includes("2") || values.includes("3")){
+		$('.diploma').removeClass('d-none');
+	}else{
 		$('.diploma').addClass('d-none');
 	}
-	console.log(values);
 	if(values.includes("6")){
 		$('.dog_info').removeClass('d-none');
 	}else{
