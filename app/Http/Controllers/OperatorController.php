@@ -9,6 +9,7 @@ use App\Traits\HelperTrait;
 use Auth;
 use App\Agent;
 use App\User;
+use App\Customer;
 use App\Helpers\Helper;
 use Hash;
 
@@ -16,44 +17,7 @@ class OperatorController extends Controller
 {
 
 	use OperatorValidator, ResponseTrait;
-
-	/**
-     * @return mixed
-     * @method login
-     * @purpose Load login page view 
-     */
-    public function login(){
-    	return view('operator.login');
-    }
-
-
-    /**
-     * @return mixed
-     * @method operatorLogin
-     * @purpose Authenticate operator login
-     */
-    public function operatorLogin(Request $request){
-    	try{
-	    	$validation = $this->loginValidation($request);
-	        if($validation['status']==false){
-	            return response($this->getValidationsErrors($validation));
-	        }
-	        $credentials = $request->only('email', 'password');
-            $credentials['role_id'] = Helper::get_role_id('operator');
-        	if (Auth::attempt($credentials)) {
-            	$response['message'] = 'Login Success.';
-	            $response['delayTime'] = 2000;
-	            $response['url'] = url('operator/profile');
-	            return $this->getSuccessResponse($response);
-        	}else{
-        		return response($this->getErrorResponse('Invalid login credentials !'));	
-        	}
-
-    	}catch(\Exception $e){
-    		return response($this->getErrorResponse($e->getMessage()));
-    	}
-    }
-
+    
     /**
      * @return mixed
      * @method loadDashboardView
@@ -112,6 +76,61 @@ class OperatorController extends Controller
             $response['message'] = 'Agent verification completed successfully.';
             $response['delayTime'] = 2000;
             $response['url'] = url('operator/agents/pending');
+            return $this->getSuccessResponse($response);
+        }else{
+            return response($this->getErrorResponse('Something went wrong. Try again later !'));
+        }
+    }
+
+    /**
+     * @return mixed
+     * @method loadPendingCustomerView
+     * @purpose Load pending customer list view
+     */
+    public function loadPendingCustomerView(){
+        $customers = Customer::where('status',0)->orderBy('id','DESC')->paginate(10);
+        return view('operator.customers_pending',['data'=>$customers]);
+    }
+
+    /**
+     * @return mixed
+     * @method viewPendingCustomerDetails
+     * @purpose View details of verification pending agent
+     */
+    public function viewPendingCustomerDetails($en_id){
+        $id = Helper::decrypt($en_id);
+        $customer = Customer::where('id',$id)->first();
+        return view('operator.pending_customer_details',['data'=>$customer]);
+    }
+
+    /**
+     * @return mixed
+     * @method agentVerificationAction
+     * @purpose To process agent verification
+     */
+    public function customerVerificationAction(Request $request){
+        $status = $request->verify_status;
+        $user_id = Helper::decrypt($request->user_id);
+        $result = Customer::where('user_id',$user_id)->update(['status'=>$status]);
+        if($result){
+            $password1 = Helper::generateToken(8);
+            $password = Hash::make($password1);
+            User::where('id',$user_id)->update(['password'=>$password]);
+            $user = User::where('id',$user_id)->first();
+            if($status==1){
+                $message = "<b>Congratulations</b><br>Your profile verification is completed successfully and your details are approved.<br><br>Your login credentials are:<br><br>Email: ".$user->email."<br> Password: ".$password1;
+            }else{
+                $message = "Your profile verification is completed successfully and your details are rejected.<br><br>Thanks";
+            }
+            $templateName = 'emails.general';
+            $data['message'] = $message;
+            $toEmail = $user->email;
+            $toName = $user->email;
+            $subject = "Customer Verification";
+            Helper::sendCommonMail($templateName,$data,$toEmail,$toName,$subject);
+            $response['message'] = 'Customer verification completed successfully.';
+            $response['delayTime'] = 2000;
+            $response['url'] = url('operator/customers/pending');
             return $this->getSuccessResponse($response);
         }else{
             return response($this->getErrorResponse('Something went wrong. Try again later !'));

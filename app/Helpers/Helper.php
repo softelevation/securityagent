@@ -97,6 +97,16 @@ class Helper {
         return $string;
     }
 
+    /*
+    * @method       :   get_customer_type_name
+    * @create_date  :   20-12-2019
+    * @return       :   Get customer type name
+    */
+    public static function get_customer_type_name($param){
+        $customerList = ['','Individual','Company'];
+        return $customerList[$param];
+    }
+
 
 
 

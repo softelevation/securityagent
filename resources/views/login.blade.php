@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="div_body">
-                  <form id="general_form" method="post" action="{{url('operator/operator_login')}}">
+                  <form id="general_form" method="post" action="{{url('/login')}}">
                     @csrf
                     <div class="form-group">
                       <input type="text" name="email" placeholder="Email Address" class="form-control" >
