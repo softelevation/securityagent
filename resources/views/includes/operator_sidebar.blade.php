@@ -16,6 +16,9 @@
                                 <a href="{{url('operator/agents/pending')}}" class="nav-link"><img src="{{asset('assets/images/change_profile_icon.png')}}" /> Agents</a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{url('operator/customers/pending')}}" class="nav-link"><img src="{{asset('assets/images/change_profile_icon.png')}}" /> Customers</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link"><img src="{{asset('assets/images/billing_icon.png')}}" /> Billing</a>
                             </li>
                             <li class="nav-item">

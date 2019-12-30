@@ -19,6 +19,9 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guard)->check()) {
             switch(Auth::user()->role_id){
+                case 1:
+                    return redirect('customer/profile');
+                break;
                 case 3:
                     return redirect('operator/profile');
                 break;
@@ -26,7 +29,6 @@ class RedirectIfAuthenticated
                 return redirect('/');
             }
         }
-
         return $next($request);
     }
 }
