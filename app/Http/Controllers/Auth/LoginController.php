@@ -47,7 +47,7 @@ class LoginController extends Controller
      */
     public function allInOneLogin(Request $request){
         try{
-            $validation = $this->loginValidation($request);
+            $validation = $this->loginValidations($request);
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
             }
