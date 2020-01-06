@@ -9,8 +9,11 @@
                             <li class="nav-item">
                                 <a href="{{url('operator/profile')}}" class="nav-link"><img src="{{asset('assets/images/change_profile_icon.png')}}" /> Change My Profile</a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link"><img src="{{asset('assets/images/create_mission_icon.png')}}" /> Create a Mission</a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a href="{{url('customer/missions')}}" class="nav-link"><img src="{{asset('assets/images/create_mission_icon.png')}}" /> Missions</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link"><img src="{{asset('assets/images/billing_icon.png')}}" /> Billing</a>

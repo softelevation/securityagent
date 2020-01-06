@@ -48,6 +48,8 @@ Route::group(['prefix'=>'operator'], function () {
 Route::group(['prefix'=>'customer'], function () {
     Route::group(['middleware'=>['auth','roles']], function () {
         Route::get('/profile', 'CustomerController@customerProfileView');
+        Route::get('/missions', 'Customer\MissionController@index');
+        Route::get('/create-mission', 'Customer\MissionController@createMission');
     });
 });
 
