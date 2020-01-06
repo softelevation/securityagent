@@ -257,6 +257,9 @@ a:hover{text-decoration: none;}
 .newsletter_box {position: relative;}
 .newsletter_box input.form-control { background: #ffffff;    height: 45px;    padding-left: 65px; border: 1px solid #fff;border-radius: 0;}
 .newsletter_box span { background: #d6fb04;    position: absolute;    left: 0;    width: 55px; height: 45px;text-align: center; line-height: 45px;top: 0; font-size: 23px; color: #000;}
+.btn_submit{background: #d6fb04;border: none;padding: 6px 20px; font-size: 16px; color: #000000;}
+.btn_submit:hover{background: #fdda42; color: #000000;}
+
 input.btn_submit {background: #d6fb04;border: none;padding: 6px 20px;
     margin: 15px 0 0;font-size: 16px;}
 input.btn_submit:hover{background: #fdda42 ;}
@@ -314,8 +317,11 @@ body textarea.form-control { height: 100px !important; resize: none; padding-top
 }
 .modal-body .form-control::placeholder {color: #ccc;}
 .modal-title {text-transform: uppercase;}
-.agent img, .customer img {
-    max-width: 200px;
+.agent img{
+    max-width: 100px;
+}
+.customer img {
+    max-width: 93px;
 }
 
 /******* Agent Page Css Start Here *********/

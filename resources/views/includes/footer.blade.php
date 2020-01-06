@@ -47,6 +47,7 @@
 <script src="{{asset('js/form-validate.js')}}"></script>
 <script src="{{asset('js/jquery.validate.js')}}"></script>
  <script src="{{asset('js/select2.min.js')}}"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     $(document).find('.multi_select').select2({
