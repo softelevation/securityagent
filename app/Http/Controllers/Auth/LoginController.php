@@ -46,11 +46,8 @@ class LoginController extends Controller
      * @purpose Authenticate operator login
      */
     public function allInOneLogin(Request $request){
+            // $this->print($request->all());
         try{
-            // $validation = $this->loginValidations($request);
-            // if($validation['status']==false){
-            //     return response($this->getValidationsErrors($validation));
-            // }
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
                 switch(Auth::user()->role_id){
