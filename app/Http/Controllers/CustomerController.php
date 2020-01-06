@@ -10,6 +10,7 @@ use App\Traits\ResponseTrait;
 class CustomerController extends Controller
 {
 	use CustomerValidator, CustomerTrait, ResponseTrait;
+    
     /**
      * @param $request
      * @return mixed
@@ -37,5 +38,15 @@ class CustomerController extends Controller
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method index
+     * @purpose Load customer signup view 
+     */
+    public function customerProfileView(){
+        return view('customer.profile');
     }
 }
