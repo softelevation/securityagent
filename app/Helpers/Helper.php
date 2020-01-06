@@ -77,6 +77,17 @@ class Helper {
         return $array[$param];
     }
 
+    
+    /*
+    * @method       :   get_agent_type_list
+    * @create_date  :   20-12-2019
+    * @return       :   Get agent type list
+    */
+    public static function get_agent_type_list(){
+        $agentList = ['','Agent SSIAP 1','Agent SSIAP 2','Agent SSIAP 3','ADS With Vehicle or Not','Body Guard Without Weapon','Dog Handler','Hostesses'];
+        return $agentList;
+    }
+
     /*
     * @method       :   get_agent_type_name
     * @create_date  :   20-12-2019
@@ -168,6 +179,23 @@ class Helper {
      */
     public static function generateToken($length = 100){
         return str_random($length);
+    }
+
+    /**
+     * @param int $length
+     * @return string
+     * @method getMissionStatus
+     */
+    public static function getMissionStatus(){
+        return [
+            'Not Yet Verified'=>0,
+            'Verified'=>1,
+            'Rejected'=>2,
+            'In Progress'=>3,
+            'Completed'=>4,
+            'Cancelled By Customer'=>5,
+            'Cancelled By Agent'=>6
+        ];
     }
 
 }

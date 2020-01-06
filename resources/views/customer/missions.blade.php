@@ -6,20 +6,25 @@
             @include('includes.customer_sidebar')
             <!-- /.col-md-4 -->
             <div class="col-md-9">
-              <div>
-                  <h2>Missions</h2>
+              <div class="row">
+                <div class="col-md-6">
+                    <h2>Missions</h2>
+                </div>
+                <div class="col-md-6 text-right m-0 d-inline">
+                    <a href="{{url('customer/create-mission')}}" class="btn_submit"><i class="fa fa-edit"></i> Create New Mission</a>
+                </div>
               </div>
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
                   <div class="nav nav-tabs row">
                       <div class="nav-item col-md-4">
-                          <a class="nav-link active">Mission In Progress</a>
+                          <a class="nav-link active">All Missions</a>
+                      </div>
+                      <div class="nav-item col-md-4">
+                          <a class="nav-link">Mission In Progress</a>
                       </div>
                       <div class="nav-item col-md-4">
                           <a class="nav-link">Mission Finished</a>
-                      </div>
-                      <div class="nav-item col-md-4">
-                          <a class="nav-link">All Missions</a>
                       </div>
                   </div>
                   <div>
@@ -28,19 +33,20 @@
                               <table class="table table-hover table-striped">
                                   <thead>
                                       <tr>
-                                          <th>Agent Name</th>
-                                          <th>Agent Type</th>
-                                          <th>E-mail Address</th>
+                                          <th>Mission Title</th>
+                                          <th>Mission Start Date</th>
+                                          <th>Mission Status</th>
                                           <th>Action</th>
                                       </tr>
                                   </thead>
                                   <tbody>
+                                    @forelse($data as $mission)
                                       <tr>
-                                          <td>asdasd</td>
-                                          <td>asdasd</td>
-                                          <td>asdasd</td>
+                                          <td>{{$mission->title}}</td>
+                                          <td>{{date('m/d/Y',strtotime($mission->start_date))}}</td>
+                                          <td>{{$status_list[$mission->status]}}</td>
                                           <td>
-                                            <a class="action_icons" href=""><i class="fas fa-eye text-grey" aria-hidden="true"></i> View details</a>
+                                            <a class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View details</a>
                                               <!-- <div class="dropdown ac-cstm">
                                                   <a class="dropdown-toggle" data-toggle="dropdown">
                                                       <img src="{{asset('assets/images/dots.png')}}">
@@ -54,6 +60,11 @@
                                               </div> -->
                                           </td>
                                       </tr>
+                                    @empty
+                                      <tr>
+                                          <td colspan="4">No record found</td>
+                                      </tr>
+                                    @endforelse
                                   </tbody>
                               </table>
                           </div>

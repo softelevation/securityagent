@@ -50,6 +50,7 @@ Route::group(['prefix'=>'customer'], function () {
         Route::get('/profile', 'CustomerController@customerProfileView');
         Route::get('/missions', 'Customer\MissionController@index');
         Route::get('/create-mission', 'Customer\MissionController@createMission');
+        Route::post('/save-mission', 'Customer\MissionController@saveMission');
     });
 });
 
