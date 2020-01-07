@@ -22,13 +22,7 @@ Route::post('/register_agent', 'AgentController@signup');
 Route::get('/customer-signup', 'CustomerController@customerSignupView');
 Route::post('/register_customer_form', 'CustomerController@customerSignupForm');
 Route::get('/available-agents', 'AgentController@showAvailableAgents');
-Route::get('/login', function(){
-    if(\Auth::check()){
-        return redirect()->back();    
-    }else{
-        return view('login');
-    }
-});
+Route::get('/login', 'Auth\LoginController@loginView');
 Route::post('/login', 'Auth\LoginController@allInOneLogin');
 
 Route::group(['prefix'=>'operator'], function () {

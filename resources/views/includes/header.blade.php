@@ -45,7 +45,22 @@
             <div class="menu_left">
                 <div class="top_menu">
                     <ul>
-                        <li><a href="{{url('/login')}}">Login</a></li> <em>|</em>  <li><a href="">Registration</a></li>
+                        @if(\Auth::check())
+                          <li>
+                            <div class="dropdown">
+                              <a class="dropdown-toggle" data-toggle="dropdown"><img class="rounded-circle" width="25" src="{{asset('avatars/dummy_avatar.jpg')}}"/> Logged In
+                              <span class="caret"></span></a>
+                              <ul class="dropdown-menu">
+                                <li><a href="{{url('login')}}">Dashboard</a></li>
+                                <li><a href="{{url('logout')}}">Log Out</a></li>
+                              </ul>
+                            </div>
+                          </li>
+                        @else
+                          <li><a href="{{url('/login')}}">Login</a></li> 
+                        @endif
+                        <em>|</em>  
+                        <!-- <li><a href="">Registration</a></li> -->
                         <li><div class="dropdown">
                           <a class="dropdown-toggle" data-toggle="dropdown"><img src="{{asset('assets/images/usa_flag.png')}}"/> USA
                           <span class="caret"></span></a>
