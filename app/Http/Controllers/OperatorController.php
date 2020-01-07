@@ -10,6 +10,7 @@ use Auth;
 use App\Agent;
 use App\User;
 use App\Customer;
+use App\Mission;
 use App\Helpers\Helper;
 use Hash;
 
@@ -135,6 +136,28 @@ class OperatorController extends Controller
         }else{
             return response($this->getErrorResponse('Something went wrong. Try again later !'));
         }
+    }
+
+    /**
+     * @return mixed
+     * @method missionsList
+     * @purpose To get all missions list
+     */
+    public function missionsList(){
+        $missions = Mission::orderBy('id','DESC')->paginate(10);
+        $data['missions'] = $missions;
+        return view('operator.missions',$data);
+    }
+
+    /**
+     * @return mixed
+     * @method verifyMission
+     * @purpose To verify a mission
+     */
+    public function verifyMission(Request $request, $id){
+        $id = Helper::decrypt($id);
+        $mission = Mission::where('id',$id)->first();
+        return view('operator.verify_mission',['data'=>$mission]);
     }
     
 }

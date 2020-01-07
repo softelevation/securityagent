@@ -21,7 +21,7 @@ class MissionController extends Controller
      * @purpose Get Customer Mission's List 
      */
     public function index(){
-        $data = Mission::where('customer_id',\Auth::user()->id)->get();
+        $data = Mission::where('customer_id',\Auth::user()->customer_info->id)->get();
         $statusArr = Helper::getMissionStatus();
         $statusArr = array_flip($statusArr);
         return view('customer.missions',['data'=>$data,'status_list'=>$statusArr]);
@@ -57,7 +57,7 @@ class MissionController extends Controller
             $data = array_except($request->all(),['_token']);
             $data['start_date'] = $startDate;
             $data['end_date']   = $endDate;
-            $data['customer_id'] = \Auth::user()->id;
+            $data['customer_id'] = \Auth::user()->customer_info->id;
             $data['created_at'] = Carbon::now();
             $data['updated_at'] = Carbon::now();
             $result = Mission::insert($data);

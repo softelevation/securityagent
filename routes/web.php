@@ -25,20 +25,22 @@ Route::get('/available-agents', 'AgentController@showAvailableAgents');
 Route::get('/login', 'Auth\LoginController@loginView');
 Route::post('/login', 'Auth\LoginController@allInOneLogin');
 
+// Operator Routes
 Route::group(['prefix'=>'operator'], function () {
     Route::group(['middleware'=>['auth','roles']], function () {
 	    Route::get('/profile', 'OperatorController@loadProfileView');
 	    Route::get('/agents/pending', 'OperatorController@loadPendingAgentsView');
         Route::get('/agents/pending/view/{id}', 'OperatorController@viewPendingAgentDetails');
         Route::post('/agent_verification', 'OperatorController@agentVerificationAction');
-
         Route::get('/customers/pending', 'OperatorController@loadPendingCustomerView');
         Route::get('/customers/pending/view/{id}', 'OperatorController@viewPendingCustomerDetails');
         Route::post('/customer_verification', 'OperatorController@customerVerificationAction');
+        Route::get('/missions', 'OperatorController@missionsList');
+        Route::get('/verify-mission/{id}', 'OperatorController@verifyMission');
     });
 });
 
-
+// Customer Routes
 Route::group(['prefix'=>'customer'], function () {
     Route::group(['middleware'=>['auth','roles']], function () {
         Route::get('/profile', 'CustomerController@customerProfileView');
