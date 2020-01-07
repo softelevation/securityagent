@@ -859,6 +859,10 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
     padding:0 15px 30px 15px;
 }
 
+.pending-details label{
+    font-weight: 600;
+}
+
 .pending-details .button {
     font-size: 14px;
     width: auto;
