@@ -40,6 +40,22 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function loginView(){
+        if(\Auth::check()){
+            $currentRoleID = \Auth::user()->role_id;
+            switch($currentRoleID){
+                case 1:
+                    return redirect('customer/profile');        
+                break;
+                case 3:
+                    return redirect('operator/profile');        
+                break;
+            }   
+        }else{
+            return view('login');
+        }
+    }
+
     /**
      * @return mixed
      * @method operatorLogin
