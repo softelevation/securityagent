@@ -643,6 +643,9 @@ table.table td .dropdown.ac-cstm a.dropdown-item:focus {outline: none;}
     border-radius: 0;
     padding: 15px 25px;
 }
+#myTabContent .nav-tabs .nav-item{
+    text-align: center;
+}
 #myTabContent .nav-tabs a.nav-link.active {background: #d6fb04 ;color: #000;border-color: #d6fb04 ;}
 nav.navigation2 {
     max-width: 330px;
@@ -956,4 +959,7 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
         -ms-transform: rotate(360deg);
         transform: rotate(360deg);
     }
+}
+.w-33{
+    width: 33.33%;
 }

@@ -64,7 +64,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-center">
-                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Submit</button>
+                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Get a quote</button>
                         </div>
                       </div>
                     </form>
