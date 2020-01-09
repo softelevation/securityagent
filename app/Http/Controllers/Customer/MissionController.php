@@ -45,26 +45,29 @@ class MissionController extends Controller
      */
     public function saveMission(Request $request){
         try{
-            $validation = $this->createMissionValidations($request);
+            $validation = $this->quickMissionValidations($request);
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
             }
             if(!(isset($request->latitude) && trim($request->latitude)!='' && isset($request->longitude) && trim($request->longitude)!='')){
                 return response($this->getErrorResponse('The lat/long values of the entered location are invalid. Please clear the current location and try again!'));    
             }
-            $startDate = date("Y-m-d", strtotime($request->start_date));
-            $endDate   = date("Y-m-d", strtotime($request->end_date));
             $data = array_except($request->all(),['_token']);
-            $data['start_date'] = $startDate;
-            $data['end_date']   = $endDate;
+            if(!(isset($request->quick_book) && $request->quick_book==1)){
+                $startDate = date("Y-m-d", strtotime($request->start_date));
+                $endDate   = date("Y-m-d", strtotime($request->end_date));
+                $data['start_date'] = $startDate;
+                $data['end_date']   = $endDate;
+            }
             $data['customer_id'] = \Auth::user()->customer_info->id;
             $data['created_at'] = Carbon::now();
             $data['updated_at'] = Carbon::now();
+            $data['step'] = 1;
             $result = Mission::insert($data);
             if($result){
-                $response['message'] = 'Your mission has been submitted successfully for the verification process.';
+                $response['message'] = 'Mission details saved successfully';
                 $response['delayTime'] = 5000;
-                $response['url'] = url('customer/missions');
+                // $response['url'] = url('customer/missions');
                 return $this->getSuccessResponse($response);
             }else{
                 $response['message'] = 'Something went wrong while submitting your mission details. Please try again later.';
@@ -74,6 +77,27 @@ class MissionController extends Controller
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }
-        
     }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method createMission
+     * @purpose Create New Mission View 
+     */
+    public function quickCreateMission(){
+        return view('customer.quick_create_mission');
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method getMissionQuote
+     * @purpose Get mission quote
+     */
+    public function getMissionQuote(){
+        return view('customer.get_mission_quote');
+    }
+
+
 }

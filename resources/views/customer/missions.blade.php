@@ -33,7 +33,7 @@
                               <tr>
                                   <th>#</th>
                                   <th>Mission Title</th>
-                                  <th>Mission Start Date</th>
+                                  <th>Agent Needed</th>
                                   <th>Mission Status</th>
                                   <th>Action</th>
                               </tr>
@@ -45,10 +45,11 @@
                               <tr>
                                   <td>{{$i}}.</td>
                                   <td>{{$mission->title}}</td>
-                                  <td>{{date('m/d/Y',strtotime($mission->start_date))}}</td>
+                                  <td>{{Helper::get_agent_type_name($mission->agent_type)}}</td>
                                   <td>{{$status_list[$mission->status]}}</td>
                                   <td>
-                                    <a class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View details</a>
+                                    <a class="action_icons" href="#"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit </a>
+                                    <a class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
                                       <!-- <div class="dropdown ac-cstm">
                                           <a class="dropdown-toggle" data-toggle="dropdown">
                                               <img src="{{asset('assets/images/dots.png')}}">

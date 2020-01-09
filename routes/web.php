@@ -47,6 +47,8 @@ Route::group(['prefix'=>'customer'], function () {
         Route::get('/missions', 'Customer\MissionController@index');
         Route::get('/create-mission', 'Customer\MissionController@createMission');
         Route::post('/save-mission', 'Customer\MissionController@saveMission');
+        Route::get('/quick-create-mission', 'Customer\MissionController@quickCreateMission');
+        Route::get('/get-mission-quote', 'Customer\MissionController@getMissionQuote');
     });
 });
 

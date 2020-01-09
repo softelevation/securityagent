@@ -33,4 +33,28 @@ trait MissionValidator
         }
         return $this->response;
     }
+
+
+    /**
+     * @param   : Request $request
+     * @return  : \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @method  : quickMissionValidations
+     * @purpose : Validation rule for create quick mission
+     */
+    public function quickMissionValidations(Request $request){
+        try{
+            $validations = array(
+                'title'         => 'required',
+                'location'      => 'required',
+                'total_hours'   => 'required',
+                'agent_type'    => 'required|not_in:0',
+                'description'   => 'required',
+            );
+            $validator = Validator::make($request->all(),$validations);
+            $this->response = $this->validateData($validator);
+        }catch(\Exception $e){
+            $this->response = $e->getMessage();
+        }
+        return $this->response;
+    }
 }
