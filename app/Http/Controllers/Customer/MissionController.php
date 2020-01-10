@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Validators\MissionValidator;
 use App\Traits\ResponseTrait;
 use App\Mission;
+use App\Agent;
 use Carbon\Carbon;
 use App\Helpers\Helper;
 
@@ -95,8 +96,42 @@ class MissionController extends Controller
      * @method getMissionQuote
      * @purpose Get mission quote
      */
-    public function getMissionQuote(){
-        return view('customer.get_mission_quote');
+    public function findMissionAgent($id){
+        $mission = Mission::where('id',$id)->first();
+        $agent_type_needed = $mission->agent_type;
+        $agents = Agent::whereHas('types',function($q) use($agent_type_needed){
+            $q->where('agent_type',$agent_type_needed);
+        })->where('status',1)->pluck('work_location_lat_long','id');
+        if($agents->count() == 0){
+            die('No agent available at the moment');
+        }
+        $agents = $agents->toArray();
+        // Get Nearest Agent
+        $originLocation = $mission->latitude.', '.$mission->longitude;
+        $destinationLocation = implode("|",$agents);
+        $response = \GoogleMaps::load('distancematrix')->setParam ([
+                        'origins' =>$originLocation, 
+                        'destinations' =>$destinationLocation
+                    ])->get();
+        $response = json_decode($response,TRUE);
+        $agentsIDs = array_keys($agents);
+        $_distArr = [];
+        foreach($response['rows'] as $row){ 
+            foreach($row['elements'] as $key=>$destination){
+                $_distArr[] = $destination['distance']['value'];
+            }
+        }
+        $key = array_keys($_distArr, min($_distArr)); 
+        $nearest_agent_id = $agentsIDs[$key[0]];
+        $agent = Agent::where('id',$nearest_agent_id)->first();
+        $data['mission'] = $mission;
+        $data['agent'] = $agent;
+        $misisonAmount = 120;
+        if($mission->total_hours > 4){
+            $misisonAmount = $mission->total_hours*30;
+        }
+        $data['mission_amount'] = $misisonAmount;
+        return view('customer.find_mission_agent',$data);
     }
 
 

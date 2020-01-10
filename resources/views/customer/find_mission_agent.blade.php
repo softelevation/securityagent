@@ -13,47 +13,31 @@
                     <form id="general_form" method="post" action="{{url('customer/save-mission')}}">
                       @csrf
                       <div class="row">
-                        <div class="col-md-6 form-group">
-                          <label>Mission Title</label>
-                          <input name="title" placeholder="Enter mission title" class="form-control" type="text"/>
-                        </div>
-                        <div class="col-md-6 form-group">
-                          <label>Mission Location</label>
-                          <input id="autocomplete" name="location" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
-                              <!--Work Location Lat Longs  -->
-                          <input type="hidden" name="latitude" />
-                          <input type="hidden" name="longitude" />
-                        </div>
+                        <div class="col-md-6">
+                          <h5>Your Mission Summary</h5>
+                          <hr>
+                          <label>Mission Title : </label> {{$mission->title}}<br>
+                          <label>Mission Location : </label> {{$mission->location}}<br>
+                          <label>Agent Required: </label> {{Helper::get_agent_type_name($mission->agent_type)}}<br>
+                          <label>Mission Hours: </label> {{$mission->total_hours}} Hour(s)<br>
+                          <label>Mission Description: </label> 
+                          {{$mission->description}}
+                        </div>   
+                        <div class="col-md-6">
+                          <h5>Available Agent's Details</h5>
+                          <hr>
+                          <label>Agent Name : </label> {{ucfirst($agent->username)}}<br>
+                          <label>Agent Type : </label> {{Helper::get_agent_type_name_multiple($agent->types)}}<br>
+                          <label>Missions Completed : </label> 42<br>
+                          <label>Agent Rating : </label> <span class="rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><br>
+                        </div> 
                       </div>
-                      <div class="row">
-                        <div class="col-md-6 form-group">
-                          <label>Agent Type</label>
-                          <select name="agent_type" class="form-control">
-                            @php $agentTypes = Helper::get_agent_type_list(); @endphp
-                            @foreach($agentTypes as $key=>$type)
-                            <option value="{{$key}}">@if(empty($type)) Select @else {{$type}} @endif</option>
-                            @endforeach
-                          </select>
-                        </div>
-                        <div class="col-md-6 form-group">
-                          <label>Hours Required</label>
-                          <select name="total_hours" class="form-control">
-                            @for($i=1; $i<=24; $i++)
-                            <option value="{{$i}}">{{$i}} @if($i==1) Hour @else Hours @endif</option>
-                            @endfor
-                          </select>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12 form-group">
-                          <label>Mission Description</label>
-                          <textarea class="form-control" name="description" placeholder="Enter mission description"></textarea>
-                        </div>
-                      </div>
+                      <hr>
                       <div class="row">
                         <div class="col-md-12 text-center">
+                          <h5>Mission Amount: {{$mission_amount}} <i class="fa fa-euro-sign"></i></h5>
                             <input type="hidden" name="quick_book" value="1">
-                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Book An Agent Now</button>
+                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Proceed to Checkout</button>
                         </div>
                       </div>
                     </form>

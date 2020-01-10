@@ -967,3 +967,9 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
 .w-33{
     width: 33.33%;
 }
+h5{
+    color: #ca9700;
+}
+.rating i {
+    color: #ca9700;
+}
