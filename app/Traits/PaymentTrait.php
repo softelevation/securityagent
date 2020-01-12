@@ -38,5 +38,10 @@ trait PaymentTrait
         $charge = $this->stripe->charges()->create($data);
         return $charge;
     }
+
+    // Get all card's list
+    public function getCardsList($customer_stripe_id){
+        return $this->stripe->cards()->all($customer_stripe_id);
+    }
  
 }

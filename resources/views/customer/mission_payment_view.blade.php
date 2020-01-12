@@ -11,93 +11,105 @@
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <!-- Added cards -->
-                    <!-- <div class="examples">
-                      <div class="table-responsive">
-                        <table class="table">
+                    @if(isset($cards) && !empty($cards['data']))
+                    <div class="table-responsive">
+                      <table class="table table-hover table-striped">
                           <thead>
-                            <tr>
-                              <th>Type</th>
-                              <th>Card Number</th>
-                            </tr>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Card Type</th>
+                                  <th>Card Number</th>
+                                  <th>Expire Date</th>
+                                  <th>Action</th>
+                              </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>Visa</td>
-                              <td>4716108999716531</td>
-                            </tr>
+                            @php $i = 0; @endphp
+                            @foreach($cards['data'] as $card)
+                              @php $i++; @endphp
+                              <tr>
+                                  <td>{{$i}}.</td>
+                                  <td>{{$card['brand']}}</td>
+                                  <td>**** **** **** {{$card['last4']}}</td>
+                                  <td>{{$card['exp_month']}}/{{$card['exp_year']}}</td>
+                                  <td><a id="{{$card['id']}}" href="javascript:void(0)" class="btn_submit pay_now_btn"> Pay Now</a></td>
+                              </tr>
+                            @endforeach
                           </tbody>
-                        </table>
-                      </div>
-                    </div> -->
+                      </table>
+                    </div>
+                    @endif
                   <div class="creditCardForm">
                     <div class="heading">
-                      <h5><i class="fa fa-plus"></i> Add New Card</h5>
+                      <button class="btn success_btn add_new_card_btn"><i class="fa fa-plus"></i> Add New Card</button>
                     </div>
                     <hr>
-                    <div class="payment">
-                      <form method="post" action="{{url('customer/make-mission-payment')}}">
-                        <input type="hidden" name="amount" value="{{Helper::encrypt($mission->amount)}}">
-                        @csrf
-                        <div class="row">
-                          <div class="form-group col-md-8 owner">
-                            <label for="owner">Card Holder's Name</label>
-                            <input type="text" name="name" class="form-control" id="owner">
-                          </div>
-                          <div class="form-group col-md-4 CVV">
-                            <label for="cvc">CVC</label>
-                            <input type="text" name="cvc" class="form-control" id="cvv">
-                          </div>
-                          <div class="form-group col-md-12" id="card-number-field">
-                            <label for="cardNumber">Card Number</label>
-                            <input type="text" name="card_number" class="form-control" id="cardNumber">
-                          </div>
-                          <div class="form-group col-md-3" id="expiration-date">
-                            <label>Expiration Month</label>
-                            <div>
-                              <select class="form-control" name="expire_month">
-                                  <option value="01">January</option>
-                                  <option value="02">February </option>
-                                  <option value="03">March</option>
-                                  <option value="04">April</option>
-                                  <option value="05">May</option>
-                                  <option value="06">June</option>
-                                  <option value="07">July</option>
-                                  <option value="08">August</option>
-                                  <option value="09">September</option>
-                                  <option value="10">October</option>
-                                  <option value="11">November</option>
-                                  <option value="12">December</option>
-                              </select>
+                    <div class="card_form_div d-none">
+                      <div class="payment">
+                        <form id="general_form" method="post" action="{{url('customer/make-mission-payment')}}">
+                          <input type="hidden" name="amount" value="{{Helper::encrypt($mission->amount)}}">
+                          @csrf
+                          <div class="row">
+                            <div class="form-group col-md-8 owner">
+                              <label for="owner">Card Holder's Name</label>
+                              <input type="text" name="name" class="form-control" id="owner" placeholder="Enter card holder's name">
+                            </div>
+                            <div class="form-group col-md-4 CVV">
+                              <label for="cvc">CVC</label>
+                              <input type="text" name="cvc" class="form-control" id="cvv" placeholder="Enter CVV number">
+                            </div>
+                            <div class="form-group col-md-12" id="card-number-field">
+                              <label for="cardNumber">Card Number</label>
+                              <input type="text" maxlength="16" name="card_number" class="form-control" id="cardNumber" placeholder="Enter 16 digits card number">
+                            </div>
+                            <div class="form-group col-md-3" id="expiration-date">
+                              <label>Expiration Month</label>
+                              <div>
+                                <select class="form-control" name="expire_month">
+                                    <option value="01">January</option>
+                                    <option value="02">February </option>
+                                    <option value="03">March</option>
+                                    <option value="04">April</option>
+                                    <option value="05">May</option>
+                                    <option value="06">June</option>
+                                    <option value="07">July</option>
+                                    <option value="08">August</option>
+                                    <option value="09">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group col-md-3" id="expiration-date">
+                              <label>Expiration Year</label>
+                              <div>
+                                <select class="form-control" name="expire_year">
+                                    <option value="20"> 2020</option>
+                                    <option value="21"> 2021</option>
+                                    <option value="22"> 2022</option>
+                                    <option value="23"> 2023</option>
+                                    <option value="24"> 2024</option>
+                                    <option value="25"> 2025</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group col-md-6 pt-4 text-right" id="credit_cards">
+                              <img src="{{asset('assets/payment/images/visa.jpg')}}" id="visa">
+                              <img src="{{asset('assets/payment/images/mastercard.jpg')}}" id="mastercard">
+                              <img src="{{asset('assets/payment/images/amex.jpg')}}" id="amex">
                             </div>
                           </div>
-                          <div class="form-group col-md-3" id="expiration-date">
-                            <label>Expiration Year</label>
-                            <div>
-                              <select class="form-control" name="expire_year">
-                                  <option value="20"> 2020</option>
-                                  <option value="21"> 2021</option>
-                                  <option value="22"> 2022</option>
-                                  <option value="23"> 2023</option>
-                                  <option value="24"> 2024</option>
-                                  <option value="25"> 2025</option>
-                              </select>
-                            </div>
+                          <hr>
+                          <div class="col-md-12 text-center">
+                              <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->id)}}">
+                              <button type="submit" class="button success_btn">Make Payment</button>
                           </div>
-                          <div class="form-group col-md-6 pt-4 text-right" id="credit_cards">
-                            <img src="{{asset('assets/payment/images/visa.jpg')}}" id="visa">
-                            <img src="{{asset('assets/payment/images/mastercard.jpg')}}" id="mastercard">
-                            <img src="{{asset('assets/payment/images/amex.jpg')}}" id="amex">
-                          </div>
-                        </div>
-                        <hr>
-                        <div class="col-md-12 text-center">
-                            <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->id)}}">
-                            <button type="submit" class="button success_btn">Make Payment</button>
-                        </div>
-                        <!-- <div class="form-group" id="pay-now">
-                          <button type="submit" class="btn btn-default" id="confirm-purchase">Confirm</button>
-                        </div> -->
-                      </form>
+                          <!-- <div class="form-group" id="pay-now">
+                            <button type="submit" class="btn btn-default" id="confirm-purchase">Confirm</button>
+                          </div> -->
+                        </form>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -109,86 +121,24 @@
     </div>
     <!-- /.container -->
 </div>
-<!-- Modal -->
-<div id="conform_action" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-md">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">        
-        <h4 class="modal-title">Confirm Action</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <p class="confirm_text">Are you sure, you want to create a new mission ?</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary success_btn confirmBtn">Yes</button>
-        <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">No</button>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-  $(function() {
-    $( ".datepicker" ).datepicker();
-  });
+<form id="general_form_2" method="post" action="{{url('customer/make-card-payment')}}">
+  @csrf
+  <input id="payment_card_id" type="hidden" name="card_id">
+  <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->id)}}">
+</form>
 
+<script>
   $(document).ready(function(){
-    $(document).on('click','.confirmBtn',function(){
-      $(document).find('#general_form').submit();
-      $(document).find("#conform_action").modal("hide");
+    $(document).on('click','.add_new_card_btn',function(){
+      $(document).find('.card_form_div').removeClass('d-none');
     });
+
+
+    $(document).on('click','.pay_now_btn',function(){
+      let card_id = $(this).attr('id');
+      $(document).find('#payment_card_id').val(card_id);
+      $('#general_form_2').trigger('submit');
+    });  
   });
 </script>
-<script>
-var placeSearch, autocomplete;
-
-function initAutocomplete() {
-  // Create the autocomplete object, restricting the search predictions to
-  // geographical location types.
-  autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById('autocomplete'), {types: ['geocode']});
-
-  // Avoid paying for data that you don't need by restricting the set of
-  // place fields that are returned to just the address components.
-  // autocomplete.setFields(['address_component']);
-
-  // When the user selects an address from the drop-down, populate the
-  // address fields in the form.
-  autocomplete.addListener('place_changed', fillInAddress);
-}
-
-function fillInAddress() {
-  // Get the place details from the autocomplete object.
-  var place = autocomplete.getPlace();
-  var search_location_lat = document.querySelector("input[name='latitude']");
-  var search_location_long = document.querySelector("input[name='longitude']");
-  search_location_lat.value = place.geometry.location.lat(); 
-  search_location_long.value = place.geometry.location.lng(); 
-}
-
-// Bias the autocomplete object to the user's geographical location,
-// as supplied by the browser's 'navigator.geolocation' object.
-function geolocate() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var geolocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      var circle = new google.maps.Circle(
-          {center: geolocation, radius: position.coords.accuracy});
-      autocomplete.setBounds(circle.getBounds());
-    });
-  }
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA&libraries=places&callback=initAutocomplete"
-    async defer></script>
 @endsection

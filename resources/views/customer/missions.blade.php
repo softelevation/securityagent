@@ -11,7 +11,7 @@
                     <h2>Missions</h2>
                 </div>
                 <div class="col-md-6 text-right m-0 d-inline">
-                    <a href="{{url('customer/create-mission')}}" class="btn_submit"><i class="fa fa-edit"></i> Create New Mission</a>
+                    <a href="#" class="btn_submit"><i class="fa fa-edit"></i> Create New Mission</a>
                 </div>
               </div>
               <div class="tab-pane">
@@ -34,6 +34,7 @@
                                   <th>#</th>
                                   <th>Mission Title</th>
                                   <th>Agent Needed</th>
+                                  <th>Payment Status</th>
                                   <th>Mission Status</th>
                                   <th>Action</th>
                               </tr>
@@ -46,10 +47,13 @@
                                   <td>{{$i}}.</td>
                                   <td>{{$mission->title}}</td>
                                   <td>{{Helper::get_agent_type_name($mission->agent_type)}}</td>
+                                  <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
                                   <td>{{$status_list[$mission->status]}}</td>
                                   <td>
-                                    <a class="action_icons" href="{{url('customer/quick_mission/edit')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit </a>
-                                    <a class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                    @if($mission->status==0)
+                                      <a class="action_icons" href="{{url('customer/quick_mission/edit')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit </a>
+                                    @endif
+                                    <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
                                       <!-- <div class="dropdown ac-cstm">
                                           <a class="dropdown-toggle" data-toggle="dropdown">
                                               <img src="{{asset('assets/images/dots.png')}}">

@@ -69,6 +69,24 @@ $(document).ready(function ()
         formSubmit(form);
       }
     });
+    // When have 2 form on same page
+    $("#general_form_2").validate({
+      errorClass   : "has-error",
+      highlight    : function(element, errorClass) {
+        $(element).parents('.form-group').addClass(errorClass);
+      },
+      unhighlight  : function(element, errorClass, validClass) {
+        $(element).parents('.form-group').removeClass(errorClass);
+      },
+      rules:{
+      },
+      messages:{
+      },
+      submitHandler: function (form)
+      {
+        formSubmit(form);
+      }
+    });
 });
 
 

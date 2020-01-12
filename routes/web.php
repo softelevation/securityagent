@@ -52,6 +52,8 @@ Route::group(['prefix'=>'customer'], function () {
         Route::get('/find-mission-agent/{mission_id}', 'Customer\MissionController@findMissionAgent');
         Route::get('/proceed-payment/{mission_id}', 'Customer\MissionController@proceedToPayment');
         Route::post('/make-mission-payment', 'Customer\MissionController@makeMissionPayment');
+        Route::get('/mission-details/view/{mission_id}', 'Customer\MissionController@viewMissionDetails');
+        Route::post('/make-card-payment', 'Customer\MissionController@makeCardPayment');
     });
 });
 
