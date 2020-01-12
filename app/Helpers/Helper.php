@@ -84,7 +84,7 @@ class Helper {
     * @return       :   Get agent type list
     */
     public static function get_agent_type_list(){
-        $agentList = ['','Agent SSIAP 1','Agent SSIAP 2','Agent SSIAP 3','ADS With Vehicle or Not','Body Guard Without Weapon','Dog Handler','Hostesses'];
+        $agentList = ['Select','Agent SSIAP 1','Agent SSIAP 2','Agent SSIAP 3','ADS With Vehicle or Not','Body Guard Without Weapon','Dog Handler','Hostesses'];
         return $agentList;
     }
 

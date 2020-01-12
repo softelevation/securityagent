@@ -10,8 +10,7 @@
                 <h3><i class="fa fa-edit"></i> Book An Agent Now</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
-                    <form id="general_form" method="post" action="{{url('customer/save-mission')}}">
-                      @csrf
+                    
                       <div class="row">
                         <div class="col-md-6">
                           <h5>Your Mission Summary</h5>
@@ -35,12 +34,10 @@
                       <hr>
                       <div class="row">
                         <div class="col-md-12 text-center">
-                          <h5>Mission Amount: {{$mission_amount}} <i class="fa fa-euro-sign"></i></h5>
-                            <input type="hidden" name="quick_book" value="1">
-                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Proceed to Checkout</button>
+                          <h5>Mission Amount: {{$mission->amount}} <i class="fa fa-euro-sign"></i></h5>
+                            <a href="{{url('customer/proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn">Proceed to Checkout</a>
                         </div>
                       </div>
-                    </form>
                 </div>
               </div>
             </div>

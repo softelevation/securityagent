@@ -10,50 +10,55 @@
                 <h3><i class="fa fa-edit"></i> Create New Mission</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
-                    <form id="general_form" method="post" action="{{url('customer/save-mission')}}">
-                      @csrf
+                    @if(isset($mission))
+                      {{Form::model($mission,['id'=>'general_form','url'=>url('customer/save-mission')])}}
+                      {{Form::hidden('record_id',Helper::encrypt($mission->id))}}
+                    @else
+                      {{Form::open(['id'=>'general_form','url'=>url('customer/save-mission')])}}
+                    @endif
                       <div class="row">
                         <div class="col-md-6 form-group">
                           <label>Mission Title</label>
-                          <input name="title" placeholder="Enter mission title" class="form-control" type="text"/>
+                          {{Form::text('title',null,['class'=>'form-control','placeholder'=>'Enter mission title'])}}
                         </div>
                         <div class="col-md-6 form-group">
                           <label>Mission Location</label>
-                          <input id="autocomplete" name="location" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
-                              <!--Work Location Lat Longs  -->
-                          <input type="hidden" name="latitude" />
-                          <input type="hidden" name="longitude" />
+                          {{Form::text('location',null,['id'=>'autocomplete', 'placeholder'=>'Enter your location', 'class'=>'form-control',  'onFocus'=>'geolocate()'])}}
+                          <!--Work Location Lat Longs  -->
+                          {{Form::hidden('latitude')}}
+                          {{Form::hidden('longitude')}}
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6 form-group">
                           <label>Agent Type</label>
-                          <select name="agent_type" class="form-control">
-                            @php $agentTypes = Helper::get_agent_type_list(); @endphp
-                            @foreach($agentTypes as $key=>$type)
-                            <option value="{{$key}}">@if(empty($type)) Select @else {{$type}} @endif</option>
-                            @endforeach
-                          </select>
+                          @php $agentTypes = Helper::get_agent_type_list(); @endphp
+                          {{Form::select('agent_type',$agentTypes,null,['class'=>'form-control'])}}
                         </div>
                         <div class="col-md-6 form-group">
                           <label>Hours Required</label>
-                          <select name="total_hours" class="form-control">
-                            @for($i=1; $i<=24; $i++)
-                            <option value="{{$i}}">{{$i}} @if($i==1) Hour @else Hours @endif</option>
-                            @endfor
-                          </select>
+                          @for($i=1; $i<=24; $i++)
+                            @php 
+                              if($i==1){
+                                $hours[$i] = $i.' Hour';  
+                              }else{
+                                $hours[$i] = $i.' Hours';
+                              }
+                            @endphp
+                          @endfor
+                          {{Form::select('total_hours',$hours,null,['class'=>'form-control'])}}
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12 form-group">
                           <label>Mission Description</label>
-                          <textarea class="form-control" name="description" placeholder="Enter mission description"></textarea>
+                          {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>'Enter mission description'])}}
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-center">
                             <input type="hidden" name="quick_book" value="1">
-                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Book An Agent Now</button>
+                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Find An Agent Now</button>
                         </div>
                       </div>
                     </form>

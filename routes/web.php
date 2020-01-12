@@ -48,7 +48,10 @@ Route::group(['prefix'=>'customer'], function () {
         Route::get('/create-mission', 'Customer\MissionController@createMission');
         Route::post('/save-mission', 'Customer\MissionController@saveMission');
         Route::get('/quick-create-mission', 'Customer\MissionController@quickCreateMission');
+        Route::get('/quick_mission/edit/{mission_id}', 'Customer\MissionController@editQuickMission');
         Route::get('/find-mission-agent/{mission_id}', 'Customer\MissionController@findMissionAgent');
+        Route::get('/proceed-payment/{mission_id}', 'Customer\MissionController@proceedToPayment');
+        Route::post('/make-mission-payment', 'Customer\MissionController@makeMissionPayment');
     });
 });
 

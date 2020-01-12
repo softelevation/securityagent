@@ -48,7 +48,7 @@
                                   <td>{{Helper::get_agent_type_name($mission->agent_type)}}</td>
                                   <td>{{$status_list[$mission->status]}}</td>
                                   <td>
-                                    <a class="action_icons" href="#"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit </a>
+                                    <a class="action_icons" href="{{url('customer/quick_mission/edit')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit </a>
                                     <a class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
                                       <!-- <div class="dropdown ac-cstm">
                                           <a class="dropdown-toggle" data-toggle="dropdown">
