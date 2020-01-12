@@ -84,7 +84,7 @@ class Helper {
     * @return       :   Get agent type list
     */
     public static function get_agent_type_list(){
-        $agentList = ['','Agent SSIAP 1','Agent SSIAP 2','Agent SSIAP 3','ADS With Vehicle or Not','Body Guard Without Weapon','Dog Handler','Hostesses'];
+        $agentList = ['Select','Agent SSIAP 1','Agent SSIAP 2','Agent SSIAP 3','ADS With Vehicle or Not','Body Guard Without Weapon','Dog Handler','Hostesses'];
         return $agentList;
     }
 
@@ -186,16 +186,26 @@ class Helper {
      * @return string
      * @method getMissionStatus
      */
-    public static function getMissionStatus(){
-        return [
-            'Not Yet Verified'=>0,
-            'Verified'=>1,
-            'Rejected'=>2,
-            'In Progress'=>3,
-            'Completed'=>4,
-            'Cancelled By Customer'=>5,
-            'Cancelled By Agent'=>6
+    public static function getMissionStatus($param=null){
+        $statusArr =  [
+            'Unverified'            => 0,
+            'Verified'              => 1,
+            'Rejected'              => 2,
+            'Active'                => 3,
+            'In Progress'           => 4,
+            'Completed'             => 5,
+            'Cancelled By Customer' => 6,
+            'Cancelled By Agent'    => 7
         ];
+        if($param==null){
+            return $statusArr;
+        }
+        if(is_numeric($param)){
+           $statusArr = array_flip($statusArr);
+           return $statusArr[$param]; 
+        }else{
+            return $statusArr[$param];
+        }
     }
 
 }
