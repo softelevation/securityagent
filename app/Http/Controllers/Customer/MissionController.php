@@ -8,6 +8,7 @@ use App\Validators\MissionValidator;
 use App\Traits\ResponseTrait;
 use App\Traits\PaymentTrait;
 use App\Mission;
+use App\UserPaymentHistory;
 use App\Customer;
 use App\Agent;
 use Carbon\Carbon;
@@ -208,6 +209,18 @@ class MissionController extends Controller
             ];
             $charge = $this->createCharge($chargeData);
             if($charge['status']=='succeeded'){
+                // Save data to payment history
+                $paymentDetails = [
+                    'amount'      => $mission->amount,
+                    'status'      => $charge['status'],  
+                    'charge_id'   => $charge['id'],
+                    'mission_id'  => $mission_id,
+                    'customer_id' => $mission->customer_details->id,
+                    'created_at'  => Carbon::now(),
+                    'updated_at'  => Carbon::now() 
+                ];
+                UserPaymentHistory::insert($paymentDetails);
+                // Update Mission Data
                 Mission::where('id',$mission_id)->update(['payment_status'=>1,'status'=>3]);
                 $response['message'] = 'Mission payment completed successfully';
                 $response['delayTime'] = 5000;
@@ -273,6 +286,18 @@ class MissionController extends Controller
             ];
             $charge = $this->createCharge($chargeData);
             if($charge['status']=='succeeded'){
+                // Save data to payment history
+                $paymentDetails = [
+                    'amount'      => $mission->amount,
+                    'status'      => $charge['status'],  
+                    'charge_id'   => $charge['id'],
+                    'mission_id'  => $mission_id,
+                    'customer_id' => $mission->customer_details->id,
+                    'created_at'  => Carbon::now(),
+                    'updated_at'  => Carbon::now() 
+                ];
+                UserPaymentHistory::insert($paymentDetails);
+                // Update Mission Data
                 Mission::where('id',$mission_id)->update(['payment_status'=>1,'status'=>3]);
                 $response['message'] = 'Mission payment completed successfully';
                 $response['delayTime'] = 5000;
