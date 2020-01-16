@@ -57,6 +57,15 @@ Route::group(['prefix'=>'customer'], function () {
     });
 });
 
+// Agent Routes
+Route::group(['prefix'=>'agent'], function () {
+    Route::group(['middleware'=>['auth','roles']], function () {
+        Route::get('/profile', 'AgentController@agentProfileView');
+        Route::get('/missions', 'Agent\MissionController@index');
+        Route::get('/mission-details/view/{mission_id}', 'Agent\MissionController@viewMissionDetails');
+    });
+});
+
 
 Route::get('/logout', function () {
     Auth::logout();

@@ -23,9 +23,19 @@ class RoleAuth
                     return redirect('customer/profile');        
                 }
             break;
+            case 2:
+                if(!($prefix=='/agent' && $currentRoleID==2)){
+                    return redirect('agent/profile');        
+                }
+            break;
             case 3:
                 if(!($prefix=='/operator' && $currentRoleID==3)){
                     return redirect('operator/profile');        
+                }
+            break;
+            case 4:
+                if(!($prefix=='/admin' && $currentRoleID==4)){
+                    return redirect('admin/profile');        
                 }
             break;
         }

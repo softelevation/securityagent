@@ -70,7 +70,7 @@ class Helper {
     public static function get_role_id($param){
         $array = [
             'customer'  => 1,
-            'agent'    => 2,
+            'agent'     => 2,
             'operator'  => 3,
             'admin'     => 4
         ];

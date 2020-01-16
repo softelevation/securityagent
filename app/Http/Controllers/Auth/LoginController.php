@@ -47,8 +47,14 @@ class LoginController extends Controller
                 case 1:
                     return redirect('customer/profile');        
                 break;
+                case 2:
+                    return redirect('agent/profile');        
+                break;
                 case 3:
                     return redirect('operator/profile');        
+                break;
+                case 4:
+                    return redirect('admin/profile');        
                 break;
             }   
         }else{

@@ -41,4 +41,8 @@ class User extends Authenticatable
     public function customer_info(){
         return $this->hasOne('App\Customer', 'user_id');
     }
+
+    public function agent_info(){
+        return $this->hasOne('App\Agent', 'user_id');
+    }
 }

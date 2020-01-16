@@ -87,4 +87,14 @@ class AgentController extends Controller
         return view('available_agents',['data'=>json_encode($agents),'search'=>$search]);
     }
 
+    /**
+     * @param $request
+     * @return mixed
+     * @method index
+     * @purpose Load customer signup view 
+     */
+    public function agentProfileView(){
+        return view('agent.profile');
+    }
+
 }
