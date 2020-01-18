@@ -148,6 +148,7 @@ function formSubmit(form)
                 }
 
                 if (response.modelhide) {
+                    
                     if (response.delay)
                         setTimeout(function (){ $(response.modelhide).modal('hide') },response.delay);
                     else

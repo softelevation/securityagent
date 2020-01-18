@@ -31,6 +31,8 @@ class CreateMissionsTable extends Migration
             $table->tinyInteger('payment_status')->default(0)->comment('0=>Not Paid, 1=>Paid');
             $table->tinyInteger('status')->default(0);
             $table->integer('step')->default(0);
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('ended_at')->nullable();
             $table->timestamps();
         });
     }

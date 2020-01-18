@@ -17,6 +17,7 @@ Route::get('/', function () {
 Route::get('/contact-us', function () {
     return view('contact');
 });
+
 Route::get('/register-agent-view','AgentController@index');
 Route::post('/register_agent', 'AgentController@signup');
 Route::get('/customer-signup', 'CustomerController@customerSignupView');
@@ -54,6 +55,17 @@ Route::group(['prefix'=>'customer'], function () {
         Route::post('/make-mission-payment', 'Customer\MissionController@makeMissionPayment');
         Route::get('/mission-details/view/{mission_id}', 'Customer\MissionController@viewMissionDetails');
         Route::post('/make-card-payment', 'Customer\MissionController@makeCardPayment');
+    });
+});
+
+// Agent Routes
+Route::group(['prefix'=>'agent'], function () {
+    Route::group(['middleware'=>['auth','roles']], function () {
+        Route::get('/profile', 'AgentController@agentProfileView');
+        Route::get('/missions', 'Agent\MissionController@index');
+        Route::get('/mission-details/view/{mission_id}', 'Agent\MissionController@viewMissionDetails');
+        Route::post('/start-mission', 'Agent\MissionController@startMission');
+        Route::post('/finish-mission', 'Agent\MissionController@finishMission');
     });
 });
 

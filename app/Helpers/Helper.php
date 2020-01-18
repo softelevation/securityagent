@@ -70,7 +70,7 @@ class Helper {
     public static function get_role_id($param){
         $array = [
             'customer'  => 1,
-            'agent'    => 2,
+            'agent'     => 2,
             'operator'  => 3,
             'admin'     => 4
         ];
@@ -206,6 +206,35 @@ class Helper {
         }else{
             return $statusArr[$param];
         }
+    }
+
+
+    /**
+     * @param $started_at,$ended_at
+     * @return string
+     * @method get_mission_hours
+     */
+    public static function get_mission_hours($started_at,$ended_at){
+        $datetime1 = new \DateTime($started_at);
+        $datetime2 = new \DateTime($ended_at);
+        $interval = $datetime1->diff($datetime2);
+        $timeDuration = '';
+        if($interval->h!=0){
+            $hours = $interval->format('%h Hour ');
+            if($interval->h > 1){
+                $hours = $interval->format('%h Hours ');
+            }
+            $timeDuration .= $hours;
+        }
+        if($interval->i!=0){
+            $minutes = $interval->format('%i Minute');
+            if($interval->i > 1){
+                $minutes = $interval->format('%i Minutes');
+            }
+
+            $timeDuration .= $minutes;
+        }
+        return $timeDuration;
     }
 
 }
