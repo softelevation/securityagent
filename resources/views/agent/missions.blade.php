@@ -33,9 +33,9 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
-                                    <th>Agent Needed</th>
-                                    <th>Payment Status</th>
-                                    <th>Mission Status</th>
+                                    <th>Mission Location</th>
+                                    <th>Mission Duration</th>
+                                    <th>Mission Start At</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -46,14 +46,11 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
-                                    <td>{{Helper::get_agent_type_name($mission->agent_type)}}</td>
-                                    <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
-                                    <td>{{$status_list[$mission->status]}}</td>
+                                    <td>{{$mission->location}}</td>
+                                    <td>{{$mission->total_hours}} Hour(s)</td>
+                                    <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
                                     <td>
-                                      @if($mission->status==0)
-                                        <a class="action_icons" href="{{url('customer/quick_mission/edit')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit </a>
-                                      @endif
-                                      <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
                                         <!-- <div class="dropdown ac-cstm">
                                             <a class="dropdown-toggle" data-toggle="dropdown">
                                                 <img src="{{asset('assets/images/dots.png')}}">
@@ -69,7 +66,7 @@
                                 </tr>
                               @empty
                                 <tr>
-                                    <td colspan="5">No record found</td>
+                                    <td colspan="6">No record found</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -117,7 +114,7 @@
                                 </tr>
                               @empty
                                 <tr>
-                                    <td colspan="5">No record found</td>
+                                    <td colspan="6">No record found</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -132,9 +129,9 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
-                                    <th>Agent Needed</th>
-                                    <th>Payment Status</th>
-                                    <th>Mission Status</th>
+                                    <th>Mission Location</th>
+                                    <th>Mission Started At</th>
+                                    <th>Mission Ended At</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -145,14 +142,11 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
-                                    <td>{{Helper::get_agent_type_name($mission->agent_type)}}</td>
-                                    <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
-                                    <td>{{$status_list[$mission->status]}}</td>
+                                    <td>{{$mission->location}}</td>
+                                    <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
+                                    <td>{{date('m/d/Y H:i:s', strtotime($mission->ended_at))}}</td>
                                     <td>
-                                      @if($mission->status==0)
-                                        <a class="action_icons" href="{{url('customer/quick_mission/edit')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit </a>
-                                      @endif
-                                      <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
                                         <!-- <div class="dropdown ac-cstm">
                                             <a class="dropdown-toggle" data-toggle="dropdown">
                                                 <img src="{{asset('assets/images/dots.png')}}">
@@ -168,7 +162,7 @@
                                 </tr>
                               @empty
                                 <tr>
-                                    <td colspan="5">No record found</td>
+                                    <td colspan="6">No record found</td>
                                 </tr>
                               @endforelse
                             </tbody>

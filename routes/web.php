@@ -17,6 +17,7 @@ Route::get('/', function () {
 Route::get('/contact-us', function () {
     return view('contact');
 });
+
 Route::get('/register-agent-view','AgentController@index');
 Route::post('/register_agent', 'AgentController@signup');
 Route::get('/customer-signup', 'CustomerController@customerSignupView');
@@ -63,6 +64,8 @@ Route::group(['prefix'=>'agent'], function () {
         Route::get('/profile', 'AgentController@agentProfileView');
         Route::get('/missions', 'Agent\MissionController@index');
         Route::get('/mission-details/view/{mission_id}', 'Agent\MissionController@viewMissionDetails');
+        Route::post('/start-mission', 'Agent\MissionController@startMission');
+        Route::post('/finish-mission', 'Agent\MissionController@finishMission');
     });
 });
 

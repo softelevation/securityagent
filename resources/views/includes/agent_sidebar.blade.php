@@ -2,7 +2,10 @@
                 <div class="Left_tabs_panel border">
                     <div class="profile_img">
                         <img src="{{asset('assets/images/user_img.jpg')}}" class="img-fluid" />
-                        <h3>{{Auth::user()->email}} <span>Agent</span></h3>
+                        <h3>{{Auth::user()->email}} <span><i style="font-size: 11px;" class="fa fa-circle 
+                            @if(Auth::user()->agent_info->available==1) text-success @endif
+                            @if(Auth::user()->agent_info->available==0) text-danger @endif
+                            @if(Auth::user()->agent_info->available==2) text-warning @endif" aria-hidden="true"></i> Agent</span></h3>
                     </div>
                     <div class="tabs_menu">
                         <ul class="nav flex-column" id="myTab" role="tablist">

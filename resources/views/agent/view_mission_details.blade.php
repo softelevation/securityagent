@@ -23,11 +23,11 @@
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>Agent Type Needed</label>
-                        <span class="form-control">{{$mission->agent_type}}</span>
+                        <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>Mission Hours</label>
-                        <span class="form-control">{{$mission->total_hours}}</span>
+                        <span class="form-control">{{$mission->total_hours}} Hour(s)</span>
                       </div>
                     </div>
                     <div class="row">
@@ -38,10 +38,37 @@
                         </p>
                       </div>
                     </div>
+                    @if($mission->status==5)
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label>Mission Status</label>
+                        <span class="form-control">{{Helper::getMissionStatus($mission->status)}}</span>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>Total Hours Taken By Agent </label>
+                        <span class="form-control">{{Helper::get_mission_hours($mission->started_at,$mission->ended_at)}}</span>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>Mission Started At</label>
+                        <span class="form-control">{{$mission->started_at}}</span>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>Mission Ended At </label>
+                        <span class="form-control">{{$mission->ended_at}}</span>
+                      </div>
+                    </div>
+                    @endif
                     <div class="row">
                       <div class="col-md-12 text-center">
-                          <button data-toggle="modal" data-target="#customer_verification_action" class="button success_btn verificationBtn" data-action="1"><i class="fa fa-check"></i> Start Mission</button>
-                          <button data-toggle="modal" data-target="#customer_verification_action" class="button danger_btn verificationBtn" data-action="2"><i class="fa fa-times"></i> Reject Mission</button>
+                          @if($mission->status==3)
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/start-mission')}}" data-type="start" class="button success_btn confirmBtn" data-action="1"><i class="fa fa-check"></i> Start Mission</button>
+                          @endif
+                          @if($mission->status==4)
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/finish-mission')}}" data-type="finish" class="button success_btn confirmBtn" data-action="1"><i class="fa fa-check"></i> Finish Mission</button>
+                          @endif
+                          @if($mission->status==3 || $mission->status==4)
+                            <!-- <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/cancel-mission-agent')}}" data-type="cancel_agent" class="button danger_btn confirmBtn" data-action="2"><i class="fa fa-times"></i> Cancel Mission</button> -->
+                          @endif
                       </div>
                   </div>
                 </div>
@@ -55,29 +82,27 @@
     <!-- /.container -->
 </div>
 <!-- Modal -->
-<div id="customer_verification_action" class="modal fade" role="dialog">
+<div id="mission_action" class="modal fade" role="dialog">
   <div class="modal-dialog modal-md">
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">        
         <h4 class="modal-title">Confirm Action</h4>
-        
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <p class="confirm_text"></p>
+              <p class="confirmation_text"></p>
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <form id="general_form" method="post" action="{{url('operator/customer_verification')}}" novalidate="novalidate">
+        <form id="general_form" class="mission_action_form" method="post" action="" novalidate="novalidate">
           @csrf
-          <input id="model_action_value" type="hidden" name="verify_status">
-          <input type="hidden" name="user_id" value="{{Helper::encrypt($mission->user_id)}}">
+          <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->id)}}">
           <button type="submit" class="btn btn-primary success_btn" >Yes</button>
         </form>
         <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">Close</button>
@@ -86,14 +111,21 @@
   </div>
 </div>
 <script>
-  $(document).on('click','.verificationBtn', function(){
-    let action = $(this).attr('data-action');
-    if(action==1){
-      $(document).find('.confirm_text').text('Are you sure you want to approve this customer?');
-    }else{
-      $(document).find('.confirm_text').text('Are you sure you want to decline this customer?');
+  $(document).on('click','.confirmBtn', function(){
+    let url = $(this).attr('data-url');
+    let type = $(this).attr('data-type');
+    var txtMsg = '';
+    if(type=='start'){
+      txtMsg = 'Are you sure to start this mission now?';
     }
-    $(document).find('#model_action_value').val(action);
+    if(type=='finish'){
+      txtMsg = 'Are you sure to finish this mission now?';
+    }
+    if(type=='cancel_agent'){
+      txtMsg = 'Are you sure to cancel this mission now?';
+    }
+    $(document).find('.confirmation_text').html(txtMsg);
+    $(document).find('.mission_action_form').attr('action',url);
   });
 </script>
 @endsection
