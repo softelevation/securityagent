@@ -87,6 +87,26 @@ $(document).ready(function ()
         formSubmit(form);
       }
     });
+    
+    // Agent Availabilty Status
+    $("#agent_availabity_form").validate({
+      errorClass   : "has-error",
+      highlight    : function(element, errorClass) {
+        $(element).parents('.form-group').addClass(errorClass);
+      },
+      unhighlight  : function(element, errorClass, validClass) {
+        $(element).parents('.form-group').removeClass(errorClass);
+      },
+      rules:{
+      },
+      messages:{
+      },
+      submitHandler: function (form)
+      {
+        formSubmit(form);
+      }
+    });
+    
 });
 
 

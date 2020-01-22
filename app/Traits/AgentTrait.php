@@ -119,7 +119,7 @@ trait AgentTrait
     * Get available agents from database
     */
     public function getAvailableAgents($request){
-        $a = Agent::where('status',1);
+        $a = Agent::where('status',1)->where('available',1);
         if(isset($request->type) && $request->type=='is_vehicle'){
             $a->where('is_vehicle',$request->value);
         }

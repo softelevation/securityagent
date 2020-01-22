@@ -66,6 +66,7 @@ Route::group(['prefix'=>'agent'], function () {
         Route::get('/mission-details/view/{mission_id}', 'Agent\MissionController@viewMissionDetails');
         Route::post('/start-mission', 'Agent\MissionController@startMission');
         Route::post('/finish-mission', 'Agent\MissionController@finishMission');
+        Route::post('/set-availability', 'AgentController@setAvailability');
     });
 });
 

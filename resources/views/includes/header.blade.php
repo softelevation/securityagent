@@ -17,7 +17,6 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="{{asset('assets/js/jquery.min.js')}}"></script>
   <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
-
   <style type="text/css">
     .pac-container{
         z-index: 9999;
@@ -81,8 +80,20 @@
                 </div>
             </div>
             <div class="menu_right">
-              <a href="{{url('/register-agent-view')}}">Become an Agent</a>
-              <a href="{{url('/customer-signup')}}">Become an User</a>
+              @if(\Auth::check())
+                @if(\Auth::user()->role_id==2)
+                  <div class="availability-section">
+                    <span class="pr-3">Availability</span> 
+                    <label class="switch">
+                      <input type="checkbox" id="availability_check_btn" class="check" @if(\Auth::user()->agent_info->available==1) checked @endif>
+                      <span class="slider round"></span>
+                    </label>
+                  </div>
+                @endif
+              @else
+                <a href="{{url('/register-agent-view')}}">Become an Agent</a>
+                <a href="{{url('/customer-signup')}}">Become an User</a>
+              @endif
             </div>  
         </div>
       </div>

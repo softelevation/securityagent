@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Traits\AgentTrait;
 use App\Validators\AgentValidator;
 use App\Traits\ResponseTrait;
-
+use Auth;
+use App\Agent;
 
 class AgentController extends Controller
 {
@@ -90,11 +91,46 @@ class AgentController extends Controller
     /**
      * @param $request
      * @return mixed
-     * @method index
-     * @purpose Load customer signup view 
+     * @method agentProfileView
+     * @purpose Load agent profile view 
      */
     public function agentProfileView(){
         return view('agent.profile');
     }
+
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method setAvailability
+     * @purpose Set agent availability status
+     */
+    public function setAvailability(Request $request){
+        try{
+            if(Auth::check() && Auth::user()->role_id==2){
+                $data = Agent::where('user_id',Auth::user()->id)->first();
+                if($data->available==2){
+                    return response($this->getErrorResponse("Availability status can't be changed during ongoing mission."));
+                }else{
+                    $availableStatus = $request->availability_status;
+                    $update = Agent::where('user_id',Auth::user()->id)->update(['available'=>$availableStatus]);
+                    if($update){
+                        $response['message'] = 'Your availability status has been changed successfully.';
+                        $response['delayTime'] = 5000;
+                        $response['url'] = $request->current_url;
+                        return response($this->getSuccessResponse($response));
+                    }else{
+                        return response($this->getErrorResponse('Something went wrong!'));
+                    }
+                }
+            }else{
+                return response($this->getErrorResponse('Unauthorized Access!'));    
+            }
+        }catch(\Exception $e){
+            return response($this->getErrorResponse($e->getMessage()));
+        }
+    }
+
+
 
 }

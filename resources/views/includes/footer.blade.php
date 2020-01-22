@@ -39,31 +39,48 @@
           <p>Copyright © 2019 - Alright reserved by <b>OnTimeBee</b>. Design By: <b>CMO Agency</b></p>
       </div>
   </div>
+  <form id="agent_availabity_form" method="post" action="{{url('agent/set-availability')}}">
+    @csrf
+    <input id="availability_status" type="hidden" name="availability_status">
+    <input type="hidden" name="current_url" value="{{url()->full()}}">
+  </form>
 </footer>
 
 <script> var app_base_url = "{{url('/')}}"; </script>
-
 <script src="{{asset('js/jquery.toast.js')}}"></script>
 <script src="{{asset('js/form-validate.js')}}"></script>
 <script src="{{asset('js/jquery.validate.js')}}"></script>
- <script src="{{asset('js/select2.min.js')}}"></script>
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{asset('js/select2.min.js')}}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
+    // Multi select
     $(document).find('.multi_select').select2({
       placeholder: "Select Options",
     });
-  });
-  $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
-    if (!$(this).next().hasClass('show')) {
-      $(this).parents('.dropdown-menu').first().find('.show').removeClass('show');
-    }
-    var $subMenu = $(this).next('.dropdown-menu');
-    $subMenu.toggleClass('show');
-    $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
-      $('.dropdown-submenu .show').removeClass('show');
+    
+    $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+      if (!$(this).next().hasClass('show')) {
+        $(this).parents('.dropdown-menu').first().find('.show').removeClass('show');
+      }
+      var $subMenu = $(this).next('.dropdown-menu');
+      $subMenu.toggleClass('show');
+      $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+        $('.dropdown-submenu .show').removeClass('show');
+      });
+      return false;
     });
-    return false;
+    // Availability toggle 
+    $(document).on('click','#availability_check_btn',function(){
+      let checkStatus = 0;
+      let checked = $(this).is(':checked');
+      if(checked){
+        checkStatus=1;   
+      }
+      $(document).find('#availability_status').val(checkStatus);
+      $('#agent_availabity_form').trigger('submit');
+    });
+
   });
 </script>
 
