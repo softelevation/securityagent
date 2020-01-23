@@ -9,6 +9,7 @@ use App\Traits\ResponseTrait;
 use App\Traits\PaymentTrait;
 use App\Mission;
 use App\UserPaymentHistory;
+use App\FailedPayment;
 use App\Customer;
 use App\Agent;
 use Carbon\Carbon;
@@ -90,27 +91,85 @@ class MissionController extends Controller
      * @purpose finish a mission
      */
     public function finishMission(Request $request){
-        try{
-            $mission_id = Helper::decrypt($request->mission_id);
-            $timeNow = Carbon::now();
-            $result = Mission::where('id',$mission_id)->update(['ended_at'=>$timeNow,'status'=>5]);
-            if($result){
-                $data = Mission::where('id',$mission_id)->first();
-                Agent::where('id',$data->agent_id)->update(['available'=>1]);
-                $response['message'] = 'Your Mission has finished now.';
-                $response['delayTime'] = 2000;
-                $response['modelhide'] = '#mission_action';
-                $response['url'] = url('agent/missions');
-                return response($this->getSuccessResponse($response));
-            }else{
-                $response['message'] = 'Something went wrong. Unable to start the misison at the moment.';
-                $response['delayTime'] = 2000;
-                $response['url'] = url('agent/missions');
-                $response['modelhide'] = '#mission_action';
-                return response($this->getErrorResponse($response));
+        $mission_id = Helper::decrypt($request->mission_id);
+        $data = Mission::where('id',$mission_id)->first();
+        $timeNow = Carbon::now();
+        // check if extra hours spent on mission
+        $missionStartTime = Carbon::create($data->started_at);
+        $missionEndTime = $timeNow;
+        $totalMissionMinutes = $missionStartTime->diffInMinutes($missionEndTime);
+        $bookedMinutes = $data->total_hours*60;
+        // Charge for extra minutes spent
+        if($totalMissionMinutes > $bookedMinutes){
+            $extraMinutes = $totalMissionMinutes - $bookedMinutes;
+            $baseRatePerHour = Helper::BASE_AGENT_RATE;
+            $baseRatePerMin = $baseRatePerHour/60;
+            $extraAmount = $extraMinutes*$baseRatePerMin;
+            // Make Charge Payment
+            $customer_stripe_id = $data->customer_details->customer_stripe_id;
+            $chargeData = [
+                'customer' => $customer_stripe_id,
+                'currency' => config('services.stripe.currency'),
+                'amount'   => $extraAmount,
+                'description' => 'Extra Mission Charge Amount',
+            ];
+            try{
+                $charge = $this->createCharge($chargeData);
+                if($charge['status']=='succeeded'){
+                    // Save data to payment history
+                    $paymentDetails = [
+                        'amount'      => $extraAmount,
+                        'status'      => $charge['status'],  
+                        'charge_id'   => $charge['id'],
+                        'mission_id'  => $mission_id,
+                        'customer_id' => $data->customer_details->id,
+                        'created_at'  => Carbon::now(),
+                        'updated_at'  => Carbon::now() 
+                    ];
+                    UserPaymentHistory::insert($paymentDetails);
+                }else{
+                    // Store Failed Payment 
+                    $failedData = [
+                        'customer_id' => $data->customer_details->id, 
+                        'mission_id' => $mission_id, 
+                        'amount' => $extraAmount, 
+                        'remarks' => 'Extra Mission Amount' , 
+                        'status' => $charge['status'], 
+                        'response' => json_encode($charge), 
+                        'created_at' => Carbon::now(), 
+                        'updated_at' => Carbon::now()
+                    ];
+                    FailedPayment::insert($failedData);
+                }
+            }catch(\Exception $e){
+                // Store Failed Payment 
+                $failedData = [
+                    'customer_id' => $data->customer_details->id, 
+                    'mission_id' => $mission_id, 
+                    'amount' => $extraAmount, 
+                    'remarks' => 'Extra Mission Amount' , 
+                    'status' => 'Error', 
+                    'response' => $e->getMessage(), 
+                    'created_at' => Carbon::now(), 
+                    'updated_at' => Carbon::now()
+                ];
+                FailedPayment::insert($failedData);
             }
-        }catch(\Exception $e){
-                return response($this->getErrorResponse($e->getMessage()));
+        }
+        $result = Mission::where('id',$mission_id)->update(['ended_at'=>$timeNow,'status'=>5]);
+        if($result){
+            Agent::where('id',$data->agent_id)->update(['available'=>1]);
+            $response['message'] = 'Your Mission has finished now.';
+            $response['delayTime'] = 2000;
+            $response['modelhide'] = '#mission_action';
+            $response['url'] = url('agent/missions');
+            return response($this->getSuccessResponse($response));
+        }else{
+            $response['message'] = 'Something went wrong. Unable to start the misison at the moment.';
+            $response['delayTime'] = 2000;
+            $response['url'] = url('agent/missions');
+            $response['modelhide'] = '#mission_action';
+            return response($this->getErrorResponse($response));
         }
     }
 }

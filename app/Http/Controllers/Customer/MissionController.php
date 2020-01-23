@@ -61,7 +61,7 @@ class MissionController extends Controller
             $agent_type_needed = $data['agent_type'];
             $agents = Agent::whereHas('types',function($q) use($agent_type_needed){
                 $q->where('agent_type',$agent_type_needed);
-            })->where('status',1)->pluck('work_location_lat_long','id');
+            })->where('status',1)->where('available',1)->pluck('work_location_lat_long','id');
             if($agents->count() == 0){
                 return response($this->getErrorResponse('No agent available at the moment. Please try again later!'));    
             }
@@ -101,7 +101,8 @@ class MissionController extends Controller
             $data['step'] = 1;
             $data['amount'] = 120;
             if($data['total_hours'] > 4){
-                $data['amount'] = $data['total_hours']*30;
+                $baseRate = Helper::BASE_AGENT_RATE;
+                $data['amount'] = $data['total_hours']*$baseRate;
             }
             if(isset($data['record_id']) && $data['record_id']!=''){
                 $record_id = Helper::decrypt($data['record_id']);
