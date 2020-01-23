@@ -48,7 +48,7 @@ class MissionController extends Controller
      * @purpose Create New Mission View 
      */
     public function saveMission(Request $request){
-        try{
+        // try{
             $validation = $this->quickMissionValidations($request);
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
@@ -78,8 +78,13 @@ class MissionController extends Controller
             $_distArr = [];
             foreach($response['rows'] as $row){ 
                 foreach($row['elements'] as $key=>$destination){
-                    $_distArr[] = $destination['distance']['value'];
+                    if(trim(strtolower($destination['status']))=='ok'){
+                        $_distArr[] = $destination['distance']['value'];
+                    }
                 }
+            }
+            if(empty($_distArr)){
+                return response($this->getErrorResponse('No agent available for this location at the moment. Please try again later!'));
             }
             $key = array_keys($_distArr, min($_distArr)); 
             $nearest_agent_id = $agentsIDs[$key[0]];
@@ -117,9 +122,9 @@ class MissionController extends Controller
                 $response['delayTime'] = 5000;
                 return $this->getErrorResponse($response);
             }
-        }catch(\Exception $e){
-            return response($this->getErrorResponse($e->getMessage()));
-        }
+        // }catch(\Exception $e){
+        //     return response($this->getErrorResponse($e->getMessage()));
+        // }
     }
 
     /**
