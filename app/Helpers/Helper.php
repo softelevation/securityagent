@@ -9,6 +9,8 @@ use Mail;
 
 class Helper {
 
+    const BASE_AGENT_RATE = 30;
+
     /*
      * @method       :  encryptDataId
      * @created_date :  22-03-2019
@@ -236,6 +238,8 @@ class Helper {
         }
         return $timeDuration;
     }
+
+
 
 }
 
