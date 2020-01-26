@@ -49,6 +49,21 @@
 		                      </div>
 	                    	</div>
 	               		</div>
+
+	               		<div class="row">
+	     					<div class="col-md-6">
+		                      <div class="form-group">
+				                <label>Password</label>
+				                <input type="password" name="password" class="form-control" placeholder="Enter Your Password" />
+		                      </div>
+		                    </div>
+	                      	<div class="col-md-6">
+		                      <div class="form-group">
+				                <label>Confirm Password</label>
+				                <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Your Password" />
+		                      </div>
+	                    	</div>
+	               		</div>
 	                	 
 	                   	<div class="row">
 		                    <div class="col-md-12">

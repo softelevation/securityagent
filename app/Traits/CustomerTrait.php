@@ -23,25 +23,27 @@ trait CustomerTrait
     public function registerCustomer($request){
     	try{
             DB::beginTransaction();
-            $post = array_except($request->all(),['_token']);
+            $post = array_except($request->all(),['_token','password_confirmation']);
             $roleID = $this->get_user_role_id('customer');
             // Insert data to users table
             $userData = [
                 'email' => $post['email'],
+                'password' => Hash::make($post['password']),
                 'role_id' => $roleID,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
             $userID = User::insertGetId($userData);
             if($userID){
-                unset($post['email']);
-                $post['user_id'] = $userID;
+                unset($post['email'],$post['password']);
+                $post['user_id']    = $userID;
+                $post['status']     = 1;
                 $post['created_at'] = Carbon::now();
                 $post['updated_at'] = Carbon::now();
                 $result = Customer::insert($post);
                 if($result){
                     DB::commit();
-                   $response['message'] = 'User has been registered successfully. You will receive an email for your login credentials.';
+                   $response['message'] = 'User has been registered successfully.';
                     $response['delayTime'] = 5000;
                     $response['url'] = url('/');
                     return $this->getSuccessResponse($response); 

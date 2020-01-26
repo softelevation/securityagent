@@ -166,7 +166,17 @@ a:hover{text-decoration: none;}
 }
 .yellow_btn:hover{text-decoration: none; background: #fdde59;color: #282828;}
 
-
+.orange_btn{
+    background: #fdda42;
+    border: none;
+    border: 1px solid #c0c90c;
+    text-transform: uppercase;
+    font-size: 16px; 
+    color: #ffffff;
+    height: 42px;
+    line-height: 42px;
+    width:200px;
+}
 
 .comment_panel {
     padding: 50px 0;
@@ -742,7 +752,9 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
 .login_form .div_header h3{
     font-weight: 800;
 }
-.login_form input[type="text"], input[type="password"], input[type="password"]:focus{
+.login_form input[type="text"],
+.login_form input[type="password"],
+.login_form input[type="password"]:focus{
   border:none;
   border-radius: 0 !important;
   box-shadow: none;

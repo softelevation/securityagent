@@ -19,26 +19,32 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <ul class="dropdown filter-wrap">
-                        <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle filterSearch" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Filter Agents By
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <li class="dropdown-submenu">
-                            <a class="dropdown-item dropdown-toggle" style="border:none;" href="#">Agent Type</a>
-                            <ul class="dropdown-menu agent_types">
-                                <li class="search_filter" data-type="agent_type" id="1"><a href="javascript:void(0)">Agent SSIAP 1</a></li>
-                                <li class="search_filter" data-type="agent_type" id="2"><a href="javascript:void(0)">Agent SSIAP 2</a></li>
-                                <li class="search_filter" data-type="agent_type" id="3"><a href="javascript:void(0)">Agent SSIAP 3</a></li>
-                                <li class="search_filter" data-type="agent_type" id="4"><a href="javascript:void(0)">ADS With Vehicule or Not</a></li>
-                                <li class="search_filter" data-type="agent_type" id="5"><a href="javascript:void(0)">Body Guard Without Weapon</a></li>
-                                <li class="search_filter" data-type="agent_type" id="6"><a href="javascript:void(0)">Dog Handler</a></li>
-                                <li class="search_filter" data-type="agent_type" id="7"><a href="javascript:void(0)">Hostesses</a></li>
-                            </ul>
-                          <li class="search_filter" data-type="is_vehicle" id="1"><a class="dropdown-item" href="javascript:void(0)">Agent With Veichle</a></li>
-                          <li class="search_filter" data-type="is_vehicle" id="0"><a class="dropdown-item" href="javascript:void(0)">Agent Without Veichle</a></li>
-                    </ul>
+                    <div class="location_btn float-left w-50">
+                        <button class="orange_btn d-block">Book An Agent Now</button>
+                    </div>
+                    <div class="float-right">
+                        <ul class="dropdown filter-wrap">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle filterSearch" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter Agents By</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <li class="dropdown-submenu">
+                                        <a class="dropdown-item dropdown-toggle" style="border:none;" href="#">Agent Type</a>
+                                        <ul class="dropdown-menu agent_types">
+                                            <li class="search_filter" data-type="agent_type" id="1"><a href="javascript:void(0)">Agent SSIAP 1</a></li>
+                                            <li class="search_filter" data-type="agent_type" id="2"><a href="javascript:void(0)">Agent SSIAP 2</a></li>
+                                            <li class="search_filter" data-type="agent_type" id="3"><a href="javascript:void(0)">Agent SSIAP 3</a></li>
+                                            <li class="search_filter" data-type="agent_type" id="4"><a href="javascript:void(0)">ADS With Vehicule or Not</a></li>
+                                            <li class="search_filter" data-type="agent_type" id="5"><a href="javascript:void(0)">Body Guard Without Weapon</a></li>
+                                            <li class="search_filter" data-type="agent_type" id="6"><a href="javascript:void(0)">Dog Handler</a></li>
+                                            <li class="search_filter" data-type="agent_type" id="7"><a href="javascript:void(0)">Hostesses</a></li>
+                                        </ul>
+                                    </li>
+                                  <li class="search_filter" data-type="is_vehicle" id="1"><a class="dropdown-item" href="javascript:void(0)">Agent With Veichle</a></li>
+                                  <li class="search_filter" data-type="is_vehicle" id="0"><a class="dropdown-item" href="javascript:void(0)">Agent Without Veichle</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

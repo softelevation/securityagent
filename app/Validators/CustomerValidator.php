@@ -23,10 +23,11 @@ trait CustomerValidator
             $validations = array(
                 'first_name'    => 'required',
                 'last_name'     => 'required',
-                'email' => 'required|email|unique:users',
+                'email'         => 'required|email|unique:users',
                 'phone'         => 'required',
                 'home_address'  => 'required',
-                'customer_type' => 'required'
+                'customer_type' => 'required',
+                'password'      => 'required|confirmed|min:8'
             );
             $validator = Validator::make($request->all(),$validations);
             $this->response = $this->validateData($validator);
