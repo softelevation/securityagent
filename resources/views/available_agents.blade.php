@@ -7,11 +7,11 @@
                     <div class="location_btn">
                         <form id="search_filter_form" method="get" action="{{url('/available-agents')}}">
                             <div class="locationSearch">
-                                <input id="autocomplete" name="location" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
+                                <input id="autocomplete1" name="location" placeholder="Enter your location" class="form-control"  onFocus="geolocate('autocomplete1')" type="text"/>
                                 <span><i class="fa fa-paper-plane"></i></span>
                             </div>
-                        <input type="hidden" name="latitude" value="@if(isset($search['latitude'])) {{$search['latitude']}} @endif" />
-                        <input type="hidden" name="longitude" value="@if(isset($search['longitude'])) {{$search['longitude']}} @endif" />
+                        <input type="hidden" id="latitude1" name="latitude" value="@if(isset($search['latitude'])) {{$search['latitude']}} @endif" />
+                        <input type="hidden" id="longitude1" name="longitude" value="@if(isset($search['longitude'])) {{$search['longitude']}} @endif" />
                         <input id="search_type" type="hidden" name="type">
                         <input id="search_val" type="hidden" name="value">
                         <button class="yellow_btn">Search Now</button>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="location_btn float-left w-50">
-                        <button class="orange_btn d-block">Book An Agent Now</button>
+                        <button  data-toggle="modal" data-target="#create_mission_model" class="orange_btn d-block">Book An Agent Now</button>
                     </div>
                     <div class="float-right">
                         <ul class="dropdown filter-wrap">
@@ -113,6 +113,73 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Create Mission Model -->
+    <div id="create_mission_model" class="modal fade" role="dialog">
+      <div class="modal-dialog modal-md w-50" style="max-width: 650px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">        
+            <h4 class="modal-title">Find an agent for a mission</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12"> 
+                    {{Form::open(['id'=>'general_form','url'=>url('customer/save-mission')])}}
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label>Mission Title</label>
+                          {{Form::text('title',null,['class'=>'form-control','placeholder'=>'Enter mission title'])}}
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>Mission Location</label>
+                          {{Form::text('location',null,['id'=>'autocomplete2', 'placeholder'=>'Enter your location', 'class'=>'form-control',  'onFocus'=>'geolocate("autocomplete2")'])}}
+                          <!--Work Location Lat Longs  -->
+                          {{Form::hidden('latitude',null,['id'=>'latitude2'])}}
+                          {{Form::hidden('longitude',null,['id'=>'longitude2'])}}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label>Agent Type</label>
+                          @php $agentTypes = Helper::get_agent_type_list(); @endphp
+                          {{Form::select('agent_type',$agentTypes,null,['class'=>'form-control'])}}
+                        </div>
+                        <div class="col-md-6 form-group">
+                          <label>Hours Required</label>
+                          @for($i=1; $i<=24; $i++)
+                            @php 
+                              if($i==1){
+                                $hours[$i] = $i.' Hour';  
+                              }else{
+                                $hours[$i] = $i.' Hours';
+                              }
+                            @endphp
+                          @endfor
+                          {{Form::select('total_hours',$hours,null,['class'=>'form-control'])}}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 form-group">
+                          <label>Mission Description</label>
+                          {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>'Enter mission description'])}}
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                            <input type="hidden" name="quick_book" value="1">
+                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Find An Agent Now</button>
+                        </div>
+                      </div>
+                    {{Form::close()}}
+                </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script>
         var slider = document.getElementById("mapZommRange");
@@ -227,44 +294,45 @@
     <script>
     var placeSearch, autocomplete;
 
-    function initAutocomplete() {
-      // Create the autocomplete object, restricting the search predictions to
-      // geographical location types.
-      autocomplete = new google.maps.places.Autocomplete(
-          document.getElementById('autocomplete'), {types: ['geocode']});
-
-      // Avoid paying for data that you don't need by restricting the set of
-      // place fields that are returned to just the address components.
-      // autocomplete.setFields(['address_component']);
-
-      // When the user selects an address from the drop-down, populate the
-      // address fields in the form.
-      autocomplete.addListener('place_changed', fillInAddress);
+    function initAutocomplete(selecter='autocomplete1') {    
+        autocomplete = new google.maps.places.Autocomplete(document.getElementById(selecter), {types: ['geocode']});
+        if(selecter=='autocomplete1'){ autocomplete.addListener('place_changed', fillInAddress1); }
+        if(selecter=='autocomplete2'){ autocomplete.addListener('place_changed', fillInAddress2); }
     }
 
-    function fillInAddress() {
+    function fillInAddress1() {
       // Get the place details from the autocomplete object.
       var place = autocomplete.getPlace();
-      var search_location_lat = document.querySelector("input[name='latitude']");
-      var search_location_long = document.querySelector("input[name='longitude']");
+      var search_location_lat = document.querySelector("input[id='latitude1']");
+      var search_location_long = document.querySelector("input[id='longitude1']");
+      search_location_lat.value = place.geometry.location.lat(); 
+      search_location_long.value = place.geometry.location.lng(); 
+    }
+
+    function fillInAddress2() {
+      // Get the place details from the autocomplete object.
+      var place = autocomplete.getPlace();
+      var search_location_lat = document.querySelector("input[id='latitude2']");
+      var search_location_long = document.querySelector("input[id='longitude2']");
       search_location_lat.value = place.geometry.location.lat(); 
       search_location_long.value = place.geometry.location.lng(); 
     }
 
     // Bias the autocomplete object to the user's geographical location,
     // as supplied by the browser's 'navigator.geolocation' object.
-    function geolocate() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var geolocation = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          var circle = new google.maps.Circle(
-              {center: geolocation, radius: position.coords.accuracy});
-          autocomplete.setBounds(circle.getBounds());
-        });
-      }
+    function geolocate(selecter) {
+        initAutocomplete(selecter);
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+              var geolocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              };
+              var circle = new google.maps.Circle(
+                  {center: geolocation, radius: position.coords.accuracy});
+              autocomplete.setBounds(circle.getBounds());
+            });
+        }
     }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA&libraries=places&callback=initAutocomplete"
