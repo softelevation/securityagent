@@ -69,6 +69,7 @@
                                     <h4>{{$agent->username}}</h4>
                                     <p>{{Helper::get_agent_type_name_multiple($agent->types)}}</p>
                                     <p>@if($agent->is_vehicle==1) With Vehicle @else Without Vehicle @endif</p>
+                                    @if(Session::has('mission'))<p class="pt-2"><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" class="btn_submit bookAgentBtn">Book Now</a></p>@endif
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -76,6 +77,7 @@
                                     <div class="star">
                                         <img src="{{asset('assets/images/star.jpg')}}"/>
                                         <h5>Agent at Home <span>A Agent of USA</span></h5>
+                                        @if(Session::has('mission'))<a href="#" class="text-link">View Agent Details</a>@endif
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +129,7 @@
           <div class="modal-body">
             <div class="row">
                 <div class="col-md-12"> 
-                    {{Form::open(['id'=>'general_form','url'=>url('customer/save-mission')])}}
+                    {{Form::open(['url'=>url('save-mission-temporary')])}}
                       <div class="row">
                         <div class="col-md-6 form-group">
                           <label>Mission Title</label>
@@ -170,17 +172,19 @@
                       <div class="row">
                         <div class="col-md-12 text-center">
                             <input type="hidden" name="quick_book" value="1">
-                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Find An Agent Now</button>
+                            <button type="submit" class="button success_btn">Find An Agent Now</button>
                         </div>
                       </div>
                     {{Form::close()}}
                 </div>
-
             </div>
           </div>
         </div>
       </div>
     </div>
+    {{Form::open(['id'=>'general_form','url'=>url('book-agent')])}}
+    {{Form::hidden('agent_id',null,['id'=>'bookingAgentId'])}}
+    {{Form::close()}}
     <script>
         var slider = document.getElementById("mapZommRange");
         var output = document.getElementById("km");
@@ -203,6 +207,13 @@
             $(document).find('#search_type').val(type);
             $(document).find('#search_val').val(value);
             $(document).find('#search_filter_form').trigger('submit');
+        });
+
+        // Book an agent
+        $(document).on('click','.bookAgentBtn',function(){
+            let id = $(this).attr('id');
+            $('#bookingAgentId').val(id);
+            $('#general_form').submit();
         });
     </script>
     

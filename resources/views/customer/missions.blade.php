@@ -51,7 +51,13 @@
                                   <td>{{$status_list[$mission->status]}}</td>
                                   <td>
                                     @if($mission->status==0)
-                                      <a class="action_icons" href="{{url('customer/quick_mission/edit')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit </a>
+                                      @if($mission->step==1)
+                                        @php $url = url('customer/quick_mission/edit/'.Helper::encrypt($mission->id)); @endphp
+                                      @endif
+                                      @if($mission->step==2)
+                                        @php $url = url('customer/find-mission-agent/'.Helper::encrypt($mission->id)); @endphp
+                                      @endif
+                                      <a class="action_icons" href="{{$url}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit </a>
                                     @endif
                                     <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
                                       <!-- <div class="dropdown ac-cstm">

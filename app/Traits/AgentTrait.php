@@ -140,6 +140,7 @@ trait AgentTrait
             $strArr['lat'] = trim($latlong[0]);
             $strArr['long'] = trim($latlong[1]);
             $strArr['is_vehicle'] = $agent->is_vehicle;
+            $strArr['id'] = $agent->id;
             $strArr['types'] = $agent->types;
             $agentArr[] = $strArr; 
         }
