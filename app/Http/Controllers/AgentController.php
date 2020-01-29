@@ -8,6 +8,7 @@ use App\Validators\AgentValidator;
 use App\Traits\ResponseTrait;
 use Auth;
 use App\Agent;
+use App\Helpers\Helper;
 
 class AgentController extends Controller
 {
@@ -131,6 +132,10 @@ class AgentController extends Controller
         }
     }
 
-
+    public function viewAgentDetails($agent_id){
+        $agent_id = Helper::decrypt($agent_id);
+        $agent = Agent::where('id',$agent_id)->first();
+        return view('view-agent-details',['agent'=>$agent]);
+    }
 
 }

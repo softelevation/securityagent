@@ -27,6 +27,7 @@ Route::get('/login', 'Auth\LoginController@loginView');
 Route::post('/login', 'Auth\LoginController@allInOneLogin')->name('login');
 Route::post('/save-mission-temporary', 'Customer\MissionController@saveMissionTemp');
 Route::post('/book-agent', 'Customer\MissionController@bookAgent');
+Route::get('/agent-details/{agent_id}', 'AgentController@viewAgentDetails');
 
 // Operator Routes
 Route::group(['prefix'=>'operator'], function () {
@@ -52,7 +53,7 @@ Route::group(['prefix'=>'customer'], function () {
         Route::post('/save-mission', 'Customer\MissionController@saveMission');
         Route::get('/quick-create-mission', 'Customer\MissionController@quickCreateMission');
         Route::get('/quick_mission/edit/{mission_id}', 'Customer\MissionController@editQuickMission');
-        Route::get('/{mission_id}', 'Customer\MissionController@findMissionAgent');
+        Route::get('/find-mission-agent/{mission_id}', 'Customer\MissionController@findMissionAgent');
         Route::get('/proceed-payment/{mission_id}', 'Customer\MissionController@proceedToPayment');
         Route::post('/make-mission-payment', 'Customer\MissionController@makeMissionPayment');
         Route::get('/mission-details/view/{mission_id}', 'Customer\MissionController@viewMissionDetails');

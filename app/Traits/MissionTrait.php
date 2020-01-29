@@ -21,7 +21,7 @@ trait MissionTrait
         $data['customer_id'] = \Auth::user()->customer_info->id;
         $data['created_at'] = Carbon::now();
         $data['updated_at'] = Carbon::now();
-        $data['step'] = 2;
+        $data['step'] = 1;
         $data['amount'] = 120;
         if($data['total_hours'] > 4){
             $baseRate = Helper::BASE_AGENT_RATE;

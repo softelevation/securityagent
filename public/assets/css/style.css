@@ -1059,3 +1059,40 @@ input:checked + .slider:before {
 .availability-section{
     padding-top: 40px;
 }
+
+.profile_detail_box{
+    background: #fff;
+}
+.profile_detail_box .avatar-image{
+    height: 150px;
+}
+.profile_detail_box h4{
+    text-transform: capitalize;
+    font-size: 22px;
+    color: #ffc107;
+}
+.profile_detail_box hr{
+    border-top: 1px solid #ccc;
+}
+.profile_detail_box h6{
+    color: #333;
+}
+.document-details{
+    padding: 10px;
+}
+.document-details i{
+    font-size: 100px;
+    color: #999;
+}
+.document-details .hover-box{
+    padding: 20px;
+    border: #ccc solid 1px;
+    color: #000;
+    margin: 10px;
+}
+.document-details .hover-box:hover{
+    background: #fdda42;
+    transition: .3s;
+    color: #fff;
+     border: #fdda42 solid 1px;
+}
