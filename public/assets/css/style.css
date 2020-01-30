@@ -1081,7 +1081,7 @@ input:checked + .slider:before {
     padding: 10px;
 }
 .document-details i{
-    font-size: 100px;
+    font-size: 75px;
     color: #999;
 }
 .document-details .hover-box{
@@ -1095,4 +1095,50 @@ input:checked + .slider:before {
     transition: .3s;
     color: #fff;
      border: #fdda42 solid 1px;
+}
+.document-details .hover-box:hover i{
+    color: #fff;
+}
+/*Agent Reviews*/
+.review-wrapper{
+    padding: 20px;
+}
+.review-wrapper img{
+    border-radius:50%;
+    height: 60px;
+}
+.review-wrapper .review-img{
+    width: 10%;
+    text-align: center;
+}
+.review-wrapper .review-text{
+    width: 90%;
+}
+.review-wrapper .review-text p{
+    margin-bottom: 0;
+}
+.review-wrapper .review-text p{
+    margin-bottom: 0;
+}
+.checked {
+    color: #ffc107; 
+}
+ul.details-list {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+ul.details-list li {
+  border-bottom: 1px solid #fdda42;
+    margin-top: 1px;
+    padding: 12px;
+    color: #495057;
+    font-size: 16px;
+    font-style: italic;
+}
+
+ul.details-list li span {
+    color: #ffc107;
+    font-weight: 600;
 }

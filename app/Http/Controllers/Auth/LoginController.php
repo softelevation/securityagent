@@ -80,16 +80,17 @@ class LoginController extends Controller
                 switch(Auth::user()->role_id){
                     // Customer
                     case 1:
+                        $response['url'] = url('customer/profile');
                         if(Session::has('mission')){
                             $mission = Session::get('mission');
-                            $mission_id = $this->saveQuickMissionDetails($mission);
-                            if($mission_id){
-                                Session::forget('mission');
-                                $mission_id = Helper::encrypt($mission_id);
-                                $response['url'] = url('customer/find-mission-agent/'.$mission_id);
+                            if(isset($mission['agent_id'])){
+                                $mission_id = $this->saveQuickMissionDetails($mission);
+                                if($mission_id){
+                                    Session::forget('mission');
+                                    $mission_id = Helper::encrypt($mission_id);
+                                    $response['url'] = url('customer/find-mission-agent/'.$mission_id);
+                                }
                             }
-                        }else{
-                            $response['url'] = url('customer/profile');
                         }
                     break;
                     // Agent

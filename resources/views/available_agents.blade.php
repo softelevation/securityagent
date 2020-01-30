@@ -77,7 +77,7 @@
                                     <div class="star">
                                         <img src="{{asset('assets/images/star.jpg')}}"/>
                                         <h5>Agent at Home <span>A Agent of USA</span></h5>
-                                        @if(Session::has('mission'))<a href="{{url('/agent-details/'.Helper::encrypt($agent->id))}}" class="text-link">View Agent Details</a>@endif
+                                        @if(Session::has('mission'))<a target="_blank" href="{{url('/agent-details/'.Helper::encrypt($agent->id))}}" class="text-link">View Agent Details</a>@endif
                                     </div>
                                 </div>
                             </div>
