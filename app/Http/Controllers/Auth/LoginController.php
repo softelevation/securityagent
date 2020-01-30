@@ -6,10 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
+use App\Traits\MissionTrait;
+use Illuminate\Support\Facades\Session;
+use App\Helpers\Helper;
 use Auth;
 
 class LoginController extends Controller
 {
+    use MissionTrait;
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -72,10 +76,22 @@ class LoginController extends Controller
         try{
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
+                $response['message'] = 'Login Success.';
                 switch(Auth::user()->role_id){
                     // Customer
                     case 1:
                         $response['url'] = url('customer/profile');
+                        if(Session::has('mission')){
+                            $mission = Session::get('mission');
+                            if(isset($mission['agent_id'])){
+                                $mission_id = $this->saveQuickMissionDetails($mission);
+                                if($mission_id){
+                                    Session::forget('mission');
+                                    $mission_id = Helper::encrypt($mission_id);
+                                    $response['url'] = url('customer/find-mission-agent/'.$mission_id);
+                                }
+                            }
+                        }
                     break;
                     // Agent
                     case 2:
@@ -90,7 +106,6 @@ class LoginController extends Controller
                         $response['url'] = url('agent/profile');
                     break;
                 }
-                $response['message'] = 'Login Success.';
                 $response['delayTime'] = 2000;
                 return $this->getSuccessResponse($response);
             }else{

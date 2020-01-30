@@ -30,7 +30,7 @@ class CustomerController extends Controller
     public function customerSignupForm(Request $request){
     	try{
             // Check Agent Table Validation
-        	$validation = $this->customerSignupValidations($request);
+            $validation = $this->customerSignupValidations($request);
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
             }

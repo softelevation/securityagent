@@ -20,7 +20,8 @@
 }
 body{font-family: 'SignikaRegular';font-size: 14px;}
 a:hover{text-decoration: none;}
-
+.text-link{color: #ffc107; font-style: italic; text-decoration: underline;}
+.text-link:hover{color: #fdda42;}
 .main_menu {
     float: right; text-transform: uppercase;
     width: 100%;
@@ -166,7 +167,17 @@ a:hover{text-decoration: none;}
 }
 .yellow_btn:hover{text-decoration: none; background: #fdde59;color: #282828;}
 
-
+.orange_btn{
+    background: #fdda42;
+    border: none;
+    border: 1px solid #c0c90c;
+    text-transform: uppercase;
+    font-size: 16px; 
+    color: #ffffff;
+    height: 42px;
+    line-height: 42px;
+    width:200px;
+}
 
 .comment_panel {
     padding: 50px 0;
@@ -271,7 +282,7 @@ button.navbar-toggler i.fa.fa-bars { line-height: 35px;}
 .top_menu em{font-style: normal;}
 .modal-header { background: #ffd948;}
 .modal-body label { color: #505050; font-size: 16px;}
-.modal-body .form-control { border: none;    height: 48px;border-radius: 0;    padding: 0 15px;    box-shadow: 0 0 7px #ccc inset;}
+.modal-body .form-control { border: none; border-radius: 0;    padding: 0 15px;    box-shadow: 0 0 7px #ccc inset;}
 .modal-body input.yellow_btn {height: 48px; line-height: 51px; border: 1px solid #ccc; display: block; width: 100%; max-width: 100%;    margin:10px 0 0; box-shadow: 0 0 8px #d4de18 inset;}
 body textarea.form-control { height: 100px !important; resize: none; padding-top: 10px !important;}
 .yellow_btn:focus {outline: none; border: none;}
@@ -742,7 +753,9 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
 .login_form .div_header h3{
     font-weight: 800;
 }
-.login_form input[type="text"], input[type="password"], input[type="password"]:focus{
+.login_form input[type="text"],
+.login_form input[type="password"],
+.login_form input[type="password"]:focus{
   border:none;
   border-radius: 0 !important;
   box-shadow: none;
@@ -788,6 +801,11 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
     max-width: 80px;
     margin-left: 8px;
 }
+
+.footer_login a.register_btn{
+    line-height: 30px;
+}
+
 .dropdown-submenu {
   position: relative;
 }
@@ -1004,7 +1022,7 @@ h5{
     transition: .4s;
 }
 
-.slider:before {
+.availability-section .slider:before {
   position: absolute;
   content: "";
   height: 13px;
@@ -1040,4 +1058,87 @@ input:checked + .slider:before {
 }
 .availability-section{
     padding-top: 40px;
+}
+
+.profile_detail_box{
+    background: #fff;
+}
+.profile_detail_box .avatar-image{
+    height: 150px;
+}
+.profile_detail_box h4{
+    text-transform: capitalize;
+    font-size: 22px;
+    color: #ffc107;
+}
+.profile_detail_box hr{
+    border-top: 1px solid #ccc;
+}
+.profile_detail_box h6{
+    color: #333;
+}
+.document-details{
+    padding: 10px;
+}
+.document-details i{
+    font-size: 75px;
+    color: #999;
+}
+.document-details .hover-box{
+    padding: 20px;
+    border: #ccc solid 1px;
+    color: #000;
+    margin: 10px;
+}
+.document-details .hover-box:hover{
+    background: #fdda42;
+    transition: .3s;
+    color: #fff;
+     border: #fdda42 solid 1px;
+}
+.document-details .hover-box:hover i{
+    color: #fff;
+}
+/*Agent Reviews*/
+.review-wrapper{
+    padding: 20px;
+}
+.review-wrapper img{
+    border-radius:50%;
+    height: 60px;
+}
+.review-wrapper .review-img{
+    width: 10%;
+    text-align: center;
+}
+.review-wrapper .review-text{
+    width: 90%;
+}
+.review-wrapper .review-text p{
+    margin-bottom: 0;
+}
+.review-wrapper .review-text p{
+    margin-bottom: 0;
+}
+.checked {
+    color: #ffc107; 
+}
+ul.details-list {
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+ul.details-list li {
+  border-bottom: 1px solid #fdda42;
+    margin-top: 1px;
+    padding: 12px;
+    color: #495057;
+    font-size: 16px;
+    font-style: italic;
+}
+
+ul.details-list li span {
+    color: #ffc107;
+    font-weight: 600;
 }

@@ -61,7 +61,7 @@
                             <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Find An Agent Now</button>
                         </div>
                       </div>
-                    </form>
+                    {{Form::close()}}
                 </div>
               </div>
             </div>

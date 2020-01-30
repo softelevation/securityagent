@@ -22,9 +22,12 @@ Route::get('/register-agent-view','AgentController@index');
 Route::post('/register_agent', 'AgentController@signup');
 Route::get('/customer-signup', 'CustomerController@customerSignupView');
 Route::post('/register_customer_form', 'CustomerController@customerSignupForm');
-Route::get('/available-agents', 'AgentController@showAvailableAgents');
+Route::get('/available-agents', 'AgentController@showAvailableAgents')->name('available-agents');
 Route::get('/login', 'Auth\LoginController@loginView');
-Route::post('/login', 'Auth\LoginController@allInOneLogin');
+Route::post('/login', 'Auth\LoginController@allInOneLogin')->name('login');
+Route::post('/save-mission-temporary', 'Customer\MissionController@saveMissionTemp');
+Route::post('/book-agent', 'Customer\MissionController@bookAgent');
+Route::get('/agent-details/{agent_id}', 'AgentController@viewAgentDetails');
 
 // Operator Routes
 Route::group(['prefix'=>'operator'], function () {

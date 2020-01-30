@@ -13,10 +13,13 @@ use App\Customer;
 use App\Agent;
 use Carbon\Carbon;
 use App\Helpers\Helper;
+use Illuminate\Support\Facades\Session;
+use App\Traits\MissionTrait;
+use Auth;
 
 class MissionController extends Controller
 {
-    use MissionValidator, ResponseTrait, PaymentTrait;
+    use MissionValidator, ResponseTrait, PaymentTrait, MissionTrait;
 
 	/**
      * @param $request
@@ -314,6 +317,70 @@ class MissionController extends Controller
                 $response['delayTime'] = 2000;
                 $response['url'] = url('customer/missions');
                 $response['data'] = $charge;
+                return $this->getErrorResponse($response);
+            }
+        }catch(\Exception $e){
+            return $this->getErrorResponse($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method saveMissionTemp
+     * @purpose Save mission data to session and redirect to map page
+     */
+    public function saveMissionTemp(Request $request){
+        try{
+            $validation = $this->quickMissionValidations($request);
+            if($validation['status']==false){
+                return response($this->getValidationsErrors($validation));
+            }
+            if(!(isset($request->latitude) && trim($request->latitude)!='' && isset($request->longitude) && trim($request->longitude)!='')){
+                return response($this->getErrorResponse('The lat/long values of the entered location are invalid. Please clear the current location and try again!'));    
+            }
+            $data = array_except($request->all(),['_token']);
+            Session::put('mission',$data);
+            return redirect()->route('available-agents',[
+                'location'=>$data['location'],
+                'latitude'=>$data['latitude'],
+                'longitude'=>$data['longitude'],
+                'type'=>'agent_type',
+                'value'=>$data['agent_type']
+            ]);
+        }catch(\Exception $e){
+            die($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method bookAgent
+     * @purpose Book an agent for mission 
+     */
+    public function bookAgent(Request $request){
+        try{
+            $agent_id = Helper::decrypt($request->agent_id);
+            if(Session::has('mission')){
+                $mission = Session::get('mission');
+                $mission['agent_id'] = $agent_id;
+                Session::put('mission',$mission);
+                if(Auth::check() && Auth::user()->role_id==1){
+                    $mission_id = $this->saveQuickMissionDetails($mission);
+                    if($mission_id){
+                        Session::forget('mission');
+                        $mission_id = Helper::encrypt($mission_id);
+                        $response['url'] = url('customer/find-mission-agent/'.$mission_id);
+                        return response($response);
+                    }
+                }else{
+                    return response(['url'=>url('login')]);
+                }
+            }else{
+                $response['message'] = 'Sesson has expired !';
+                $response['delayTime'] = 2000;
+                $response['url'] = url('available-agents');
                 return $this->getErrorResponse($response);
             }
         }catch(\Exception $e){

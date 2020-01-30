@@ -35,7 +35,7 @@
                 </div>
               </div>
                 <div class="footer_login">
-                  Not a Member? <button class="register_btn yellow_btn">Register</button> 
+                  Not a Member? <a href="{{url('customer-signup')}}" class="register_btn yellow_btn">Register</a> 
                 </div>
             </div>
           </div>

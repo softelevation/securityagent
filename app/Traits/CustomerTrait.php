@@ -6,15 +6,18 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\User;
-use App\Customer;
 use App\Traits\HelperTrait;
 use App\Traits\ResponseTrait;
+use App\Traits\MissionTrait;
+use Illuminate\Support\Facades\Session;
+use App\Helpers\Helper;
+use App\Customer;
+use App\User;
 use DB;
 
 trait CustomerTrait
 {
-    use HelperTrait;
+    use HelperTrait, MissionTrait;
 
     /**
     * Save customer data to database
@@ -23,27 +26,42 @@ trait CustomerTrait
     public function registerCustomer($request){
     	try{
             DB::beginTransaction();
-            $post = array_except($request->all(),['_token']);
+            $post = array_except($request->all(),['_token','password_confirmation']);
             $roleID = $this->get_user_role_id('customer');
             // Insert data to users table
             $userData = [
                 'email' => $post['email'],
+                'password' => Hash::make($post['password']),
                 'role_id' => $roleID,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
             $userID = User::insertGetId($userData);
             if($userID){
-                unset($post['email']);
-                $post['user_id'] = $userID;
+                $credentials = array('email'=>$post['email'],'password'=>$post['password']);
+                unset($post['email'],$post['password']);
+                $post['user_id']    = $userID;
+                $post['status']     = 1;
                 $post['created_at'] = Carbon::now();
                 $post['updated_at'] = Carbon::now();
                 $result = Customer::insert($post);
                 if($result){
                     DB::commit();
-                   $response['message'] = 'User has been registered successfully. You will receive an email for your login credentials.';
-                    $response['delayTime'] = 5000;
                     $response['url'] = url('/');
+                    // Check if any mission session data is set
+                    if(Session::has('mission')){
+                        if(Auth::attempt($credentials)) {
+                            $mission = Session::get('mission');
+                            $mission_id = $this->saveQuickMissionDetails($mission);
+                            if($mission_id){
+                                Session::forget('mission');
+                                $mission_id = Helper::encrypt($mission_id);
+                                $response['url'] = url('customer/find-mission-agent/'.$mission_id);
+                            }
+                        }
+                    }
+                    $response['message'] = 'User has been registered successfully.';
+                    $response['delayTime'] = 5000;
                     return $this->getSuccessResponse($response); 
                 }else{
                     DB::rollback();
