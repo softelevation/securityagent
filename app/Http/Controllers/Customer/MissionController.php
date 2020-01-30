@@ -371,11 +371,16 @@ class MissionController extends Controller
                     if($mission_id){
                         Session::forget('mission');
                         $mission_id = Helper::encrypt($mission_id);
+                        $response['message'] = 'Please wait while redirecting to dashboard.';
+                        $response['delayTime'] = 2000;
                         $response['url'] = url('customer/find-mission-agent/'.$mission_id);
-                        return response($response);
+                        return $this->getSuccessResponse($response);
                     }
                 }else{
-                    return response(['url'=>url('login')]);
+                    $response['message'] = 'You need to login first !';
+                    $response['delayTime'] = 2000;
+                    $response['url'] = url('login');
+                    return $this->getSuccessResponse($response);
                 }
             }else{
                 $response['message'] = 'Sesson has expired !';
