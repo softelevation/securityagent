@@ -665,7 +665,7 @@ nav.navigation2 {
 nav.navigation2 .page-item {
     margin: 0 5px;
 }
-nav.navigation2 .page-item a {
+nav.navigation2 .page-item a, nav.navigation2 .page-item span {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -684,7 +684,7 @@ nav.navigation2 a.page-link {
     color: #333;
     font-weight: 600;
 }
-nav.navigation2 .page-item.active a {
+nav.navigation2 .page-item.active a, nav.navigation2 .page-item.active span {
     background:#fdda42;
     margin: 0;
     text-align: center;
@@ -1141,4 +1141,9 @@ ul.details-list li {
 ul.details-list li span {
     color: #ffc107;
     font-weight: 600;
+}
+
+.sidebar_nav li i {
+    font-size: 18px;
+    color: #000;
 }

@@ -21,17 +21,57 @@ class MissionController extends Controller
 {
     use MissionValidator, ResponseTrait, PaymentTrait, MissionTrait;
 
+    private $limit; 
+
+    public function __construct(){
+        $this->limit = 10;
+    }
+
 	/**
      * @param $request
      * @return mixed
      * @method index
      * @purpose Get Customer Mission's List 
      */
-    public function index(){
-        $data = Mission::where('customer_id',\Auth::user()->customer_info->id)->get();
+    public function index(Request $request){
+        $missionAll = Mission::where('customer_id',\Auth::user()->customer_info->id)
+                        ->paginate($this->limit,['*'],'all');
+        $missionPending = Mission::where('customer_id',\Auth::user()->customer_info->id)
+                        ->where('status',3)->paginate($this->limit,['*'],'pending');
+        $missionInProgress = Mission::where('customer_id',\Auth::user()->customer_info->id)
+                        ->where('status',4)->paginate($this->limit,['*'],'inprogress');
+        $missionCompleted = Mission::where('customer_id',\Auth::user()->customer_info->id)
+                        ->where('status',5)->paginate($this->limit,['*'],'finished');        
         $statusArr = Helper::getMissionStatus();
         $statusArr = array_flip($statusArr);
-        return view('customer.missions',['data'=>$data,'status_list'=>$statusArr]);
+        $params = [
+            'mission_all' => $missionAll,
+            'pending_mission' => $missionPending,
+            'inprogress_mission' => $missionInProgress,
+            'finished_mission' => $missionCompleted,
+            'status_list'=>$statusArr,
+            'limit' => $this->limit,
+            'page_no' => 1,
+            'page_name' => 'all'
+        ];
+        if($request->isMethod('get')){
+            if(isset($request->all)){ 
+                $params['page_no'] = $request->all; 
+                $params['page_name'] = 'all'; 
+            }
+            if(isset($request->inprogress)){ 
+                $params['page_no'] = $request->inprogress; 
+                $params['page_name'] = 'inprogress'; 
+            }
+            if(isset($request->pending)){ 
+                $params['page_no'] = $request->pending; 
+                $params['page_name'] = 'pending'; 
+            }
+            if(isset($request->finished)){ 
+                $params['page_no'] = $request->finished; 
+                $params['page_name'] = 'finished'; }
+        }
+        return view('customer.missions',$params);
     }
 
     /**
