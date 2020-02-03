@@ -129,7 +129,7 @@
           <div class="modal-body">
             <div class="row">
                 <div class="col-md-12"> 
-                    {{Form::open(['url'=>url('save-mission-temporary')])}}
+                    {{Form::open(['url'=>url('save-mission-temporary'),'id'=>'general_form_2'])}}
                       <div class="row">
                         <div class="col-md-6 form-group">
                           <label>Mission Title</label>

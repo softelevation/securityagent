@@ -341,13 +341,10 @@ class MissionController extends Controller
             }
             $data = array_except($request->all(),['_token']);
             Session::put('mission',$data);
-            return redirect()->route('available-agents',[
-                'location'=>$data['location'],
-                'latitude'=>$data['latitude'],
-                'longitude'=>$data['longitude'],
-                'type'=>'agent_type',
-                'value'=>$data['agent_type']
-            ]);
+            $response['message'] = 'Mission details saved successfully';
+            $response['delayTime'] = 2000;
+            $response['url'] = route('available-agents',['location'=>$data['location'],'latitude'=>$data['latitude'],'longitude'=>$data['longitude'],'type'=>'agent_type','value'=>$data['agent_type']]);
+            return $this->getSuccessResponse($response);
         }catch(\Exception $e){
             die($e->getMessage());
         }
