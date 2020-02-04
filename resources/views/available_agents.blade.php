@@ -87,7 +87,7 @@
                     
                     @endforelse
                     <div class="text-center no_avail_agent_message pt-3 d-none">
-                        <i>No agent available at the moment on this location.</i>
+                        <i>No agent available at the moment on this location. </i>
                     </div>
                 </div>
             </div>
