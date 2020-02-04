@@ -5,21 +5,21 @@
                         <h3>{{Auth::user()->email}} <span>Customer</span></h3>
                     </div>
                     <div class="tabs_menu">
-                        <ul class="nav flex-column" id="myTab" role="tablist">
+                        <ul class="nav flex-column sidebar_nav" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a href="{{url('operator/profile')}}" class="nav-link"><img src="{{asset('assets/images/change_profile_icon.png')}}" /> Change My Profile</a>
+                                <a href="{{url('operator/profile')}}" class="nav-link"><i class="fa fa-user-edit"></i> Change My Profile</a>
                             </li>
                             <!-- <li class="nav-item">
                                 <a class="nav-link"><img src="{{asset('assets/images/create_mission_icon.png')}}" /> Create a Mission</a>
                             </li> -->
                             <li class="nav-item">
-                                <a href="{{url('customer/missions')}}" class="nav-link"><img src="{{asset('assets/images/create_mission_icon.png')}}" /> Missions</a>
+                                <a href="{{url('customer/missions')}}" class="nav-link"><i class="fa fa-edit"></i> Missions</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"><img src="{{asset('assets/images/billing_icon.png')}}" /> Billing</a>
+                                <a href="#" class="nav-link"><i class="fa fa-file-invoice"></i> &nbsp; Billing</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{url('logout')}}"><img src="{{asset('assets/images/LogOut_icon.png')}}" /> Log Out</a>
+                                <a class="nav-link" href="{{url('logout')}}"><i class="fa fa-sign-out-alt"></i> Log Out</a>
                             </li>
                         </ul>
                     </div>
