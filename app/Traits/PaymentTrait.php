@@ -13,9 +13,14 @@ trait PaymentTrait
 {
     use HelperTrait;
 
+    // Create Stripe API Token
+    public function stripe_token(){
+        return Stripe::make(config('services.stripe.secret'));
+    }
+
     // Craete Customer on Stripe
     public function createCustomer($email){
-        $stripe = Stripe::make(config('services.stripe.secret'));
+        $stripe = $this->stripe_token();
         $customer = $stripe->customers()->create([
             'email' => $email,
         ]);
@@ -24,7 +29,7 @@ trait PaymentTrait
 
     // Craete New Card of Customer
     public function addNewCard($cardData,$customer_stripe_id){
-        $stripe = Stripe::make(config('services.stripe.secret'));
+        $stripe = $this->stripe_token();
         $token = $stripe->tokens()->create([
             'card' => $cardData,
         ]);
@@ -33,7 +38,7 @@ trait PaymentTrait
 
     // Create Charge 
     public function createCharge($data){
-        $stripe = Stripe::make(config('services.stripe.secret'));
+        $stripe = $this->stripe_token();
         $charge = $stripe->charges()->create($data);
         return $charge;
     }
@@ -45,7 +50,7 @@ trait PaymentTrait
         // $response = \Curl::to($url)->withHeader($header)->get();
         // $response = json_decode($response,1);
         // return $response;  
-        $stripe = Stripe::make(config('services.stripe.secret'));          
+        $stripe = $this->stripe_token();     
         return $stripe->cards()->all($customer_stripe_id);
     }
  

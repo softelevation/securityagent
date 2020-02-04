@@ -255,6 +255,7 @@
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(locations[i].lat, locations[i].long),
             map: map,
+            icon: locations[i].marker,
           });
           bounds.extend(marker.position);
           google.maps.event.addListener(marker, 'tilesloaded', (function(marker, i) {

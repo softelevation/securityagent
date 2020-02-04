@@ -73,6 +73,7 @@ trait AgentTrait
             unset($post['work_location'],$post['current_location'],$post['diploma'],$post['email'],$post['agent_type'],$post['dog_info']);
             $agentID = Agent::insertGetId($post);
             // Insert Agent Types
+            $is_hostess = 0;
             foreach($agentType as $type){
                 $data = [
                     'agent_id' => $agentID,
@@ -83,8 +84,15 @@ trait AgentTrait
                 if($type==6){
                     $data['dog_info'] = $dogInfo;
                 }
+                if($type==7){
+                    $is_hostess = 1;
+                }
                 AgentType::insert($data);
             } 
+            if($is_hostess==1){
+                $hostess_avatar = 'hostess_avatar.jpg';
+                Agent::where('id',$agentID)->update(['avatar_icon'=>$hostess_avatar]);
+            }
             //Add diploma certificates
             if(in_array(1, $agentType) || in_array(2, $agentType) || in_array(3, $agentType)){
                 if(isset($certificates) && !empty($certificates)){
@@ -132,6 +140,12 @@ trait AgentTrait
         $agents = $a->get();
         $agentArr = [];
         foreach($agents as $agent){
+            // Set marker icon
+            $markerIcon = asset('avatars/marker-male.png');
+            $typeArr = $agent->types->pluck('agent_type')->toArray();
+            if(in_array(7, $typeArr)){
+                $markerIcon = asset('avatars/marker-female.png');
+            }
             $strArr   = [];
             $strArr['username'] = $agent->username;
             $strArr['avatar_icon'] = asset('avatars/'.$agent->avatar_icon);
@@ -142,6 +156,7 @@ trait AgentTrait
             $strArr['is_vehicle'] = $agent->is_vehicle;
             $strArr['id'] = $agent->id;
             $strArr['types'] = $agent->types;
+            $strArr['marker'] = $markerIcon;
             $agentArr[] = $strArr; 
         }
         return $agentArr;
