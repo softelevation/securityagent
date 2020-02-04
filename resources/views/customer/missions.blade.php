@@ -61,9 +61,7 @@
                                     <td>{{$status_list[$mission->status]}}</td>
                                     <td>
                                       @if($mission->status==0)
-                                        @if($mission->step==1)
-                                          @php $url = url('customer/quick_mission/edit/'.Helper::encrypt($mission->id)); @endphp
-                                        @endif
+                                        @php $url = url('customer/quick_mission/edit/'.Helper::encrypt($mission->id)); @endphp
                                         @if($mission->step==2)
                                           @php $url = url('customer/find-mission-agent/'.Helper::encrypt($mission->id)); @endphp
                                         @endif
