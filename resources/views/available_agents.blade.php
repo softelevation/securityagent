@@ -53,7 +53,7 @@
         <div class="row">
             <div class="col-md-4 padding_right_0">
                 <div class="Agent_list">
-                    <h3>Agent In {{$search['location']}} <span>How to choose ?</span></h3>
+                    <h3>Agent In {{$search['location']}} <span data-container="body" data-toggle="popover" data-placement="bottom" data-content="Click on <b>Book An Agent Now</b> button and fill your mission details. After submit, choose an agent and click on <b>Book Now </b> button." data-html="true" data-trigger="hover">How to book an agent <i class="fa fa-question-circle"></i></span></h3>
                     @php $i = 0; @endphp
                     @forelse(json_decode($data) as $agent)
                     @php $i++; @endphp

@@ -80,7 +80,10 @@
       $(document).find('#availability_status').val(checkStatus);
       $('#agent_availabity_form').trigger('submit');
     });
-
+    
+    // Tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover();
   });
 </script>
 
