@@ -40,13 +40,13 @@
                         <span class="form-control">{{Helper::get_customer_type_name($data->customer_type)}}</span>
                       </div>
                     </div>
-                    <div class="row">
+<!--                     <div class="row">
                       <div class="col-md-12 text-center">
                           <button data-toggle="modal" data-target="#customer_verification_action" class="button success_btn verificationBtn" data-action="1"><i class="fa fa-check"></i> Approve</button>
                           <button data-toggle="modal" data-target="#customer_verification_action" class="button danger_btn verificationBtn" data-action="2"><i class="fa fa-times"></i> Decline</button>
 
                       </div>
-                  </div>
+                    </div> -->
                 </div>
               </div>
             </div>
@@ -88,7 +88,7 @@
     </div>
   </div>
 </div>
-<script>
+<!-- <script>
   $(document).on('click','.verificationBtn', function(){
     let action = $(this).attr('data-action');
     if(action==1){
@@ -98,5 +98,5 @@
     }
     $(document).find('#model_action_value').val(action);
   });
-</script>
+</script> -->
 @endsection

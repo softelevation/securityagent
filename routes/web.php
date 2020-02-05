@@ -36,8 +36,8 @@ Route::group(['prefix'=>'operator'], function () {
         Route::get('/agents', 'OperatorController@viewAgentsList');
         Route::get('/agent/view/{id}', 'OperatorController@viewAgentDetails');
         Route::post('/agent_verification', 'OperatorController@agentVerificationAction');
-        Route::get('/customers/pending', 'OperatorController@loadPendingCustomerView');
-        Route::get('/customers/pending/view/{id}', 'OperatorController@viewPendingCustomerDetails');
+        Route::get('/customers', 'OperatorController@viewCustomersList');
+        Route::get('/customer/view/{id}', 'OperatorController@viewCustomerDetails');
         Route::post('/customer_verification', 'OperatorController@customerVerificationAction');
         Route::get('/missions', 'OperatorController@missionsList');
         Route::get('/verify-mission/{id}', 'OperatorController@verifyMission');

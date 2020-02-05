@@ -582,7 +582,7 @@ border-radius: 50%;}
 }
 .Quick_Order_Agent a:hover{background:#fdda42;}
 .profile_img{ position: relative;}
-.profile_img h3{margin: 0 0 10px 17px;font-size:20px;position:absolute;bottom: 0;color:#fff;z-index:9;font-weight: 600;}
+.profile_img h3{word-break:break-all;margin:10px;font-size:15px;position:absolute;bottom: 0;color:#fff;z-index:9;font-weight: 600;}
 .profile_img h3 span{font-size:14px;font-weight:normal; display: block;}
 .dropdown.ac-cstm {height: 30px;text-align: center;}
 table.table td .dropdown.ac-cstm a {color: #000;cursor: pointer;}

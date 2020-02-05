@@ -107,23 +107,31 @@ class OperatorController extends Controller
 
     /**
      * @return mixed
-     * @method loadPendingCustomerView
-     * @purpose Load pending customer list view
+     * @method viewCustomersList
+     * @purpose Load customer list view
      */
-    public function loadPendingCustomerView(){
-        $customers = Customer::where('status',0)->orderBy('id','DESC')->paginate(10);
-        return view('operator.customers_pending',['data'=>$customers]);
+    public function viewCustomersList(Request $request){
+        $customers = Customer::orderBy('id','DESC')->paginate($this->limit);
+        $params = [
+            'data' => $customers,
+            'limit' => $this->limit,
+            'page_no' => 1
+        ];
+        if(isset($request->page)){
+            $params['page_no'] = $request->page; 
+        }
+        return view('operator.customers_list',$params);
     }
 
     /**
      * @return mixed
-     * @method viewPendingCustomerDetails
-     * @purpose View details of verification pending agent
+     * @method viewCustomerDetails
+     * @purpose View details of customer
      */
-    public function viewPendingCustomerDetails($en_id){
+    public function viewCustomerDetails($en_id){
         $id = Helper::decrypt($en_id);
         $customer = Customer::where('id',$id)->first();
-        return view('operator.pending_customer_details',['data'=>$customer]);
+        return view('operator.customer_details',['data'=>$customer]);
     }
 
     /**

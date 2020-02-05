@@ -33,7 +33,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
-                                    <th>Mission Location</th>
+                                    <th width="25%">Mission Location</th>
                                     <th>Mission Duration</th>
                                     <th>Mission Start At</th>
                                     <th>Action</th>
@@ -51,17 +51,6 @@
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
                                     <td>
                                       <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
-                                        <!-- <div class="dropdown ac-cstm">
-                                            <a class="dropdown-toggle" data-toggle="dropdown">
-                                                <img src="{{asset('assets/images/dots.png')}}">
-                                            </a>
-                                            <div class="dropdown-menu fadeIn">
-                                                <a class="dropdown-item" href="" data-toggle="modal" data-target=""><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
-                                                <a class="dropdown-item" href="#"><i class="fas fa-envelope text-grey" aria-hidden="true"></i> View</a>
-                                                <a class="dropdown-item" href="#"><i class="fa fa-unlock" aria-hidden="true"></i> Block/Unblock</a>
-                                                <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </div> -->
                                     </td>
                                 </tr>
                               @empty
@@ -81,8 +70,8 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
-                                    <th>Mission Location</th>
-                                    <th>Mission Duration</th>
+                                    <th width="25%">Mission Location</th>
+                                    <th>Duration</th>
                                     <th>Mission Start Date</th>
                                     <th>Action</th>
                                 </tr>
@@ -99,17 +88,6 @@
                                     <td>@if($mission->quick_book==1) Now (Quick Booking) @else {{$mission->start_date}} @endif</td>
                                     <td>
                                       <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
-                                        <!-- <div class="dropdown ac-cstm">
-                                            <a class="dropdown-toggle" data-toggle="dropdown">
-                                                <img src="{{asset('assets/images/dots.png')}}">
-                                            </a>
-                                            <div class="dropdown-menu fadeIn">
-                                                <a class="dropdown-item" href="" data-toggle="modal" data-target=""><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
-                                                <a class="dropdown-item" href="#"><i class="fas fa-envelope text-grey" aria-hidden="true"></i> View</a>
-                                                <a class="dropdown-item" href="#"><i class="fa fa-unlock" aria-hidden="true"></i> Block/Unblock</a>
-                                                <a class="dropdown-item" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
-                                            </div>
-                                        </div> -->
                                     </td>
                                 </tr>
                               @empty
@@ -129,7 +107,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
-                                    <th>Mission Location</th>
+                                    <th width="25%">Mission Location</th>
                                     <th>Mission Started At</th>
                                     <th>Mission Ended At</th>
                                     <th>Action</th>
