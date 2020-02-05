@@ -18,6 +18,12 @@ class OperatorController extends Controller
 {
 
 	use OperatorValidator, ResponseTrait;
+
+    public $limit;
+
+    public function __construct(){
+        $this->limit = 10;
+    }
     
     /**
      * @return mixed
@@ -30,23 +36,39 @@ class OperatorController extends Controller
 
     /**
      * @return mixed
-     * @method loadPendingAgentsView
-     * @purpose Load pending agents list view
+     * @method viewAgentsList
+     * @purpose View Agents List
      */
-    public function loadPendingAgentsView(){
-    	$agents = Agent::where('status',0)->orderBy('id','DESC')->paginate(10);
-    	return view('operator.agents_pending',['data'=>$agents]);
+    public function viewAgentsList(Request $request){
+        $pendingAgents = Agent::where('status',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'pending');
+        $verifiedAgents = Agent::where('status',1)->orderBy('id','DESC')->paginate($this->limit,['*'],'verified');
+        $params = [
+            'pending_agents' => $pendingAgents,
+            'verified_agents' => $verifiedAgents,
+            'page_no' => 1,
+            'page_name' => 'pending',
+            'limit' => $this->limit
+        ];
+        if($request->isMethod('get')){
+            if(!empty($request->all())){
+                $pageName = array_keys($request->all());
+                $pageNo = array_values($request->all());
+                $params['page_no'] = $pageNo[0]; 
+                $params['page_name'] = $pageName[0];
+            }
+        }
+        return view('operator.agents_list',$params);
     }
 
     /**
      * @return mixed
-     * @method viewPendingAgentDetails
-     * @purpose View details of verification pending agent
+     * @method viewAgentDetails
+     * @purpose View details of agents
      */
-    public function viewPendingAgentDetails($en_id){
+    public function viewAgentDetails($en_id){
         $id = Helper::decrypt($en_id);
         $agent = Agent::where('id',$id)->first();
-        return view('operator.pending_agent_details',['data'=>$agent]);
+        return view('operator.agent_details',['data'=>$agent]);
     }
 
     /**
@@ -76,7 +98,7 @@ class OperatorController extends Controller
             Helper::sendCommonMail($templateName,$data,$toEmail,$toName,$subject);
             $response['message'] = 'Agent verification completed successfully.';
             $response['delayTime'] = 2000;
-            $response['url'] = url('operator/agents/pending');
+            $response['url'] = url('operator/agents');
             return $this->getSuccessResponse($response);
         }else{
             return response($this->getErrorResponse('Something went wrong. Try again later !'));

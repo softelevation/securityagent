@@ -13,7 +13,7 @@
                                 <a href="{{url('operator/missions')}}" class="nav-link"><img src="{{asset('assets/images/create_mission_icon.png')}}" /> Missions</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{url('operator/agents/pending')}}" class="nav-link"><img src="{{asset('assets/images/change_profile_icon.png')}}" /> Agents</a>
+                                <a href="{{url('operator/agents')}}" class="nav-link"><img src="{{asset('assets/images/change_profile_icon.png')}}" /> Agents</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{url('operator/customers/pending')}}" class="nav-link"><img src="{{asset('assets/images/change_profile_icon.png')}}" /> Customers</a>

@@ -33,8 +33,8 @@ Route::get('/agent-details/{agent_id}', 'AgentController@viewAgentDetails');
 Route::group(['prefix'=>'operator'], function () {
     Route::group(['middleware'=>['auth','roles']], function () {
 	    Route::get('/profile', 'OperatorController@loadProfileView');
-	    Route::get('/agents/pending', 'OperatorController@loadPendingAgentsView');
-        Route::get('/agents/pending/view/{id}', 'OperatorController@viewPendingAgentDetails');
+        Route::get('/agents', 'OperatorController@viewAgentsList');
+        Route::get('/agent/view/{id}', 'OperatorController@viewAgentDetails');
         Route::post('/agent_verification', 'OperatorController@agentVerificationAction');
         Route::get('/customers/pending', 'OperatorController@loadPendingCustomerView');
         Route::get('/customers/pending/view/{id}', 'OperatorController@viewPendingCustomerDetails');

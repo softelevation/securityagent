@@ -86,13 +86,14 @@
                         <span class="form-control">@if($data->is_vehicle==1) Yes @else No @endif</span>
                       </div>
                     </div>
+                    @if($data->status==0)
                     <div class="row">
                       <div class="col-md-12 text-center">
-                          <button data-toggle="modal" data-target="#agent_verification_action" class="button success_btn verificationBtn" data-action="1"><i class="fa fa-check"></i> Approve</button>
-                          <button data-toggle="modal" data-target="#agent_verification_action" class="button danger_btn verificationBtn" data-action="2"><i class="fa fa-times"></i> Decline</button>
-
+                        <button data-toggle="modal" data-target="#agent_verification_action" class="button success_btn verificationBtn" data-action="1"><i class="fa fa-check"></i> Approve</button>
+                        <button data-toggle="modal" data-target="#agent_verification_action" class="button danger_btn verificationBtn" data-action="2"><i class="fa fa-times"></i> Decline</button>
                       </div>
-                  </div>
+                    </div>
+                    @endif
                 </div>
               </div>
             </div>
