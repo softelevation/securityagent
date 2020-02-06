@@ -7,46 +7,114 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="contact_box">
-                <h3> View Mission Deatils</h3>
+                <h3>Mission Details</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
-                    
-                      <div class="row">
-                        <div class="col-md-6">
-                          <h5>Your Mission Summary</h5>
-                          <hr>
-                          <label>Mission Title : </label> {{$mission->title}}<br>
-                          <label>Mission Location : </label> {{$mission->location}}<br>
-                          <label>Agent Required: </label> {{Helper::get_agent_type_name($mission->agent_type)}}<br>
-                          <label>Mission Hours: </label> {{$mission->total_hours}} Hour(s)<br>
-                          <label>Mission Description: </label> 
-                          {{$mission->description}}<br>
-                          <label>Mission Status: </label> 
-                          {{Helper::getMissionStatus($mission->status)}}
-                        </div>   
-                        <div class="col-md-6">
-                          <h5>Available Agent's Details</h5>
-                          <hr>
-                          <label>Agent Name : </label> {{ucfirst($mission->agent_details->username)}}<br>
-                          <label>Agent Type : </label> {{Helper::get_agent_type_name_multiple($mission->agent_details->types)}}<br>
-                          <label>Missions Completed : </label> 42<br>
-                          <label>Agent Rating : </label> <span class="rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></span><br>
-                        </div> 
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label>Mission Title</label>
+                        <span class="form-control">{{$mission->title}}</span>
                       </div>
-                      <hr>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <h5>Payment Details</h5>
-                          <label>Mission Amount:</label> {{$mission->amount}} <i class="fa fa-euro-sign"></i><br>
-                          <label>Payment Status:</label> @if($mission->payment_status==0) Not Paid Yet @else Completed @endif
-                        </div>
+                      <div class="col-md-6 form-group">
+                        <label>Mission Location</label>
+                        <span class="form-control">{{$mission->location}}</span>
                       </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label>Agent Type Needed</label>
+                        <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>Mission Hours</label>
+                        <span class="form-control">{{$mission->total_hours}} Hour(s)</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 form-group">
+                        <label>Mission Description</label>
+                        <span class="form-control">{{$mission->description}}
+                          t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                        </span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label>Mission Status</label>
+                        <span class="form-control">@if($mission->status==0) Unverified @else {{Helper::getMissionStatus($mission->status)}} @endif</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <h3>Agent Details</h3>
+                <div class="pending-details">
+                  <div class="view_agent_details mt-4">
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label>Agent Name</label>
+                        <span class="form-control">{{ucfirst($mission->agent_details->username)}}</span>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>Agent Type</label>
+                        <span class="form-control">{{Helper::get_agent_type_name_multiple($mission->agent_details->types)}}</span>
+                      </div>
+                    </div>
+                    @if($mission->status==5)
+                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label>Total Hours Taken By Agent </label>
+                        <span class="form-control">{{Helper::get_mission_hours($mission->started_at,$mission->ended_at)}}</span>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>Mission Started At</label>
+                        <span class="form-control">{{$mission->started_at}}</span>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <label>Mission Ended At </label>
+                        <span class="form-control">{{$mission->ended_at}}</span>
+                      </div>
+                    </div>
+                    @endif
+                  </div>
+                </div>
+                <h3>Payment Details</h3>
+                <div class="pending-details">
+                  <div class="view_agent_details mt-4">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                          <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>Mission Amount</th>
+                                  <th>Patment Date</th>
+                                  <th>Payment Status</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            @php $i=0; @endphp
+                            @forelse($mission->payments as $payment)
+                            @php $i++; @endphp
+                            <tr>
+                              <td>{{$i}}.</td>
+                              <td>{{$payment->amount}} <i class="fa fa-euro-sign"></i></td>
+                              <td>{{date('m/d/Y H:i:s', strtotime($payment->created_at))}}</td>
+                              <td>{{ucfirst($payment->status)}}</td>
+                            </tr>
+                            @empty
+                            <tr>
+                              <td colspan="4">No payment records</td>
+                            </tr>
+                            @endforelse
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-            <!-- /.col-md-8 -->
         </div>
+        <!-- /.col-md-8 -->
+      </div>
     </div>
     <!-- /.container -->
 </div>

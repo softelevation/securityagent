@@ -86,14 +86,14 @@
                     <!-- Notifications Dropdown -->
                     <div class="float-left dropdown pl-3 position-relative">
                       <div class="notification" data-toggle="dropdown">
-                        <span><i class="fa fa-bell"></i></span>
+                        <span @if(Helper::get_misison_request_count()==0) data-container="body" data-toggle="popover" data-placement="bottom" data-content="No new notification." data-html="true" data-trigger="hover" @endif><i class="fa fa-bell"></i></span>
                         @if(Helper::get_misison_request_count() > 0)
                           <span class="badge">{{Helper::get_misison_request_count()}}</span>
                         @endif
                       </div>
                       @if(Helper::get_misison_request_count() > 0)
                       <ul class="dropdown-menu mission-requests">
-                        <li class="item"><a href=""><i class="fa fa-edit"></i> {{Helper::get_misison_request_count()}} New mission request</a></li>
+                        <li class="item"><a href="{{url('agent/mission-requests')}}"><i class="fa fa-edit"></i> {{Helper::get_misison_request_count()}} New mission request</a></li>
                       </ul>
                       @endif
                     </div>
@@ -101,8 +101,13 @@
                     <div class="float-right">
                       <span class="pr-3">Availability</span> 
                       <label class="switch">
-                        <input type="checkbox" id="availability_check_btn" class="check" @if(\Auth::user()->agent_info->available==1) checked @endif>
-                        <span class="slider round"></span>
+                        <input 
+                        @if(\Auth::user()->agent_info->available==2) disabled="disabled" @endif 
+                        type="checkbox" id="availability_check_btn" class="check" 
+                        @if(\Auth::user()->agent_info->available==1) checked @endif>
+                        <span 
+                        @if(\Auth::user()->agent_info->available==2) 
+                        data-container="body" data-toggle="popover" data-placement="bottom" data-content="During ongoing mission, availability status can't be changed." data-html="true" data-trigger="hover" @endif class="slider round"></span>
                       </label>
                     </div>
                     <div class="clearfix"></div>

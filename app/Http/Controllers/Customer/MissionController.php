@@ -270,7 +270,7 @@ class MissionController extends Controller
                 ];
                 UserPaymentHistory::insert($paymentDetails);
                 // Update Mission Data
-                Mission::where('id',$mission_id)->update(['payment_status'=>1,'status'=>3]);
+                Mission::where('id',$mission_id)->update(['payment_status'=>1]);
                 $response['message'] = 'Mission payment completed successfully';
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');
@@ -347,7 +347,7 @@ class MissionController extends Controller
                 ];
                 UserPaymentHistory::insert($paymentDetails);
                 // Update Mission Data
-                Mission::where('id',$mission_id)->update(['payment_status'=>1,'status'=>3]);
+                Mission::where('id',$mission_id)->update(['payment_status'=>1]);
                 $response['message'] = 'Mission payment completed successfully';
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');

@@ -41,6 +41,7 @@
                                     <th>Mission Title</th>
                                     <th>Mission Location</th>
                                     <th>Mission Status</th>
+                                    <th>Payment Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -59,13 +60,16 @@
                                     <td>{{$mission->title}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>{{$status_list[$mission->status]}}</td>
+                                    <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
                                     <td>
                                       @if($mission->status==0)
                                         @php $url = url('customer/quick_mission/edit/'.Helper::encrypt($mission->id)); @endphp
                                         @if($mission->step==2)
                                           @php $url = url('customer/find-mission-agent/'.Helper::encrypt($mission->id)); @endphp
                                         @endif
+                                        @if($mission->payment_status==0)
                                         <a class="action_icons" href="{{$url}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit </a>
+                                        @endif
                                       @endif
                                       <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
                                     </td>

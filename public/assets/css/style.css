@@ -1186,3 +1186,9 @@ ul.details-list li span {
     text-align: left;
     text-transform: none;
 }
+span.form-control{
+    height: auto;
+}
+span.form-control i{
+    font-size: 13px;
+}

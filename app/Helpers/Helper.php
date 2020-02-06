@@ -230,12 +230,18 @@ class Helper {
             $timeDuration .= $hours;
         }
         if($interval->i!=0){
-            $minutes = $interval->format('%i Minute');
+            $minutes = $interval->format('%i Minute ');
             if($interval->i > 1){
-                $minutes = $interval->format('%i Minutes');
+                $minutes = $interval->format('%i Minutes ');
             }
-
             $timeDuration .= $minutes;
+        }
+        if($interval->s!=0){
+            $seconds = $interval->format('%s Second');
+            if($interval->s > 1){
+                $seconds = $interval->format('%s Seconds');
+            }
+            $timeDuration .= $seconds;
         }
         return $timeDuration;
     }
@@ -244,7 +250,10 @@ class Helper {
         $count = 0;
         if(Auth::check() && Auth::user()->role_id==2){
             $agent_id = Auth::user()->agent_info->id;
-            $count = Mission::where('agent_id',$agent_id)->where('status',0)->count();
+            $count = Mission::where('agent_id',$agent_id)
+                            ->where('status',0)
+                            ->where('payment_status',1)
+                            ->count();
         }
         return $count;
     }

@@ -61,17 +61,17 @@
                     <div class="row">
                       <div class="col-md-12 text-center">
                           @if($mission->status==3)
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/start-mission')}}" data-type="start" class="button success_btn confirmBtn" data-action="1"><i class="fa fa-check"></i> Start Mission</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/start-mission')}}" data-type="start" class="button success_btn confirmBtn"><i class="fa fa-check"></i> Start Mission</button>
                           @endif
                           @if($mission->status==4)
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/finish-mission')}}" data-type="finish" class="button success_btn confirmBtn" data-action="1"><i class="fa fa-check"></i> Finish Mission</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/finish-mission')}}" data-type="finish" class="button success_btn confirmBtn"><i class="fa fa-check"></i> Finish Mission</button>
                           @endif
                           @if($mission->status==3 || $mission->status==4)
                             <!-- <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/cancel-mission-agent')}}" data-type="cancel_agent" class="button danger_btn confirmBtn" data-action="2"><i class="fa fa-times"></i> Cancel Mission</button> -->
                           @endif
                           @if($mission->status==0)
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="accept" class="button success_btn confirmBtn" data-action="3"><i class="fa fa-check"></i> Accept Mission</button>
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="reject" class="button danger_btn confirmBtn" data-action="2"><i class="fa fa-times"></i> Reject Mission</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="accept" class="button success_btn confirmBtn" data-value="1"><i class="fa fa-check"></i> Accept Mission</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="reject" class="button danger_btn confirmBtn" data-value="2"><i class="fa fa-times"></i> Reject Mission</button>
                           @endif
                       </div>
                   </div>
@@ -94,29 +94,30 @@
         <h4 class="modal-title">Confirm Action</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <p class="confirmation_text"></p>
-              <div class="reject_reason">
-                <div class="form-group">
-                  <label>Specify a reason</label>
-                  <textarea class="form-control"></textarea>
+      <form id="general_form" class="mission_action_form" method="post" action="" novalidate="novalidate">
+      @csrf
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <p class="confirmation_text"></p>
+                <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->id)}}">
+                <input id="actionInput" type="hidden" name="action_value">  
+                <div class="reject_reason">
+                  <div class="form-group">
+                    <label>Specify a reason</label>
+                    <textarea name="reason" class="form-control"></textarea>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <form id="general_form" class="mission_action_form" method="post" action="" novalidate="novalidate">
-          @csrf
-          <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->id)}}">
+        <div class="modal-footer">
           <button type="submit" class="btn btn-primary success_btn" >Yes</button>
-        </form>
-        <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">Close</button>
-      </div>
+          <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">Close</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -125,6 +126,8 @@
     $(document).find('.reject_reason').addClass('d-none');
     let url = $(this).attr('data-url');
     let type = $(this).attr('data-type');
+    let value = $(this).attr('data-value');
+    $('#actionInput').val(value);
     var txtMsg = '';
     if(type=='start'){
       txtMsg = 'Are you sure to start this mission now?';
@@ -139,6 +142,11 @@
       txtMsg = 'Are you sure you want to accept this mission?';
     }
     if(type=='reject'){
+
+      console.log('asdasd');
+      let reason = $(document).find('#reasonText').val();
+      console.log(reason);
+      $('#reasonInput').val(reason);
       txtMsg = 'Are you sure you want to reject this mission?';
       $(document).find('.reject_reason').removeClass('d-none');  
     }

@@ -12,6 +12,7 @@ use App\UserPaymentHistory;
 use App\FailedPayment;
 use App\Customer;
 use App\Agent;
+use App\RejectedMission;
 use Carbon\Carbon;
 use App\Helpers\Helper;
 
@@ -64,7 +65,10 @@ class MissionController extends Controller
      * @purpose View Mission Request's List 
      */
     public function viewMissionRequests(){
-        $missions = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',0)->paginate($this->limit);
+        $missions = Mission::where('agent_id',\Auth::user()->agent_info->id)
+                            ->where('status',0)
+                            ->where('payment_status',1)
+                            ->paginate($this->limit);
         $params = [
             'data' => $missions,
             'limit' => $this->limit,
@@ -75,6 +79,59 @@ class MissionController extends Controller
         }
         return view('agent.mission_requests',$params);
     }
+
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method processMissionRequest
+     * @purpose Process Mission Request
+     */
+    public function processMissionRequest(Request $request){
+        try{
+            $action = $request->action_value;
+            $mission_id = Helper::decrypt($request->mission_id);
+            if($action==1){
+                $result = Mission::where('id',$mission_id)->update(['status'=>3]);
+                if($result){
+                    $response['message'] = 'Mission request accepted successfully';
+                    $response['delayTime'] = 2000;
+                    $response['modelhide'] = '#mission_action';
+                    $response['url'] = url('agent/mission-requests');
+                    return response($this->getSuccessResponse($response));
+                }else{
+                    return response($this->getErrorResponse('Something went wrong!'));
+                }
+            }
+            if($action==2){
+                $data = [
+                    'mission_id' => $mission_id,
+                    'agent_id' => \Auth::user()->agent_info->id,
+                    'reason' => $request->reason
+                ];
+                $result = RejectedMission::insert($data);
+                if($result){
+                    $result = Mission::where('id',$mission_id)->update(['agent_id'=>0]);
+                    if($result){
+                        $response['message'] = 'Mission request rejected successfully';
+                        $response['delayTime'] = 2000;
+                        $response['modelhide'] = '#mission_action';
+                        $response['url'] = url('agent/mission-requests');
+                        return response($this->getSuccessResponse($response));
+                    }else{
+                        return response($this->getErrorResponse('Something went wrong!'));    
+                    }
+                }else{
+                    return response($this->getErrorResponse('Something went wrong while adding mission to rejected list!'));
+                }
+            }
+        }catch(\Exception $e){
+            return response($this->getErrorResponse($e->getMessage()));
+        }
+        
+    }
+
+    
 
 
     /**
