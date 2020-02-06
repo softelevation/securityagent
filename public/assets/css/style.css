@@ -1147,3 +1147,42 @@ ul.details-list li span {
     font-size: 18px;
     color: #000;
 }
+/*Notification Icon*/
+.notification {
+  background-color: #ffc107;
+  color: white;
+  text-decoration: none;
+  padding: 0px 5px;
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.notification .badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  padding: 3px 6px 2px 5px;
+  border-radius: 50%;
+  background: #ff2323;
+  color: white;
+}
+.mission-requests{
+    width: 200px;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 10px;
+}
+.mission-requests li.item a{
+    background: #d6fb04;
+    margin-top: 0px;
+    width: 100%;
+    border: none;
+    padding: 12px;
+    font-size: 13px;
+    line-height:0px;
+    height: auto;
+    text-align: left;
+    text-transform: none;
+}

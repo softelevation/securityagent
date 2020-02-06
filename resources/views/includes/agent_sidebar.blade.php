@@ -13,6 +13,9 @@
                                 <a href="{{url('agent/profile')}}" class="nav-link"><i class="fa fa-user-edit"></i> Change My Profile</a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{url('agent/mission-requests')}}" class="nav-link"><i class="fa fa-tasks"></i> Mission Requests</a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{url('agent/missions')}}" class="nav-link"><i class="fa fa-edit"></i> Missions</a>
                             </li>
                             <li class="nav-item">

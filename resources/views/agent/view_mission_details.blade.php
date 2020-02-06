@@ -69,6 +69,10 @@
                           @if($mission->status==3 || $mission->status==4)
                             <!-- <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/cancel-mission-agent')}}" data-type="cancel_agent" class="button danger_btn confirmBtn" data-action="2"><i class="fa fa-times"></i> Cancel Mission</button> -->
                           @endif
+                          @if($mission->status==0)
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="accept" class="button success_btn confirmBtn" data-action="3"><i class="fa fa-check"></i> Accept Mission</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="reject" class="button danger_btn confirmBtn" data-action="2"><i class="fa fa-times"></i> Reject Mission</button>
+                          @endif
                       </div>
                   </div>
                 </div>
@@ -95,6 +99,12 @@
           <div class="col-md-12">
             <div class="form-group">
               <p class="confirmation_text"></p>
+              <div class="reject_reason">
+                <div class="form-group">
+                  <label>Specify a reason</label>
+                  <textarea class="form-control"></textarea>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -112,6 +122,7 @@
 </div>
 <script>
   $(document).on('click','.confirmBtn', function(){
+    $(document).find('.reject_reason').addClass('d-none');
     let url = $(this).attr('data-url');
     let type = $(this).attr('data-type');
     var txtMsg = '';
@@ -123,6 +134,13 @@
     }
     if(type=='cancel_agent'){
       txtMsg = 'Are you sure to cancel this mission now?';
+    }
+    if(type=='accept'){
+      txtMsg = 'Are you sure you want to accept this mission?';
+    }
+    if(type=='reject'){
+      txtMsg = 'Are you sure you want to reject this mission?';
+      $(document).find('.reject_reason').removeClass('d-none');  
     }
     $(document).find('.confirmation_text').html(txtMsg);
     $(document).find('.mission_action_form').attr('action',url);

@@ -83,11 +83,29 @@
               @if(\Auth::check())
                 @if(\Auth::user()->role_id==2)
                   <div class="availability-section">
-                    <span class="pr-3">Availability</span> 
-                    <label class="switch">
-                      <input type="checkbox" id="availability_check_btn" class="check" @if(\Auth::user()->agent_info->available==1) checked @endif>
-                      <span class="slider round"></span>
-                    </label>
+                    <!-- Notifications Dropdown -->
+                    <div class="float-left dropdown pl-3 position-relative">
+                      <div class="notification" data-toggle="dropdown">
+                        <span><i class="fa fa-bell"></i></span>
+                        @if(Helper::get_misison_request_count() > 0)
+                          <span class="badge">{{Helper::get_misison_request_count()}}</span>
+                        @endif
+                      </div>
+                      @if(Helper::get_misison_request_count() > 0)
+                      <ul class="dropdown-menu mission-requests">
+                        <li class="item"><a href=""><i class="fa fa-edit"></i> {{Helper::get_misison_request_count()}} New mission request</a></li>
+                      </ul>
+                      @endif
+                    </div>
+                    <!-- Availability -->
+                    <div class="float-right">
+                      <span class="pr-3">Availability</span> 
+                      <label class="switch">
+                        <input type="checkbox" id="availability_check_btn" class="check" @if(\Auth::user()->agent_info->available==1) checked @endif>
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                    <div class="clearfix"></div>
                   </div>
                 @endif
               @else

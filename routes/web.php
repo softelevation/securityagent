@@ -66,9 +66,11 @@ Route::group(['prefix'=>'agent'], function () {
     Route::group(['middleware'=>['auth','roles']], function () {
         Route::get('/profile', 'AgentController@agentProfileView');
         Route::get('/missions', 'Agent\MissionController@index');
+        Route::get('/mission-requests', 'Agent\MissionController@viewMissionRequests');
         Route::get('/mission-details/view/{mission_id}', 'Agent\MissionController@viewMissionDetails');
         Route::post('/start-mission', 'Agent\MissionController@startMission');
         Route::post('/finish-mission', 'Agent\MissionController@finishMission');
+        Route::post('/process-mission-request', 'Agent\MissionController@processMissionRequest');
         Route::post('/set-availability', 'AgentController@setAvailability');
     });
 });

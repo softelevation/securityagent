@@ -19,6 +19,12 @@ class MissionController extends Controller
 {
     use MissionValidator, ResponseTrait, PaymentTrait;
 
+    private $limit; 
+
+    public function __construct(){
+        $this->limit = 10;
+    }
+
 
     /**
      * @param $request
@@ -49,6 +55,25 @@ class MissionController extends Controller
         $mission_id = Helper::decrypt($mission_id);
         $data['mission'] = Mission::where('id',$mission_id)->first();
         return view('agent.view_mission_details',$data);
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method viewMissionRequests
+     * @purpose View Mission Request's List 
+     */
+    public function viewMissionRequests(){
+        $missions = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',0)->paginate($this->limit);
+        $params = [
+            'data' => $missions,
+            'limit' => $this->limit,
+            'page_no' => 1
+        ];
+        if(isset($request->page)){
+            $params['page_no'] = $request->page; 
+        }
+        return view('agent.mission_requests',$params);
     }
 
 

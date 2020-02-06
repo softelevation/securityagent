@@ -5,6 +5,7 @@ use Auth;
 use Crypt;
 use Edujugon\PushNotification\PushNotification;
 use Mail;
+use App\Mission;
 
 
 class Helper {
@@ -239,7 +240,14 @@ class Helper {
         return $timeDuration;
     }
 
-
+    public static function get_misison_request_count(){
+        $count = 0;
+        if(Auth::check() && Auth::user()->role_id==2){
+            $agent_id = Auth::user()->agent_info->id;
+            $count = Mission::where('agent_id',$agent_id)->where('status',0)->count();
+        }
+        return $count;
+    }
 
 }
 
