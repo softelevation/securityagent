@@ -164,6 +164,24 @@
                         </div>
                       </div>
                       <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label>From When You Want To Start The Mission?</label>
+                          <label class="rd_container form-inline">Now
+                            <input class="mission_start_radio" type="radio" checked="checked" name="quick_book" value="1">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="rd_container">Later
+                            <input class="mission_start_radio" type="radio" name="quick_book" value="0">
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                        <div id="misionStartEndDiv" class="col-md-6 form-group ">
+                            <label>Mission Start Date Time</label>
+                            <input class="form-control datepicker w-50 float-left" placeholder="Date" name="start_date" type="text">
+                            <input class="form-control timepicker w-50 float-left" placeholder="Time" name="start_time" type="text">
+                        </div>
+                      </div>
+                      <div class="row">
                         <div class="col-md-12 form-group">
                           <label>Mission Description</label>
                           {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>'Enter mission description'])}}
@@ -171,7 +189,6 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-center">
-                            <input type="hidden" name="quick_book" value="1">
                             <button type="submit" class="button success_btn">Find An Agent Now</button>
                         </div>
                       </div>
@@ -186,6 +203,12 @@
     {{Form::hidden('agent_id',null,['id'=>'bookingAgentId'])}}
     {{Form::close()}}
     <script>
+        $(document).on('click','.mission_start_radio', function(){
+            if($(this).val()==0){
+                $(document).find('#misionStartEndDiv').removeClass('d-none');
+            }
+        });
+
         var slider = document.getElementById("mapZommRange");
         var output = document.getElementById("km");
         output.innerHTML = slider.value; // Display the default slider value

@@ -1192,3 +1192,59 @@ span.form-control{
 span.form-control i{
     font-size: 13px;
 }
+/*Radio Button */
+.rd_container {
+  display: inline-block;
+  position: relative;
+  padding-left: 21px;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.rd_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.rd_container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.rd_container input:checked ~ .checkmark {
+  background-color: #ffc107;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.rd_container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.rd_container .checkmark:after {
+    top: 4px;
+    left: 4px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: white;
+}

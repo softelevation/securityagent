@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <script src="{{asset('assets/js/jquery.min.js')}}"></script>
   <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}"></script>
+  <link rel="stylesheet" href="{{asset('assets/plugins/timepicker/jquery.timepicker.min.css')}}">
+  <script src="{{asset('assets/plugins/timepicker/jquery.timepicker.min.js')}}"></script>
+
   <style type="text/css">
     .pac-container{
         z-index: 9999;

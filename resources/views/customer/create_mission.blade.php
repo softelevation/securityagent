@@ -103,10 +103,6 @@
   </div>
 </div>
 <script>
-  $(function() {
-    $( ".datepicker" ).datepicker();
-  });
-
   $(document).ready(function(){
     $(document).on('click','.confirmBtn',function(){
       $(document).find('#general_form').submit();
