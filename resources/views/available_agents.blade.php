@@ -129,7 +129,7 @@
           <div class="modal-body">
             <div class="row">
                 <div class="col-md-12"> 
-                    {{Form::open(['url'=>url('save-mission-temporary'),'id'=>'general_form_2'])}}
+                    {{Form::open(['url'=>url('save-mission-temporary'), 'id'=>'general_form_2', 'autocomplete'=>'off'])}}
                       <div class="row">
                         <div class="col-md-6 form-group">
                           <label>Mission Title</label>
@@ -175,10 +175,9 @@
                             <span class="checkmark"></span>
                           </label>
                         </div>
-                        <div id="misionStartEndDiv" class="col-md-6 form-group ">
+                        <div id="misionStartEndDiv" class="col-md-6 form-group d-none">
                             <label>Mission Start Date Time</label>
-                            <input class="form-control datepicker w-50 float-left" placeholder="Date" name="start_date" type="text">
-                            <input class="form-control timepicker w-50 float-left" placeholder="Time" name="start_time" type="text">
+                            <input class="form-control datetimepicker" placeholder="Date" name="start_date_time" type="text">
                         </div>
                       </div>
                       <div class="row">
@@ -206,6 +205,9 @@
         $(document).on('click','.mission_start_radio', function(){
             if($(this).val()==0){
                 $(document).find('#misionStartEndDiv').removeClass('d-none');
+            }else{
+                $('.datetimepicker').val('');
+                $(document).find('#misionStartEndDiv').addClass('d-none');
             }
         });
 

@@ -43,14 +43,18 @@ trait MissionValidator
      */
     public function quickMissionValidations(Request $request){
         try{
-            $validations = array(
+            $validations = [
                 'title'         => 'required',
                 'location'      => 'required',
                 'total_hours'   => 'required',
                 'agent_type'    => 'required|not_in:0',
+                'start_date_time' => 'required_if:quick_book,0',
                 'description'   => 'required',
-            );
-            $validator = Validator::make($request->all(),$validations);
+            ];
+            $messages = [
+                'start_date_time.required_if' => 'Start datetime is required while creating mission for future dates.'
+            ];
+            $validator = Validator::make($request->all(),$validations,$messages);
             $this->response = $this->validateData($validator);
         }catch(\Exception $e){
             $this->response = $e->getMessage();

@@ -21,8 +21,7 @@ class CreateMissionsTable extends Migration
             $table->string('location')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->datetime('start_date_time')->nullable();
             $table->integer('agent_type')->default(0);
             $table->text('description')->nullable();
             $table->tinyInteger('quick_book')->default(0);

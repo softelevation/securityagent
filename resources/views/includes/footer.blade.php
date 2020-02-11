@@ -84,11 +84,12 @@
     // Tooltips
     $('[data-toggle="tooltip"]').tooltip();
     $('[data-toggle="popover"]').popover();
-    // Datetime picker
-    // $('#datetimepicker1').datetimepicker();
     $(function() {
       $( ".datepicker" ).datepicker();
-      $(".timepicker").timepicker({});
+      // Datetimepicker
+      jQuery('.datetimepicker').datetimepicker({
+        format:'m/d/Y H:i'
+      });
     });
 
   });
