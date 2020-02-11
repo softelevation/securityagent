@@ -92,6 +92,14 @@
       });
     });
 
+    $(document).on('click','.mission_start_radio', function(){
+        if($(this).val()==0){
+            $(document).find('#misionStartEndDiv').removeClass('d-none');
+        }else{
+            $('.datetimepicker').val('');
+            $(document).find('#misionStartEndDiv').addClass('d-none');
+        }
+    });
   });
 </script>
 

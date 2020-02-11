@@ -1199,7 +1199,7 @@ span.form-control i{
   padding-left: 21px;
   margin-left: 5px;
   cursor: pointer;
-  font-size: 22px;
+  /*font-size: 22px;*/
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

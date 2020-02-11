@@ -177,7 +177,7 @@
                         </div>
                         <div id="misionStartEndDiv" class="col-md-6 form-group d-none">
                             <label>Mission Start Date Time</label>
-                            <input class="form-control datetimepicker" placeholder="Date" name="start_date_time" type="text">
+                            <input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time" type="text">
                         </div>
                       </div>
                       <div class="row">
@@ -202,15 +202,6 @@
     {{Form::hidden('agent_id',null,['id'=>'bookingAgentId'])}}
     {{Form::close()}}
     <script>
-        $(document).on('click','.mission_start_radio', function(){
-            if($(this).val()==0){
-                $(document).find('#misionStartEndDiv').removeClass('d-none');
-            }else{
-                $('.datetimepicker').val('');
-                $(document).find('#misionStartEndDiv').addClass('d-none');
-            }
-        });
-
         var slider = document.getElementById("mapZommRange");
         var output = document.getElementById("km");
         output.innerHTML = slider.value; // Display the default slider value

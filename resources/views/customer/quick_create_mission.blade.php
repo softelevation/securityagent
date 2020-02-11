@@ -50,6 +50,23 @@
                         </div>
                       </div>
                       <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label>From When You Want To Start The Mission?</label><br>
+                          <label class="rd_container form-inline">Now
+                            <input class="mission_start_radio" type="radio" checked="checked" name="quick_book" value="1">
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="rd_container">Later
+                            <input class="mission_start_radio" type="radio" name="quick_book" value="0">
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
+                        <div id="misionStartEndDiv" class="col-md-6 form-group d-none">
+                            <label>Mission Start Date Time</label>
+                            <input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time" type="text">
+                        </div>
+                      </div>
+                      <div class="row">
                         <div class="col-md-12 form-group">
                           <label>Mission Description</label>
                           {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>'Enter mission description'])}}
@@ -57,7 +74,6 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-center">
-                            <input type="hidden" name="quick_book" value="1">
                             <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Find An Agent Now</button>
                         </div>
                       </div>

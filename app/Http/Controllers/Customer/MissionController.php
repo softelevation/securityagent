@@ -100,6 +100,14 @@ class MissionController extends Controller
                 return response($this->getErrorResponse('The lat/long values of the entered location are invalid. Please clear the current location and try again!'));    
             }
             $data = array_except($request->all(),['_token']);
+            if($data['quick_book']==0){
+                $date = $data['start_date_time'];
+                $dt = explode(' ',$date);
+                $date = date('Y-m-d',strtotime($dt[0]));
+                $time = $dt[1];
+                $startDateTime = $date.' '.$time;
+                $data['start_date_time'] = $startDateTime;
+            }
             // Check if any agent available 
             $agent_type_needed = $data['agent_type'];
             $agents = Agent::whereHas('types',function($q) use($agent_type_needed){
