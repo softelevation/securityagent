@@ -64,12 +64,11 @@
                         <em>|</em>  
                         <!-- <li><a href="">Registration</a></li> -->
                         <li><div class="dropdown">
-                          <a class="dropdown-toggle" data-toggle="dropdown"><img src="{{asset('assets/images/usa_flag.png')}}"/> USA
+                          <a class="dropdown-toggle" data-toggle="dropdown"><img src="{{asset('assets/images/usa_flag.png')}}"/> English
                           <span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                            <li><a href="#">USA</a></li>
-                            <li><a href="#">Australia</a></li>
-                            <li><a href="#">India</a></li>
+                            <li><a href="#">English</a></li>
+                            <li><a href="#">French</a></li>
                           </ul>
                         </div></li>
                     </ul>

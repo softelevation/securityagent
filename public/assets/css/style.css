@@ -400,7 +400,7 @@ border-radius: 50%;}
 }
 .agent_cont p{margin: 0;}
 .agent_review {
-    padding: 15px 0;
+    padding: 0px 0;
     text-align: center;
 }
 .map_cont {
@@ -1247,4 +1247,10 @@ span.form-control i{
     height: 7px;
     border-radius: 50%;
     background: white;
+}
+.agent_review h5{
+    font-size: 18px;
+}
+.agent_review span {
+    font-size: 12px;
 }

@@ -30,7 +30,6 @@ trait AgentValidator
                 'agent_type'    => 'required',
                 'cv'    => 'required',
                 'iban'    => 'required',
-                // 'cnaps_number'          => 'required',
                 'home_address'          => 'required',
                 'work_location_address' => 'required',
                 'is_vehicle' => 'required'

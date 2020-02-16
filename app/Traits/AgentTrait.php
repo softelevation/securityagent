@@ -27,7 +27,7 @@ trait AgentTrait
             DB::beginTransaction();
             $post = array_except($request->all(),['_token']);
             $agentType = json_decode($post['agent_type']);
-            $dogInfo = $post['dog_info'];
+            $dogInfo = $request->file('dog_info');  
             $roleID = $this->get_user_role_id('agent');
             // Insert data to users table
             $userData = [
@@ -64,7 +64,8 @@ trait AgentTrait
             $post['cv'] = $fileName;
 
             $post['status'] = 0;
-            $post['work_location_lat_long'] = $post['work_location']['lat'].', '.$post['work_location']['long'];
+            $post['work_location_latitude'] = $post['work_location']['lat'];
+            $post['work_location_longitude'] = $post['work_location']['long'];
             $post['current_location_lat_long'] = $post['current_location']['lat'].', '.$post['current_location']['long'];
             $post['created_at'] = Carbon::now();
             $post['updated_at'] = Carbon::now();
@@ -82,7 +83,11 @@ trait AgentTrait
                     'updated_at' => Carbon::now()
                 ];
                 if($type==6){
-                    $data['dog_info'] = $dogInfo;
+                    // Upload Dog Mutual Info Document
+                    $fileName = $username.'_dog_'.time().'.'.$dogInfo->getClientOriginalExtension();
+                    $filePath = public_path('agent/documents');
+                    $uploadStatus = $dogInfo->move($filePath,$fileName);
+                    $data['dog_info'] = $fileName;
                 }
                 if($type==7){
                     $is_hostess = 1;
@@ -137,7 +142,12 @@ trait AgentTrait
                 $q->where('agent_type',$typeID);
             });
         }
-        $agents = $a->get();
+        $agents = $a->select(DB::raw("*, 111.111 *
+                    DEGREES(ACOS(LEAST(1.0, COS(RADIANS(".$request->latitude."))
+                    * COS(RADIANS(work_location_latitude))
+                    * COS(RADIANS(".$request->longitude." - work_location_longitude))
+                    + SIN(RADIANS(".$request->latitude."))
+                    * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->get();
         $agentArr = [];
         foreach($agents as $agent){
             // Set marker icon
@@ -150,13 +160,13 @@ trait AgentTrait
             $strArr['username'] = $agent->username;
             $strArr['avatar_icon'] = asset('avatars/'.$agent->avatar_icon);
             $strArr['agent_type'] = $agent->agent_type;
-            $latlong  = explode(",", $agent->work_location_lat_long);
-            $strArr['lat'] = trim($latlong[0]);
-            $strArr['long'] = trim($latlong[1]);
+            $strArr['lat'] = trim($agent->work_location_latitude);
+            $strArr['long'] = trim($agent->work_location_longitude);
             $strArr['is_vehicle'] = $agent->is_vehicle;
             $strArr['id'] = $agent->id;
             $strArr['types'] = $agent->types;
             $strArr['marker'] = $markerIcon;
+            $strArr['distance'] = round($agent->distance_in_km);
             $agentArr[] = $strArr; 
         }
         return $agentArr;

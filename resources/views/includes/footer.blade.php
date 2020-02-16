@@ -100,6 +100,14 @@
             $(document).find('#misionStartEndDiv').addClass('d-none');
         }
     });
+    // Show message
+    $(document).on('click','.alert-msg',function(){
+      let message = $(this).attr('data-msg');
+      let msgType = $(this).attr('data-msg-type');
+      if(msgType=='success'){ toastr.success(message); }
+      if(msgType=='error'){ toastr.error(message); }
+    });
+
   });
 </script>
 

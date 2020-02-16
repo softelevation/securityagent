@@ -31,26 +31,31 @@
                         <h4>{{$agent->username}}</h4>
                         <hr>
                         <h6>{{Helper::get_agent_type_name_multiple($agent->types)}}</h6>
-                        <h6>{{$agent->user->email}}</h6>
                       </div>
                       <div class="mt-4">
                         <h3> Agent Documents</h3>
                         <div class="row document-details">
-                          @if($agent->identity_card)
-                          <a href="{{asset('agent/documents/'.$agent->identity_card)}}" target="_blank" class="col-md-2 text-center hover-box" title="Identity Card">
-                            <i class="fas fa-file"></i> <br>
-                          </a>
-                          @endif
-                          @if($agent->social_security_number)
-                          <a href="{{asset('agent/documents/'.$agent->social_security_number)}}" target="_blank" class="col-md-2 text-center hover-box" title="Social Security Number">
-                            <i class="fas fa-file"></i> <br>
-                          </a>
-                          @endif
                           @if($agent->cv)
                           <a href="{{asset('agent/documents/'.$agent->cv)}}" target="_blank" class="col-md-2 text-center hover-box" title="Curriculam Vitae">
                             <i class="fas fa-file"></i> <br>
                           </a>
                           @endif
+                          @php $agentTypes = $agent->types; $diploma=0; $dog = 0; @endphp
+                          @foreach($agentTypes as $type)
+                            @if($type->agent_type==1 || $type->agent_type==2 || $type->agent_type==3) 
+                              @php $diploma = 1; @endphp
+                            @endif
+                            @if($type->agent_type==6) 
+                              @php $dog = 1; $dogDoc = $type->dog_info; @endphp
+                            @endif
+                          @endforeach
+
+                          @if($dog==1)
+                          <a href="{{asset('agent/documents/'.$dogDoc)}}" target="_blank" class="col-md-2 text-center hover-box" title="Mutal Dog Info Document">
+                            <i class="fas fa-file"></i> <br>
+                          </a>
+                          @endif
+
                         </div>
                       </div>
                       <div class="row">
