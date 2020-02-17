@@ -91,7 +91,7 @@ class AgentController extends Controller
             $longitude = $request->longitude;
             $location = $request->location;
             $searchVal = true;
-            $zoom = 10;
+            $zoom = 8;
         }else{
             $request->request->set('latitude',$latitude);
             $request->request->set('longitude',$longitude);

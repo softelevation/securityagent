@@ -16,6 +16,7 @@ use App\Helpers\Helper;
 use Illuminate\Support\Facades\Session;
 use App\Traits\MissionTrait;
 use Auth;
+use DB;
 
 class MissionController extends Controller
 {
@@ -110,70 +111,81 @@ class MissionController extends Controller
             }
             // Check if any agent available 
             $agent_type_needed = $data['agent_type'];
-            $agents = Agent::whereHas('types',function($q) use($agent_type_needed){
+            // Get nearest agent
+            $agent = Agent::whereHas('types',function($q) use($agent_type_needed){
                 $q->where('agent_type',$agent_type_needed);
-            })->where('status',1)->where('available',1)->pluck('work_location_lat_long','id');
-            if($agents->count() == 0){
-                return response($this->getErrorResponse('No agent available at the moment. Please try again later!'));    
-            }
-            $agents = $agents->toArray();
-            // Get Nearest Agent
-            $originLocation = $data['latitude'].', '.$data['longitude'];
-            $destinationLocation = implode("|",$agents);
-            $response = \GoogleMaps::load('distancematrix')->setParam ([
-                            'origins' =>$originLocation, 
-                            'destinations' =>$destinationLocation
-                        ])->get();
-            $response = json_decode($response,TRUE);
-            $agentsIDs = array_keys($agents);
-            $_distArr = [];
-            foreach($response['rows'] as $row){ 
-                foreach($row['elements'] as $key=>$destination){
-                    if(trim(strtolower($destination['status']))=='ok'){
-                        $_distArr[] = $destination['distance']['value'];
-                    }
+            })->where('status',1)->where('available',1)->select(DB::raw("*, 111.111 *
+                    DEGREES(ACOS(LEAST(1.0, COS(RADIANS(".$request->latitude."))
+                    * COS(RADIANS(work_location_latitude))
+                    * COS(RADIANS(".$request->longitude." - work_location_longitude))
+                    + SIN(RADIANS(".$request->latitude."))
+                    * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->orderBy('distance_in_km','ASC')->first();   
+            if($agent){
+                $data['agent_id'] = $agent->id;
+                $data['customer_id'] = \Auth::user()->customer_info->id;
+                $data['created_at'] = Carbon::now();
+                $data['updated_at'] = Carbon::now();
+                $data['step'] = 1;
+                $data['amount'] = 120;
+                // If customer dont know, then set 8 hours default
+                if($data['total_hours']==0){
+                    $data['total_hours'] = 8;
                 }
-            }
-            if(empty($_distArr)){
-                return response($this->getErrorResponse('No agent available for this location at the moment. Please try again later!'));
-            }
-            $key = array_keys($_distArr, min($_distArr)); 
-            $nearest_agent_id = $agentsIDs[$key[0]];
-            // if(!(isset($request->quick_book) && $request->quick_book==1)){
-            //     $startDate = date("Y-m-d", strtotime($request->start_date));
-            //     $endDate   = date("Y-m-d", strtotime($request->end_date));
-            //     $data['start_date'] = $startDate;
-            //     $data['end_date']   = $endDate;
-            // }
-            $data['agent_id'] = $nearest_agent_id;
-            $data['customer_id'] = \Auth::user()->customer_info->id;
-            $data['created_at'] = Carbon::now();
-            $data['updated_at'] = Carbon::now();
-            $data['step'] = 1;
-            $data['amount'] = 120;
-            if($data['total_hours'] > 4){
                 $baseRate = Helper::BASE_AGENT_RATE;
-                $data['amount'] = $data['total_hours']*$baseRate;
-            }
-            if(isset($data['record_id']) && $data['record_id']!=''){
-                $record_id = Helper::decrypt($data['record_id']);
-                unset($data['record_id'],$data['created_at']);
-                $result = Mission::where('id',$record_id)->update($data);
-                $missionID = $record_id;
+                if($data['total_hours'] > 4){
+                    $data['amount'] = $data['total_hours']*$baseRate;
+                }
+                // If distance is greater than 50 KM, add travel fee per km
+                $agentDistance = round($agent->distance_in_km);
+                if($agentDistance > 50){
+                    $data['amount'] = $data['amount']+(0.5*$agentDistance);
+                }
+                if(isset($data['record_id']) && $data['record_id']!=''){
+                    $record_id = Helper::decrypt($data['record_id']);
+                    unset($data['record_id'],$data['created_at']);
+                    $result = Mission::where('id',$record_id)->update($data);
+                    $missionID = $record_id;
+                }else{
+                    $missionID = Mission::insertGetId($data);
+                }
+                if($missionID){
+                    $missionID = Helper::encrypt($missionID);
+                    $response['message'] = 'Mission details saved successfully';
+                    $response['delayTime'] = 5000;
+                    $response['url'] = url('customer/find-mission-agent/'.$missionID);
+                    return $this->getSuccessResponse($response);
+                }else{
+                    $response['message'] = 'Something went wrong while submitting your mission details. Please try again later.';
+                    $response['delayTime'] = 5000;
+                    return $this->getErrorResponse($response);
+                }
             }else{
-                $missionID = Mission::insertGetId($data);
-            }
-            if($missionID){
-                $missionID = Helper::encrypt($missionID);
-                $response['message'] = 'Mission details saved successfully';
-                $response['delayTime'] = 5000;
-                $response['url'] = url('customer/find-mission-agent/'.$missionID);
-                return $this->getSuccessResponse($response);
-            }else{
-                $response['message'] = 'Something went wrong while submitting your mission details. Please try again later.';
-                $response['delayTime'] = 5000;
-                return $this->getErrorResponse($response);
-            }
+                return response($this->getErrorResponse('No agent available at the moment. Please try again later!'));
+            }                       
+
+            // $agents = $agents->toArray();
+            // // Get Nearest Agent
+            // $originLocation = $data['latitude'].', '.$data['longitude'];
+            // $destinationLocation = implode("|",$agents);
+            // $response = \GoogleMaps::load('distancematrix')->setParam ([
+            //                 'origins' =>$originLocation, 
+            //                 'destinations' =>$destinationLocation
+            //             ])->get();
+            // $response = json_decode($response,TRUE);
+            // $agentsIDs = array_keys($agents);
+            // $_distArr = [];
+            // foreach($response['rows'] as $row){ 
+            //     foreach($row['elements'] as $key=>$destination){
+            //         if(trim(strtolower($destination['status']))=='ok'){
+            //             $_distArr[] = $destination['distance']['value'];
+            //         }
+            //     }
+            // }
+            // if(empty($_distArr)){
+            //     return response($this->getErrorResponse('No agent available for this location at the moment. Please try again later!'));
+            // }
+            // $key = array_keys($_distArr, min($_distArr)); 
+            
         // }catch(\Exception $e){
         //     return response($this->getErrorResponse($e->getMessage()));
         // }
@@ -418,6 +430,7 @@ class MissionController extends Controller
             if(Session::has('mission')){
                 $mission = Session::get('mission');
                 $mission['agent_id'] = $agent_id;
+                $mission['distance'] = $request->distance;
                 Session::put('mission',$mission);
                 if(Auth::check() && Auth::user()->role_id==1){
                     $mission_id = $this->saveQuickMissionDetails($mission);

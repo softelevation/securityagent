@@ -1254,3 +1254,7 @@ span.form-control i{
 .agent_review span {
     font-size: 12px;
 }
+.form-group span{
+    font-size: 11px;
+    color: #ff5200;
+}

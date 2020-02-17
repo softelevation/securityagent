@@ -37,6 +37,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                           <label>Hours Required</label>
+                          @php $hours[] = "Don't know how many hours needed"; @endphp  
                           @for($i=1; $i<=24; $i++)
                             @php 
                               if($i==1){
@@ -46,7 +47,8 @@
                               }
                             @endphp
                           @endfor
-                          {{Form::select('total_hours',$hours,null,['class'=>'form-control'])}}
+                          {{Form::select('total_hours',$hours,null,['class'=>'form-control mission_hours'])}}
+                          <span class="mission_hours_note">Note: You will be charged for 8 Hours, if you don't know how many hours needed.</span>
                         </div>
                       </div>
                       <div class="row">
@@ -113,10 +115,6 @@
   </div>
 </div>
 <script>
-  $(function() {
-    $( ".datepicker" ).datepicker();
-  });
-
   $(document).ready(function(){
     $(document).on('click','.confirmBtn',function(){
       $(document).find('#general_form').submit();

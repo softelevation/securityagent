@@ -58,6 +58,15 @@
     $(document).find('.multi_select').select2({
       placeholder: "Select Options",
     });
+    // Display note of 8 hours
+    $('.mission_hours').on('change',function(){
+      let selected = $(this).children(':selected').val();
+      if(selected==0){
+        $('.mission_hours_note').removeClass('d-none');
+      }else{
+        $('.mission_hours_note').addClass('d-none');
+      }
+    });
     
     $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
       if (!$(this).next().hasClass('show')) {

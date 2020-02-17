@@ -98,9 +98,8 @@ trait CustomerTrait
             $strArr['username'] = $agent->username;
             $strArr['avatar_icon'] = asset('avatars/'.$agent->avatar_icon);
             $strArr['agent_type'] = $agent->agent_type;
-            $latlong  = explode(",", $agent->work_location_lat_long);
-            $strArr['lat'] = trim($latlong[0]);
-            $strArr['long'] = trim($latlong[1]);
+            $strArr['lat'] = trim($agent->work_location_latitude);
+            $strArr['long'] = trim($agent->work_location_longitude);
             $strArr['is_vehicle'] = $agent->is_vehicle;
             $strArr['types'] = $agent->types;
             $agentArr[] = $strArr; 
