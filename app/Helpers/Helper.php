@@ -249,6 +249,13 @@ class Helper {
         $datetime2 = new \DateTime($ended_at);
         $interval = $datetime1->diff($datetime2);
         $timeDuration = '';
+        if($interval->d!=0){
+            $days = $interval->format('%d Day ');
+            if($interval->d > 1){
+                $days = $interval->format('%d Days ');
+            }
+            $timeDuration .= $days;
+        }
         if($interval->h!=0){
             $hours = $interval->format('%h Hour ');
             if($interval->h > 1){
@@ -283,6 +290,18 @@ class Helper {
                             ->count();
         }
         return $count;
+    }
+
+
+    public static function week_days(){
+        $days[1] = 'Sunday';
+        $days[2] = 'Monday';
+        $days[3] = 'Tuesday';
+        $days[4] = 'Wednesday';
+        $days[5] = 'Thursday';
+        $days[6] = 'Friday';
+        $days[7] = 'Saturday';
+        return $days;
     }
 
 }

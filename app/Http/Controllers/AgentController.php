@@ -149,10 +149,28 @@ class AgentController extends Controller
         }
     }
 
+    /**
+     * @param $request
+     * @return mixed
+     * @method viewAgentDetails
+     * @purpose View agent details
+     */
     public function viewAgentDetails($agent_id){
         $agent_id = Helper::decrypt($agent_id);
         $agent = Agent::where('id',$agent_id)->first();
         return view('view-agent-details',['agent'=>$agent]);
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method setScheduleView
+     * @purpose Set Agent Schedule
+     */
+    public function setScheduleView($agent_id){
+        $agent_id = Helper::decrypt($agent_id);
+        $agent = Agent::where('id',$agent_id)->first();
+        return view('agent.schedule',['agent'=>$agent]);
     }
 
 }

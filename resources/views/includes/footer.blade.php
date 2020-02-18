@@ -90,6 +90,11 @@
       jQuery('.datetimepicker').datetimepicker({
         format:'m/d/Y H:i'
       });
+      jQuery('.timepicker').datetimepicker({
+        datepicker:false,
+        format:'H:i',
+        // minTime:'11:00'
+      });
     });
 
     $(document).on('click','.mission_start_radio', function(){
