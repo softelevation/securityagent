@@ -83,6 +83,7 @@
             </div>
             <div class="menu_right">
               @if(\Auth::check())
+              <!-- If agent is logged in -->
                 @if(\Auth::user()->role_id==2)
                   <div class="availability-section">
                     <!-- Notifications Dropdown -->
@@ -111,6 +112,29 @@
                         @if(\Auth::user()->agent_info->available==2) 
                         data-container="body" data-toggle="popover" data-placement="bottom" data-content="During ongoing mission, availability status can't be changed." data-html="true" data-trigger="hover" @endif class="slider round"></span>
                       </label>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                @endif
+                <!-- if customer is logged in -->
+                @if(\Auth::user()->role_id==1)
+                  <div class="availability-section">
+                    <!-- Notifications Dropdown -->
+                    <div class="float-left dropdown pl-3 position-relative">
+                      <div class="notification" data-toggle="dropdown">
+                        <span @if(Helper::get_customer_notification_count()==0) data-container="body" data-toggle="popover" data-placement="bottom" data-content="No new notification." data-html="true" data-trigger="hover" @endif><i class="fa fa-bell"></i></span>
+                        @if(Helper::get_customer_notification_count() > 0)
+                          <span class="badge">{{Helper::get_customer_notification_count()}}</span>
+                        @endif
+                      </div>
+                      @if(Helper::get_customer_notification_count() > 0)
+                      <ul class="dropdown-menu mission-requests">
+                        @php $notifications = Helper::get_customer_notifications(); @endphp
+                        @foreach($notifications as $notification)
+                        <li class="item"><a class="notification-item" href="javascript:void(0)" data-notification-url="{{url('customer/mission-details/view/')}}/{{Helper::encrypt($notification->mission_id)}}" data-notification-id="{{$notification->id}}"><i class="fa fa-edit"></i> {{$notification->content}}</a></li>
+                        @endforeach
+                      </ul>
+                      @endif
                     </div>
                     <div class="clearfix"></div>
                   </div>

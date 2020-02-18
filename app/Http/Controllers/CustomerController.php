@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Traits\CustomerTrait;
 use App\Validators\CustomerValidator;
 use App\Traits\ResponseTrait;
+use App\CustomerNotification;
 
 class CustomerController extends Controller
 {
@@ -48,5 +49,19 @@ class CustomerController extends Controller
      */
     public function customerProfileView(){
         return view('customer.profile');
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method index
+     * @purpose Process notifications
+     */
+    public function processNotifications(Request $request){
+        $id = $request->notification_id;
+        $url = $request->notification_url;
+        $result = CustomerNotification::where('id',$id)->update(['status'=>1]);
+        $response['url'] = $url;
+        return response($response);
     }
 }

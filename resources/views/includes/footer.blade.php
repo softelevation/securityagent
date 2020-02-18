@@ -44,6 +44,12 @@
     <input id="availability_status" type="hidden" name="availability_status">
     <input type="hidden" name="current_url" value="{{url()->full()}}">
   </form>
+  <!-- Process Customer notification -->
+  <form id="customer_notification_form" method="post" action="{{url('/process-notification')}}">
+    @csrf
+    <input id="notification_id" type="hidden" name="notification_id">
+    <input id="notification_url" type="hidden" name="notification_url">
+  </form>
 </footer>
 
 <script> var app_base_url = "{{url('/')}}"; </script>
@@ -120,6 +126,14 @@
       let msgType = $(this).attr('data-msg-type');
       if(msgType=='success'){ toastr.success(message); }
       if(msgType=='error'){ toastr.error(message); }
+    });
+
+    $(document).on('click','.notification-item',function(){
+      let id = $(this).attr('data-notification-id');
+      let notificationUrl = $(this).attr('data-notification-url');
+      $('#notification_id').val(id);
+      $('#notification_url').val(notificationUrl);
+      $('#customer_notification_form').submit();
     });
 
   });

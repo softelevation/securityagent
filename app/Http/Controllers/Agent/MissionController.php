@@ -15,6 +15,7 @@ use App\Agent;
 use App\RejectedMission;
 use Carbon\Carbon;
 use App\Helpers\Helper;
+use App\CustomerNotification;
 
 class MissionController extends Controller
 {
@@ -148,6 +149,14 @@ class MissionController extends Controller
             if($result){
                 $data = Mission::where('id',$mission_id)->first();
                 Agent::where('id',$data->agent_id)->update(['available'=>2]);
+                $notification = array(
+                    'customer_id' => $data->customer_id,
+                    'mission_id' => $mission_id,
+                    'content' => 'Your mission has started now.',
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()  
+                );
+                CustomerNotification::insert($notification);
                 $response['message'] = 'Your Mission has started now.';
                 $response['delayTime'] = 2000;
                 $response['modelhide'] = '#mission_action';
@@ -241,6 +250,14 @@ class MissionController extends Controller
         $result = Mission::where('id',$mission_id)->update(['ended_at'=>$timeNow,'status'=>5]);
         if($result){
             Agent::where('id',$data->agent_id)->update(['available'=>1]);
+            $notification = array(
+                'customer_id' => $data->customer_id,
+                'mission_id' => $mission_id,
+                'content' => 'Your mission has finished now.',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()  
+            );
+            CustomerNotification::insert($notification);
             $response['message'] = 'Your Mission has finished now.';
             $response['delayTime'] = 2000;
             $response['modelhide'] = '#mission_action';

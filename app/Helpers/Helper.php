@@ -6,7 +6,7 @@ use Crypt;
 use Edujugon\PushNotification\PushNotification;
 use Mail;
 use App\Mission;
-
+use App\CustomerNotification;
 
 class Helper {
 
@@ -280,6 +280,10 @@ class Helper {
         return $timeDuration;
     }
 
+    /**
+     * @return integer
+     * @method get_misison_request_count
+     */
     public static function get_misison_request_count(){
         $count = 0;
         if(Auth::check() && Auth::user()->role_id==2){
@@ -292,7 +296,10 @@ class Helper {
         return $count;
     }
 
-
+    /**
+     * @return array
+     * @method week_days
+     */
     public static function week_days(){
         $days[1] = 'Sunday';
         $days[2] = 'Monday';
@@ -302,6 +309,34 @@ class Helper {
         $days[6] = 'Friday';
         $days[7] = 'Saturday';
         return $days;
+    }
+
+    /**
+     * @return integer
+     * @method get_customer_notification_count
+     */
+    public static function get_customer_notification_count(){
+        $count = 0;
+        if(Auth::check() && Auth::user()->role_id==1){
+            $customer_id = Auth::user()->customer_info->id;
+            $count = CustomerNotification::where('customer_id',$customer_id)
+                            ->where('status',0)
+                            ->count();
+        }
+        return $count;
+    }
+
+    /**
+     * @return integer
+     * @method get_customer_notification_count
+     */
+    public static function get_customer_notifications(){
+        $data = null;
+        if(Auth::check() && Auth::user()->role_id==1){
+            $customer_id = Auth::user()->customer_info->id;
+            $data = CustomerNotification::where('customer_id',$customer_id)->where('status',0)->get();
+        }
+        return $data;
     }
 
 }

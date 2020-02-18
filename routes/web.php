@@ -28,6 +28,7 @@ Route::post('/login', 'Auth\LoginController@allInOneLogin')->name('login');
 Route::post('/save-mission-temporary', 'Customer\MissionController@saveMissionTemp');
 Route::post('/book-agent', 'Customer\MissionController@bookAgent');
 Route::get('/agent-details/{agent_id}', 'AgentController@viewAgentDetails');
+Route::post('/process-notification', 'CustomerController@processNotifications');
 
 // Operator Routes
 Route::group(['prefix'=>'operator'], function () {
