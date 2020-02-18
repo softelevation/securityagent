@@ -23,10 +23,20 @@ trait MissionTrait
         $data['updated_at'] = Carbon::now();
         $data['step'] = 1;
         $data['amount'] = 120;
+        // If customer dont know, then set 8 hours default
+        if($data['total_hours']==0){
+            $data['total_hours'] = 8;
+        }
+        $baseRate = Helper::BASE_AGENT_RATE;
         if($data['total_hours'] > 4){
-            $baseRate = Helper::BASE_AGENT_RATE;
             $data['amount'] = $data['total_hours']*$baseRate;
         }
+        // If distance is greater than 50 KM, add travel fee per km
+        $agentDistance = round($data['distance']);
+        if($agentDistance > 50){
+            $data['amount'] = $data['amount']+(0.5*$agentDistance);
+        }
+        unset($data['distance']);
         $missionID = Mission::insertGetId($data);
         return $missionID;
     }

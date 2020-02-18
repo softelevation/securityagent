@@ -70,7 +70,7 @@
                                             <h4>{{$agent->username}}</h4>
                                             <p>{{Helper::get_agent_type_name_multiple($agent->types)}}</p>
                                             <p>@if($agent->is_vehicle==1) With Vehicle @else Without Vehicle @endif</p>
-                                            @if(Session::has('mission'))<p class="pt-2"><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" class="btn_submit bookAgentBtn">Book Now</a></p>@endif
+                                            @if(Session::has('mission'))<p class="pt-2"><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" data-distance="{{$agent->distance}}" class="btn_submit bookAgentBtn">Book Now</a></p>@endif
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -165,6 +165,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                           <label>Hours Required</label>
+                          @php $hours[] = "Don't know how many hours needed"; @endphp
                           @for($i=1; $i<=24; $i++)
                             @php 
                               if($i==1){
@@ -174,7 +175,8 @@
                               }
                             @endphp
                           @endfor
-                          {{Form::select('total_hours',$hours,null,['class'=>'form-control'])}}
+                          {{Form::select('total_hours',$hours,null,['class'=>'form-control mission_hours'])}}
+                          <span class="mission_hours_note">Note: You will be charged for 8 Hours, if you don't know how many hours needed.</span>
                         </div>
                       </div>
                       <div class="row">
@@ -214,6 +216,7 @@
     </div>
     {{Form::open(['id'=>'general_form','url'=>url('book-agent')])}}
     {{Form::hidden('agent_id',null,['id'=>'bookingAgentId'])}}
+    {{Form::hidden('distance',null,['id'=>'bookingAgentDistance'])}}
     {{Form::close()}}
     <script>
         var slider = document.getElementById("mapZommRange");
@@ -242,7 +245,9 @@
         // Book an agent
         $(document).on('click','.bookAgentBtn',function(){
             let id = $(this).attr('id');
+            let distance = $(this).attr('data-distance')
             $('#bookingAgentId').val(id);
+            $('#bookingAgentDistance').val(distance);
             $('#general_form').submit();
         });
     </script>
@@ -271,9 +276,9 @@
         map = new google.maps.Map(document.getElementById("agentMap"), mapOptions);
         // Adding our markers from our "big database"
         addMarkers();
-        if(search==true){
-            setRadius(radius);
-        }
+        // if(search==true){
+        //     setRadius(radius);
+        // }
         // Fired when the map becomes idle after panning or zooming.
         google.maps.event.addListener(map, 'idle', function() {
             showVisibleMarkers();
