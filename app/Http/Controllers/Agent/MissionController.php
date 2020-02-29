@@ -16,6 +16,7 @@ use App\RejectedMission;
 use Carbon\Carbon;
 use App\Helpers\Helper;
 use App\CustomerNotification;
+use App\Notifications\MissionCreated;
 
 class MissionController extends Controller
 {
@@ -92,6 +93,12 @@ class MissionController extends Controller
         try{
             $action = $request->action_value;
             $mission_id = Helper::decrypt($request->mission_id);
+            $mission = Mission::where('id',$mission_id)->first();
+            // Check if mission request is expired or not
+            $timeFrom = Carbon::createFromFormat('Y-m-d H:i:s', $mission->updated_at);
+            $timeTo = Carbon::now();
+            $diffMinutes = $timeFrom->diffInMinutes($timeTo);
+             
             if($action==1){
                 $result = Mission::where('id',$mission_id)->update(['status'=>3]);
                 if($result){
@@ -157,6 +164,14 @@ class MissionController extends Controller
                     'updated_at' => Carbon::now()  
                 );
                 CustomerNotification::insert($notification);
+                /*----Customer Notification-----*/
+                $mailContent = [
+                    'name' => ucfirst($data->customer_details->first_name),
+                    'message' => 'Your mission has been started now at '.$timeNow.'.', 
+                    'url' => url('customer/mission-details/view').'/'.$request->mission_id 
+                ];
+                $data->customer_details->user->notify(new MissionCreated($mailContent));
+                /*------------*/
                 $response['message'] = 'Your Mission has started now.';
                 $response['delayTime'] = 2000;
                 $response['modelhide'] = '#mission_action';
@@ -258,6 +273,14 @@ class MissionController extends Controller
                 'updated_at' => Carbon::now()  
             );
             CustomerNotification::insert($notification);
+            /*----Customer Notification-----*/
+            $mailContent = [
+                'name' => ucfirst($data->customer_details->first_name),
+                'message' => 'Your mission has been finished now at '.$timeNow.'.', 
+                'url' => url('customer/mission-details/view').'/'.$request->mission_id 
+            ];
+            $data->customer_details->user->notify(new MissionCreated($mailContent));
+            /*------------*/
             $response['message'] = 'Your Mission has finished now.';
             $response['delayTime'] = 2000;
             $response['modelhide'] = '#mission_action';

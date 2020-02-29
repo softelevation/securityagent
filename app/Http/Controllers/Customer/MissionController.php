@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Session;
 use App\Traits\MissionTrait;
 use Auth;
 use DB;
+use App\Notifications\MissionCreated;
 
 class MissionController extends Controller
 {
@@ -368,6 +369,24 @@ class MissionController extends Controller
                 UserPaymentHistory::insert($paymentDetails);
                 // Update Mission Data
                 Mission::where('id',$mission_id)->update(['payment_status'=>1]);
+                /*----Customer Notification-----*/
+                $mailContent = [
+                    'name' => ucfirst($mission->customer_details->first_name),
+                    'message' => 'Your mission has been created successfully.', 
+                    'url' => url('customer/mission-details/view').'/'.$request->mission_id 
+                ];
+                $mission->customer_details->user->notify(new MissionCreated($mailContent));
+                /*--------------*/ 
+                /*----Agent Notification-----*/
+                $mailContent = [
+                    'name' => ucfirst($mission->agent_details->first_name),
+                    'message' => 'You have a new mission request. Click on the button below to view details and accept/reject mission, before it expires.', 
+                    'url' => url('agent/mission-details/view').'/'.$request->mission_id 
+                ];
+                $mission->agent_details->user->notify(new MissionCreated($mailContent));
+                /*--------------*/ 
+
+
                 $response['message'] = 'Mission payment completed successfully';
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');
