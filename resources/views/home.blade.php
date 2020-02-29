@@ -46,12 +46,12 @@
             <div class="col-md-6">
                 <div class="agent">
                     <h4>I’m an Agent</h4>
-                    <img src="{{asset('assets/images/agent_new.png')}}"/>
+                    <img src="{{asset('assets/images/agent_2.png')}}"/>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="customer">
-                    <img src="{{asset('assets/images/client_new.png')}}"/>
+                    <img src="{{asset('assets/images/client.png')}}"/>
                     <h4>I’m an User</h4>                        
                 </div>
             </div>

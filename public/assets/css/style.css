@@ -328,12 +328,6 @@ body textarea.form-control { height: 100px !important; resize: none; padding-top
 }
 .modal-body .form-control::placeholder {color: #ccc;}
 .modal-title {text-transform: uppercase;}
-.agent img{
-    max-width: 100px;
-}
-.customer img {
-    max-width: 93px;
-}
 
 /******* Agent Page Css Start Here *********/
 .location_search {
