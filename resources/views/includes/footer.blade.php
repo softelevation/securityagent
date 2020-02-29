@@ -44,6 +44,12 @@
     <input id="availability_status" type="hidden" name="availability_status">
     <input type="hidden" name="current_url" value="{{url()->full()}}">
   </form>
+  <!-- Process Customer notification -->
+  <form id="customer_notification_form" method="post" action="{{url('/process-notification')}}">
+    @csrf
+    <input id="notification_id" type="hidden" name="notification_id">
+    <input id="notification_url" type="hidden" name="notification_url">
+  </form>
 </footer>
 
 <script> var app_base_url = "{{url('/')}}"; </script>
@@ -57,6 +63,15 @@
     // Multi select
     $(document).find('.multi_select').select2({
       placeholder: "Select Options",
+    });
+    // Display note of 8 hours
+    $('.mission_hours').on('change',function(){
+      let selected = $(this).children(':selected').val();
+      if(selected==0){
+        $('.mission_hours_note').removeClass('d-none');
+      }else{
+        $('.mission_hours_note').addClass('d-none');
+      }
     });
     
     $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
@@ -90,6 +105,11 @@
       jQuery('.datetimepicker').datetimepicker({
         format:'m/d/Y H:i'
       });
+      jQuery('.timepicker').datetimepicker({
+        datepicker:false,
+        format:'H:i',
+        // minTime:'11:00'
+      });
     });
 
     $(document).on('click','.mission_start_radio', function(){
@@ -100,6 +120,22 @@
             $(document).find('#misionStartEndDiv').addClass('d-none');
         }
     });
+    // Show message
+    $(document).on('click','.alert-msg',function(){
+      let message = $(this).attr('data-msg');
+      let msgType = $(this).attr('data-msg-type');
+      if(msgType=='success'){ toastr.success(message); }
+      if(msgType=='error'){ toastr.error(message); }
+    });
+
+    $(document).on('click','.notification-item',function(){
+      let id = $(this).attr('data-notification-id');
+      let notificationUrl = $(this).attr('data-notification-url');
+      $('#notification_id').val(id);
+      $('#notification_url').val(notificationUrl);
+      $('#customer_notification_form').submit();
+    });
+
   });
 </script>
 

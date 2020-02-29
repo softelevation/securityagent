@@ -46,10 +46,18 @@ class AgentController extends Controller
                     if($type > 3){
                         $cnaps = 1;
                     }
+                    if($type==6){
+                        $dog = 1;
+                    }
                 }
                 if($cnaps == 1){
                     if(empty(trim($request->cnaps_number))){
                         return $this->getErrorResponse('Please enter CNAPS Number');
+                    }
+                }
+                if($dog == 1){
+                    if(empty(trim($request->dog_info))){
+                        return $this->getErrorResponse('Please enter dog mutual info');
                     }
                 }
             }
@@ -73,17 +81,26 @@ class AgentController extends Controller
      * @purpose Show available agents on map
      */
     public function showAvailableAgents(Request $request){
-        $latitude = '48.8566';
-        $longitude = '2.3522';
-        $location = 'Paris, France';
+        $latitude = '46.2276';
+        $longitude = '2.2137';
+        $location = 'France';
+        $zoom = 6;
+        $searchVal = false;
         if(isset($request->latitude) && isset($request->longitude)){
             $latitude = $request->latitude;
             $longitude = $request->longitude;
             $location = $request->location;
+            $searchVal = true;
+            $zoom = 8;
+        }else{
+            $request->request->set('latitude',$latitude);
+            $request->request->set('longitude',$longitude);
         }
         $search['latitude'] = $latitude;
         $search['longitude'] = $longitude;
-        $search['location'] = $location; 
+        $search['location'] = $location;
+        $search['s_val'] = $searchVal; 
+        $search['zoom'] = $zoom;
         $agents = $this->getAvailableAgents($request);
         // $this->print($agents);
         return view('available_agents',['data'=>json_encode($agents),'search'=>$search]);
@@ -132,10 +149,28 @@ class AgentController extends Controller
         }
     }
 
+    /**
+     * @param $request
+     * @return mixed
+     * @method viewAgentDetails
+     * @purpose View agent details
+     */
     public function viewAgentDetails($agent_id){
         $agent_id = Helper::decrypt($agent_id);
         $agent = Agent::where('id',$agent_id)->first();
         return view('view-agent-details',['agent'=>$agent]);
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method setScheduleView
+     * @purpose Set Agent Schedule
+     */
+    public function setScheduleView($agent_id){
+        $agent_id = Helper::decrypt($agent_id);
+        $agent = Agent::where('id',$agent_id)->first();
+        return view('agent.schedule',['agent'=>$agent]);
     }
 
 }

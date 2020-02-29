@@ -42,8 +42,11 @@ a:hover{text-decoration: none;}
     margin: 0 0 9px;
 }
 .top_menu ul li{display: inline-block;}
-.top_menu ul li a {color:#000; display: block;
+.top_menu ul li a {
+    color:#000; 
+    display: block;
     padding: 2px 18px;
+    cursor: pointer;
 }
 .primary ul {
     float: right;
@@ -394,7 +397,7 @@ border-radius: 50%;}
 }
 .agent_cont p{margin: 0;}
 .agent_review {
-    padding: 15px 0;
+    padding: 0px 0;
     text-align: center;
 }
 .map_cont {
@@ -1163,7 +1166,7 @@ ul.details-list li span {
   color: white;
 }
 .mission-requests{
-    width: 200px;
+    width: 208px;
     margin: 0px;
     padding: 0px;
     margin-top: 10px;
@@ -1175,7 +1178,7 @@ ul.details-list li span {
     border: none;
     padding: 12px;
     font-size: 13px;
-    line-height:0px;
+    line-height:17px;
     height: auto;
     text-align: left;
     text-transform: none;
@@ -1241,4 +1244,14 @@ span.form-control i{
     height: 7px;
     border-radius: 50%;
     background: white;
+}
+.agent_review h5{
+    font-size: 18px;
+}
+.agent_review span {
+    font-size: 12px;
+}
+.mission_hours_note{
+    font-size: 11px;
+    color: #ff5200;
 }

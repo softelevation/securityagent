@@ -60,16 +60,33 @@
                         <span class="form-control">@if(empty($data->cnaps_number)) N/A @else {{$data->cnaps_number}} @endif</span>
                       </div>
                     </div>
-                    @if($data->agent_type == 1 || $data->agent_type == 2 || $data->agent_type == 3)
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label>Diploma Certificates</label>
-                        @foreach($data->diploma_certificates as $certificate)
-                          <span class="form-control">{{$certificate->file_name}} <a class="action_icons" title="Download" href="{{asset('agent/documents/'.$certificate->file_name)}}" target="_blank"><i class="fa fa-download"></i></a></span>
-                        @endforeach
+                    @php $agentTypes = $data->types; $diploma=0; $dog = 0; @endphp
+                    @foreach($agentTypes as $type)
+                      @if($type->agent_type==1 || $type->agent_type==2 || $type->agent_type==3) 
+                        @php $diploma = 1; @endphp
+                      @endif
+                      @if($type->agent_type==6) 
+                        @php $dog = 1; $dogDoc = $type->dog_info; @endphp
+                      @endif
+                    @endforeach
+                      <div class="row">
+                        @if($diploma==1)
+                          <div class="col-md-6 form-group">
+                            <label>Diploma Certificates</label>
+                            @foreach($data->diploma_certificates as $certificate)
+                              <span class="form-control">{{$certificate->file_name}} <a class="action_icons" title="Download" href="{{asset('agent/documents/'.$certificate->file_name)}}" target="_blank"><i class="fa fa-download"></i></a></span>
+                            @endforeach
+                          </div>
+                        @endif
                       </div>
-                    </div>
-                    @endif
+                      <div class="row">
+                        @if($dog==1)
+                          <div class="col-md-6 form-group">
+                            <label>Dog Mutual Info Document</label>
+                              <span class="form-control">{{$dogDoc}} <a class="action_icons" title="Download" href="{{asset('agent/documents/'.$dogDoc)}}" target="_blank"><i class="fa fa-download"></i></a></span>
+                          </div>
+                        @endif
+                      </div>
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>Home Address</label>

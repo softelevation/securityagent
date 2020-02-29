@@ -106,6 +106,25 @@ $(document).ready(function ()
         formSubmit(form);
       }
     });
+
+    // Customer notification form
+    $("#customer_notification_form").validate({
+      errorClass   : "has-error",
+      highlight    : function(element, errorClass) {
+        $(element).parents('.form-group').addClass(errorClass);
+      },
+      unhighlight  : function(element, errorClass, validClass) {
+        $(element).parents('.form-group').removeClass(errorClass);
+      },
+      rules:{
+      },
+      messages:{
+      },
+      submitHandler: function (form)
+      {
+        formSubmit(form);
+      }
+    });
     
 });
 

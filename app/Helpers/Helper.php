@@ -6,7 +6,7 @@ use Crypt;
 use Edujugon\PushNotification\PushNotification;
 use Mail;
 use App\Mission;
-
+use App\CustomerNotification;
 
 class Helper {
 
@@ -87,7 +87,16 @@ class Helper {
     * @return       :   Get agent type list
     */
     public static function get_agent_type_list(){
-        $agentList = ['Select','Agent SSIAP 1','Agent SSIAP 2','Agent SSIAP 3','ADS With Vehicle or Not','Body Guard Without Weapon','Dog Handler','Hostesses'];
+        $agentList = [
+            'Select',
+            'Agent SSIAP 1',
+            'Agent SSIAP 2',
+            'Agent SSIAP 3',
+            'ADS',
+            'Body Guard Without Weapon',
+            'Dog Handler',
+            'Hostesses'
+        ];
         return $agentList;
     }
 
@@ -97,12 +106,30 @@ class Helper {
     * @return       :   Get agent type name
     */
     public static function get_agent_type_name($param){
-        $agentList = ['','Agent SSIAP 1','Agent SSIAP 2','Agent SSIAP 3','ADS With Vehicle or Not','Body Guard Without Weapon','Dog Handler','Hostesses'];
+        $agentList = [
+            '',
+            'Agent SSIAP 1',
+            'Agent SSIAP 2',
+            'Agent SSIAP 3',
+            'ADS',
+            'Body Guard Without Weapon',
+            'Dog Handler',
+            'Hostesses'
+        ];
         return $agentList[$param];
     }
 
     public static function get_agent_type_name_multiple($param){
-        $agentList = ['','Agent SSIAP 1','Agent SSIAP 2','Agent SSIAP 3','ADS With Vehicle or Not','Body Guard Without Weapon','Dog Handler','Hostesses'];
+        $agentList = [
+            '',
+            'Agent SSIAP 1',
+            'Agent SSIAP 2',
+            'Agent SSIAP 3',
+            'ADS',
+            'Body Guard Without Weapon',
+            'Dog Handler',
+            'Hostesses'
+        ];
         $strArr = [];
         foreach($param as $p){
             $strArr[] = $agentList[$p->agent_type]; 
@@ -222,6 +249,13 @@ class Helper {
         $datetime2 = new \DateTime($ended_at);
         $interval = $datetime1->diff($datetime2);
         $timeDuration = '';
+        if($interval->d!=0){
+            $days = $interval->format('%d Day ');
+            if($interval->d > 1){
+                $days = $interval->format('%d Days ');
+            }
+            $timeDuration .= $days;
+        }
         if($interval->h!=0){
             $hours = $interval->format('%h Hour ');
             if($interval->h > 1){
@@ -246,6 +280,10 @@ class Helper {
         return $timeDuration;
     }
 
+    /**
+     * @return integer
+     * @method get_misison_request_count
+     */
     public static function get_misison_request_count(){
         $count = 0;
         if(Auth::check() && Auth::user()->role_id==2){
@@ -256,6 +294,49 @@ class Helper {
                             ->count();
         }
         return $count;
+    }
+
+    /**
+     * @return array
+     * @method week_days
+     */
+    public static function week_days(){
+        $days[1] = 'Sunday';
+        $days[2] = 'Monday';
+        $days[3] = 'Tuesday';
+        $days[4] = 'Wednesday';
+        $days[5] = 'Thursday';
+        $days[6] = 'Friday';
+        $days[7] = 'Saturday';
+        return $days;
+    }
+
+    /**
+     * @return integer
+     * @method get_customer_notification_count
+     */
+    public static function get_customer_notification_count(){
+        $count = 0;
+        if(Auth::check() && Auth::user()->role_id==1){
+            $customer_id = Auth::user()->customer_info->id;
+            $count = CustomerNotification::where('customer_id',$customer_id)
+                            ->where('status',0)
+                            ->count();
+        }
+        return $count;
+    }
+
+    /**
+     * @return integer
+     * @method get_customer_notification_count
+     */
+    public static function get_customer_notifications(){
+        $data = null;
+        if(Auth::check() && Auth::user()->role_id==1){
+            $customer_id = Auth::user()->customer_info->id;
+            $data = CustomerNotification::where('customer_id',$customer_id)->where('status',0)->get();
+        }
+        return $data;
     }
 
 }

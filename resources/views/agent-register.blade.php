@@ -72,14 +72,14 @@
 	                	<div class="row">
 	                		<div class="col-md-6">
 		                      <div class="form-group">
-				                <label>Curriculum Vitae</label><br>
+				                <label>Anonymous Curriculum Vitae (without name and contact details) </label><br>
 				                <div class="custom-file">
 				                	<input type="file" name="cv" class="custom-file-input" id="cv"/>
 		                         	<label class="custom-file-label" for="cv"> Upload Your Curriculum Vitae </label>
 	                     		</div>
 		                      </div>
 	                    	</div>
-		                  <div class="col-md-6">
+		                  	<div class="col-md-6">
 		                      <div class="form-group ">
 				                <label>IBAN Info</label><br>
 				                <input type="text" name="iban" class="form-control" placeholder="Enter Your IBAN Info" />
@@ -97,7 +97,7 @@
 					                    <option value="1">Agent SSIAP 1</option>
 					                    <option value="2">Agent SSIAP 2</option>
 					                    <option value="3">Agent SSIAP 3</option>
-					                    <option value="4">ADS With Vehicle or Not</option>
+					                    <option value="4">ADS</option>
 					                    <option value="5">Body Guard Without Weapon</option>
 					                    <option value="6">Dog Handler</option>
 					                    <option value="7">Hostesses</option>
@@ -128,9 +128,12 @@
 	                    </div>
 	                    <div class="row d-none dog_info">
 		                    <div class="col-md-6">
-		                      <div class="form-group ">
-				                <label>Dog Mutual Info</label>
-			                    <input type="text" name="dog_info" class="form-control" placeholder="Enter Dog Mutual Info" />
+		                      <div class="form-group">
+				                <label>Dog Mutual Info</label><br>
+				                <div class="custom-file">
+				                	<input type="file" name="dog_info" class="custom-file-input" id="dog_info"/>
+		                         	<label class="custom-file-label" for="dog_info"> Upload Document </label>
+	                     		</div>
 		                      </div>
 		                    </div>
 	                  	</div>

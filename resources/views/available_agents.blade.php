@@ -19,9 +19,9 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="location_btn float-left w-50">
-                        <button  data-toggle="modal" data-target="#create_mission_model" class="orange_btn d-block">Book An Agent Now</button>
-                    </div>
+                    <div class="location_btn d-inline-block">
+                                <button @if(Auth::check() && Auth::user()->role_id==1) data-toggle="modal" data-target="#create_mission_model" @else data-msg-type="error" data-msg="Please login or signup before booking an agent." @endif class="@if(!(Auth::check() && Auth::user()->role_id==1)) alert-msg @endif orange_btn d-block">Book An Agent Now</button>
+                            </div>
                     <div class="float-right">
                         <ul class="dropdown filter-wrap">
                             <li class="nav-item dropdown">
@@ -33,7 +33,7 @@
                                             <li class="search_filter" data-type="agent_type" id="1"><a href="javascript:void(0)">Agent SSIAP 1</a></li>
                                             <li class="search_filter" data-type="agent_type" id="2"><a href="javascript:void(0)">Agent SSIAP 2</a></li>
                                             <li class="search_filter" data-type="agent_type" id="3"><a href="javascript:void(0)">Agent SSIAP 3</a></li>
-                                            <li class="search_filter" data-type="agent_type" id="4"><a href="javascript:void(0)">ADS With Vehicule or Not</a></li>
+                                            <li class="search_filter" data-type="agent_type" id="4"><a href="javascript:void(0)">ADS</a></li>
                                             <li class="search_filter" data-type="agent_type" id="5"><a href="javascript:void(0)">Body Guard Without Weapon</a></li>
                                             <li class="search_filter" data-type="agent_type" id="6"><a href="javascript:void(0)">Dog Handler</a></li>
                                             <li class="search_filter" data-type="agent_type" id="7"><a href="javascript:void(0)">Hostesses</a></li>
@@ -53,42 +53,56 @@
         <div class="row">
             <div class="col-md-4 padding_right_0">
                 <div class="Agent_list">
-                    <h3>Agent In {{$search['location']}} <span data-container="body" data-toggle="popover" data-placement="bottom" data-content="Click on <b>Book An Agent Now</b> button and fill your mission details. After submit, choose an agent and click on <b>Book Now </b> button." data-html="true" data-trigger="hover">How to book an agent <i class="fa fa-question-circle"></i></span></h3>
+                    <h3>Agents In {{$search['location']}} <span data-container="body" data-toggle="popover" data-placement="bottom" data-content="Click on <b>Book An Agent Now</b> button and fill your mission details. After submit, choose an agent and click on <b>Book Now </b> button." data-html="true" data-trigger="hover">How to book an agent <i class="fa fa-question-circle"></i></span></h3>
                     @php $i = 0; @endphp
-                    @forelse(json_decode($data) as $agent)
-                    @php $i++; @endphp
-                    <div class="list_box agent_detail_{{$i}} agent_list_div">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="agent_img">
-                                    <img src="{{$agent->avatar_icon}}"/>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="agent_cont">
-                                    <h4>{{$agent->username}}</h4>
-                                    <p>{{Helper::get_agent_type_name_multiple($agent->types)}}</p>
-                                    <p>@if($agent->is_vehicle==1) With Vehicle @else Without Vehicle @endif</p>
-                                    @if(Session::has('mission'))<p class="pt-2"><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" class="btn_submit bookAgentBtn">Book Now</a></p>@endif
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="agent_review">
-                                    <div class="star">
-                                        <img src="{{asset('assets/images/star.jpg')}}"/>
-                                        <h5>Agent at Home <span>A Agent of USA</span></h5>
-                                        @if(Session::has('mission'))<a target="_blank" href="{{url('/agent-details/'.Helper::encrypt($agent->id))}}" class="text-link">View Agent Details</a>@endif
+                    @if(Auth::check() && Auth::user()->role_id==1 && Session::has('mission'))
+                        @forelse(json_decode($data) as $agent)
+                        @php $i++; @endphp
+                            <div class="list_box agent_detail_{{$i}} agent_list_div">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="agent_img">
+                                            <img src="{{$agent->avatar_icon}}"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="agent_cont">
+                                            <h4>{{$agent->username}}</h4>
+                                            <p>{{Helper::get_agent_type_name_multiple($agent->types)}}</p>
+                                            <p>@if($agent->is_vehicle==1) With Vehicle @else Without Vehicle @endif</p>
+                                            @if(Session::has('mission'))<p class="pt-2"><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" data-distance="{{$agent->distance}}" class="btn_submit bookAgentBtn">Book Now</a></p>@endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="agent_review">
+                                            <div class="star">
+                                                <img src="{{asset('assets/images/star.jpg')}}"/>
+                                                <h5>Agent at Home <br><span>An Agent of USA</span></h5>
+                                                @if(Session::has('mission'))<a target="_blank" href="{{url('/agent-details/'.Helper::encrypt($agent->id))}}" class="text-link">View Agent Details</a>@endif<br>
+                                                <span>{{$agent->distance}} Km away</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="text-center no_avail_agent_message pt-3 d-none">
+                                <i>No agent available at the moment on this location. </i>
+                            </div>
+                        @empty
+                        
+                        @endforelse
+                    @else
+                        <div class="card text-center" style="width: 96%;">
+                          <div class="card-body">
+                            <h5 class="card-title">Book An Agent Now</h5>
+                            <p class="card-text">Click on <b>Book An Agent Now</b> button and fill your mission details. After submit, choose an agent and click on <b>Book Now </b> button.</p>
+                            <div class="location_btn d-inline-block">
+                                <button @if(Auth::check() && Auth::user()->role_id==1) data-toggle="modal" data-target="#create_mission_model" @else data-msg-type="error" data-msg="Please login or signup before booking an agent." @endif class="@if(!(Auth::check() && Auth::user()->role_id==1)) alert-msg @endif orange_btn d-block">Book An Agent Now</button>
+                            </div>
+                          </div>
                         </div>
-                    </div>
-                    @empty
+                    @endif
                     
-                    @endforelse
-                    <div class="text-center no_avail_agent_message pt-3 d-none">
-                        <i>No agent available at the moment on this location. </i>
-                    </div>
                 </div>
             </div>
             <div class="col-md-8 padding_0">
@@ -151,6 +165,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                           <label>Hours Required</label>
+                          @php $hours[] = "Don't know how many hours needed"; @endphp
                           @for($i=1; $i<=24; $i++)
                             @php 
                               if($i==1){
@@ -160,7 +175,8 @@
                               }
                             @endphp
                           @endfor
-                          {{Form::select('total_hours',$hours,null,['class'=>'form-control'])}}
+                          {{Form::select('total_hours',$hours,null,['class'=>'form-control mission_hours'])}}
+                          <span class="mission_hours_note">Note: You will be charged for 8 Hours, if you don't know how many hours needed.</span>
                         </div>
                       </div>
                       <div class="row">
@@ -200,6 +216,7 @@
     </div>
     {{Form::open(['id'=>'general_form','url'=>url('book-agent')])}}
     {{Form::hidden('agent_id',null,['id'=>'bookingAgentId'])}}
+    {{Form::hidden('distance',null,['id'=>'bookingAgentDistance'])}}
     {{Form::close()}}
     <script>
         var slider = document.getElementById("mapZommRange");
@@ -228,7 +245,9 @@
         // Book an agent
         $(document).on('click','.bookAgentBtn',function(){
             let id = $(this).attr('id');
+            let distance = $(this).attr('data-distance')
             $('#bookingAgentId').val(id);
+            $('#bookingAgentDistance').val(distance);
             $('#general_form').submit();
         });
     </script>
@@ -244,18 +263,22 @@
     }
     var latitude = '@php echo $search["latitude"]; @endphp';
     var longitude = '@php echo $search["longitude"]; @endphp';
+    var search = '@php echo $search["s_val"]; @endphp';
+    var zoomVal = parseInt('@php echo $search["zoom"]; @endphp');
     var map,
         markArray = [];
     function initMap(radius) {
         var mapOptions = {
             center: new google.maps.LatLng(latitude, longitude),
-            zoom: 8,
+            zoom: zoomVal,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };    
         map = new google.maps.Map(document.getElementById("agentMap"), mapOptions);
         // Adding our markers from our "big database"
         addMarkers();
-        setRadius(radius);
+        // if(search==true){
+        //     setRadius(radius);
+        // }
         // Fired when the map becomes idle after panning or zooming.
         google.maps.event.addListener(map, 'idle', function() {
             showVisibleMarkers();
@@ -274,7 +297,7 @@
             icon: locations[i].marker,
           });
           bounds.extend(marker.position);
-          google.maps.event.addListener(marker, 'tilesloaded', (function(marker, i) {
+          google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
             return function() {
               var contentString = locations[i].username;
               infowindow.setContent(contentString);

@@ -18,6 +18,9 @@
                             <li class="nav-item">
                                 <a href="{{url('agent/missions')}}" class="nav-link"><i class="fa fa-edit"></i> Missions</a>
                             </li>
+                            <!-- <li class="nav-item">
+                                <a href="{{url('agent/schedule')}}/{{Helper::encrypt(Auth::user()->agent_info->id)}}" class="nav-link"><i class="fa fa-calendar-alt"></i> Set Schedule</a>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link"><i class="fa fa-file-invoice"></i> &nbsp;Billing</a>
                             </li>
