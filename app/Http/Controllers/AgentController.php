@@ -171,7 +171,7 @@ class AgentController extends Controller
     public function setScheduleView($agent_id){
         $agent_id = Helper::decrypt($agent_id);
         $agent = Agent::where('id',$agent_id)->first();
-        $schedule = AgentSchedule::where('id',$agent_id)->first();
+        $schedule = AgentSchedule::where('agent_id',$agent_id)->first();
         return view('agent.schedule',['agent'=>$agent,'schedule'=>$schedule]);
     }
 
