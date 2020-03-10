@@ -38,9 +38,9 @@ class MissionController extends Controller
     public function index(){
         $statusArr = Helper::getMissionStatus();
         $statusArr = array_flip($statusArr);
-    	$missionPending = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',3)->get();
-        $missionInProgress = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',4)->get();
-        $missionCompleted = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',5)->get();
+    	$missionPending = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',3)->orderBy('id','DESC')->get();
+        $missionInProgress = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',4)->orderBy('id','DESC')->get();
+        $missionCompleted = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',5)->orderBy('id','DESC')->get();
         $data['pending_mission'] = $missionPending;
         $data['inprogress_mission'] = $missionInProgress;
         $data['finished_mission'] = $missionCompleted;
