@@ -72,6 +72,9 @@
                                   <td><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" class="action_icons day_on book_agent_later"><i class="fa fa-user-plus"></i> Assign</a></td>
                                 </tr>
                                 @empty
+                                <tr style="font-size: 12px;">
+                                  <td colspan="9">No Agent Available</td>
+                                </tr>
                                 @endforelse
                               </tbody>
                           </table>
