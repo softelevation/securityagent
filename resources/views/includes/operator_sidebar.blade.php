@@ -26,8 +26,8 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="Quick_Order_Agent">
+                    <!-- <div class="Quick_Order_Agent">
                         <a href="#">Quick Order My Agent</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>

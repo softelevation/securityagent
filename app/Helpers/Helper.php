@@ -11,6 +11,7 @@ use App\CustomerNotification;
 class Helper {
 
     const BASE_AGENT_RATE = 30;
+    const MISSION_ADVANCE_PERCENTAGE = 30;
 
     /*
      * @method       :  encryptDataId

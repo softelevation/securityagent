@@ -19,4 +19,8 @@ class Mission extends Model
     public function payments(){
     	return $this->hasMany('App\UserPaymentHistory', 'mission_id');
     }
+
+    public function child_missions(){
+        return $this->hasMany('App\Mission', 'parent_id');
+    }
 }

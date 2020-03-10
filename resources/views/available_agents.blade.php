@@ -137,7 +137,7 @@
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">        
-            <h4 class="modal-title">Find an agent for a mission</h4>
+            <h4 class="modal-title">Book an agent for a mission</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
@@ -204,7 +204,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-center">
-                            <button type="submit" class="button success_btn">Find An Agent Now</button>
+                            <button type="submit" class="button success_btn">Book An Agent Now</button>
                         </div>
                       </div>
                     {{Form::close()}}

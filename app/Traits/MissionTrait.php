@@ -32,11 +32,13 @@ trait MissionTrait
             $data['amount'] = $data['total_hours']*$baseRate;
         }
         // If distance is greater than 50 KM, add travel fee per km
-        $agentDistance = round($data['distance']);
-        if($agentDistance > 50){
-            $data['amount'] = $data['amount']+(0.5*$agentDistance);
+        if(isset($data['distance'])){
+            $agentDistance = round($data['distance']);
+            if($agentDistance > 50){
+                $data['amount'] = $data['amount']+(0.5*$agentDistance);
+            }
+            unset($data['distance']);
         }
-        unset($data['distance']);
         $missionID = Mission::insertGetId($data);
         return $missionID;
     }

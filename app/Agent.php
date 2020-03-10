@@ -19,4 +19,8 @@ class Agent extends Model
     public function diploma_certificates(){
     	return $this->hasMany('App\AgentDiplomaCertificate', 'user_id', 'user_id');
     }
+
+    public function schedule(){
+        return $this->hasOne('App\AgentSchedule', 'agent_id');
+    }
 }

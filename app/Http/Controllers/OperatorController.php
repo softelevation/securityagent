@@ -13,6 +13,9 @@ use App\Customer;
 use App\Mission;
 use App\Helpers\Helper;
 use Hash;
+use DB;
+use App\Notifications\MissionCreated;
+use Carbon\Carbon;
 
 class OperatorController extends Controller
 {
@@ -173,10 +176,58 @@ class OperatorController extends Controller
      * @method missionsList
      * @purpose To get all missions list
      */
-    public function missionsList(){
-        $missions = Mission::orderBy('id','DESC')->paginate(10);
-        $data['missions'] = $missions;
-        return view('operator.missions',$data);
+    public function missionsList(Request $request){
+        $missionAll = Mission::with('child_missions')->where('parent_id',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
+        $missionFuture = Mission::with('child_missions')->where('quick_book',0)->where('parent_id',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
+        $missionQuick = Mission::where('quick_book',1)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
+        $missionCompleted = Mission::with('child_missions')->where('parent_id',0)->where('status',5)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
+        $statusArr = Helper::getMissionStatus();
+        $statusArr = array_flip($statusArr);
+        $params = [
+            'mission_all' => $missionAll,
+            'future_mission' => $missionFuture,
+            'quick_mission' => $missionQuick,
+            'finished_mission' => $missionCompleted,
+            'status_list'=>$statusArr,
+            'limit' => $this->limit,
+            'page_no' => 1,
+            'page_name' => 'all'
+        ];
+        if($request->isMethod('get')){
+            if(isset($request->all)){ 
+                $params['page_no'] = $request->all; 
+                $params['page_name'] = 'all'; 
+            }
+            if(isset($request->future)){ 
+                $params['page_no'] = $request->future; 
+                $params['page_name'] = 'future'; 
+            }
+            if(isset($request->quick)){ 
+                $params['page_no'] = $request->quick; 
+                $params['page_name'] = 'quick'; 
+            }
+            if(isset($request->finished)){ 
+                $params['page_no'] = $request->finished; 
+                $params['page_name'] = 'finished'; }
+        }
+        return view('operator.missions',$params);
+
+
+        // $missions = Mission::orderBy('id','DESC')->paginate(10);
+        // $data['missions'] = $missions;
+        // return view('operator.missions',$data);
+    }
+
+    /**
+     * @param $mission_id
+     * @return mixed
+     * @method viewMissionDetails
+     * @purpose View mission details
+     */
+    public function viewMissionDetails($mission_id){
+        $mission_id = Helper::decrypt($mission_id);
+        $data['mission'] = Mission::where('id',$mission_id)->first();
+        return view('operator.view_mission_details',$data);
     }
 
     /**
@@ -188,6 +239,86 @@ class OperatorController extends Controller
         $id = Helper::decrypt($id);
         $mission = Mission::where('id',$id)->first();
         return view('operator.verify_mission',['data'=>$mission]);
+    }
+
+    /**
+     * @param $mission_id
+     * @return mixed
+     * @method assignMissionAgent
+     * @purpose Assign mission agent
+     */
+    public function assignMissionAgent($mission_id){
+        $mission_id = Helper::decrypt($mission_id);
+        $data['mission'] = $mission = Mission::where('id',$mission_id)->first();
+        // Check if any agent available 
+        $agent_type_needed = $mission->agent_type;
+        // Get nearest agent
+        $agents = Agent::whereHas('types',function($q) use($agent_type_needed){
+            $q->where('agent_type',$agent_type_needed);
+        })->whereHas('schedule')->where('status',1)->where('available',1)->select(DB::raw("*, 111.111 *
+                DEGREES(ACOS(LEAST(1.0, COS(RADIANS(".$mission->latitude."))
+                * COS(RADIANS(work_location_latitude))
+                * COS(RADIANS(".$mission->longitude." - work_location_longitude))
+                + SIN(RADIANS(".$mission->latitude."))
+                * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->orderBy('distance_in_km','ASC')->get(); 
+        $data['agents'] = $agents;  
+        return view('operator.assign_agent',$data);
+    }
+
+    public function bookAgentLaterMission(Request $request){
+        try{
+            $mission_id = Helper::decrypt($request->mission_id);
+            $agent_id = Helper::decrypt($request->agent_id);
+            Mission::where('id',$mission_id)->update(['agent_id'=>$agent_id]);
+            $mission = Mission::where('id',$mission_id)->first();
+            /*----Agent Notification-----*/
+            if(isset($mission->agent_details)){
+                $mailContent = [
+                    'name' => ucfirst($mission->agent_details->first_name),
+                    'message' => 'You have a new mission request. Click on the button below to view details and accept/reject mission, before it expires.', 
+                    'url' => url('agent/mission-details/view').'/'.$request->mission_id 
+                ];
+                $mission->agent_details->user->notify(new MissionCreated($mailContent));
+            }
+            /*--------------*/
+            $response['message'] = 'Mission request sent to agent.';
+            $response['delayTime'] = 2000;
+            $response['url'] = url('operator/missions');
+            return $this->getSuccessResponse($response);
+        }catch(\Exception $e){
+            return response($this->getErrorResponse($e->getMessage()));
+        }
+    }
+
+    public function createSubMissions($mission_id){
+        $mission_id = Helper::decrypt($mission_id);
+        $mission = Mission::where('id',$mission_id)->first();
+        $total_hours = $mission->total_hours;
+        $multiple = floor($total_hours/12);
+        $remainder = $total_hours-$multiple*12;
+        for($i=1; $i<=$multiple; $i++){
+            $hours[] = 12;
+        }
+        if($remainder!=0){
+            $hours[] = $remainder;
+        }
+        $data = $mission->toArray();
+        $data = array_except($data,['id','created_at','updated_at','total_hours']);
+        $time = $mission->start_date_time;
+        $x=0;
+        foreach ($hours as $key => $value) {
+            $x++;
+            if($x!=1){
+                $time = date("Y-m-d H:i:s", strtotime('+'.$value.' hours', strtotime($time)));
+            }
+            $data['start_date_time'] = $time;
+            $data['total_hours'] = $value;
+            $data['created_at'] = Carbon::now();
+            $data['updated_at'] = Carbon::now();
+            $data['parent_id'] = $mission->id;
+            Mission::insert($data);
+        }
+        return redirect('operator/missions');
     }
     
 }

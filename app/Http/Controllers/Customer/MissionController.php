@@ -36,14 +36,11 @@ class MissionController extends Controller
      * @purpose Get Customer Mission's List 
      */
     public function index(Request $request){
-        $missionAll = Mission::where('customer_id',\Auth::user()->customer_info->id)
-                        ->paginate($this->limit,['*'],'all');
-        $missionPending = Mission::where('customer_id',\Auth::user()->customer_info->id)
-                        ->where('status',3)->paginate($this->limit,['*'],'pending');
-        $missionInProgress = Mission::where('customer_id',\Auth::user()->customer_info->id)
-                        ->where('status',4)->paginate($this->limit,['*'],'inprogress');
-        $missionCompleted = Mission::where('customer_id',\Auth::user()->customer_info->id)
-                        ->where('status',5)->paginate($this->limit,['*'],'finished');        
+        $missionAll = Mission::with('child_missions')->where('parent_id',0)->where('customer_id',\Auth::user()->customer_info->id)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
+
+        $missionPending = Mission::where('customer_id',\Auth::user()->customer_info->id)->where('status',3)->orderBy('id','DESC')->paginate($this->limit,['*'],'pending');
+        $missionInProgress = Mission::where('customer_id',\Auth::user()->customer_info->id)->where('status',4)->orderBy('id','DESC')->paginate($this->limit,['*'],'inprogress');
+        $missionCompleted = Mission::with('child_missions')->where('parent_id',0)->where('customer_id',\Auth::user()->customer_info->id)->where('status',5)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
         $statusArr = Helper::getMissionStatus();
         $statusArr = array_flip($statusArr);
         $params = [
@@ -109,6 +106,14 @@ class MissionController extends Controller
                 $time = $dt[1];
                 $startDateTime = $date.' '.$time;
                 $data['start_date_time'] = $startDateTime;
+                $mission_id = $this->saveQuickMissionDetails($data);
+                if($mission_id){
+                    $mission_id = Helper::encrypt($mission_id);
+                    $response['message'] = 'Mission details saved successfully.';
+                    $response['delayTime'] = 2000;
+                    $response['url'] = url('customer/find-mission-agent/'.$mission_id);
+                    return $this->getSuccessResponse($response);
+                }
             }
             // Check if any agent available 
             $agent_type_needed = $data['agent_type'];
@@ -212,8 +217,13 @@ class MissionController extends Controller
         $id = Helper::decrypt($id);
         $mission = Mission::where('id',$id)->first();
         $agent = Agent::where('id',$mission->agent_id)->first();
+        $chargeAmount = $mission->amount;
+        if($mission->quick_book==0){
+            $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
+        }
         $data['mission'] = $mission;
         $data['agent'] = $agent;
+        $data['charge_amount'] = $chargeAmount;
         return view('customer.find_mission_agent',$data);
     }
 
@@ -252,6 +262,10 @@ class MissionController extends Controller
             $amount = Helper::decrypt($request->amount);
             $mission_id = Helper::decrypt($request->mission_id);
             $mission = Mission::where('id',$mission_id)->first();
+            $chargeAmount = $mission->amount;
+            if($mission->quick_book==0){
+                $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
+            }
             $customer_stripe_id = $mission->customer_details->customer_stripe_id;
             $last4digit = substr($request->card_number, -4);
             // Get added card's list
@@ -274,14 +288,14 @@ class MissionController extends Controller
             $chargeData = [
                 'customer' => $customer_stripe_id,
                 'currency' => config('services.stripe.currency'),
-                'amount'   => $mission->amount,
+                'amount'   => $chargeAmount,
                 'description' => 'Mission Charge Amount'
             ];
             $charge = $this->createCharge($chargeData);
             if($charge['status']=='succeeded'){
                 // Save data to payment history
                 $paymentDetails = [
-                    'amount'      => $mission->amount,
+                    'amount'      => $chargeAmount,
                     'status'      => $charge['status'],  
                     'charge_id'   => $charge['id'],
                     'mission_id'  => $mission_id,
@@ -292,6 +306,24 @@ class MissionController extends Controller
                 UserPaymentHistory::insert($paymentDetails);
                 // Update Mission Data
                 Mission::where('id',$mission_id)->update(['payment_status'=>1]);
+                /*----Customer Notification-----*/
+                $mailContent = [
+                    'name' => ucfirst($mission->customer_details->first_name),
+                    'message' => 'Your mission has been created successfully.', 
+                    'url' => url('customer/mission-details/view').'/'.$request->mission_id 
+                ];
+                $mission->customer_details->user->notify(new MissionCreated($mailContent));
+                /*--------------*/ 
+                /*----Agent Notification-----*/
+                if(isset($mission->agent_details)){
+                    $mailContent = [
+                        'name' => ucfirst($mission->agent_details->first_name),
+                        'message' => 'You have a new mission request. Click on the button below to view details and accept/reject mission, before it expires.', 
+                        'url' => url('agent/mission-details/view').'/'.$request->mission_id 
+                    ];
+                    $mission->agent_details->user->notify(new MissionCreated($mailContent));
+                }
+                /*--------------*/
                 $response['message'] = 'Mission payment completed successfully';
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');
@@ -345,12 +377,16 @@ class MissionController extends Controller
             $card_id = $request->card_id;
             $mission_id = Helper::decrypt($request->mission_id);
             $mission = Mission::where('id',$mission_id)->first();
+            $chargeAmount = $mission->amount;
+            if($mission->quick_book==0){
+                $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
+            }
             // Make Charge Payment
             $customer_stripe_id = $mission->customer_details->customer_stripe_id;
             $chargeData = [
                 'customer' => $customer_stripe_id,
                 'currency' => config('services.stripe.currency'),
-                'amount'   => $mission->amount,
+                'amount'   => $chargeAmount,
                 'description' => 'Mission Charge Amount',
                 'source'    => $card_id
             ];
@@ -358,7 +394,7 @@ class MissionController extends Controller
             if($charge['status']=='succeeded'){
                 // Save data to payment history
                 $paymentDetails = [
-                    'amount'      => $mission->amount,
+                    'amount'      => $chargeAmount,
                     'status'      => $charge['status'],  
                     'charge_id'   => $charge['id'],
                     'mission_id'  => $mission_id,
@@ -378,15 +414,15 @@ class MissionController extends Controller
                 $mission->customer_details->user->notify(new MissionCreated($mailContent));
                 /*--------------*/ 
                 /*----Agent Notification-----*/
-                $mailContent = [
-                    'name' => ucfirst($mission->agent_details->first_name),
-                    'message' => 'You have a new mission request. Click on the button below to view details and accept/reject mission, before it expires.', 
-                    'url' => url('agent/mission-details/view').'/'.$request->mission_id 
-                ];
-                $mission->agent_details->user->notify(new MissionCreated($mailContent));
+                if(isset($mission->agent_details)){
+                    $mailContent = [
+                        'name' => ucfirst($mission->agent_details->first_name),
+                        'message' => 'You have a new mission request. Click on the button below to view details and accept/reject mission, before it expires.', 
+                        'url' => url('agent/mission-details/view').'/'.$request->mission_id 
+                    ];
+                    $mission->agent_details->user->notify(new MissionCreated($mailContent));
+                }
                 /*--------------*/ 
-
-
                 $response['message'] = 'Mission payment completed successfully';
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');
@@ -426,6 +462,14 @@ class MissionController extends Controller
                 $time = $dt[1];
                 $startDateTime = $date.' '.$time;
                 $data['start_date_time'] = $startDateTime;
+                $mission_id = $this->saveQuickMissionDetails($data);
+                if($mission_id){
+                    $mission_id = Helper::encrypt($mission_id);
+                    $response['message'] = 'Please wait while redirecting to dashboard.';
+                    $response['delayTime'] = 2000;
+                    $response['url'] = url('customer/find-mission-agent/'.$mission_id);
+                    return $this->getSuccessResponse($response);
+                }
             }
             Session::put('mission',$data);
             $response['message'] = 'Mission details saved successfully';

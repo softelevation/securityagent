@@ -41,6 +41,10 @@ Route::group(['prefix'=>'operator'], function () {
         Route::get('/customer/view/{id}', 'OperatorController@viewCustomerDetails');
         Route::post('/customer_verification', 'OperatorController@customerVerificationAction');
         Route::get('/missions', 'OperatorController@missionsList');
+        Route::get('/mission-details/view/{mission_id}', 'OperatorController@viewMissionDetails');
+        Route::get('/assign-agent/{mission_id}', 'OperatorController@assignMissionAgent');
+        Route::get('/sub-mission/{mission_id}', 'OperatorController@createSubMissions');
+        Route::post('/book-agent-later-mission', 'OperatorController@bookAgentLaterMission');
         Route::get('/verify-mission/{id}', 'OperatorController@verifyMission');
     });
 });
@@ -74,6 +78,7 @@ Route::group(['prefix'=>'agent'], function () {
         Route::get('/mission-requests', 'Agent\MissionController@viewMissionRequests');
         Route::post('/process-mission-request', 'Agent\MissionController@processMissionRequest');
         Route::get('/schedule/{agent_id}', 'AgentController@setScheduleView');
+        Route::post('save-schedule', 'AgentController@saveSchedule');
     });
 });
 

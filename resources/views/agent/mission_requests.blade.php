@@ -43,7 +43,7 @@
                                         <td>{{$mission->title}}</td>
                                         <td>{{$mission->location}}</td>
                                         <td>{{$mission->total_hours}} Hour(s)</td>
-                                        <td>@if($mission->quick_book==1) Now (Quick Booking) @else {{$mission->start_date}} @endif</td>
+                                        <td>@if($mission->quick_book==1) Now (Quick Booking) @else {{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}} @endif</td>
                                         <td>
                                           <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
                                         </td>

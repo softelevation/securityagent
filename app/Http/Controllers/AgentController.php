@@ -8,6 +8,7 @@ use App\Validators\AgentValidator;
 use App\Traits\ResponseTrait;
 use Auth;
 use App\Agent;
+use App\AgentSchedule;
 use App\Helpers\Helper;
 
 class AgentController extends Controller
@@ -170,7 +171,35 @@ class AgentController extends Controller
     public function setScheduleView($agent_id){
         $agent_id = Helper::decrypt($agent_id);
         $agent = Agent::where('id',$agent_id)->first();
-        return view('agent.schedule',['agent'=>$agent]);
+        $schedule = AgentSchedule::where('id',$agent_id)->first();
+        return view('agent.schedule',['agent'=>$agent,'schedule'=>$schedule]);
     }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method saveSchedule
+     * @purpose Save Schedule
+     */
+    public function saveSchedule(Request $request){
+        $post = array_except($request->all(),'_token');
+        $agent_id = Auth::user()->agent_info->id;
+        $isExists = AgentSchedule::where('agent_id',$agent_id)->first();
+        if($isExists){
+            $result = AgentSchedule::where('agent_id',$agent_id)->update($post);
+        }else{
+            $post['agent_id'] = $agent_id;
+            $result = AgentSchedule::insert($post);
+        }
+        if($result){
+            $response['message'] = 'Your schedule saved successfully.';
+            $response['delayTime'] = 2000;
+            $response['url'] = url('agent/schedule/'.Helper::encrypt($agent_id));
+            return response($this->getSuccessResponse($response));
+        }else{
+            return response($this->getErrorResponse('Something went wrong!'));
+        }
+    }
+
 
 }

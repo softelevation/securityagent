@@ -76,7 +76,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-center">
-                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Find An Agent Now</button>
+                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">Book An Agent Now</button>
                         </div>
                       </div>
                     {{Form::close()}}

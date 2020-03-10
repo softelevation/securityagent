@@ -100,6 +100,10 @@ class MissionController extends Controller
             $diffMinutes = $timeFrom->diffInMinutes($timeTo);
              
             if($action==1){
+                $count = Mission::where('parent_id',$mission->parent_id)->where('status', '>', 0)->count();
+                if($count==0){
+                    Mission::where('id',$mission->parent_id)->update(['status'=>3]);
+                }
                 $result = Mission::where('id',$mission_id)->update(['status'=>3]);
                 if($result){
                     $response['message'] = 'Mission request accepted successfully';
@@ -152,9 +156,13 @@ class MissionController extends Controller
         try{
             $mission_id = Helper::decrypt($request->mission_id);
             $timeNow = Carbon::now();
+            $data = Mission::where('id',$mission_id)->first();
+            $count = Mission::where('parent_id',$data->parent_id)->where('status', 4)->count();
+            if($count==0){
+                Mission::where('id',$data->parent_id)->update(['status'=>4]);
+            }
             $result = Mission::where('id',$mission_id)->update(['started_at'=>$timeNow,'status'=>4]);
             if($result){
-                $data = Mission::where('id',$mission_id)->first();
                 Agent::where('id',$data->agent_id)->update(['available'=>2]);
                 $notification = array(
                     'customer_id' => $data->customer_id,
@@ -205,6 +213,62 @@ class MissionController extends Controller
         $missionEndTime = $timeNow;
         $totalMissionMinutes = $missionStartTime->diffInMinutes($missionEndTime);
         $bookedMinutes = $data->total_hours*60;
+        // Charge remaining amount in case of future missions
+        if($data->quick_book==0){
+            if($data->parent_id==0){
+                $missionBalanceAmount = ($data->amount*70)/100;
+                // Make Charge Payment
+                $customer_stripe_id = $data->customer_details->customer_stripe_id;
+                $chargeData = [
+                    'customer' => $customer_stripe_id,
+                    'currency' => config('services.stripe.currency'),
+                    'amount'   => $missionBalanceAmount,
+                    'description' => 'Mission Remaining Charge Amount',
+                ];
+                try{
+                    $charge = $this->createCharge($chargeData);
+                    if($charge['status']=='succeeded'){
+                        // Save data to payment history
+                        $paymentDetails = [
+                            'amount'      => $missionBalanceAmount,
+                            'status'      => $charge['status'],  
+                            'charge_id'   => $charge['id'],
+                            'mission_id'  => $mission_id,
+                            'customer_id' => $data->customer_details->id,
+                            'created_at'  => Carbon::now(),
+                            'updated_at'  => Carbon::now() 
+                        ];
+                        UserPaymentHistory::insert($paymentDetails);
+                    }else{
+                        // Store Failed Payment 
+                        $failedData = [
+                            'customer_id' => $data->customer_details->id, 
+                            'mission_id' => $mission_id, 
+                            'amount' => $missionBalanceAmount, 
+                            'remarks' => 'Mission Remaining Charge Amount' , 
+                            'status' => $charge['status'], 
+                            'response' => json_encode($charge), 
+                            'created_at' => Carbon::now(), 
+                            'updated_at' => Carbon::now()
+                        ];
+                        FailedPayment::insert($failedData);
+                    }
+                }catch(\Exception $e){
+                    // Store Failed Payment 
+                    $failedData = [
+                        'customer_id' => $data->customer_details->id, 
+                        'mission_id' => $mission_id, 
+                        'amount' => $missionBalanceAmount, 
+                        'remarks' => 'Mission Remaining Charge Amount' , 
+                        'status' => 'Error', 
+                        'response' => $e->getMessage(), 
+                        'created_at' => Carbon::now(), 
+                        'updated_at' => Carbon::now()
+                    ];
+                    FailedPayment::insert($failedData);
+                }
+            }
+        }
         // Charge for extra minutes spent
         if($totalMissionMinutes > $bookedMinutes){
             $extraMinutes = $totalMissionMinutes - $bookedMinutes;
@@ -281,6 +345,65 @@ class MissionController extends Controller
             ];
             $data->customer_details->user->notify(new MissionCreated($mailContent));
             /*------------*/
+            if($data->parent_id!=0){
+                $parentMissionId = $data->parent_id;
+                $count = Mission::where('parent_id',$data->parent_id)->where('status', '!=', 5)->count();
+                if($count==0){
+                    $data = Mission::where('id',$parentMissionId)->first();
+                    $missionBalanceAmount = ($data->amount*70)/100;
+                    // Make Charge Payment
+                    $customer_stripe_id = $data->customer_details->customer_stripe_id;
+                    $chargeData = [
+                        'customer' => $customer_stripe_id,
+                        'currency' => config('services.stripe.currency'),
+                        'amount'   => $missionBalanceAmount,
+                        'description' => 'Mission Remaining Charge Amount',
+                    ];
+                    try{
+                        $charge = $this->createCharge($chargeData);
+                        if($charge['status']=='succeeded'){
+                            // Save data to payment history
+                            $paymentDetails = [
+                                'amount'      => $missionBalanceAmount,
+                                'status'      => $charge['status'],  
+                                'charge_id'   => $charge['id'],
+                                'mission_id'  => $data->id,
+                                'customer_id' => $data->customer_details->id,
+                                'created_at'  => Carbon::now(),
+                                'updated_at'  => Carbon::now() 
+                            ];
+                            UserPaymentHistory::insert($paymentDetails);
+                        }else{
+                            // Store Failed Payment 
+                            $failedData = [
+                                'customer_id' => $data->customer_details->id, 
+                                'mission_id' => $data->id, 
+                                'amount' => $missionBalanceAmount, 
+                                'remarks' => 'Mission Remaining Charge Amount' , 
+                                'status' => $charge['status'], 
+                                'response' => json_encode($charge), 
+                                'created_at' => Carbon::now(), 
+                                'updated_at' => Carbon::now()
+                            ];
+                            FailedPayment::insert($failedData);
+                        }
+                    }catch(\Exception $e){
+                        // Store Failed Payment 
+                        $failedData = [
+                            'customer_id' => $data->customer_details->id, 
+                            'mission_id' => $data->id, 
+                            'amount' => $missionBalanceAmount, 
+                            'remarks' => 'Mission Remaining Charge Amount' , 
+                            'status' => 'Error', 
+                            'response' => $e->getMessage(), 
+                            'created_at' => Carbon::now(), 
+                            'updated_at' => Carbon::now()
+                        ];
+                        FailedPayment::insert($failedData);
+                    }
+                    Mission::where('id',$parentMissionId)->update(['status'=>5]);
+                }
+            }
             $response['message'] = 'Your Mission has finished now.';
             $response['delayTime'] = 2000;
             $response['modelhide'] = '#mission_action';
