@@ -142,12 +142,17 @@ trait AgentTrait
                 $q->where('agent_type',$typeID);
             });
         }
-        $agents = $a->select(DB::raw("*, 111.111 *
+        $a->select(DB::raw("*, 111.111 *
                     DEGREES(ACOS(LEAST(1.0, COS(RADIANS(".$request->latitude."))
                     * COS(RADIANS(work_location_latitude))
                     * COS(RADIANS(".$request->longitude." - work_location_longitude))
                     + SIN(RADIANS(".$request->latitude."))
-                    * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->get();
+                    * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->get();
+
+        if(isset($request->type) && $request->type=='agent_type'){
+            $a->having('distance_in_km', '<', 100);
+        }
+        $agents = $a->get();
         $agentArr = [];
         foreach($agents as $agent){
             // Set marker icon
