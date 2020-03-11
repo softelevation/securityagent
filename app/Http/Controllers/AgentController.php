@@ -10,6 +10,7 @@ use Auth;
 use App\Agent;
 use App\AgentSchedule;
 use App\Helpers\Helper;
+use Session;
 
 class AgentController extends Controller
 {
@@ -82,6 +83,7 @@ class AgentController extends Controller
      * @purpose Show available agents on map
      */
     public function showAvailableAgents(Request $request){
+        
         $latitude = '46.2276';
         $longitude = '2.2137';
         $location = 'France';
@@ -94,6 +96,9 @@ class AgentController extends Controller
             $searchVal = true;
             $zoom = 8;
         }else{
+            if(Session::has('mission')){
+                Session::forget('mission');
+            }
             $request->request->set('latitude',$latitude);
             $request->request->set('longitude',$longitude);
         }

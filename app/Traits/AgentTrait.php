@@ -13,6 +13,7 @@ use App\Traits\HelperTrait;
 use App\Traits\ResponseTrait;
 use App\AgentDiplomaCertificate;
 use DB;
+use Session;
 
 trait AgentTrait
 {
@@ -149,9 +150,10 @@ trait AgentTrait
                     + SIN(RADIANS(".$request->latitude."))
                     * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->get();
 
-        if(isset($request->type) && $request->type=='agent_type'){
+        if(Session::has('mission')){
             $a->having('distance_in_km', '<', 100);
         }
+
         $agents = $a->get();
         $agentArr = [];
         foreach($agents as $agent){

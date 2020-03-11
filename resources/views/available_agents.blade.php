@@ -89,7 +89,9 @@
                                 <i>No agent available at the moment on this location. </i>
                             </div>
                         @empty
-                        
+                            <div class="text-center no_avail_agent_message pt-3 d-none">
+                                <i>No agent available at the moment on this location. </i>
+                            </div>
                         @endforelse
                     @else
                         <div class="card text-center" style="width: 96%;">
