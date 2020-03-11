@@ -45,4 +45,8 @@ class User extends Authenticatable
     public function agent_info(){
         return $this->hasOne('App\Agent', 'user_id');
     }
+
+    public function operator_info(){
+        return $this->hasOne('App\Operator', 'user_id');
+    }
 }

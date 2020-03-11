@@ -114,7 +114,9 @@ class AgentController extends Controller
      * @purpose Load agent profile view 
      */
     public function agentProfileView(){
-        return view('agent.profile');
+        $profile = Agent::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first()->toArray();
+        $data['profile'] = $profile;
+        return view('agent.profile',$data);
     }
 
 

@@ -8,6 +8,7 @@ use App\Traits\ResponseTrait;
 use App\Traits\HelperTrait;
 use Auth;
 use App\Agent;
+use App\Operator;
 use App\User;
 use App\Customer;
 use App\Mission;
@@ -16,6 +17,7 @@ use Hash;
 use DB;
 use App\Notifications\MissionCreated;
 use Carbon\Carbon;
+use App\UserPaymentHistory;
 
 class OperatorController extends Controller
 {
@@ -34,7 +36,13 @@ class OperatorController extends Controller
      * @purpose Load dashboard view
      */
     public function loadProfileView(){
-    	return view('operator.profile');
+        $profile = '';
+        $profile = Operator::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first();
+        if($profile){
+            $profile = $profile->toArray();
+        }
+        $data['profile'] = $profile;
+    	return view('operator.profile',$data);
     }
 
     /**
@@ -319,6 +327,25 @@ class OperatorController extends Controller
             Mission::insert($data);
         }
         return redirect('operator/missions');
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method getPaymentHistory
+     * @purpose Get payment history
+     */
+    public function getPaymentHistory(Request $request){
+        $data = UserPaymentHistory::orderBy('id','DESC')->paginate($this->limit);
+        $params = [
+            'history' => $data,
+            'limit' => $this->limit,
+            'page_no' => 1
+        ];
+        if(isset($request->page)){
+            $params['page_no'] = $request->page; 
+        }
+        return view('operator.billing',$params);
     }
     
 }

@@ -29,6 +29,9 @@ Route::post('/save-mission-temporary', 'Customer\MissionController@saveMissionTe
 Route::post('/book-agent', 'Customer\MissionController@bookAgent');
 Route::get('/agent-details/{agent_id}', 'AgentController@viewAgentDetails');
 Route::post('/process-notification', 'CustomerController@processNotifications');
+Route::post('/update-profile', 'UserController@updateProfileDetails');
+Route::post('/update-password', 'UserController@updatePassword');
+
 
 // Operator Routes
 Route::group(['prefix'=>'operator'], function () {
@@ -46,6 +49,7 @@ Route::group(['prefix'=>'operator'], function () {
         Route::get('/sub-mission/{mission_id}', 'OperatorController@createSubMissions');
         Route::post('/book-agent-later-mission', 'OperatorController@bookAgentLaterMission');
         Route::get('/verify-mission/{id}', 'OperatorController@verifyMission');
+        Route::get('/billing-details', 'OperatorController@getPaymentHistory');
     });
 });
 
@@ -63,6 +67,7 @@ Route::group(['prefix'=>'customer'], function () {
         Route::post('/make-mission-payment', 'Customer\MissionController@makeMissionPayment');
         Route::get('/mission-details/view/{mission_id}', 'Customer\MissionController@viewMissionDetails');
         Route::post('/make-card-payment', 'Customer\MissionController@makeCardPayment');
+        Route::get('/billing-details', 'CustomerController@getPaymentHistory');
     });
 });
 

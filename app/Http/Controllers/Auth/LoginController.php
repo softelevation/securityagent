@@ -49,16 +49,16 @@ class LoginController extends Controller
             $currentRoleID = \Auth::user()->role_id;
             switch($currentRoleID){
                 case 1:
-                    return redirect('customer/profile');        
+                    return redirect('customer/missions');        
                 break;
                 case 2:
-                    return redirect('agent/profile');        
+                    return redirect('agent/missions');        
                 break;
                 case 3:
-                    return redirect('operator/profile');        
+                    return redirect('operator/missions');        
                 break;
                 case 4:
-                    return redirect('admin/profile');        
+                    return redirect('admin/missions');        
                 break;
             }   
         }else{
@@ -80,7 +80,7 @@ class LoginController extends Controller
                 switch(Auth::user()->role_id){
                     // Customer
                     case 1:
-                        $response['url'] = url('customer/profile');
+                        $response['url'] = url('customer/missions');
                         if(Session::has('mission')){
                             $mission = Session::get('mission');
                             if(isset($mission['agent_id'])){
@@ -95,15 +95,15 @@ class LoginController extends Controller
                     break;
                     // Agent
                     case 2:
-                        $response['url'] = url('agent/profile');
+                        $response['url'] = url('agent/missions');
                     break;
                     // Operator
                     case 3:
-                        $response['url'] = url('operator/profile');
+                        $response['url'] = url('operator/missions');
                     break;
                     // Admin
                     case 4:
-                        $response['url'] = url('agent/profile');
+                        $response['url'] = url('admin/missions');
                     break;
                 }
                 $response['delayTime'] = 2000;
