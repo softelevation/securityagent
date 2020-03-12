@@ -70,6 +70,7 @@ class MissionController extends Controller
         $missions = Mission::where('agent_id',\Auth::user()->agent_info->id)
                             ->where('status',0)
                             ->where('payment_status',1)
+                            ->orderBy('id','desc')
                             ->paginate($this->limit);
         $params = [
             'data' => $missions,

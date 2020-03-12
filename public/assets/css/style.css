@@ -1255,3 +1255,7 @@ span.form-control i{
     font-size: 11px;
     color: #ff5200;
 }
+.orange_bg{
+    background: #ffc107 !important;
+    border: solid 1px #ffc107;
+}

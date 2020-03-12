@@ -43,6 +43,12 @@
                         <label>Mission Status</label>
                         <span class="form-control">@if($mission->status==0) Unverified @else {{Helper::getMissionStatus($mission->status)}} @endif</span>
                       </div>
+                      @if(isset($mission->start_date_time) && $mission->start_date_time!='')
+                      <div class="col-md-6 form-group">
+                        <label>Mission Start Date Time</label>
+                        <span class="form-control">{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</span>
+                      </div>
+                      @endif
                     </div>
                   </div>
                 </div>

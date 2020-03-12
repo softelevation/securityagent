@@ -82,18 +82,7 @@
                                       <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{$status_list[$mission->status]}} @endif</td>
                                       <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
                                       <td>
-                                        @if($mission->agent_id!=0)
-                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
-                                        @else
-                                        <div class="dropdown">
-                                          <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
-                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
-
-                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a>
-                                          </div>
-                                        </div>
-                                        @endif
+                                        <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
                                       </td>
                                   </tr>
                                   @empty
@@ -256,18 +245,7 @@
                                       <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{$status_list[$mission->status]}} @endif</td>
                                       <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
                                       <td>
-                                        @if($mission->agent_id!=0)
-                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
-                                        @else
-                                        <div class="dropdown">
-                                          <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
-                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
-
-                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a>
-                                          </div>
-                                        </div>
-                                        @endif
+                                        <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
                                       </td>
                                   </tr>
                                   @empty

@@ -84,6 +84,7 @@ Route::group(['prefix'=>'agent'], function () {
         Route::post('/process-mission-request', 'Agent\MissionController@processMissionRequest');
         Route::get('/schedule/{agent_id}', 'AgentController@setScheduleView');
         Route::post('save-schedule', 'AgentController@saveSchedule');
+        Route::post('/create-sub-missions', 'AgentController@agentSubMissions');
     });
 });
 

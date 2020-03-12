@@ -187,7 +187,7 @@ class OperatorController extends Controller
     public function missionsList(Request $request){
         $missionAll = Mission::with('child_missions')->where('parent_id',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
         $missionFuture = Mission::with('child_missions')->where('quick_book',0)->where('parent_id',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
-        $missionQuick = Mission::where('quick_book',1)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
+        $missionQuick = Mission::with('child_missions')->where('quick_book',1)->where('parent_id',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
         $missionCompleted = Mission::with('child_missions')->where('parent_id',0)->where('status',5)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
         $statusArr = Helper::getMissionStatus();
         $statusArr = array_flip($statusArr);
@@ -317,13 +317,14 @@ class OperatorController extends Controller
         foreach ($hours as $key => $value) {
             $x++;
             if($x!=1){
-                $time = date("Y-m-d H:i:s", strtotime('+'.$value.' hours', strtotime($time)));
+                $time = $new_time;
             }
             $data['start_date_time'] = $time;
             $data['total_hours'] = $value;
             $data['created_at'] = Carbon::now();
             $data['updated_at'] = Carbon::now();
             $data['parent_id'] = $mission->id;
+            $new_time = date("Y-m-d H:i:s", strtotime('+'.$value.' hours', strtotime($time)));
             Mission::insert($data);
         }
         return redirect('operator/missions');

@@ -11,6 +11,8 @@ use App\Agent;
 use App\AgentSchedule;
 use App\Helpers\Helper;
 use Session;
+use App\Mission;
+use Carbon\Carbon;
 
 class AgentController extends Controller
 {
@@ -208,5 +210,60 @@ class AgentController extends Controller
         }
     }
 
+    /**
+     * @param $request
+     * @return mixed
+     * @method agentSubMissions
+     * @purpose Agent Sub Missions
+     */
+    public function agentSubMissions(Request $request){
+        try{
+            $mission_id = Helper::decrypt($request->mission_id);
+            $mission = Mission::where('id',$mission_id)->first();
+            $total_hours = $mission->total_hours;
+            $multiple = floor($total_hours/12);
+            $remainder = $total_hours-$multiple*12;
+            for($i=1; $i<=$multiple; $i++){
+                $hours[] = 12;
+            }
+            if($remainder!=0){
+                $hours[] = $remainder;
+            }
+            $data = $mission->toArray();
+            $data = array_except($data,['id','created_at','updated_at','total_hours']);
+            $time = Carbon::now();
+            $x=0;
+            $subMissions = [];
+            foreach ($hours as $key => $value) {
+                $x++;
+                $data['status'] = 3;
+                if($x!=1){
+                    $data['agent_id'] = 0;
+                    $data['status'] = 0;
+                    $time = $new_time;
+                }
+                $data['start_date_time'] = $time;
+                $data['total_hours'] = $value;
+                $data['created_at'] = Carbon::now();
+                $data['updated_at'] = Carbon::now();
+                $data['parent_id'] = $mission->id;
+                $new_time = date("Y-m-d H:i:s", strtotime('+'.$value.' hours', strtotime($time)));
+                $subMissions[] = $data;
+            }
+            $result = Mission::insert($subMissions);
+            if($result){
+                Mission::where('id',$mission_id)->update(['agent_id'=>0]);
+                $response['message'] = 'Mission request accepted successfully for 12 hours.';
+                $response['delayTime'] = 2000;
+                $response['modelhide'] = '#mission_action';
+                $response['url'] = url('agent/mission-requests');
+                return response($this->getSuccessResponse($response));
+            }else{
+                return response($this->getErrorResponse('Something went wrong!'));
+            }
+        }catch(\Exception $e){
+            return response($this->getErrorResponse($e->getMessage()));
+        }
+    }
 
 }

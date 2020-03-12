@@ -70,7 +70,7 @@
                             <!-- <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/cancel-mission-agent')}}" data-type="cancel_agent" class="button danger_btn confirmBtn" data-action="2"><i class="fa fa-times"></i> Cancel Mission</button> -->
                           @endif
                           @if($mission->status==0)
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="accept" class="button success_btn confirmBtn" data-value="1"><i class="fa fa-check"></i> Accept Mission</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="accept" class="button success_btn confirmBtn" data-value="1" data-hours="{{$mission->total_hours}}"><i class="fa fa-check"></i> Accept Mission</button>
                             <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="reject" class="button danger_btn confirmBtn" data-value="2"><i class="fa fa-times"></i> Reject Mission</button>
                           @endif
                       </div>
@@ -114,6 +114,7 @@
           </div>
         </div>
         <div class="modal-footer">
+          @if($mission->total_hours > 12)<button id="12_hrs_btn" type="button" class="btn btn-primary orange_bg">No, Book For 12 Hours</button>@endif
           <button type="submit" class="btn btn-primary success_btn" >Yes</button>
           <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">Close</button>
         </div>
@@ -121,12 +122,16 @@
     </div>
   </div>
 </div>
+{{Form::open(['url'=>url('agent/create-sub-missions'),'id'=>'general_form_2'])}}
+{{Form::hidden('mission_id',Helper::encrypt($mission->id))}}
+{{Form::close()}}
 <script>
   $(document).on('click','.confirmBtn', function(){
     $(document).find('.reject_reason').addClass('d-none');
     let url = $(this).attr('data-url');
     let type = $(this).attr('data-type');
     let value = $(this).attr('data-value');
+    let hours = $(this).attr('data-hours');
     $('#actionInput').val(value);
     var txtMsg = '';
     if(type=='start'){
@@ -140,10 +145,11 @@
     }
     if(type=='accept'){
       txtMsg = 'Are you sure you want to accept this mission?';
+      if(hours > 12){
+        txtMsg = 'As this mission exceeds 12 hours so are you sure you want to accept this full mission for '+hours+' hours?';
+      }
     }
     if(type=='reject'){
-
-      console.log('asdasd');
       let reason = $(document).find('#reasonText').val();
       console.log(reason);
       $('#reasonInput').val(reason);
@@ -152,6 +158,11 @@
     }
     $(document).find('.confirmation_text').html(txtMsg);
     $(document).find('.mission_action_form').attr('action',url);
+  });
+
+  // 
+  $(document).on('click','#12_hrs_btn',function(){
+    $(document).find('#general_form_2').submit();
   });
 </script>
 @endsection
