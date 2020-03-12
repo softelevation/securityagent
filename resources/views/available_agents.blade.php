@@ -168,7 +168,7 @@
                         <div class="col-md-6 form-group">
                           <label>Hours Required</label>
                           @php $hours[] = "Don't know how many hours needed"; @endphp
-                          @for($i=1; $i<=24; $i++)
+                          @for($i=1; $i<=72; $i++)
                             @php 
                               if($i==1){
                                 $hours[$i] = $i.' Hour';  
