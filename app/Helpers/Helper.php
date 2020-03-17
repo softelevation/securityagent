@@ -12,6 +12,7 @@ class Helper {
 
     const BASE_AGENT_RATE = 30;
     const MISSION_ADVANCE_PERCENTAGE = 30;
+    const VAT_PERCENTAGE = 20;
 
     /*
      * @method       :  encryptDataId
@@ -338,6 +339,19 @@ class Helper {
             $data = CustomerNotification::where('customer_id',$customer_id)->where('status',0)->get();
         }
         return $data;
+    }
+
+
+    /**
+     * @return integer
+     * @method get_customer_notification_count
+     */
+    public static function date_format_show($format='Y-m-d', $dateString=null){
+        $date = date('Y-m-d');
+        if($date!=null){
+            $date = $dateString;
+        }
+        return date($format,strtotime($date));
     }
 
 }

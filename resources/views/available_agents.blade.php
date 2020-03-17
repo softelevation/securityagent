@@ -94,7 +94,7 @@
                             </div>
                         @endforelse
                     @else
-                        <div class="card text-center" style="width: 96%;">
+                        <div class="card text-center card_section" style="width: 96%;">
                           <div class="card-body">
                             <h5 class="card-title">Book An Agent Now</h5>
                             <p class="card-text">Click on <b>Book An Agent Now</b> button and fill your mission details. After submit, choose an agent and click on <b>Book Now </b> button.</p>
@@ -115,8 +115,19 @@
                             <div class="col-md-6">
                                 <div class="agent_icon_panel">
                                     <img src="{{asset('assets/images/agent_icon.png')}}"/>
-                                    <h4>Agent Icon</h4>
-                                    <p>Agents Near Your Search Area</p>
+                                    <!-- <h4>Agent Icon</h4> -->
+
+                                    <!-- <p>Agents Near Your Search Area</p> -->
+                                </div>
+                                <div class="legend_icons">
+                                    <div class="pb-1">
+                                        <img src="{{asset('avatars/marker-male.png')}}"/> 
+                                        <span>Security agent icon</span>
+                                    </div>
+                                    <div>
+                                        <img src="{{asset('avatars/marker-female.png')}}"/> 
+                                        <span>Hostess agent icon</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">

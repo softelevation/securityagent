@@ -6,6 +6,13 @@
             @include('includes.customer_sidebar')
             <!-- /.col-md-4 -->
             <div class="col-md-9">
+              <div class="float-left">
+                  <h2>Mission</h2>
+              </div>
+              <div class="float-right pt-3">
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+              </div>
+              <div class="clearfix"></div>
               <div class="contact_box">
                 <h3><i class="fa fa-edit"></i> Mission Payment</h3>
                 <div class="pending-details">

@@ -39,7 +39,17 @@ trait MissionTrait
             }
             unset($data['distance']);
         }
-        $missionID = Mission::insertGetId($data);
+        // Calculate VAT
+        $vat = Helper::VAT_PERCENTAGE;
+        $vatAmount = ($data['amount']*$vat)/100;
+        $data['amount'] = $data['amount']+$vatAmount;
+        if(isset($data['record_id']) && $data['record_id']!=""){
+            $missionID = Helper::decrypt($data['record_id']);
+            unset($data['record_id']);
+            Mission::where('id',$missionID)->update($data);
+        }else{
+            $missionID = Mission::insertGetId($data);
+        }
         return $missionID;
     }
     

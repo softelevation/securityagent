@@ -6,15 +6,22 @@
             @include('includes.customer_sidebar')
             <!-- /.col-md-4 -->
             <div class="col-md-9">
+              <div class="float-left">
+                  <h2>Mission</h2>
+              </div>
+              <div class="float-right pt-3">
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+              </div>
+              <div class="clearfix"></div>
               <div class="contact_box">
                 <h3><i class="fa fa-edit"></i> Create New Mission</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     @if(isset($mission))
-                      {{Form::model($mission,['id'=>'general_form','url'=>url('customer/save-mission')])}}
+                      {{Form::model($mission,['id'=>'general_form','url'=>url('save-mission-temporary')])}}
                       {{Form::hidden('record_id',Helper::encrypt($mission->id))}}
                     @else
-                      {{Form::open(['id'=>'general_form','url'=>url('customer/save-mission')])}}
+                      {{Form::open(['id'=>'general_form','url'=>url('save-mission-temporary')])}}
                     @endif
                       <div class="row">
                         <div class="col-md-6 form-group">

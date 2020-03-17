@@ -6,9 +6,13 @@
             @include('includes.operator_sidebar')
             <!-- /.col-md-4 -->
             <div class="col-md-9">
-              <div>
+              <div class="float-left">
                   <h2>Customers</h2>
               </div>
+              <div class="float-right pt-3">
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+              </div>
+              <div class="clearfix"></div>
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
@@ -44,7 +48,7 @@
                                           <td>{{Helper::get_customer_type_name($customer->customer_type)}}</td>
                                           <td>{{$customer->user->email}}</td>
                                           <td>
-                                            <a class="action_icons" href="{{url('operator/customer/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View details</a>
+                                            <a class="action_icons" href="{{url('operator/customer/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
                                           </td>
                                       </tr>
                                     @empty

@@ -146,6 +146,11 @@ class MissionController extends Controller
                 if($agentDistance > 50){
                     $data['amount'] = $data['amount']+(0.5*$agentDistance);
                 }
+                // Calculate VAT
+                $vat = Helper::VAT_PERCENTAGE;
+                $vatAmount = ($data['amount']*$vat)/100;
+                $data['amount'] = $data['amount']+$vatAmount;
+                
                 if(isset($data['record_id']) && $data['record_id']!=''){
                     $record_id = Helper::decrypt($data['record_id']);
                     unset($data['record_id'],$data['created_at']);
@@ -472,7 +477,7 @@ class MissionController extends Controller
                 }
             }
             Session::put('mission',$data);
-            $response['message'] = 'Mission details saved successfully';
+            $response['message'] = 'Please wait while finding agents near your location.';
             $response['delayTime'] = 2000;
             $response['url'] = route('available-agents',['location'=>$data['location'],'latitude'=>$data['latitude'],'longitude'=>$data['longitude'],'type'=>'agent_type','value'=>$data['agent_type']]);
             return $this->getSuccessResponse($response);

@@ -6,6 +6,13 @@
             @include('includes.customer_sidebar')
             <!-- /.col-md-4 -->
             <div class="col-md-9">
+              <div class="float-left">
+                  <h2>Mission</h2>
+              </div>
+              <div class="float-right pt-3">
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+              </div>
+              <div class="clearfix"></div>
               <div class="contact_box">
                 <h3><i class="fa fa-edit"></i> Book An Agent Now</h3>
                 <div class="pending-details">
@@ -41,7 +48,7 @@
                       <div class="row">
                         <div class="col-md-12 text-center">
                           <h5>Charge Amount: {{$charge_amount}} <i class="fa fa-euro-sign"></i></h5>
-                            @if($mission->quick_book==0)<small>You will be charged for 30% of the total mission amount for now. Rest of the amount will get deducted automatically after completion of your mission.</small><br>@endif
+                            @if($mission->quick_book==0)<small class="note-div">You will be charged for 30% of the total mission amount for now. Rest of the amount will get deducted automatically after completion of your mission.</small><br>@endif
                             <a href="{{url('customer/proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn">Proceed to Checkout</a>
                         </div>
                       </div>

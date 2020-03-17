@@ -6,6 +6,13 @@
             @include('includes.agent_sidebar')
             <!-- /.col-md-4 -->
             <div class="col-md-9">
+              <div class="float-left">
+                  <h2>Missions</h2>
+              </div>
+              <div class="float-right pt-3">
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+              </div>
+              <div class="clearfix"></div>
               <div class="contact_box">
                 <h3>Mission Details</h3>
                 <div class="pending-details">
@@ -33,9 +40,7 @@
                     <div class="row">
                       <div class="col-md-12 form-group">
                         <label>Mission Description</label>
-                        <p class="">{{$mission->description}}
-                          t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                        </p>
+                        <p class="">{{$mission->description}}</p>
                       </div>
                     </div>
                     @if($mission->status==5)
@@ -50,11 +55,11 @@
                       </div>
                       <div class="col-md-6 form-group">
                         <label>Mission Started At</label>
-                        <span class="form-control">{{$mission->started_at}}</span>
+                        <span class="form-control">{{Helper::date_format_show('m/d/Y H:i:s',$mission->started_at)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>Mission Ended At </label>
-                        <span class="form-control">{{$mission->ended_at}}</span>
+                        <span class="form-control">{{Helper::date_format_show('m/d/Y H:i:s',$mission->ended_at)}}</span>
                       </div>
                     </div>
                     @endif
