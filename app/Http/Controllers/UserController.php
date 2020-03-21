@@ -8,7 +8,8 @@ use App\Traits\ResponseTrait;
 use App\Customer;
 use App\Operator;
 use App\Agent;
-use App\User;
+use App\Helpers\Helper;
+use App\UserPaymentHistory;
 use Hash;
 use Auth;
 
@@ -108,6 +109,13 @@ class UserController extends Controller
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }
+    }
 
+    public function downloadPaymentReceipt($id){
+        $id = Helper::decrypt($id);
+        $data = UserPaymentHistory::whereId($id)->first();
+        $pdf = \PDF::loadView('pdf.payment_receipt', ['data'=>$data]);
+        return $pdf->download('invoice.pdf');
+        // return view('pdf.payment_receipt',['data'=>$data]);
     }
 }

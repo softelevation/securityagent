@@ -31,6 +31,7 @@ Route::get('/agent-details/{agent_id}', 'AgentController@viewAgentDetails');
 Route::post('/process-notification', 'CustomerController@processNotifications');
 Route::post('/update-profile', 'UserController@updateProfileDetails');
 Route::post('/update-password', 'UserController@updatePassword');
+Route::get('/download-payment-receipt/{payment_id}', 'UserController@downloadPaymentReceipt');
 
 
 // Operator Routes

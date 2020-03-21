@@ -11,4 +11,9 @@ class UserPaymentHistory extends Model
     public function mission_details(){
         return $this->hasOne('App\Mission', 'id', 'mission_id');
     }
+
+    public function customer_details(){
+        return $this->hasOne('App\Customer', 'id', 'customer_id');
+    }
+
 }
