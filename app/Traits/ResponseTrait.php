@@ -42,7 +42,7 @@ trait ResponseTrait
         $response['success'] = false;
         $response['error'] = true;
         $response['message'] = $message;
-        $response['delayTime'] = 5000;
+        $response['delayTime'] = 2000;
         return $response;
     }
 }

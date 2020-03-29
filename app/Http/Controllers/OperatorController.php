@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Validators\OperatorValidator;
 use App\Traits\ResponseTrait;
 use App\Traits\HelperTrait;
+use App\Traits\PaymentTrait;
 use Auth;
 use App\Agent;
 use App\Operator;
@@ -18,11 +19,14 @@ use DB;
 use App\Notifications\MissionCreated;
 use Carbon\Carbon;
 use App\UserPaymentHistory;
+use App\PaymentApproval;
+use App\RefundRequest;
+
 
 class OperatorController extends Controller
 {
 
-	use OperatorValidator, ResponseTrait;
+	use OperatorValidator, ResponseTrait, PaymentTrait;
 
     public $limit;
 
@@ -219,11 +223,6 @@ class OperatorController extends Controller
                 $params['page_name'] = 'finished'; }
         }
         return view('operator.missions',$params);
-
-
-        // $missions = Mission::orderBy('id','DESC')->paginate(10);
-        // $data['missions'] = $missions;
-        // return view('operator.missions',$data);
     }
 
     /**
@@ -277,7 +276,7 @@ class OperatorController extends Controller
         try{
             $mission_id = Helper::decrypt($request->mission_id);
             $agent_id = Helper::decrypt($request->agent_id);
-            Mission::where('id',$mission_id)->update(['agent_id'=>$agent_id]);
+            Mission::where('id',$mission_id)->update(['agent_id'=>$agent_id,'assigned_at'=>Carbon::now()]);
             $mission = Mission::where('id',$mission_id)->first();
             /*----Agent Notification-----*/
             if(isset($mission->agent_details)){
@@ -348,5 +347,197 @@ class OperatorController extends Controller
         }
         return view('operator.billing',$params);
     }
-    
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method paymentApprovalsView
+     * @purpose View list of payment approvals
+     */
+    public function paymentApprovalsView(Request $request){
+        $data = PaymentApproval::where('status',0)->orderBy('id','DESC')->paginate($this->limit);
+        $params = [
+            'payments' => $data,
+            'limit' => $this->limit,
+            'page_no' => 1
+        ];
+        if(isset($request->page)){
+            $params['page_no'] = $request->page; 
+        }
+        return view('operator.payment_approval',$params);
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method paymentApprovalAction
+     * @purpose View list of payment approvals
+     */
+    public function paymentApprovalAction(Request $request){
+        try{
+            $record_id = Helper::decrypt($request->record_id);
+            $type = $request->type;
+            $data = PaymentApproval::where('id',$record_id)->first();
+            if($type==1){
+                $chargeData = [
+                    'customer' => $data->customer_details->customer_stripe_id,
+                    'currency' => config('services.stripe.currency'),
+                    'amount'   => $data->amount,
+                    'description' => 'Extra Mission Charge Amount',
+                ];
+                $charge = $this->createCharge($chargeData);
+                $responseData = [
+                    'customer_id'   => $data->customer_id,
+                    'mission_id'    => $data->mission_id,
+                    'amount'        => $data->amount,
+                    'status'        => $charge['status'],
+                    'created_at'    => Carbon::now(),
+                    'updated_at'    => Carbon::now()
+                ];
+                if($charge['status']=='succeeded'){
+                    // Save data to payment history
+                    $responseData['charge_id'] = $charge['id'];
+                    $result = UserPaymentHistory::insert($responseData);
+                    if($result){
+                        PaymentApproval::where('id',$record_id)->update(['status'=>1]);
+                        $response['message'] = 'Mission payment done successfully.';
+                        $response['delayTime'] = 2000;
+                        $response['url'] = url('operator/payment-approvals');
+                        return $this->getSuccessResponse($response);
+                    }else{
+                        $response['message'] = 'Something went wrong !';
+                        $response['delayTime'] = 2000;
+                        $response['url'] = url('operator/payment-approvals');
+                        return $this->getErrorResponse($response);
+                    }
+                }else{
+                    // Store Failed Payment 
+                    $responseData = [ 
+                        'remarks' => 'Extra Mission Amount', 
+                        'response' => json_encode($charge),
+                    ];
+                    FailedPayment::insert($responseData);
+
+                    $response['message'] = 'Mission payment failed !';
+                    $response['delayTime'] = 2000;
+                    $response['url'] = url('operator/payment-approvals');
+                    return $this->getErrorResponse($response);
+                }
+            }else{
+                PaymentApproval::where('id',$record_id)->update(['status'=>2]);
+                $response['message'] = 'Mission payment reject successfully.';
+                $response['delayTime'] = 2000;
+                $response['url'] = url('operator/payment-approvals');
+                return $this->getSuccessResponse($response);
+            }
+
+        }catch(\Exception $e){
+            return response($this->getErrorResponse($e->getMessage()));
+        }
+    }
+
+    /**
+     * @return mixed
+     * @method missionsListWithoutAgents
+     * @purpose To get all missions list without agents
+     */
+    public function missionsListWithoutAgents(Request $request){
+        $missions = Mission::where('status',0)->where('agent_id',0)->where('payment_status',1)->orderBy('id','DESC')->paginate($this->limit); 
+        $statusArr = Helper::getMissionStatus();
+        $params = [
+            'data' => $missions,
+            'status_list'=>$statusArr,
+            'limit' => $this->limit,
+            'page_no' => 1
+        ];
+        if(isset($request->page)){
+            $params['page_no'] = $request->page; 
+        }
+        return view('operator.missions_without_agents',$params);
+    }
+
+    /**
+     * @return mixed
+     * @method refundRequestsView
+     * @purpose Refund Requests
+     */
+    public function refundRequestsView(Request $request){
+        $refunds = RefundRequest::orderBy('id','DESC')->paginate($this->limit); 
+        $params = [
+            'refunds' => $refunds,
+            'limit' => $this->limit,
+            'page_no' => 1
+        ];
+        if(isset($request->page)){
+            $params['page_no'] = $request->page; 
+        }
+        return view('operator.refund_requests',$params);
+    }
+
+    /**
+     * @return mixed
+     * @method processRefundRequest
+     * @purpose Process Refund Requests
+     */
+    public function processRefundRequest(Request $request){
+        try{
+            $record_id = Helper::decrypt($request->record_id);
+            $refund_status = $request->refund_status;
+            if($refund_status==1){
+                $record = RefundRequest::where('id',$record_id)->first();
+                $mission_id = $record->mission_id;
+                $this->print($mission_id);
+            }
+            if($refund_status==2){
+                $result = RefundRequest::where('id',$record_id)->update(['status'=>3]);
+                if($result){
+                    $response['message'] = 'Refund request rejected successfully.';
+                    $response['delayTime'] = 2000;
+                    $response['url'] = url('operator/refund-requests');
+                    return $this->getSuccessResponse($response);
+                }        
+            }
+        }catch(\Exception $e){
+            return response($this->getErrorResponse($e->getMessage()));
+        }
+    }
+
+    /**
+     * @param $mission_id
+     * @return mixed
+     * @method viewMissionDetailsRefund
+     * @purpose View refund mission details
+     */
+    public function viewMissionDetailsRefund($mission_id){
+        $mission_id = Helper::decrypt($mission_id);
+        $data['mission'] = Mission::where('id',$mission_id)->first();
+        return view('operator.view_mission_details_refund',$data);
+    }
+
+
+    /**
+     * @param $mission_id
+     * @return mixed
+     * @method refundMissionAmount
+     * @purpose Refund mission amount
+     */
+    public function refundMissionAmount(Request $request){
+        try {
+            $mission_id = Helper::decrypt($request->mission_id);
+            $charge_id = $request->charge_id;
+            $response = $this->refundCharge($charge_id);
+            if($response['status']=='succeeded'){
+                RefundRequest::where('mission_id',$mission_id)->update(['status'=>1]);
+                $result = UserPaymentHistory::where('charge_id',$charge_id)->where('mission_id',$mission_id)->update(['refund_status'=>$response['status']]);
+                if($result){
+                    $response['message'] = 'Amount refunded successfully.';
+                    $response['delayTime'] = 2000;
+                    $response['url'] = url('operator/refund-mission-view/'.Helper::encrypt($mission_id));
+                    return $this->getSuccessResponse($response);
+                }
+            }
+        } catch (\Exception $e) {
+            return response($this->getErrorResponse($e->getMessage()));
+        }
+    }    
 }

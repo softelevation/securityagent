@@ -23,11 +23,13 @@
                         <span class="form-control">{{$mission->title}}</span>
                       </div>
                       <div class="col-md-6 form-group">
+                        <label>Mission Ref.</label>
+                        <span class="form-control">{{Helper::mission_id_str($mission->id)}}</span>
+                      </div>
+                      <div class="col-md-6 form-group">
                         <label>Mission Location</label>
                         <span class="form-control">{{$mission->location}}</span>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-md-6 form-group">
                         <label>Agent Type Needed</label>
                         <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
@@ -40,7 +42,7 @@
                     <div class="row">
                       <div class="col-md-12 form-group">
                         <label>Mission Description</label>
-                        <p class="">{{$mission->description}}</p>
+                        <p class="form-control">{{$mission->description}}</p>
                       </div>
                     </div>
                     @if($mission->status==5)

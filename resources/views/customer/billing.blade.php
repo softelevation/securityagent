@@ -28,6 +28,7 @@
                                       <tr>
                                           <th>#</th>
                                           <th>Mission Title</th>
+                                          <th>Mission Ref.</th>
                                           <th>Amount Charged</th>
                                           <th>Status</th>
                                           <th>Date Time</th>
@@ -45,6 +46,7 @@
                                       <tr>
                                           <td>{{$i}}.</td>
                                           <td>{{$data->mission_details->title}}</td>
+                                          <td>{{Helper::mission_id_str($data->mission_details->id)}}</td>
                                           <td>{{$data->amount}} <i class="fa fa-euro-sign"></i></td>
                                           <td>{{$data->status}}</td>
                                           <td>{{date('m/d/Y H:i:s', strtotime($data->created_at))}}</td>

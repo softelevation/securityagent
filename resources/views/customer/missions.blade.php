@@ -38,6 +38,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
+                                    <th>Mission Ref.</th>
                                     <th>Mission Location</th>
                                     <th>Mission Status</th>
                                     <th>Payment Status</th>
@@ -57,31 +58,52 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
-                                    <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{$status_list[$mission->status]}} @endif</td>
+                                    <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                     <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
                                     <td>
-                                      @if($mission->status==0)
-                                        @php $url = url('customer/quick_mission/edit/'.Helper::encrypt($mission->id)); @endphp
-                                        @if($mission->step==2)
-                                          @php $url = url('customer/find-mission-agent/'.Helper::encrypt($mission->id)); @endphp
-                                        @endif
-                                        @if($mission->payment_status==0)
-                                        <a class="action_icons" href="{{$url}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit </a>
-                                        @endif
-                                      @endif
-                                      <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <div class="dropdown">
+                                          <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            @if($mission->status==0 && $mission->payment_status==0)
+                                              <a class="dropdown-item" href="{{url('customer/quick_mission/edit/'.Helper::encrypt($mission->id))}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit Mission</a>
+                                            @endif
+                                            <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
+                                            @if($mission->payment_status==1 && ($mission->status!=5 && $mission->status!=6 && $mission->status!=7))
+                                              <a href="{{url('customer/cancel-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item cancel_mission_cls"><i class="fas fa-window-close text-grey" aria-hidden="true"></i> Cancel Mission</a>
+                                            @endif
+                                            @if($mission->status==0 && $mission->payment_status==0)
+                                              <a href="{{url('customer/delete-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item delete_mission_cls"><i class="fas fa-trash-alt text-grey" aria-hidden="true"></i> Delete Mission</a>
+                                            @endif
+                                          </div>
+                                      </div>
                                     </td>
                                 </tr>
                                 @forelse($mission->child_missions as $mission)
                                   <tr>
                                       <td></td>
                                       <td>{{$mission->title}} <small class="action_icons">(sub mission)</small></td>
+                                      <td>{{Helper::mission_id_str($mission->id)}}</td>
                                       <td>{{$mission->location}}</td>
-                                      <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{$status_list[$mission->status]}} @endif</td>
+                                      <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                       <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
                                       <td>
-                                        <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
+                                        <div class="dropdown">
+                                          <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            @if($mission->status==0 && $mission->payment_status==0)
+                                              <a class="dropdown-item" href="{{url('customer/quick_mission/edit/'.Helper::encrypt($mission->id))}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit Mission</a>
+                                            @endif
+                                            <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
+                                            @if($mission->payment_status==1 && ($mission->status!=5 && $mission->status!=6 && $mission->status!=7))
+                                              <a href="{{url('customer/cancel-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item cancel_mission_cls"><i class="fas fa-window-close text-grey" aria-hidden="true"></i> Cancel Mission</a>
+                                            @endif
+                                            @if($mission->status==0 && $mission->payment_status==0)
+                                              <a href="{{url('customer/delete-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item delete_mission_cls"><i class="fas fa-trash-alt text-grey" aria-hidden="true"></i> Delete Mission</a>
+                                            @endif
+                                          </div>
+                                        </div>
                                       </td>
                                   </tr>
                                   @empty
@@ -110,9 +132,9 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
+                                    <th>Mission Ref.</th>
                                     <th>Mission Location</th>
                                     <th>Mission Duration</th>
-                                    <th>Mission Start At</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -129,11 +151,25 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}} @if($mission->parent_id!=0)<small class="action_icons">(sub mission)</small>@endif</td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>{{$mission->total_hours}} Hour(s)</td>
-                                    <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
                                     <td>
-                                      <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <div class="dropdown">
+                                        <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                          @if($mission->status==0 && $mission->payment_status==0)
+                                            <a class="dropdown-item" href="{{url('customer/quick_mission/edit/'.Helper::encrypt($mission->id))}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit Mission</a>
+                                          @endif
+                                          <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
+                                          @if($mission->payment_status==1 && ($mission->status!=5 && $mission->status!=6 && $mission->status!=7))
+                                            <a href="{{url('customer/cancel-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item cancel_mission_cls"><i class="fas fa-window-close text-grey" aria-hidden="true"></i> Cancel Mission</a>
+                                          @endif
+                                          @if($mission->status==0 && $mission->payment_status==0)
+                                            <a href="{{url('customer/delete-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item delete_mission_cls"><i class="fas fa-trash-alt text-grey" aria-hidden="true"></i> Delete Mission</a>
+                                          @endif
+                                        </div>
+                                      </div>
                                     </td>
                                 </tr>
                               @empty
@@ -160,8 +196,8 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
+                                    <th>Mission Ref.</th>
                                     <th>Mission Location</th>
-                                    <th>Mission Duration</th>
                                     <th>Mission Start Date</th>
                                     <th>Action</th>
                                 </tr>
@@ -179,11 +215,25 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}} @if($mission->parent_id!=0)<small class="action_icons">(sub mission)</small>@endif</td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
-                                    <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>@if($mission->quick_book==1) Now (Quick Booking) @else {{date('d/m/Y H:i:s', strtotime($mission->start_date_time))}} @endif</td>
                                     <td>
-                                      <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <div class="dropdown">
+                                        <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                          @if($mission->status==0 && $mission->payment_status==0)
+                                            <a class="dropdown-item" href="{{url('customer/quick_mission/edit/'.Helper::encrypt($mission->id))}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit Mission</a>
+                                          @endif
+                                          <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
+                                          @if($mission->payment_status==1 && ($mission->status!=5 && $mission->status!=6 && $mission->status!=7))
+                                            <a href="{{url('customer/cancel-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item cancel_mission_cls"><i class="fas fa-window-close text-grey" aria-hidden="true"></i> Cancel Mission</a>
+                                          @endif
+                                          @if($mission->status==0 && $mission->payment_status==0)
+                                            <a href="{{url('customer/delete-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item delete_mission_cls"><i class="fas fa-trash-alt text-grey" aria-hidden="true"></i> Delete Mission</a>
+                                          @endif
+                                        </div>
+                                      </div>
                                     </td>
                                 </tr>
                               @empty
@@ -233,7 +283,7 @@
                                     <td>@if(isset($mission->started_at)){{date('m/d/Y H:i:s', strtotime($mission->started_at))}}@endif</td>
                                     <td>@if(isset($mission->started_at)){{date('m/d/Y H:i:s', strtotime($mission->ended_at))}}@endif</td>
                                     <td>
-                                      <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
                                     </td>
                                 </tr>
                                 @forelse($mission->child_missions as $mission)
@@ -241,10 +291,10 @@
                                       <td></td>
                                       <td>{{$mission->title}} <small class="action_icons">(sub mission)</small></td>
                                       <td>{{$mission->location}}</td>
-                                      <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{$status_list[$mission->status]}} @endif</td>
+                                      <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                       <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
                                       <td>
-                                        <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
+                                        <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
                                       </td>
                                   </tr>
                                   @empty

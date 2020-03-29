@@ -18,6 +18,9 @@ Route::get('/contact-us', function () {
     return view('contact');
 });
 
+// Cron Jobs
+Route::get('/mission-expired-cron', 'CommonController@missionExpiredCronJob');
+
 Route::get('/register-agent-view','AgentController@index');
 Route::post('/register_agent', 'AgentController@signup');
 Route::get('/customer-signup', 'CustomerController@customerSignupView');
@@ -51,6 +54,13 @@ Route::group(['prefix'=>'operator'], function () {
         Route::post('/book-agent-later-mission', 'OperatorController@bookAgentLaterMission');
         Route::get('/verify-mission/{id}', 'OperatorController@verifyMission');
         Route::get('/billing-details', 'OperatorController@getPaymentHistory');
+        Route::get('/payment-approvals', 'OperatorController@paymentApprovalsView');
+        Route::post('/payment-approval-action', 'OperatorController@paymentApprovalAction');
+        Route::get('/missions-without-agents', 'OperatorController@missionsListWithoutAgents');
+        Route::get('/refund-requests', 'OperatorController@refundRequestsView');
+        Route::post('/process-refund-request', 'OperatorController@processRefundRequest');
+        Route::get('/refund-mission-view/{mission_id}', 'OperatorController@viewMissionDetailsRefund');
+        Route::post('/refund-mission-amount', 'OperatorController@refundMissionAmount');
     });
 });
 
@@ -69,6 +79,8 @@ Route::group(['prefix'=>'customer'], function () {
         Route::get('/mission-details/view/{mission_id}', 'Customer\MissionController@viewMissionDetails');
         Route::post('/make-card-payment', 'Customer\MissionController@makeCardPayment');
         Route::get('/billing-details', 'CustomerController@getPaymentHistory');
+        Route::get('/cancel-mission/{mission_id}', 'Customer\MissionController@cancelMission');
+        Route::get('/delete-mission/{mission_id}', 'Customer\MissionController@deleteMission');
     });
 });
 
@@ -86,6 +98,7 @@ Route::group(['prefix'=>'agent'], function () {
         Route::get('/schedule/{agent_id}', 'AgentController@setScheduleView');
         Route::post('save-schedule', 'AgentController@saveSchedule');
         Route::post('/create-sub-missions', 'AgentController@agentSubMissions');
+        Route::post('/mission-expired', 'AgentController@missionExpiredRequest');
     });
 });
 

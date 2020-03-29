@@ -17,10 +17,12 @@ use Carbon\Carbon;
 use App\Helpers\Helper;
 use App\CustomerNotification;
 use App\Notifications\MissionCreated;
+use App\PaymentApproval;
+use App\Traits\MissionTrait;
 
 class MissionController extends Controller
 {
-    use MissionValidator, ResponseTrait, PaymentTrait;
+    use MissionValidator, ResponseTrait, PaymentTrait, MissionTrait;
 
     private $limit; 
 
@@ -96,10 +98,12 @@ class MissionController extends Controller
             $mission_id = Helper::decrypt($request->mission_id);
             $mission = Mission::where('id',$mission_id)->first();
             // Check if mission request is expired or not
-            $timeFrom = Carbon::createFromFormat('Y-m-d H:i:s', $mission->updated_at);
-            $timeTo = Carbon::now();
-            $diffMinutes = $timeFrom->diffInMinutes($timeTo);
-             
+            $mission_expired = $this->missionExpired($mission_id);
+            if($mission_expired==1){
+                $response = $this->getErrorResponse('Your mission has expired !');
+                $response['url'] = url('agent/mission-requests');
+                return response($response);
+            }
             if($action==1){
                 $count = Mission::where('parent_id',$mission->parent_id)->where('status', '>', 0)->count();
                 if($count==0){
@@ -278,54 +282,15 @@ class MissionController extends Controller
             $extraAmount = $extraMinutes*$baseRatePerMin;
             // Make Charge Payment
             $customer_stripe_id = $data->customer_details->customer_stripe_id;
-            $chargeData = [
-                'customer' => $customer_stripe_id,
-                'currency' => config('services.stripe.currency'),
-                'amount'   => $extraAmount,
-                'description' => 'Extra Mission Charge Amount',
-            ];
-            try{
-                $charge = $this->createCharge($chargeData);
-                if($charge['status']=='succeeded'){
-                    // Save data to payment history
-                    $paymentDetails = [
-                        'amount'      => $extraAmount,
-                        'status'      => $charge['status'],  
-                        'charge_id'   => $charge['id'],
-                        'mission_id'  => $mission_id,
-                        'customer_id' => $data->customer_details->id,
-                        'created_at'  => Carbon::now(),
-                        'updated_at'  => Carbon::now() 
-                    ];
-                    UserPaymentHistory::insert($paymentDetails);
-                }else{
-                    // Store Failed Payment 
-                    $failedData = [
-                        'customer_id' => $data->customer_details->id, 
-                        'mission_id' => $mission_id, 
-                        'amount' => $extraAmount, 
-                        'remarks' => 'Extra Mission Amount' , 
-                        'status' => $charge['status'], 
-                        'response' => json_encode($charge), 
-                        'created_at' => Carbon::now(), 
-                        'updated_at' => Carbon::now()
-                    ];
-                    FailedPayment::insert($failedData);
-                }
-            }catch(\Exception $e){
-                // Store Failed Payment 
-                $failedData = [
-                    'customer_id' => $data->customer_details->id, 
-                    'mission_id' => $mission_id, 
-                    'amount' => $extraAmount, 
-                    'remarks' => 'Extra Mission Amount' , 
-                    'status' => 'Error', 
-                    'response' => $e->getMessage(), 
-                    'created_at' => Carbon::now(), 
-                    'updated_at' => Carbon::now()
-                ];
-                FailedPayment::insert($failedData);
-            }
+            $paymentApprovalData = array(
+                'customer_id' => $data->customer_id,
+                'mission_id' => $mission_id,
+                'amount' => $extraAmount,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            );
+            // store payment data for approval 
+            PaymentApproval::insert($paymentApprovalData);
         }
         $result = Mission::where('id',$mission_id)->update(['ended_at'=>$timeNow,'status'=>5]);
         if($result){

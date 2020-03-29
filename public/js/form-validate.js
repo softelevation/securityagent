@@ -294,8 +294,7 @@ function formSubmit(form)
                 }
                 else
                 {
-
-                    toastr.error(response.message,delayTime)
+                    toastr.error(response.message,delayTime);
                 }
             }
 

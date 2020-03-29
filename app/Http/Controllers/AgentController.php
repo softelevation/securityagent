@@ -13,10 +13,11 @@ use App\Helpers\Helper;
 use Session;
 use App\Mission;
 use Carbon\Carbon;
+use App\Traits\MissionTrait;
 
 class AgentController extends Controller
 {
-	use AgentValidator, AgentTrait, ResponseTrait;
+	use AgentValidator, AgentTrait, ResponseTrait, MissionTrait;
     
     /**
      * @param $request
@@ -263,6 +264,23 @@ class AgentController extends Controller
             }
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
+        }
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method missionExpiredRequest
+     * @purpose Agent mission expired
+     */
+    public function missionExpiredRequest(Request $request){
+        $mission_id = Helper::decrypt($request->record_id);
+        // Check if mission request is expired or not
+        $mission_expired = $this->missionExpired($mission_id);
+        if($mission_expired==1){
+            $response = $this->getErrorResponse('Your mission has expired !');
+            $response['url'] = url('agent/mission-requests');
+            return response($response);
         }
     }
 

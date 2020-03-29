@@ -90,10 +90,117 @@ $(document).ready(function() {
   });
   
   // Book Agent Later Missions
-
   $(document).on('click','.book_agent_later',function(){
     let agent_id = $(this).attr('id');
     $(document).find('#agent_book_later_mission').val(agent_id);
     $(document).find('#general_form').submit();
   });
+
+  //Payment Approval Action
+  $(document).on('click','.pa_act_btn',function(){
+    let record_id = $(this).attr('data-record-id');
+    let type = $(this).attr('data-type');
+    $(document).find('#p_a_r_id').val(record_id);
+    $(document).find('#p_a_type').val(type);
+    $(document).find('#general_form').submit();
+  }); 
+
+  // function to create a countdown timer
+  function showCountDownTimer(elementId,timeout,mission_id){
+    // Set the date we're counting down to
+    var countDownDate = new Date(timeout).getTime();
+    console.log(countDownDate);
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+      // Get today's date and time
+      var now = new Date().getTime(); 
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+      // Time calculations for days, hours, minutes and seconds
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      // Output the result in an element with id="demo"
+      document.getElementById(elementId).innerHTML = minutes + " Min " + seconds + " Sec ";
+      // If the count down is over, write some text 
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById(elementId).innerHTML = "EXPIRED";
+        $(document).find('#expired_mission_id').val(mission_id);
+        $(document).find('#general_form').submit();
+      }
+    }, 1000);
+  }
+
+  // fetch all rows and show timeout
+  $(document).find('.timeout_p').each(function(key, value){
+    let timerId = $(this).attr('id');
+    let timeout = $(this).attr('data-timeout');
+    let mission_id = $(this).attr('data-record-id');
+    showCountDownTimer(timerId,timeout,mission_id);
+  });
+
+  // cancel mission
+  $(document).on('click','.cancel_mission_cls',function(e){
+    e.preventDefault();
+    let url = $(this).attr('href');
+    ajaxGetRequest(url);
+  });
+
+  // delete mission
+  $(document).on('click','.delete_mission_cls',function(e){
+    e.preventDefault();
+    let url = $(this).attr('href');
+    ajaxGetRequest(url);
+  });
+
+  // function to hit get request
+  function ajaxGetRequest(url){
+    $.ajax({
+      type: 'GET',
+      url: url,
+      dataType: 'json',
+      beforeSend  : function () {
+          $("#preloader").show();
+      },
+      complete: function () {
+          $("#preloader").hide();
+      },
+      success: function(response) {
+        $.toast().reset('all');
+        var delayTime=0;
+        if(response.delayTime){
+          delayTime = response.delayTime;
+        }
+        if (response.success){
+          toastr.success(response.message,delayTime);
+        }else{
+          toastr.error(response.message,delayTime);
+        }
+        if(response.url){
+          if(response.delayTime){
+            setTimeout(function() { window.location.href=response.url;}, response.delayTime);
+          }else{
+            window.location.href=response.url;
+          }
+        }
+      }
+    });
+  }
+
+  //refund request
+  $(document).on('click','.refund_cls',function(){
+    let record_id = $(this).attr('id');
+    let status = $(this).attr('data-status');
+    $(document).find('#record_id').val(record_id);
+    $(document).find('#refund_status').val(status);
+    $(document).find('#general_form').submit();
+  }); 
+
+  //refund request
+  $(document).on('click','.refund_now_btn',function(){
+    let charge_id = $(this).attr('id');
+    $(document).find('#charge_id').val(charge_id);
+    $(document).find('#general_form').submit();
+  });
+
 });

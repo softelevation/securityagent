@@ -23,11 +23,13 @@
                         <span class="form-control">{{$mission->title}}</span>
                       </div>
                       <div class="col-md-6 form-group">
+                        <label>Mission Ref.</label>
+                        <span class="form-control">{{Helper::mission_id_str($mission->id)}}</span>
+                      </div>
+                      <div class="col-md-6 form-group">
                         <label>Mission Location</label>
                         <span class="form-control">{{$mission->location}}</span>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-md-6 form-group">
                         <label>Agent Type Needed</label>
                         <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
@@ -36,12 +38,16 @@
                         <label>Mission Hours</label>
                         <span class="form-control">{{$mission->total_hours}} Hour(s)</span>
                       </div>
-                    </div>
-                    <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label>Mission Type</label>
+                        <span class="form-control">@if($mission->quick_book==1) Quick Booking @else Future Booking @endif</span>
+                      </div>
+                      @if(isset($mission->start_date_time))
                       <div class="col-md-6 form-group">
                         <label>Start Datetme</label>
                         <span class="form-control">{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</span>
                       </div>
+                      @endif
                     </div>
                   </div>
                 </div>

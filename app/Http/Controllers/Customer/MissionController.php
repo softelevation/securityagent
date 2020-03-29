@@ -43,6 +43,7 @@ class MissionController extends Controller
         $missionCompleted = Mission::with('child_missions')->where('parent_id',0)->where('customer_id',\Auth::user()->customer_info->id)->where('status',5)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
         $statusArr = Helper::getMissionStatus();
         $statusArr = array_flip($statusArr);
+
         $params = [
             'mission_all' => $missionAll,
             'pending_mission' => $missionPending,
@@ -521,6 +522,50 @@ class MissionController extends Controller
                 $response['delayTime'] = 2000;
                 $response['url'] = url('available-agents');
                 return $this->getErrorResponse($response);
+            }
+        }catch(\Exception $e){
+            return $this->getErrorResponse($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method cancelMission
+     * @purpose Cancel a mission 
+     */
+    public function cancelMission($mission_id){
+        try{
+            $mission_id = Helper::decrypt($mission_id);
+            $cancelled = $this->cancelMissionRequest($mission_id);
+            if($cancelled==1){
+                $response['message'] = 'Your mission has been cancelled successfully.';
+                $response['url'] = url('customer/missions'); 
+                return $this->getSuccessResponse($response);
+            }else{
+                return $this->getErrorResponse('Something went wrong !');
+            }
+        }catch(\Exception $e){
+            return $this->getErrorResponse($e->getMessage());
+        }
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method deleteMission
+     * @purpose Delete a mission 
+     */
+    public function deleteMission($mission_id){
+        try{
+            $mission_id = Helper::decrypt($mission_id);
+            $deleted = $this->deleteMissionRequest($mission_id);
+            if($deleted==1){
+                $response['message'] = 'Your mission has been deleted successfully.';
+                $response['url'] = url('customer/missions'); 
+                return $this->getSuccessResponse($response);
+            }else{
+                return $this->getErrorResponse('Something went wrong !');
             }
         }catch(\Exception $e){
             return $this->getErrorResponse($e->getMessage());

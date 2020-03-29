@@ -7,12 +7,14 @@ use Edujugon\PushNotification\PushNotification;
 use Mail;
 use App\Mission;
 use App\CustomerNotification;
-
+use App\PaymentApproval;
+use App\RefundRequest;
 class Helper {
 
     const BASE_AGENT_RATE = 30;
     const MISSION_ADVANCE_PERCENTAGE = 30;
     const VAT_PERCENTAGE = 20;
+    const REQUEST_TIMEOUT_MINUTES = 05;
 
     /*
      * @method       :  encryptDataId
@@ -227,7 +229,9 @@ class Helper {
             'In Progress'           => 4,
             'Completed'             => 5,
             'Cancelled By Customer' => 6,
-            'Cancelled By Agent'    => 7
+            'Cancelled By Agent'    => 7,
+            'Cancelled By Operator' => 8,
+            'Cancelled By Admin' => 9
         ];
         if($param==null){
             return $statusArr;
@@ -352,6 +356,78 @@ class Helper {
             $date = $dateString;
         }
         return date($format,strtotime($date));
+    }
+
+    /**
+     * @return datetime
+     * @method get_timeout_datetime
+     */
+    public static function get_timeout_datetime($datetime){
+        $timeoutDuration = '+'.self::REQUEST_TIMEOUT_MINUTES.' minutes';
+        return  date('F d, Y H:i:s T',strtotime($timeoutDuration,strtotime($datetime)));
+    }
+
+    /**
+     * @return string
+     * @method mission_id_str
+     */
+    public static function mission_id_str($id){
+        return 'MISN00'.$id;
+    }
+
+    /**
+     * @return string
+     * @method get_mission_status
+     */
+    public static function get_mission_status($status){
+        if($status==0){ $response = 'Unverified'; }
+        if($status==1){ $response = 'Verified'; }
+        if($status==2){ $response = 'Rejected'; }
+        if($status==3){ $response = 'Active'; }
+        if($status==4){ $response = 'In Progress'; }
+        if($status==5){ $response = 'Completed'; }
+        if($status==6){ $response = 'Cancelled'; }
+        if($status==7){ $response = 'Cancelled'; }
+        if($status==8){ $response = 'Cancelled'; }
+        if($status==9){ $response = 'Cancelled'; }
+        return $response;
+    }
+
+    /**
+     * @return string
+     * @method get_request_status
+     */
+    public static function get_refund_status($status){
+        if($status==0) { $response = 'Pending'; }
+        if($status==1) { $response = 'Success'; }
+        if($status==2) { $response = 'Failed'; }
+        if($status==3) { $response = 'Rejected'; }
+        return $response;
+    }
+
+
+    /**
+     * @return integer
+     * @method get_refund_request_count
+     */
+    public static function get_refund_request_count(){
+        return RefundRequest::where('status',0)->count();
+    }
+
+    /**
+     * @return integer
+     * @method get_payment_approval_count
+     */
+    public static function get_payment_approval_count(){
+        return PaymentApproval::where('status',0)->count();
+    }
+
+    /**
+     * @return integer
+     * @method get_mission_without_agent_count
+     */
+    public static function get_mission_without_agent_count(){
+        return Mission::where('status',0)->where('agent_id',0)->where('payment_status',1)->count();
     }
 
 }

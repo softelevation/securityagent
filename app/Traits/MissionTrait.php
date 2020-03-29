@@ -11,6 +11,7 @@ use App\Helpers\Helper;
 use App\Agent;
 use App\User;
 use App\Mission;
+use App\RefundRequest;
 
 trait MissionTrait
 {
@@ -19,6 +20,7 @@ trait MissionTrait
     */
     public function saveQuickMissionDetails($data){
         $data['customer_id'] = \Auth::user()->customer_info->id;
+        $data['assigned_at'] = Carbon::now(); 
         $data['created_at'] = Carbon::now();
         $data['updated_at'] = Carbon::now();
         $data['step'] = 1;
@@ -51,6 +53,79 @@ trait MissionTrait
             $missionID = Mission::insertGetId($data);
         }
         return $missionID;
+    }
+
+    /** 
+    * Expire mission if request timed out
+    * @return boolean  
+    */
+    public function missionExpired($mission_id){
+        $response = 0;
+        $mission = Mission::where('id',$mission_id)->first();
+        $timeFrom = Carbon::parse($mission->assigned_at);
+        $timeTo = Carbon::now();
+        $diffMinutes = $timeFrom->diffInMinutes($timeTo);
+        $timeOutMin = Helper::REQUEST_TIMEOUT_MINUTES;
+        if($diffMinutes > $timeOutMin){
+            // Remove agent id from mission
+            $result = Mission::where('id',$mission_id)->update(['agent_id'=>0]);
+            if($result){
+                $response = 1;
+            }
+        }
+        return $response;
+    }
+
+    /** 
+    * Cancel Mission
+    * @return boolean  
+    */
+    public function cancelMissionRequest($mission_id){
+        $role = Auth::user()->role_id;
+        switch ($role) {
+            case 1:
+                $status = 6;
+                break;
+            case 2:
+                $status = 7;
+                break;
+            case 3:
+                $status = 8;
+                break;
+            case 4:
+                $status = 9;
+                break;
+            
+            default:
+                $status = 'INVALID';
+                break;
+        }
+        $response = 0;
+        if($status!='INVALID'){
+            $update = Mission::where('id',$mission_id)->update(['status'=>$status]);
+            if($update){
+                RefundRequest::insert([
+                    'mission_id' => $mission_id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
+                $response = 1;
+            }
+        }
+        return $response;
+    }
+
+    /** 
+    * Delete Mission
+    * @return boolean  
+    */
+    public function deleteMissionRequest($mission_id){
+        $response = 0;
+        $delete = Mission::where('id',$mission_id)->delete();
+        if($delete){
+            $response = 1;
+        }
+        return $response;
     }
     
 }

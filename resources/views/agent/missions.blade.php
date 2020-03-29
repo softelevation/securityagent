@@ -35,6 +35,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
+                                    <th>Mission Ref.</th>
                                     <th width="25%">Mission Location</th>
                                     <th>Mission Duration</th>
                                     <th>Mission Start At</th>
@@ -48,6 +49,7 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
@@ -57,7 +59,7 @@
                                 </tr>
                               @empty
                                 <tr>
-                                    <td colspan="6">No record found</td>
+                                    <td colspan="7">No record found</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -72,6 +74,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
+                                    <th>Mission Ref.</th>
                                     <th width="25%">Mission Location</th>
                                     <th>Duration</th>
                                     <th>Mission Start Date</th>
@@ -85,6 +88,7 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>@if($mission->quick_book==1) Now (Quick Booking) @else {{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}} @endif</td>
@@ -109,6 +113,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
+                                    <th>Mission Ref.</th>
                                     <th width="25%">Mission Location</th>
                                     <th>Mission Started At</th>
                                     <th>Mission Ended At</th>
@@ -122,6 +127,7 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->ended_at))}}</td>

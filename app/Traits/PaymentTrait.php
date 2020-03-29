@@ -53,5 +53,11 @@ trait PaymentTrait
         $stripe = $this->stripe_token();     
         return $stripe->cards()->all($customer_stripe_id);
     }
+
+    // Get all card's list
+    public function refundCharge($charge_id){
+        $stripe = $this->stripe_token(); 
+        return $stripe->refunds()->create($charge_id);    
+    }
  
 }

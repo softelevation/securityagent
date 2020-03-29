@@ -7,7 +7,7 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Billings</h2>
+                  <h2>Refund Requests</h2>
               </div>
               <div class="float-right pt-3">
                   <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
@@ -17,7 +17,7 @@
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
                       <li class="nav-item w-100">
-                          <a class="nav-link active">All Mission's Payment History </a>
+                          <a class="nav-link active">All Mission's Refund Requests </a>
                       </li>
                   </ul>
                   <div>
@@ -29,9 +29,7 @@
                                           <th>#</th>
                                           <th>Mission Title</th>
                                           <th>Mission Ref. No.</th>
-                                          <th>Amount Paid</th>
-                                          <th>Status</th>
-                                          <th>Date Time</th>
+                                          <th>Refund Status</th>
                                           <th>Action</th>
                                       </tr>
                                   </thead>
@@ -41,16 +39,25 @@
                                       $records = $limit*($page_no-1);
                                       $i = $i+$records;
                                     @endphp
-                                    @forelse($history as $data)
+                                    @forelse($refunds as $data)
                                       @php $i++; @endphp
                                       <tr>
                                           <td>{{$i}}.</td>
                                           <td>{{$data->mission_details->title}}</td>
                                           <td>{{Helper::mission_id_str($data->mission_details->id)}}</td>
-                                          <td>{{$data->amount}} <i class="fa fa-euro-sign"></i></td>
-                                          <td>{{$data->status}}</td>
-                                          <td>{{date('m/d/Y H:i:s', strtotime($data->created_at))}}</td>
-                                          <td><a target="_blank" class="action_icons" href="{{url('download-payment-receipt/'.Helper::encrypt($data->id))}}"><i class="fa fa-download"></i> Download</a></td>
+                                          <td>{{Helper::get_refund_status($data->status)}}</td>
+                                          <td>
+                                            <div class="dropdown">
+                                              <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
+                                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($data->mission_id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
+
+                                                <a href="{{url('operator/refund-mission-view')}}/{{Helper::encrypt($data->mission_id)}}" class="dropdown-item" data-status="1"><i class="fa fa-undo"></i> Refund Mission</a>
+                                                
+                                                <a id="{{Helper::encrypt($data->id)}}" href="javascript:void(0)" class="dropdown-item refund_cls" data-status="2"><i class="fa fa-times"></i> Reject Request</a>
+                                              </div>
+                                            </div>
+                                          </td>
                                       </tr>
                                     @empty
                                       <tr>
@@ -63,7 +70,7 @@
                           <div class="row">
                             <div class="ml-auto mr-auto">
                               <nav class="navigation2 text-center" aria-label="Page navigation">
-                                {{$history->links()}}
+                                {{$refunds->links()}}
                               </nav>
                             </div>
                           </div>
@@ -74,8 +81,11 @@
             </div>
             <!-- /.col-md-8 -->
         </div>
-
     </div>
     <!-- /.container -->
 </div>
+{{Form::open(['url'=>url('operator/process-refund-request'),'id'=>'general_form'])}}
+{{Form::hidden('record_id',null,['id'=>'record_id'])}}
+{{Form::hidden('refund_status',null,['id'=>'refund_status'])}}
+{{Form::close()}}
 @endsection

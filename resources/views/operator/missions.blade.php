@@ -38,6 +38,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
+                                    <th>Mission Ref.</th>
                                     <th>Mission Location</th>
                                     <th>Mission Status</th>
                                     <th>Payment Status</th>
@@ -57,8 +58,9 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
-                                    <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{$status_list[$mission->status]}} @endif</td>
+                                    <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                     <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
                                     <td>
                                       <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
@@ -68,8 +70,9 @@
                                   <tr>
                                       <td></td>
                                       <td>{{$mission->title}} <small class="action_icons">(sub mission)</small></td>
+                                      <td>{{Helper::mission_id_str($mission->id)}}</td>
                                       <td>{{$mission->location}}</td>
-                                      <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{$status_list[$mission->status]}} @endif</td>
+                                      <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                       <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
                                       <td>
                                         @if($mission->agent_id!=0)
@@ -90,7 +93,7 @@
                                   @endforelse
                               @empty
                                 <tr>
-                                    <td colspan="6">No record found</td>
+                                    <td colspan="7">No record found</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -112,6 +115,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
+                                    <th>Mission Ref.</th>
                                     <th>Mission Duration</th>
                                     <th>Start Datetime</th>
                                     <th>Status</th>
@@ -131,9 +135,10 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</td>
-                                    <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{$status_list[$mission->status]}} @endif</td>
+                                    <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                     <td>
                                       @if($mission->child_missions->count() == 0)
                                         @if($mission->agent_id!=0)
@@ -147,7 +152,9 @@
                                             <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a>
 
                                             <!-- <a class="dropdown-item" href="#"><i class="far fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a> -->
+                                            @if($mission->total_hours > 12)
                                             <a class="dropdown-item" href="{{url('operator/sub-mission')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-border-all text-grey" aria-hidden="true"></i> Create Sub Missions</a>
+                                            @endif
                                           </div>
                                         </div>
                                         @endif
@@ -160,9 +167,10 @@
                                 <tr>
                                     <td></td>
                                     <td>{{$mission->title}} <small class="action_icons">(sub mission)</small></td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</td>
-                                    <td>{{$status_list[$mission->status]}}</td>
+                                    <td>{{Helper::get_mission_status($mission->status)}}</td>
                                     <td>
                                       @if($mission->agent_id!=0)
                                       <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
@@ -182,7 +190,7 @@
                                 @endforelse
                               @empty
                                 <tr>
-                                    <td colspan="6">No record found</td>
+                                    <td colspan="7">No record found</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -204,9 +212,9 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
+                                    <th>Mission Ref.</th>
                                     <th>Mission Location</th>
                                     <th>Mission Duration</th>
-                                    <th>Mission Start Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -223,9 +231,10 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
+                                    <td>{{$mission->location}}</td>
                                     <td>{{$mission->total_hours}} Hour(s)</td>
-                                    <td>{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</td>
-                                    <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{$status_list[$mission->status]}} @endif</td>
+                                    <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                     <td>
                                       @if($mission->child_missions->count() == 0)
                                         @if($mission->agent_id!=0)
@@ -252,9 +261,10 @@
                                 <tr>
                                     <td></td>
                                     <td>{{$mission->title}} <small class="action_icons">(sub mission)</small></td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
+                                    <td>{{$mission->location}}</td>
                                     <td>{{$mission->total_hours}} Hour(s)</td>
-                                    <td>{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</td>
-                                    <td>{{$status_list[$mission->status]}}</td>
+                                    <td>{{Helper::get_mission_status($mission->status)}}</td>
                                     <td>
                                       @if($mission->agent_id!=0)
                                       <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
@@ -263,7 +273,6 @@
                                         <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                           <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
-
                                           <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a>
                                         </div>
                                       </div>
@@ -296,6 +305,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Mission Title</th>
+                                    <th>Mission Ref.</th>
                                     <th>Mission Location</th>
                                     <th>Mission Started At</th>
                                     <th>Mission Ended At</th>
@@ -315,6 +325,7 @@
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
+                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>@if(isset($mission->started_at)){{date('m/d/Y H:i:s', strtotime($mission->started_at))}}@endif</td>
                                     <td>@if(isset($mission->started_at)){{date('m/d/Y H:i:s', strtotime($mission->ended_at))}}@endif</td>
@@ -326,6 +337,7 @@
                                   <tr>
                                       <td></td>
                                       <td>{{$mission->title}} <small class="action_icons">(sub mission)</small></td>
+                                      <td>{{Helper::mission_id_str($mission->id)}}</td>
                                       <td>{{$mission->location}}</td>
                                       <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
                                       <td>{{date('m/d/Y H:i:s', strtotime($mission->ended_at))}}</td>
@@ -348,7 +360,7 @@
                                   @endforelse
                               @empty
                                 <tr>
-                                    <td colspan="6">No record found</td>
+                                    <td colspan="7">No record found</td>
                                 </tr>
                               @endforelse
                             </tbody>
