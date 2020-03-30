@@ -71,9 +71,9 @@
                                 @forelse($agents as $agent)
                                 <tr>
                                   <td>{{$agent->username}}</td>
-                                  <td>{{Helper::date_format_show('m/d/Y', $agent->schedule[0]->schedule_date)}}</td>
-                                  <td>{{$agent->schedule[0]->available_from}}</td>
-                                  <td>{{$agent->schedule[0]->available_to}}</td>
+                                  <td>@if($agent->schedule->count() > 0) {{Helper::date_format_show('m/d/Y', $agent->schedule[0]->schedule_date)}} @else Not Set @endif</td>
+                                  <td>@if($agent->schedule->count() > 0) {{$agent->schedule[0]->available_from}} @else Not Set @endif</td>
+                                  <td>@if($agent->schedule->count() > 0) {{$agent->schedule[0]->available_to}} @else Not Set @endif</td>
                                   <td><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" class="action_icons day_on book_agent_later"><i class="fa fa-user-plus"></i> Assign</a></td>
                                 </tr>
                                 @empty

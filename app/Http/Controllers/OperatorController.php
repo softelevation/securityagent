@@ -259,22 +259,32 @@ class OperatorController extends Controller
         $data['mission'] = $mission = Mission::where('id',$mission_id)->first();
         // Check if any agent available 
         $agent_type_needed = $mission->agent_type;
-        $start_date = date('Y-m-d',strtotime($mission->start_date_time));
+        if($mission->quick_book==0){
+            $start_date = date('Y-m-d');    
+        }else{
+            $start_date = date('Y-m-d',strtotime($mission->start_date_time));
+        }
         // Get nearest agent
-        $agents = Agent::with(['schedule'=>function($q) use ($start_date){
-            $q->whereDate('schedule_date',$start_date);
-        }])->whereHas('types',function($q) use($agent_type_needed){
+        $a = Agent::whereHas('types',function($q) use($agent_type_needed){
             $q->where('agent_type',$agent_type_needed);
-        })->whereHas('schedule',function($q) use ($start_date){
+        });
+        $a->with(['schedule'=>function($q) use ($start_date){
             $q->whereDate('schedule_date',$start_date);
-        })->whereHas('missions',function($q) use ($start_date){
-            $q->whereDate('start_date_time','!=',$start_date)->where('status',0);
-        })->where('status',1)->where('available',1)->select(DB::raw("*, 111.111 *
+        }]);
+        if($mission->quick_book==0){
+            $a->whereHas('schedule',function($q) use ($start_date){
+                $q->whereDate('schedule_date',$start_date);
+            });
+            $a->whereHas('missions',function($q) use ($start_date){
+                $q->whereDate('start_date_time','!=',$start_date)->where('status',0);
+            });
+        }
+        $agents = $a->where('status',1)->where('available',1)->select(DB::raw("*, 111.111 *
                 DEGREES(ACOS(LEAST(1.0, COS(RADIANS(".$mission->latitude."))
                 * COS(RADIANS(work_location_latitude))
                 * COS(RADIANS(".$mission->longitude." - work_location_longitude))
                 + SIN(RADIANS(".$mission->latitude."))
-                * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->orderBy('distance_in_km','ASC')->get(); 
+                * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->orderBy('distance_in_km','ASC')->get();  
         $data['agents'] = $agents;  
         return view('operator.assign_agent',$data);
     }
