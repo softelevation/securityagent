@@ -38,7 +38,9 @@ $(document).ready(function() {
   // Tooltips
   $('[data-toggle="tooltip"]').tooltip();
   $('[data-toggle="popover"]').popover();
+  
   $(function() {
+    // Datepicker
     $( ".datepicker" ).datepicker();
     // Datetimepicker
     jQuery('.datetimepicker').datetimepicker({
@@ -203,4 +205,39 @@ $(document).ready(function() {
     $(document).find('#general_form').submit();
   });
 
+  $( ".agent_schedule" ).datepicker({
+    minDate:0,
+    onSelect:function(dateText,inst){
+      $(document).find('.modal-title span').html(dateText);
+      $(document).find('#schedule_date').val(dateText);
+      $('#schedule_model').modal('show');
+    },
+    beforeShowDay:function(date) {
+        var set_date = [];
+        var timing = '';
+        var m = date.getMonth()+1, d = date.getDate(), y = date.getFullYear();
+        if(m < 10){ m = '0'+m; }
+        if(d < 10){ d = '0'+d; }
+        let current_date = y+'-'+m+'-'+d;
+        set_date = schedule.filter(function (schedule) { return schedule.schedule_date == current_date });
+        if(set_date.length!=0){
+          let from = set_date[0].available_from;
+          from = from.split(":");
+          let to = set_date[0].available_to
+          to = to.split(":");
+          timing = from[0]+':'+from[1]+' - '+to[0]+':'+to[1];
+          addCustomInformation();
+          return[true,'schedule_set_on',timing]
+        }
+        return [true];
+    }
+  });
+  function addCustomInformation() {
+    setTimeout(function() {
+      $(".ui-datepicker-calendar td").attr("data-toggle","tooltip");
+      $('[data-toggle="tooltip"]').tooltip({
+        placement: 'top'
+      });
+    }, 0);
+  }
 });

@@ -181,7 +181,7 @@ class AgentController extends Controller
     public function setScheduleView($agent_id){
         $agent_id = Helper::decrypt($agent_id);
         $agent = Agent::where('id',$agent_id)->first();
-        $schedule = AgentSchedule::where('agent_id',$agent_id)->first();
+        $schedule = AgentSchedule::select('schedule_date','available_from','available_to')->where('agent_id',$agent_id)->whereDate('schedule_date', '>=', Carbon::now())->get();
         return view('agent.schedule',['agent'=>$agent,'schedule'=>$schedule]);
     }
 
@@ -194,11 +194,15 @@ class AgentController extends Controller
     public function saveSchedule(Request $request){
         $post = array_except($request->all(),'_token');
         $agent_id = Auth::user()->agent_info->id;
-        $isExists = AgentSchedule::where('agent_id',$agent_id)->first();
+        $schedule_date = date('Y-m-d', strtotime($request->schedule_date));
+        $post['schedule_date'] = $schedule_date;
+        $isExists = AgentSchedule::where('agent_id',$agent_id)->whereDate('schedule_date',$schedule_date)->first();
         if($isExists){
             $result = AgentSchedule::where('agent_id',$agent_id)->update($post);
         }else{
             $post['agent_id'] = $agent_id;
+            $post['created_at'] = Carbon::now();
+            $post['updated_at'] = Carbon::now();
             $result = AgentSchedule::insert($post);
         }
         if($result){

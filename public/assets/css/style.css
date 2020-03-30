@@ -1286,3 +1286,34 @@ span.form-control i{
 .back_btn:hover{
     color: #FFEB3B;
 }
+/*Agent Schedule Datepicker*/
+.agent_schedule{
+    padding: 5%;
+}
+.agent_schedule .ui-datepicker{
+    width: 100%
+}
+.agent_schedule .ui-datepicker table tr td .ui-state-default{
+    padding: 15px;
+    text-align: center;
+    background: #f6f6f6;
+    font-size: 14px;
+    color: #000000;
+}
+.ui-state-active, .ui-widget-content .ui-state-active, 
+.ui-widget-header .ui-state-active, a.ui-button:active, 
+.ui-button:active, .ui-button.ui-state-active:hover{
+    color: #000 !important;
+    border:1px solid #ffc107 !important; 
+}
+.agent_schedule .ui-datepicker .ui-datepicker-title{
+    line-height: 1.8em;
+}
+.schedule_set_on a{
+    background:#ffc107 !important;
+    /*color: #ffffff !important;*/
+}
+.schedule_set_on a{
+    border: #FF9800 solid 1px !important;
+}
+
