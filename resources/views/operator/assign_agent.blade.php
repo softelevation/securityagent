@@ -61,31 +61,23 @@
                               <thead>
                                   <tr>
                                     <th>Agent</th>
-                                    <th>Sunday</th>
-                                    <th>Monday</th>
-                                    <th>Tuesday</th>
-                                    <th>Wednesday</th>
-                                    <th>Thursday</th>
-                                    <th>Friday</th>
-                                    <th>Saturday</th>
+                                    <th>Date</th>
+                                    <th>Available From</th>
+                                    <th>Available To</th>
                                     <th>Action</th>
                                   </tr>
                               </thead>
                               <tbody>
                                 @forelse($agents as $agent)
-                                <tr style="font-size: 12px;">
+                                <tr>
                                   <td>{{$agent->username}}</td>
-                                  <td>{{date('H:i', strtotime($agent->schedule->sunday_from))}} - {{date('H:i', strtotime($agent->schedule->sunday_to))}}</td>
-                                  <td>{{date('H:i', strtotime($agent->schedule->monday_from))}} - {{date('H:i', strtotime($agent->schedule->monday_to))}}</td>
-                                  <td>{{date('H:i', strtotime($agent->schedule->tuesday_from))}} - {{date('H:i', strtotime($agent->schedule->tuesday_to))}}</td>
-                                  <td>{{date('H:i', strtotime($agent->schedule->wednesday_from))}} - {{date('H:i', strtotime($agent->schedule->wednesday_to))}}</td>
-                                  <td>{{date('H:i', strtotime($agent->schedule->thursday_from))}} - {{date('H:i', strtotime($agent->schedule->thursday_to))}}</td>
-                                  <td>{{date('H:i', strtotime($agent->schedule->friday_from))}} - {{date('H:i', strtotime($agent->schedule->friday_to))}}</td>
-                                  <td>{{date('H:i', strtotime($agent->schedule->saturday_from))}} - {{date('H:i', strtotime($agent->schedule->saturday_to))}}</td>
+                                  <td>{{Helper::date_format_show('m/d/Y', $agent->schedule[0]->schedule_date)}}</td>
+                                  <td>{{$agent->schedule[0]->available_from}}</td>
+                                  <td>{{$agent->schedule[0]->available_to}}</td>
                                   <td><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" class="action_icons day_on book_agent_later"><i class="fa fa-user-plus"></i> Assign</a></td>
                                 </tr>
                                 @empty
-                                <tr style="font-size: 12px;">
+                                <tr>
                                   <td colspan="9">No Agent Available</td>
                                 </tr>
                                 @endforelse
