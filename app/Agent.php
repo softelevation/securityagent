@@ -21,6 +21,10 @@ class Agent extends Model
     }
 
     public function schedule(){
-        return $this->hasOne('App\AgentSchedule', 'agent_id');
+        return $this->hasMany('App\AgentSchedule', 'agent_id');
+    }
+
+    public function missions(){
+        return $this->hasMany('App\Mission', 'agent_id');
     }
 }

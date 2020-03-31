@@ -208,8 +208,19 @@ $(document).ready(function() {
   $( ".agent_schedule" ).datepicker({
     minDate:0,
     onSelect:function(dateText,inst){
+      var show_date = [];
+      let new_date = dateText.split("/");
       $(document).find('.modal-title span').html(dateText);
       $(document).find('#schedule_date').val(dateText);
+      let current_date = new_date[2]+'-'+new_date[0]+'-'+new_date[1];
+      show_date = schedule.filter(function (schedule) { return schedule.schedule_date == current_date });
+      if(show_date.length!=0){
+        $(document).find('#available_from').val(show_date[0].available_from);
+        $(document).find('#available_to').val(show_date[0].available_to);
+      }else{
+        $(document).find('#available_from').val('');
+        $(document).find('#available_to').val('');
+      }
       $('#schedule_model').modal('show');
     },
     beforeShowDay:function(date) {

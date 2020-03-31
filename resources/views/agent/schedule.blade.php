@@ -43,11 +43,11 @@
         <div class="row">
           <div class="col-md-6 form-group">
             <label>Available From</label>
-            {{Form::text('available_from',null,['class'=>'form-control timepicker','placeholder'=>'Set availability from time'])}}
+            {{Form::text('available_from',null,['class'=>'form-control timepicker','placeholder'=>'Set availability from time','id'=>'available_from'])}}
           </div>
           <div class="col-md-6 form-group">
             <label>Available To</label>
-            {{Form::text('available_to',null,['class'=>'form-control timepicker', 'placeholder'=>'Set availability to time'])}}
+            {{Form::text('available_to',null,['class'=>'form-control timepicker', 'placeholder'=>'Set availability to time','id'=>'available_to'])}}
           </div>
         </div>
       </div>
