@@ -47,7 +47,14 @@
                       <hr>
                       <div class="row">
                         <div class="col-md-12 text-center">
-                          <h5>Charge Amount: {{$charge_amount}} <i class="fa fa-euro-sign"></i></h5>
+                          @php 
+                            $vat_amount = Helper::get_vat_amount($charge_amount);
+                            $original_amount = $charge_amount-$vat_amount;
+                          @endphp
+                          <h5>Charge Amount: {{$original_amount}} <i class="fa fa-euro-sign"></i><br>
+                              VAT({{Helper::VAT_PERCENTAGE}}%): {{$vat_amount}} <i class="fa fa-euro-sign"></i><br>
+                              Total Amount: {{$charge_amount}} <i class="fa fa-euro-sign"></i>
+                            </h5>
                             @if($mission->quick_book==0)<small class="note-div">You will be charged for 30% of the total mission amount for now. Rest of the amount will get deducted automatically after completion of your mission.</small><br>@endif
                             <a href="{{url('customer/proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn">Proceed to Checkout</a>
                         </div>

@@ -430,6 +430,18 @@ class Helper {
         return Mission::where('status',0)->where('agent_id',0)->where('payment_status',1)->count();
     }
 
+    /**
+     * @return integer
+     * @method get_vat_amount
+     */
+    public static function get_vat_amount($final_amount){
+        $vat = self::VAT_PERCENTAGE;
+        $x = $final_amount*$vat;
+        $vat_amount = $x/(100+$vat);
+        return $vat_amount;
+    }
+
+
 }
 
 ?>
