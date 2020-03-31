@@ -1,4 +1,11 @@
 $(document).ready(function() {
+  // Set Global Variables
+  var locale = 'en-US';
+  var timezone = 'Europe/Paris';
+  function get_current_date_time(){
+    return new Date().toLocaleString(locale, {timeZone: timezone});
+  }
+
   // Multi select
   $(document).find('.multi_select').select2({
     placeholder: "Select Options",
@@ -108,14 +115,14 @@ $(document).ready(function() {
   }); 
 
   // function to create a countdown timer
-  function showCountDownTimer(elementId,timeout,mission_id){
+  function showCountDownTimer(elementId,expire_time,mission_id){
     // Set the date we're counting down to
-    var countDownDate = new Date(timeout).getTime();
-    console.log(countDownDate);
+    var countDownDate = new Date(expire_time).getTime();
     // Update the count down every 1 second
     var x = setInterval(function() {
       // Get today's date and time
-      var now = new Date().getTime(); 
+      var cdt = get_current_date_time();
+      var now = new Date(cdt).getTime();
       // Find the distance between now and the count down date
       var distance = countDownDate - now;
       // Time calculations for days, hours, minutes and seconds

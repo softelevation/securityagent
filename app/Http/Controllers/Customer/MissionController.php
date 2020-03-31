@@ -243,6 +243,11 @@ class MissionController extends Controller
         $mission_id = Helper::decrypt($id);
         $mission = Mission::where('id',$mission_id)->first();
         $data['mission'] = $mission;
+        $chargeAmount = $mission->amount;
+        if($mission->quick_book==0){
+            $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
+        }
+        $data['charge_amount'] = $chargeAmount;
         if(!isset($mission->customer_details->customer_stripe_id) || $mission->customer_details->customer_stripe_id==null){
             // Create customer on stripe
             $user_email = $mission->customer_details->user->email;

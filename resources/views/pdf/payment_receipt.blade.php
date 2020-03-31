@@ -216,10 +216,15 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
+                @php 
+                  $vat_amount = Helper::get_vat_amount($data->amount,$data->mission_details->vat);
+                  $original_amount = $data->amount-$vat_amount;
+                @endphp
                 <div class="table">
                     <table border="0" cellspacing="0" cellpadding="0">
                         <thead>
                             <tr>
+                                <th class="text-center">Mission Ref.</th>
                                 <th class="text-center">Mission Title</th>
                                 <th class="text-center">Description</th>
                                 <th class="text-center">Status</th>
@@ -228,15 +233,20 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td class="text-center">{{Helper::mission_id_str($data->mission_details->id)}}</td>
                                 <td class="text-center">{{strtoupper($data->mission_details->title)}}</td>
                                 <td class="text-center">@if($data->mission_details->quick_book==1) Quick Booking @else Future Booking @endif Mission Payment</td>
                                 <td class="text-center">{{strtoupper($data->status)}}</td>
-                                <td class="text-right">{{$data->amount}} &euro;</td>
+                                <td class="text-right">{{$original_amount}} &euro;</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td class="text-right" colspan="3">GRAND TOTAL</td>
+                                <td class="text-right" colspan="4">VAT ({{$data->mission_details->vat}}%)</td>
+                                <td class="text-right">{{$vat_amount}} &euro;</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right" colspan="4">GRAND TOTAL</td>
                                 <td class="text-right">{{$data->amount}} &euro;</td>
                             </tr>
                         </tfoot>

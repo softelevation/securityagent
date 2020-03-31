@@ -14,7 +14,7 @@ class Helper {
     const BASE_AGENT_RATE = 30;
     const MISSION_ADVANCE_PERCENTAGE = 30;
     const VAT_PERCENTAGE = 20;
-    const REQUEST_TIMEOUT_MINUTES = 05;
+    const REQUEST_TIMEOUT_MINUTES = 10;
 
     /*
      * @method       :  encryptDataId
@@ -364,7 +364,7 @@ class Helper {
      */
     public static function get_timeout_datetime($datetime){
         $timeoutDuration = '+'.self::REQUEST_TIMEOUT_MINUTES.' minutes';
-        return  date('F d, Y H:i:s T',strtotime($timeoutDuration,strtotime($datetime)));
+        return  date('F d, Y H:i:s',strtotime($timeoutDuration,strtotime($datetime)));
     }
 
     /**
@@ -434,8 +434,7 @@ class Helper {
      * @return integer
      * @method get_vat_amount
      */
-    public static function get_vat_amount($final_amount){
-        $vat = self::VAT_PERCENTAGE;
+    public static function get_vat_amount($final_amount,$vat){
         $x = $final_amount*$vat;
         $vat_amount = $x/(100+$vat);
         return $vat_amount;

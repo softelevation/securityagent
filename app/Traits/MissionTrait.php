@@ -45,6 +45,7 @@ trait MissionTrait
         $vat = Helper::VAT_PERCENTAGE;
         $vatAmount = ($data['amount']*$vat)/100;
         $data['amount'] = $data['amount']+$vatAmount;
+        $data['vat'] = $vat;
         if(isset($data['record_id']) && $data['record_id']!=""){
             $missionID = Helper::decrypt($data['record_id']);
             unset($data['record_id']);

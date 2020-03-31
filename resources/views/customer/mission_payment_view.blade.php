@@ -17,6 +17,7 @@
                 <h3><i class="fa fa-edit"></i> Mission Payment</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
+                  <h5>Amount To Be Paid: {{$charge_amount}} <i class="fa fa-euro-sign"></i></h5>
                     <!-- Added cards -->
                     @if(isset($cards) && !empty($cards['data']))
                     <div class="table-responsive">
