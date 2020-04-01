@@ -2,7 +2,7 @@
 @section('content')
 <section id="top-banner" class="d-flex flex-column justify-content-center align-items-center">
   <div class="container">
-    <h2>Rejoignez l’aventure Beontime, pour développer votre activité d’Agents de Sécurité, partout en France.</h2>
+    <h2>Rejoignez l’aventure <b>Be On Time</b>, pour développer votre activité <b>d’Agents de Sécurité</b>, partout en France.</h2>
   </div>
 </section>
 
@@ -13,8 +13,8 @@
         <img style="width: 100%;" class="img-thumbnail" src="{{asset('images/agent_img1.jpg')}}">
       </div>
       <div class="text_panel col-xl-7 col-lg-7">
-        <p>Beontime, a développé un modèle unique et innovant au service des Agents de Sécurité. Nous sommes à la recherche de partenaires en quête de missions en sécurité privée : </p>
-        <p>Nous permettons aux Agents qui s’inscrivent sur notre plateforme, (<a href="{{url('register-agent-view')}}" target="_blank">cliquez ici pour vous inscrire maintenant</a>) de préserver leur qualité de vie et obtenir plus, en exerçant sous le statut de salarié ou indépendant</p>
+        <p><b>Be On Time</b>, a développé un modèle unique et innovant au service des Agents de Sécurité. Nous sommes à la recherche de partenaires en quête de missions en sécurité privée : </p>
+        <p>Nous permettons aux Agents qui s’inscrivent sur notre plateforme, (<a href="{{url('register-agent-view')}}" target="_blank">cliquez ici pour vous inscrire maintenant</a>) de préserver leur qualité de vie et obtenir plus, en exerçant sous le statut de salarié ou indépendant.</p>
         <p>À travers notre outil, nous souhaitons vous permettre de trouver de nouvelles missions près de chez vous et d’améliorer votre rémunération, même si vous avez déjà une activité.</p>
       </div>
     </div>
@@ -26,12 +26,12 @@
       <div class="col-md-12">
         <div class="heading text-center">
             <h2>Pour s’inscrire c’est très simple</h2>
-            <img src="http://localhost/securityagent/public/assets/images/heading_bottom.png">
+            <img src="{{asset('assets/images/heading_bottom.png')}}">
         </div>
       </div>
       <div class="col-md-12 text-center">
         <div class="card">
-          <div class="card-body text_panel">
+          <div class="card-body text_panel text-left">
             <p class="card-text">1. Indiquez vos compétences, le type de missions que vous souhaitez, votre expérience, vos disponibilités, etc. Tout ce qui permettra de vous trouver facilement.</p>
             <p>2. Une fois inscrit•e, vous êtes référencé•e sur la plateforme et les clients peuvent vous solliciter pour des missions.</p>
             <p>3. Vous ne souhaitez plus être répertorié•e ? Masquez simplement votre profil si vous n’êtes plus disponible.</p>
