@@ -6,6 +6,7 @@ $(document).ready(function() {
     return new Date().toLocaleString(locale, {timeZone: timezone});
   }
 
+
   // Multi select
   $(document).find('.multi_select').select2({
     placeholder: "Select Options",

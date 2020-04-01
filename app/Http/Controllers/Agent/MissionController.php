@@ -19,6 +19,7 @@ use App\CustomerNotification;
 use App\Notifications\MissionCreated;
 use App\PaymentApproval;
 use App\Traits\MissionTrait;
+use Session;
 
 class MissionController extends Controller
 {
@@ -111,6 +112,11 @@ class MissionController extends Controller
                 }
                 $result = Mission::where('id',$mission_id)->update(['status'=>3]);
                 if($result){
+                    $sessionName = 'mis_'.$mission_id.'_ignored';
+                    if(Session::has($sessionName)){
+                        Session::forget($sessionName);
+                        Session::save();
+                    }
                     $response['message'] = 'Mission request accepted successfully';
                     $response['delayTime'] = 2000;
                     $response['modelhide'] = '#mission_action';

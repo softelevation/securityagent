@@ -14,7 +14,7 @@ class Helper {
     const BASE_AGENT_RATE = 30;
     const MISSION_ADVANCE_PERCENTAGE = 30;
     const VAT_PERCENTAGE = 20;
-    const REQUEST_TIMEOUT_MINUTES = 10;
+    const REQUEST_TIMEOUT_MINUTES = 05;
 
     /*
      * @method       :  encryptDataId

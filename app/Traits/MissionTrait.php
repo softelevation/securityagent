@@ -12,6 +12,10 @@ use App\Agent;
 use App\User;
 use App\Mission;
 use App\RefundRequest;
+use Session;
+use DB;
+use Log;
+use App\Notifications\MissionCreated;
 
 trait MissionTrait
 {
@@ -61,20 +65,69 @@ trait MissionTrait
     * @return boolean  
     */
     public function missionExpired($mission_id){
+        $sessionName = 'mis_'.$mission_id.'_ignored';
         $response = 0;
         $mission = Mission::where('id',$mission_id)->first();
         $timeFrom = Carbon::parse($mission->assigned_at);
         $timeTo = Carbon::now();
         $diffMinutes = $timeFrom->diffInMinutes($timeTo);
         $timeOutMin = Helper::REQUEST_TIMEOUT_MINUTES;
-        if($diffMinutes > $timeOutMin){
+        if($diffMinutes >= $timeOutMin){
             // Remove agent id from mission
-            $result = Mission::where('id',$mission_id)->update(['agent_id'=>0]);
+            $result = Mission::where('id',$mission_id)->update(['agent_id'=>0,'assigned_at'=>Null]);
             if($result){
+                // Set agent_id to ignored session
+                if(Session::has($sessionName)){
+                    $agents = Session::get($sessionName);
+                } 
+                $agents[] = $mission->agent_id;
+                Session::put($sessionName,$agents);
+                // Search for a new agent
+                $agent = self::find_mission_agent($mission_id);
+                // assign new agent if found
+                if($agent){
+                    $res = Mission::where('id',$mission_id)->update(['agent_id'=>$agent->id,'assigned_at'=>Carbon::now()]);
+                    if($res){
+                        /*----Agent Notification-----*/
+                        $mailContent = [
+                            'name' => ucfirst($mission->agent_details->first_name),
+                            'message' => 'You have a new mission request. Click on the button below to view details and accept/reject mission, before it expires.', 
+                            'url' => url('agent/mission-details/view').'/'.Helper::encrypt($mission_id)
+                        ];
+                        $mail = $mission->agent_details->user->notify(new MissionCreated($mailContent));
+                        /*--------------*/
+                    }
+                }
                 $response = 1;
             }
         }
         return $response;
+    }
+
+    /** 
+    * Find agent for a mission
+    * @return boolean  
+    */
+    public function find_mission_agent($mission_id){
+        $sessionName = 'mis_'.$mission_id.'_ignored';
+        if(Session::has($sessionName)){
+            $agentToBeIngored = Session::get($sessionName);
+        }
+        $mission = Mission::where('id',$mission_id)->first();
+        $agent_type_needed = $mission->agent_type;
+        $a = Agent::whereHas('types',function($q) use($agent_type_needed){
+                $q->where('agent_type',$agent_type_needed);
+            })->whereNotIn('id',[$mission->id]);
+        if(count($agentToBeIngored) > 0){
+            $a->whereNotIn('id',$agentToBeIngored);
+        }
+        $agent = $a->where('status',1)->where('available',1)->select(DB::raw("*, 111.111 *
+                    DEGREES(ACOS(LEAST(1.0, COS(RADIANS(".$mission->latitude."))
+                    * COS(RADIANS(work_location_latitude))
+                    * COS(RADIANS(".$mission->longitude." - work_location_longitude))
+                    + SIN(RADIANS(".$mission->latitude."))
+                    * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->orderBy('distance_in_km','ASC')->first();
+        return $agent;
     }
 
     /** 
@@ -128,5 +181,7 @@ trait MissionTrait
         }
         return $response;
     }
+
+
     
 }
