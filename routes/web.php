@@ -17,6 +17,9 @@ Route::get('/', function () {
 Route::get('/contact-us', function () {
     return view('contact');
 });
+Route::get('/agent_information', function () {
+    return view('agent_information');
+});
 
 // Cron Jobs
 Route::get('/mission-expired-cron', 'CommonController@missionExpiredCronJob');

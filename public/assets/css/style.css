@@ -61,7 +61,7 @@ a:hover{text-decoration: none;}
     background: #f2f3f8;
     font-weight: 600;
     border: 1px solid #ccc;
-    padding: 6px 30px;
+    padding: 6px 20px;
 }
 .primary ul li a.active, .primary ul li a:hover{ background: #d6fb04 ; color:#000;}
 .primary ul li:first-child a {
@@ -1316,4 +1316,26 @@ span.form-control i{
 .schedule_set_on a{
     border: #FF9800 solid 1px !important;
 }
-
+/*Agent Page*/
+#top-banner {
+    width: 100%;
+    height: 30vh;
+    background: url(../images/banner_bg.jpg) center center;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+    padding: 0;
+}
+.section1{
+    position: relative;
+    z-index: 3;
+    margin: 60px 0px; 
+}
+.text_panel p{
+    color:#8b8b8b;
+    font-size: 18px;
+}
+.text_panel a,
+.text_panel a:hover {
+    color: #ffc107;
+}

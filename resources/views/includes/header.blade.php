@@ -77,6 +77,7 @@
                     <ul>
                         <li><a class="@if(url()->current()==url('/')) active @endif" href="{{url('/')}}">Home</a></li>
                         <li><a class="@if(url()->current()==url('/available-agents')) active @endif" href="{{url('/available-agents')}}">Available Agent on Map</a></li>
+                        <li><a class="@if(url()->current()==url('/agent_information')) active @endif" href="{{url('/agent_information')}}">Agent</a></li>
                         <li><a class="@if(url()->current()==url('/contact-us')) active @endif" href="{{url('/contact-us')}}">Contact us</a></li>
                     </ul>
                 </div>
