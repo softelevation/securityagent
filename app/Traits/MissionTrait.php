@@ -12,6 +12,7 @@ use App\Agent;
 use App\User;
 use App\Mission;
 use App\RefundRequest;
+use App\MissionRequestsIgnored;
 use Session;
 use DB;
 use Log;
@@ -65,23 +66,25 @@ trait MissionTrait
     * @return boolean  
     */
     public function missionExpired($mission_id){
-        $sessionName = 'mis_'.$mission_id.'_ignored';
         $response = 0;
         $mission = Mission::where('id',$mission_id)->first();
         $timeFrom = Carbon::parse($mission->assigned_at);
         $timeTo = Carbon::now();
         $diffMinutes = $timeFrom->diffInMinutes($timeTo);
         $timeOutMin = Helper::REQUEST_TIMEOUT_MINUTES;
+        // Check if mission has expired or not
         if($diffMinutes >= $timeOutMin){
             // Remove agent id from mission
             $result = Mission::where('id',$mission_id)->update(['agent_id'=>0,'assigned_at'=>Null]);
             if($result){
-                // Set agent_id to ignored session
-                if(Session::has($sessionName)){
-                    $agents = Session::get($sessionName);
-                } 
-                $agents[] = $mission->agent_id;
-                Session::put($sessionName,$agents);
+                // Set agent_id to ignored missions
+                $ignoredMissionData = array(
+                    'mission_id' => $mission_id,
+                    'agent_id' => $mission->agent_id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                );
+                MissionRequestsIgnored::insert($ignoredMissionData);
                 // Search for a new agent
                 $agent = self::find_mission_agent($mission_id);
                 // assign new agent if found
@@ -109,17 +112,17 @@ trait MissionTrait
     * @return boolean  
     */
     public function find_mission_agent($mission_id){
-        $sessionName = 'mis_'.$mission_id.'_ignored';
-        if(Session::has($sessionName)){
-            $agentToBeIngored = Session::get($sessionName);
-        }
         $mission = Mission::where('id',$mission_id)->first();
         $agent_type_needed = $mission->agent_type;
         $a = Agent::whereHas('types',function($q) use($agent_type_needed){
                 $q->where('agent_type',$agent_type_needed);
-            })->whereNotIn('id',[$mission->id]);
-        if(count($agentToBeIngored) > 0){
-            $a->whereNotIn('id',$agentToBeIngored);
+            })->doesntHave('agent_ignored');
+        // Check if vehicle required or not
+        if($mission->vehicle_required==1){
+            $a->where('is_vehicle',1);
+        }
+        if($mission->vehicle_required==2){
+            $a->where('is_vehicle',0);
         }
         $agent = $a->where('status',1)->where('available',1)->select(DB::raw("*, 111.111 *
                     DEGREES(ACOS(LEAST(1.0, COS(RADIANS(".$mission->latitude."))

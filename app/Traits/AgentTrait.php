@@ -134,11 +134,11 @@ trait AgentTrait
     */
     public function getAvailableAgents($request){
         $a = Agent::where('status',1)->where('available',1);
-        if(isset($request->type) && $request->type=='is_vehicle'){
-            $a->where('is_vehicle',$request->value);
+        if(isset($request->is_vehicle) && trim($request->is_vehicle)!=""){
+            $a->where('is_vehicle',$request->is_vehicle);
         }
-        if(isset($request->type) && $request->type=='agent_type'){
-            $typeID = $request->value;
+        if(isset($request->agent_type) && trim($request->agent_type)!=""){
+            $typeID = $request->agent_type;
             $a->whereHas('types',function($q) use ($typeID){
                 $q->where('agent_type',$typeID);
             });

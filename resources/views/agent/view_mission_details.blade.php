@@ -35,6 +35,10 @@
                         <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
+                        <label>Vehicle Required</label>
+                        <span class="form-control">{{Helper::vehicle_required_status($mission->vehicle_required)}}</span>
+                      </div>
+                      <div class="col-md-6 form-group">
                         <label>Mission Hours</label>
                         <span class="form-control">{{$mission->total_hours}} Hour(s)</span>
                       </div>
@@ -76,7 +80,7 @@
                           @if($mission->status==3 || $mission->status==4)
                             <!-- <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/cancel-mission-agent')}}" data-type="cancel_agent" class="button danger_btn confirmBtn" data-action="2"><i class="fa fa-times"></i> Cancel Mission</button> -->
                           @endif
-                          @if($mission->status==0)
+                          @if($mission->status==0 && $mission->agent_id==Auth::user()->agent_info->id)
                             <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="accept" class="button success_btn confirmBtn" data-value="1" data-hours="{{$mission->total_hours}}"><i class="fa fa-check"></i> Accept Mission</button>
                             <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="reject" class="button danger_btn confirmBtn" data-value="2"><i class="fa fa-times"></i> Reject Mission</button>
                           @endif

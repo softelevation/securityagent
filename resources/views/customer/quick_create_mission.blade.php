@@ -35,8 +35,6 @@
                           {{Form::hidden('latitude')}}
                           {{Form::hidden('longitude')}}
                         </div>
-                      </div>
-                      <div class="row">
                         <div class="col-md-6 form-group">
                           <label>Agent Type</label>
                           @php $agentTypes = Helper::get_agent_type_list(); @endphp
@@ -55,18 +53,16 @@
                             @endphp
                           @endfor
                           {{Form::select('total_hours',$hours,null,['class'=>'form-control mission_hours'])}}
-                          <span class="mission_hours_note">Note: You will be charged for 8 Hours, if you don't know how many hours needed.</span>
+                          <span class="mission_hours_note @if(isset($mission->total_hours)) d-none @endif">Note: You will be charged for 8 Hours, if you don't know how many hours needed.</span>
                         </div>
-                      </div>
-                      <div class="row">
                         <div class="col-md-6 form-group">
                           <label>From When You Want To Start The Mission?</label><br>
                           <label class="rd_container form-inline">Now
-                            <input class="mission_start_radio" type="radio" checked="checked" name="quick_book" value="1">
+                            {{Form::radio('quick_book',1,true,['class'=>'mission_start_radio'])}}
                             <span class="checkmark"></span>
                           </label>
                           <label class="rd_container">Later
-                            <input class="mission_start_radio" type="radio" name="quick_book" value="0">
+                            {{Form::radio('quick_book',0,false,['class'=>'mission_start_radio'])}}
                             <span class="checkmark"></span>
                           </label>
                         </div>
@@ -74,8 +70,21 @@
                             <label>Mission Start Date Time</label>
                             <input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time" type="text">
                         </div>
-                      </div>
-                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label>Do you prefer an agent having a vehicle?</label><br>
+                          <label class="rd_container form-inline">Yes
+                            {{Form::radio('vehicle_required',1,true)}}
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="rd_container">No
+                            {{Form::radio('vehicle_required',2,false)}}
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="rd_container">Doesn't Matter
+                            {{Form::radio('vehicle_required',3,false)}}
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
                         <div class="col-md-12 form-group">
                           <label>Mission Description</label>
                           {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>'Enter mission description'])}}

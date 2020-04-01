@@ -12,16 +12,16 @@
                             </div>
                         <input type="hidden" id="latitude1" name="latitude" value="@if(isset($search['latitude'])) {{$search['latitude']}} @endif" />
                         <input type="hidden" id="longitude1" name="longitude" value="@if(isset($search['longitude'])) {{$search['longitude']}} @endif" />
-                        <input id="search_type" type="hidden" name="type">
-                        <input id="search_val" type="hidden" name="value">
+                        <input id="is_vehicle_field" type="hidden" name="is_vehicle">
+                        <input id="agent_type_field" type="hidden" name="agent_type">
                         <button class="yellow_btn">Search Now</button>
                         </form>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="location_btn d-inline-block">
+                    <!-- <div class="location_btn d-inline-block">
                                 <button @if(Auth::check() && Auth::user()->role_id==1) data-toggle="modal" data-target="#create_mission_model" @else data-msg-type="error" data-msg="Please login or signup before booking an agent." @endif class="@if(!(Auth::check() && Auth::user()->role_id==1)) alert-msg @endif orange_btn d-block">Book An Agent Now</button>
-                            </div>
+                            </div> -->
                     <div class="float-right">
                         <ul class="dropdown filter-wrap">
                             <li class="nav-item dropdown">
@@ -53,7 +53,18 @@
         <div class="row">
             <div class="col-md-4 padding_right_0">
                 <div class="Agent_list">
-                    <h3>Agents In {{$search['location']}} <span data-container="body" data-toggle="popover" data-placement="bottom" data-content="Click on <b>Book An Agent Now</b> button and fill your mission details. After submit, choose an agent and click on <b>Book Now </b> button." data-html="true" data-trigger="hover">How to book an agent <i class="fa fa-question-circle"></i></span></h3>
+                    <h3>Agents In {{$search['location']}}</h3> 
+                    <div class="mt-2 mb-2">
+                        <div class="float-left pt-2">
+                                <span data-container="body" data-toggle="popover" data-placement="left" data-content="Click on <b>Book An Agent Now</b> button and fill your mission details. After submit, choose an agent and click on <b>Book Now </b> button." data-html="true" data-trigger="hover">How to book an agent <i class="fa fa-question-circle"></i></span>
+                        </div>
+                        @if(Session::has('mission'))
+                        <div class="float-right">
+                            <button class="btn_submit" data-toggle="modal" data-target="#create_mission_model">CHANGE MISSION DETAILS</button>
+                        </div>
+                        @endif
+                        <div class="clearfix"></div> 
+                    </div>
                     @php $i = 0; @endphp
                     @if(Auth::check() && Auth::user()->role_id==1 && Session::has('mission'))
                         @forelse(json_decode($data) as $agent)
@@ -96,7 +107,7 @@
                     @else
                         <div class="card text-center card_section" style="width: 96%;">
                           <div class="card-body">
-                            <h5 class="card-title">Book An Agent Now</h5>
+                            <!-- <h5 class="card-title">Book An Agent Now</h5> -->
                             <p class="card-text">Click on <b>Book An Agent Now</b> button and fill your mission details. After submit, choose an agent and click on <b>Book Now </b> button.</p>
                             <div class="location_btn d-inline-block">
                                 <button @if(Auth::check() && Auth::user()->role_id==1) data-toggle="modal" data-target="#create_mission_model" @else data-msg-type="error" data-msg="Please login or signup before booking an agent." @endif class="@if(!(Auth::check() && Auth::user()->role_id==1)) alert-msg @endif orange_btn d-block">Book An Agent Now</button>
@@ -156,7 +167,12 @@
           <div class="modal-body">
             <div class="row">
                 <div class="col-md-12"> 
-                    {{Form::open(['url'=>url('save-mission-temporary'), 'id'=>'general_form_2', 'autocomplete'=>'off'])}}
+                    @if(Session::has('mission'))
+                        @php $tempMission = Session::get('mission'); @endphp
+                        {{Form::model($tempMission,['url'=>url('save-mission-temporary'), 'id'=>'general_form_2', 'autocomplete'=>'off'])}}
+                    @else
+                        {{Form::open(['url'=>url('save-mission-temporary'), 'id'=>'general_form_2', 'autocomplete'=>'off'])}}
+                    @endif
                       <div class="row">
                         <div class="col-md-6 form-group">
                           <label>Mission Title</label>
@@ -169,8 +185,6 @@
                           {{Form::hidden('latitude',null,['id'=>'latitude2'])}}
                           {{Form::hidden('longitude',null,['id'=>'longitude2'])}}
                         </div>
-                      </div>
-                      <div class="row">
                         <div class="col-md-6 form-group">
                           <label>Agent Type</label>
                           @php $agentTypes = Helper::get_agent_type_list(); @endphp
@@ -189,18 +203,16 @@
                             @endphp
                           @endfor
                           {{Form::select('total_hours',$hours,null,['class'=>'form-control mission_hours'])}}
-                          <span class="mission_hours_note">Note: You will be charged for 8 Hours, if you don't know how many hours needed.</span>
+                          <span class="mission_hours_note @if(isset($tempMission['total_hours'])) d-none @endif">Note: You will be charged for 8 Hours, if you don't know how many hours needed.</span>
                         </div>
-                      </div>
-                      <div class="row">
                         <div class="col-md-6 form-group">
                           <label>From When You Want To Start The Mission?</label>
                           <label class="rd_container form-inline">Now
-                            <input class="mission_start_radio" type="radio" checked="checked" name="quick_book" value="1">
+                            {{Form::radio('quick_book',1,true,['class'=>'mission_start_radio'])}}
                             <span class="checkmark"></span>
                           </label>
                           <label class="rd_container">Later
-                            <input class="mission_start_radio" type="radio" name="quick_book" value="0">
+                            {{Form::radio('quick_book',0,false,['class'=>'mission_start_radio'])}}
                             <span class="checkmark"></span>
                           </label>
                         </div>
@@ -208,8 +220,21 @@
                             <label>Mission Start Date Time</label>
                             <input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time" type="text">
                         </div>
-                      </div>
-                      <div class="row">
+                        <div class="col-md-6 form-group">
+                          <label>Do you prefer an agent having a vehicle?</label><br>
+                          <label class="rd_container form-inline">Yes
+                            {{Form::radio('vehicle_required',1,true)}}
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="rd_container">No
+                            {{Form::radio('vehicle_required',2,false)}}
+                            <span class="checkmark"></span>
+                          </label>
+                          <label class="rd_container">Doesn't Matter
+                            {{Form::radio('vehicle_required',3,false)}}
+                            <span class="checkmark"></span>
+                          </label>
+                        </div>
                         <div class="col-md-12 form-group">
                           <label>Mission Description</label>
                           {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>'Enter mission description'])}}
@@ -217,7 +242,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-center">
-                            <button type="submit" class="button success_btn">Book An Agent Now</button>
+                            <button type="submit" class="button success_btn">Find An Agent Now</button>
                         </div>
                       </div>
                     {{Form::close()}}
@@ -250,8 +275,12 @@
         $(document).on('click','.search_filter', function(){
             let type = $(this).attr('data-type');
             let value = $(this).attr('id');
-            $(document).find('#search_type').val(type);
-            $(document).find('#search_val').val(value);
+            if(type=='agent_type'){
+                $(document).find('#agent_type_field').val(value);
+            }
+            if(type=='is_vehicle'){
+                $(document).find('#is_vehicle_field').val(value);
+            }
             $(document).find('#search_filter_form').trigger('submit');
         });
 

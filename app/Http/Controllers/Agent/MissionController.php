@@ -19,6 +19,7 @@ use App\CustomerNotification;
 use App\Notifications\MissionCreated;
 use App\PaymentApproval;
 use App\Traits\MissionTrait;
+use App\MissionRequestsIgnored;
 use Session;
 
 class MissionController extends Controller
@@ -69,19 +70,23 @@ class MissionController extends Controller
      * @method viewMissionRequests
      * @purpose View Mission Request's List 
      */
-    public function viewMissionRequests(){
-        $missions = Mission::where('agent_id',\Auth::user()->agent_info->id)
-                            ->where('status',0)
-                            ->where('payment_status',1)
-                            ->orderBy('id','desc')
-                            ->paginate($this->limit);
+    public function viewMissionRequests(Request $request){
+        $awaitingRequests = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',0)->where('payment_status',1)->orderBy('id','desc')->paginate($this->limit,['*'],'awaiting');
+        $expiredRequests = MissionRequestsIgnored::where('agent_id',\Auth::user()->agent_info->id)->where('is_deleted',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'expired');
         $params = [
-            'data' => $missions,
-            'limit' => $this->limit,
-            'page_no' => 1
+            'awaiting_requests' => $awaitingRequests,
+            'expired_requests' => $expiredRequests,
+            'page_no' => 1,
+            'page_name' => 'awaiting',
+            'limit' => $this->limit
         ];
-        if(isset($request->page)){
-            $params['page_no'] = $request->page; 
+        if($request->isMethod('get')){
+            if(!empty($request->all())){
+                $pageName = array_keys($request->all());
+                $pageNo = array_values($request->all());
+                $params['page_no'] = $pageNo[0]; 
+                $params['page_name'] = $pageName[0];
+            }
         }
         return view('agent.mission_requests',$params);
     }

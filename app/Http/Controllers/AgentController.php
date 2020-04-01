@@ -12,6 +12,7 @@ use App\AgentSchedule;
 use App\Helpers\Helper;
 use Session;
 use App\Mission;
+use App\MissionRequestsIgnored;
 use Carbon\Carbon;
 use App\Traits\MissionTrait;
 
@@ -86,7 +87,6 @@ class AgentController extends Controller
      * @purpose Show available agents on map
      */
     public function showAvailableAgents(Request $request){
-        
         $latitude = '46.2276';
         $longitude = '2.2137';
         $location = 'France';
@@ -285,6 +285,28 @@ class AgentController extends Controller
             $response = $this->getErrorResponse('Your mission has expired !');
             $response['url'] = url('agent/mission-requests');
             return response($response);
+        }
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method removeExpiredMission
+     * @purpose Remove expired mission
+     */
+    public function removeExpiredMission($id){
+        try{
+            $id = Helper::decrypt($id);
+            $update = MissionRequestsIgnored::where('id',$id)->update(['is_deleted'=>1]);
+            if($update){
+                $response['message'] = 'Mission request deleted successfully.';
+                $response['url'] = url('agent/mission-requests'); 
+                return $this->getSuccessResponse($response);
+            }else{
+                return $this->getErrorResponse('Something went wrong !');
+            }
+        }catch(\Exception $e){
+            return $this->getErrorResponse($e->getMessage());
         }
     }
 

@@ -485,7 +485,19 @@ class MissionController extends Controller
             Session::put('mission',$data);
             $response['message'] = 'Please wait while finding agents near your location.';
             $response['delayTime'] = 2000;
-            $response['url'] = route('available-agents',['location'=>$data['location'],'latitude'=>$data['latitude'],'longitude'=>$data['longitude'],'type'=>'agent_type','value'=>$data['agent_type']]);
+            $params = [
+                'location'=>$data['location'],
+                'latitude'=>$data['latitude'],
+                'longitude'=>$data['longitude'],
+                'agent_type'=>$data['agent_type']
+            ];
+            if($data['vehicle_required']==1){
+                $params['is_vehicle'] = 1;
+            }
+            if($data['vehicle_required']==2){
+                $params['is_vehicle'] = 0;
+            }
+            $response['url'] = route('available-agents',$params);
             return $this->getSuccessResponse($response);
         }catch(\Exception $e){
             die($e->getMessage());

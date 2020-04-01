@@ -35,6 +35,10 @@
                         <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
                       </div>
                       <div class="col-md-4 form-group">
+                        <label>Vehicle Required</label>
+                        <span class="form-control">{{Helper::vehicle_required_status($mission->vehicle_required)}}</span>
+                      </div>
+                      <div class="col-md-4 form-group">
                         <label>Mission Hours</label>
                         <span class="form-control">{{$mission->total_hours}} Hour(s)</span>
                       </div>

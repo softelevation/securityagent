@@ -372,13 +372,12 @@ body textarea.form-control { height: 100px !important; resize: none; padding-top
     overflow-y: auto;
 }
 
-.Agent_list h3 span {
+.Agent_list span {
     font-style: normal;
-    display: block;
+    display: inline-block;
     font-size: 17px;
     font-weight: 500;
     text-transform: uppercase;
-    margin: 5px 0 0;
 }
 .padding_0{padding: 0 !important;}
 .padding_right_0{padding-right: 0 !important;}
@@ -1315,6 +1314,10 @@ span.form-control i{
 }
 .schedule_set_on a{
     border: #FF9800 solid 1px !important;
+}
+.status_btn{
+    font-size: 12px;
+    padding: 0px 5px;
 }
 /*Agent Page*/
 #top-banner {

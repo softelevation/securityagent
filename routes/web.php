@@ -102,6 +102,7 @@ Route::group(['prefix'=>'agent'], function () {
         Route::post('save-schedule', 'AgentController@saveSchedule');
         Route::post('/create-sub-missions', 'AgentController@agentSubMissions');
         Route::post('/mission-expired', 'AgentController@missionExpiredRequest');
+        Route::get('/remove-expired-mission/{mission_id}', 'AgentController@removeExpiredMission');
     });
 });
 

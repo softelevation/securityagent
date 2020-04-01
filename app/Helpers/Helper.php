@@ -440,6 +440,23 @@ class Helper {
         return $vat_amount;
     }
 
+    /**
+     * @return string
+     * @method vehicle_required_status
+     */
+    public static function vehicle_required_status($vehicle_required){
+       if($vehicle_required==1){
+        return 'Yes';
+       }
+       if($vehicle_required==2){
+        return 'No';
+       }
+       if($vehicle_required==3){
+        return "Doesn't Matter";
+       }
+    }
+    
+
 
 }
 

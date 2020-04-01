@@ -259,4 +259,13 @@ $(document).ready(function() {
       });
     }, 0);
   }
+
+  // remove mission request
+  $(document).on('click','.remove_mission_request',function(e){
+    e.preventDefault();
+    let url = $(this).attr('href');
+    ajaxGetRequest(url);
+  });
+
+
 });

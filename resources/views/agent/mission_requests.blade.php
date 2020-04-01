@@ -16,63 +16,120 @@
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
-                      <li class="nav-item w-100">
-                          <a class="nav-link active">List of missions awaiting your response </a>
+                      <li class="nav-item w-50">
+                          <a id="nav-awaiting-tab" data-toggle="tab" href="#nav-awaiting" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='awaiting') active @endif">Awaiting Requests</a>
+                      </li>
+                      <li class="nav-item w-50">
+                          <a id="nav-expired-tab" data-toggle="tab" href="#nav-expired" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='expired') active @endif">Expired Requests</a>
                       </li>
                   </ul>
-                  <div>
-                      <div>
-                          <div class="table-responsive">
-                            <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Mission Title</th>
-                                        <th>Mission Location</th>
-                                        <th>Duration</th>
-                                        <th>Starts Time</th>
-                                        <th>Request Timeout</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  @php 
-                                    $i = 0; 
-                                    $records = $limit*($page_no-1);
-                                    $i = $i+$records;
-                                  @endphp
-                                  @forelse($data as $mission)
-                                    @php $i++; @endphp
-                                    <tr>
-                                        <td>{{$i}}.</td>
-                                        <td>{{$mission->title}}</td>
-                                        <td>{{$mission->location}}</td>
-                                        <td>{{$mission->total_hours}} Hour(s)</td>
-                                        <td>@if($mission->quick_book==1) Now (Quick Booking) @else {{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}} @endif</td>
-                                        @php $timerDivId = 'req'.$mission->id; @endphp
-                                        <td><p class="timeout_p" id="req{{$mission->id}}" data-record-id="{{Helper::encrypt($mission->id)}}" data-timeout="{{Helper::get_timeout_datetime($mission->assigned_at)}}"></p></td>
-                                        <td>
-                                          <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
-                                        </td>
-                                    </tr>
-                                  @empty
-                                    <tr>
-                                        <td colspan="7">No record found</td>
-                                    </tr>
-                                  @endforelse
-                                </tbody>
-                            </table>
-                          </div>
-                          <div class="row">
-                            <div class="ml-auto mr-auto">
-                              <nav class="navigation2 text-center" aria-label="Page navigation">
-                                {{$data->links()}}
-                              </nav>
-                            </div>
-                          </div>
+                  <div class="tab-content" id="nav-tabContent">
+                    <!-- Pending Agents -->
+                    <div class="tab-pane fade show @if($page_name=='awaiting') active @endif" id="nav-awaiting" role="tabpanel" aria-labelledby="nav-awaiting-tab">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mission Title</th>
+                                    <th>Mission Location</th>
+                                    <th>Duration</th>
+                                    <th>Starts Time</th>
+                                    <th>Request Timeout</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              @php 
+                                $i = 0; 
+                                if($page_name=='awaiting'){
+                                  $records = $limit*($page_no-1);
+                                  $i = $i+$records;
+                                }
+                              @endphp
+                              @forelse($awaiting_requests as $mission)
+                                @php $i++; @endphp
+                                <tr>
+                                    <td>{{$i}}.</td>
+                                    <td>{{$mission->title}}</td>
+                                    <td>{{$mission->location}}</td>
+                                    <td>{{$mission->total_hours}} Hour(s)</td>
+                                    <td>@if($mission->quick_book==1) Now (Quick Booking) @else {{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}} @endif</td>
+                                    @php $timerDivId = 'req'.$mission->id; @endphp
+                                    <td><p class="timeout_p" id="req{{$mission->id}}" data-record-id="{{Helper::encrypt($mission->id)}}" data-timeout="{{Helper::get_timeout_datetime($mission->assigned_at)}}"></p></td>
+                                    <td>
+                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                    </td>
+                                </tr>
+                              @empty
+                                <tr>
+                                    <td colspan="7">No record found</td>
+                                </tr>
+                              @endforelse
+                            </tbody>
+                        </table>
+                      </div>
+                      <div class="row">
+                        <div class="ml-auto mr-auto">
+                          <nav class="navigation2 text-center" aria-label="Page navigation">
+                            {{$awaiting_requests->links()}}
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Verified Agents -->
+                    <div class="tab-pane fade show @if($page_name=='expired') active @endif" id="nav-expired" role="tabpanel" aria-labelledby="nav-expired-tab">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Mission Title</th>
+                                    <th>Mission Location</th>
+                                    <th>Duration</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              @php 
+                                $i = 0; 
+                                if($page_name=='expired'){
+                                  $records = $limit*($page_no-1);
+                                  $i = $i+$records;
+                                }
+                              @endphp
+                              @forelse($expired_requests as $data)
+                                @php $i++; @endphp
+                                <tr>
+                                    <td>{{$i}}.</td>
+                                    <td>{{$data->mission_details->title}}</td>
+                                    <td>{{$data->mission_details->location}}</td>
+                                    <td>{{$data->mission_details->total_hours}} Hour(s)</td>
+                                    <td><button class="btn btn-outline-danger status_btn">EXPIRED</button></td>
+                                    <td>
+                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($data->mission_details->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <a href="{{url('agent/remove-expired-mission/')}}/{{Helper::encrypt($data->id)}}" class="action_icons remove_mission_request"><i class="fas fa-trash text-grey" aria-hidden="true"></i> Delete </a>
+                                    </td>
+                                </tr>
+                              @empty
+                                <tr>
+                                    <td colspan="7">No record found</td>
+                                </tr>
+                              @endforelse
+                            </tbody>
+                        </table>
+                      </div>
+                      <div class="row">
+                        <div class="ml-auto mr-auto">
+                          <nav class="navigation2 text-center" aria-label="Page navigation">
+                            {{$expired_requests->links()}}
+                          </nav>
+                        </div>
                       </div>
                     </div>
                   </div>
+                </div>
               </div>
             </div>
             <!-- /.col-md-8 -->
