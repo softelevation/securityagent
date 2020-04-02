@@ -23,12 +23,22 @@ if ( $next_post || $prev_post ) {
 	?>
 
 	<nav class="pagination-single section-inner<?php echo esc_attr( $pagination_classes ); ?>" aria-label="<?php esc_attr_e( 'Post', 'twentytwenty' ); ?>" role="navigation">
-<h5>Post Naviagtion</h5>
+<!-- <h5>Post Naviagtion</h5> -->
 		<hr class="styled-separator is-style-wide" aria-hidden="true" />
 
 		<div class="pagination-single-inner" style="padding-bottom: 30px;">
 
 			<?php
+			if ( $next_post ) {
+				?>
+
+				<a class="next-post" href="<?php echo esc_url( get_permalink( $next_post->ID ) ); ?>">
+					<span class="arrow" aria-hidden="true">&rarr;</span>
+						<span class="title"><span class="title-inner"><?php echo wp_kses_post( get_the_title( $next_post->ID ) ); ?></span></span>
+				</a>
+				<?php
+			}
+			
 			if ( $prev_post ) {
 				?>
 
@@ -40,15 +50,7 @@ if ( $next_post || $prev_post ) {
 				<?php
 			}
 
-			if ( $next_post ) {
-				?>
-
-				<a class="next-post" href="<?php echo esc_url( get_permalink( $next_post->ID ) ); ?>">
-					<span class="arrow" aria-hidden="true">&rarr;</span>
-						<span class="title"><span class="title-inner"><?php echo wp_kses_post( get_the_title( $next_post->ID ) ); ?></span></span>
-				</a>
-				<?php
-			}
+			
 			?>
 
 		</div><!-- .pagination-single-inner -->
