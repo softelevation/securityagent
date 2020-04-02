@@ -229,6 +229,10 @@ class MissionController extends Controller
         $missionEndTime = $timeNow;
         $totalMissionMinutes = $missionStartTime->diffInMinutes($missionEndTime);
         $bookedMinutes = $data->total_hours*60;
+        // Set default to 240 minutes(4 Hr) if total_hours is less than 4 
+        if($data->total_hours < 4){
+            $bookedMinutes = 240;
+        }
         // Charge remaining amount in case of future missions
         if($data->quick_book==0){
             if($data->parent_id==0){

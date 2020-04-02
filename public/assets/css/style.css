@@ -1184,6 +1184,7 @@ ul.details-list li span {
 }
 span.form-control{
     height: auto;
+    word-break: break-all;
 }
 span.form-control i{
     font-size: 13px;

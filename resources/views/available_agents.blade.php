@@ -223,15 +223,15 @@
                         <div class="col-md-6 form-group">
                           <label>Do you prefer an agent having a vehicle?</label><br>
                           <label class="rd_container form-inline">Yes
-                            {{Form::radio('vehicle_required',1,true)}}
+                            {{Form::radio('vehicle_required',1,false)}}
                             <span class="checkmark"></span>
                           </label>
                           <label class="rd_container">No
-                            {{Form::radio('vehicle_required',2,false)}}
+                            {{Form::radio('vehicle_required',2,true)}}
                             <span class="checkmark"></span>
                           </label>
                           <label class="rd_container">Doesn't Matter
-                            {{Form::radio('vehicle_required',3,false)}}
+                            {{Form::radio('vehicle_required',3,true)}}
                             <span class="checkmark"></span>
                           </label>
                         </div>

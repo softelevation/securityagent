@@ -46,7 +46,7 @@
                     <div class="row">
                       <div class="col-md-12 form-group">
                         <label>Mission Description</label>
-                        <p class="form-control">{{$mission->description}}</p>
+                        <span class="form-control">{{$mission->description}}</span>
                       </div>
                     </div>
                     @if($mission->status==5)
