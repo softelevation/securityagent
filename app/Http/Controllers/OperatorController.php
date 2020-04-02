@@ -259,7 +259,7 @@ class OperatorController extends Controller
         $data['mission'] = $mission = Mission::where('id',$mission_id)->first();
         // Check if any agent available 
         $agent_type_needed = $mission->agent_type;
-        if($mission->quick_book==0){
+        if($mission->quick_book==1){
             $start_date = date('Y-m-d');    
         }else{
             $start_date = date('Y-m-d',strtotime($mission->start_date_time));
