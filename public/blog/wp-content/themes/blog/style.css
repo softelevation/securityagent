@@ -24,7 +24,7 @@ body{
 a:hover{text-decoration: none;}
 .text-link{color: #ffc107; font-style: italic; text-decoration: underline;}
 .text-link:hover{color: #fdda42;}
-.main_menu {
+/*.main_menu {
     float: right; text-transform: uppercase;
     width: 100%;
 }
@@ -89,7 +89,7 @@ a:hover{text-decoration: none;}
 .menu_right a:hover{background: #ffdb3f;}
 .main_menu ul {
     margin:0;
-}
+}*/
 
 
 
@@ -1286,6 +1286,7 @@ span.form-control i{
   font-weight: 500;
   margin-bottom: 10px;
   text-transform: uppercase;
+  height: 60px;
 }
 .blog-content h4 a{
     color:#777;
@@ -1325,7 +1326,7 @@ a.more-btn:hover {
 
 .content{
   display:block;
-  margin:10px auto;
+  margin:10px 0px;
   background:#fff;
   line-height:50px;
   border-radius:30px;
@@ -1392,6 +1393,13 @@ label.mailpoet_text_label {
 }
 .featured-media img{
     width: 100%;
+    height: 460px;
+    object-fit: cover;
+    padding: .25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+    max-width: 100%;
 }
 li.meta-wrapper {
     float: left;
@@ -1481,4 +1489,12 @@ figure{margin-bottom: 0px !important;}
 .postInnerTitle {
     background: #fbfbff;
     padding: 10px;
+}
+
+/*Ranjan's CSS*/
+.blog-thumnail img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    overflow: hidden;
 }

@@ -49,8 +49,10 @@ get_header();
         		endforeach;
         		wp_reset_postdata();
     		} ?>
-    		<a href="#" id="seeMore">Show More</a>
-    		<a id="seeMoreNo" style="display: none;">No More Posts to show</a>
+    		<div class="col-md-12">
+    			<a href="#" id="seeMore">Show More</a>
+    			<a id="seeMoreNo" style="display: none;">No More Posts to show</a>
+    		</div>
     	</div>
     </div>    
 </div>

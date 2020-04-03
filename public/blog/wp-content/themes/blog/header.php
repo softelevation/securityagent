@@ -20,7 +20,8 @@
 		<!-- Bootstrap core CSS -->
 	    <link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/custom/css/bootstrap.min.css" rel="stylesheet">
 	    <!-- Custom styles for this template -->
-	    <link href="style.css" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+        <link href="<?php echo APP_URL; ?>/assets/css/style.css" rel="stylesheet">
 	    <link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/custom/css/toaster.css" rel="stylesheet">
 	    <link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/custom/css/all.css" rel="stylesheet">
 	    <link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/custom/css/select2.css" rel="stylesheet">
@@ -57,7 +58,7 @@
                         <div class="menu_left">
                             <div class="top_menu">
                                 <ul>
-                                    <li><a href="http://ontimebe.com/login">Login</a></li>
+                                    <li><a href="<?php echo APP_URL; ?>/login">Login</a></li>
                                     <em>|</em>
                                     <!-- <li><a href="">Registration</a></li> -->
                                     <li>
@@ -65,8 +66,8 @@
                                             <a class="dropdown-toggle" data-toggle="dropdown"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/custom/img/usa_flag.png"> English
                                                 <span class="caret"></span></a>
                                             <ul class="dropdown-menu">
-                                                <li><a href="http://ontimebe.com/#">English</a></li>
-                                                <li><a href="http://ontimebe.com/#">French</a></li>
+                                                <li><a href="#">English</a></li>
+                                                <li><a href="#">French</a></li>
                                             </ul>
                                         </div>
                                     </li>
@@ -74,15 +75,17 @@
                             </div>
                             <div class="primary">
                                 <ul>
-                                    <li><a class=" active " href="http://ontimebe.com/">Home</a></li>
-                                    <li><a class="" href="http://ontimebe.com/available-agents">Available Agent on Map</a></li>
-                                    <li><a class="" href="http://ontimebe.com/contact-us">Contact us</a></li>
+                                    <li><a href="<?php echo APP_URL; ?>">Home</a></li>
+                                    <li><a href="<?php echo APP_URL; ?>/available-agents">Available Agent on Map</a></li>
+                                    <li><a href="<?php echo APP_URL; ?>/agent_information">Agent</a></li>
+                                    <li><a class="active" href="<?php echo APP_URL; ?>/blog">Blogs</a></li>
+                                    <li><a href="<?php echo APP_URL; ?>/contact-us">Contact us</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="menu_right">
-                            <a href="http://ontimebe.com/register-agent-view">Become an Agent</a>
-                            <a href="http://ontimebe.com/customer-signup">Become an User</a>
+                            <a href="<?php echo APP_URL; ?>/register-agent-view">Become an Agent</a>
+                            <a href="<?php echo APP_URL; ?>/customer-signup">Become an User</a>
                         </div>
                     </div>
                 </div>

@@ -56,12 +56,11 @@ a:hover{text-decoration: none;}
 }
 
 .primary ul li a {
-    
     color: #9a9a9a;
     background: #f2f3f8;
     font-weight: 600;
     border: 1px solid #ccc;
-    padding: 6px 20px;
+    padding: 6px 16px;
 }
 .primary ul li a.active, .primary ul li a:hover{ background: #d6fb04 ; color:#000;}
 .primary ul li:first-child a {
