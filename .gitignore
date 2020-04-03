@@ -5,6 +5,7 @@
 /vendor
 /storage
 /public/agent
+/public/blog/wp-config.php
 .env
 .env.backup
 .phpunit.result.cache
