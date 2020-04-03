@@ -70,7 +70,7 @@
                                               <a class="dropdown-item" href="{{url('customer/quick_mission/edit/'.Helper::encrypt($mission->id))}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> Edit Mission</a>
                                             @endif
                                             <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
-                                            @if($mission->payment_status==1 && ($mission->status!=5 && $mission->status!=6 && $mission->status!=7))
+                                            @if($mission->payment_status==1 && ($mission->status!=5 && $mission->status!=6 && $mission->status!=7) && ($mission->child_missions->count()==0))
                                               <a href="{{url('customer/cancel-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item cancel_mission_cls"><i class="fas fa-window-close text-grey" aria-hidden="true"></i> Cancel Mission</a>
                                             @endif
                                             @if($mission->status==0 && $mission->payment_status==0)
