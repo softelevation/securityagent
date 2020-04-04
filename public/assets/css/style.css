@@ -224,6 +224,8 @@ a:hover{text-decoration: none;}
     padding: 10px;
     background: #f2f3f8;
     margin-bottom: 15px;
+    height: 100px;
+    overflow: hidden;
 }
 .testimonial_img {
     width: 90px;

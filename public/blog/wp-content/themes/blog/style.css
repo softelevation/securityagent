@@ -276,9 +276,9 @@ a:hover{text-decoration: none;}
 .btn_submit{background: #d6fb04;border: none;padding: 6px 20px; font-size: 16px; color: #000000;}
 .btn_submit:hover{background: #fdda42; color: #000000;}
 
-input.btn_submit {background: #d6fb04;border: none;padding: 6px 20px;
+input.btn_submit {background: #d6fb04 !important; border: none;padding: 6px 20px;
     margin: 15px 0 0;font-size: 16px;}
-input.btn_submit:hover{background: #fdda42 ;}
+input.btn_submit:hover{background: #fdda42 !important;}
 .shortLink li a:hover {color: #d6fb04 ;}
 .about_info p{ line-height: 22px;}
 .testimonial_name {margin-top: 15px;}

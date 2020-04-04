@@ -97,7 +97,7 @@ class AgentController extends Controller
             $longitude = $request->longitude;
             $location = $request->location;
             $searchVal = true;
-            $zoom = 8;
+            $zoom = 11;
         }else{
             if(Session::has('mission')){
                 Session::forget('mission');

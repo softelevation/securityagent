@@ -5,23 +5,23 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="banner_cont">
-                    <h1>@lang('frontend.text_1')</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+                    <h1>{{__('frontend.text_1')}}</h1>
+                    <p>{{__('frontend.text_6')}}</p>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="map_panel text-center contact_box ">
-                    <h2>Les Meilleurs sont pres de chez vous</h2>    
-                    <p>Search by city, address, postalcode, etc...</p>
+                    <h2>{{__('frontend.text_2')}}</h2>    
+                    <p>{{__('frontend.text_3')}}</p>
                     <form method="get" action="{{url('/available-agents')}}">
                     <div class="locationSearch">
-                        <input id="autocomplete" name="location" placeholder="Enter your location" class="form-control"  onFocus="geolocate()" type="text"/>
+                        <input id="autocomplete" name="location" placeholder="{{__('frontend.text_4')}}" class="form-control"  onFocus="geolocate()" type="text"/>
                             <!--Work Location Lat Longs  -->
                         <input type="hidden" name="latitude" />
                         <input type="hidden" name="longitude" />
                         <span><i class="fa fa-paper-plane"></i></span>
                     </div>
-                    <button class="yellow_btn">Search Now</button>
+                    <button class="yellow_btn">{{__('frontend.text_5')}}</button>
                 </div>
             </div>
         </div>
@@ -30,29 +30,25 @@
 <div class="comment_panel">
     <div class="container">
         <div class="heading text-center">
-            <h2>Comment Ca Marche ?</h2>
+            <h2>{{__('frontend.text_32')}}</h2>
             <img src="{{asset('assets/images/heading_bottom.png')}}"/>
         </div>
-        <p>Lorem Ipsum est un générateur de faux textes aléatoires. Vous choisissez le nombre de paragraphes, de mots ou de listes. Vous obtenez alors un texte aléatoire que vous pourrez ensuite utiliser librement dans vos maquettes. Lorem Ipsum est un générateur de faux textes aléatoires. Vous choisissez  Vous obtenez alors un librement dans vos maquettes.</p>
+        <p>{{__('frontend.text_7')}}</p>
     </div>
 </div>    
 <div class="how_works">
-    <div class="container">
-        <div class="heading text-center">
-            <h2>How It Works?</h2>
-            <img src="{{asset('assets/images/heading_bottom.png')}}"/>
-        </div> 
+    <div class="container"> 
         <div class="row">
             <div class="col-md-6">
                 <div class="agent">
-                    <h4>I’m an Agent</h4>
+                    <h4>{{__('frontend.text_8')}}</h4>
                     <img src="{{asset('assets/images/agent_2.png')}}"/>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="customer">
                     <img src="{{asset('assets/images/client.png')}}"/>
-                    <h4>I’m an User</h4>                        
+                    <h4>{{__('frontend.text_9')}}</h4>                        
                 </div>
             </div>
         </div>
@@ -60,9 +56,9 @@
             <div class="col-md-12">
                 <div class="how_work_listing">
                     <ul>
-                        <li><a href=""><span><i class="fa fa-search"></i></span> Find an agent available right now or schedule a mission</a></li>
-                        <li><a href=""><span><i class="fa fa-copy"></i></span>  Register and post your mission requested</a></li>
-                        <li><a href=""><span><i class="fa fa-phone"></i></span> Receive a quick answer with quotation</a></li>
+                        <li><a href=""><span><i class="fa fa-search"></i></span>{{__('frontend.text_10')}}</a></li>
+                        <li><a href=""><span><i class="fa fa-copy"></i></span>{{__('frontend.text_11')}}</a></li>
+                        <li><a href=""><span><i class="fa fa-phone"></i></span>{{__('frontend.text_12')}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -77,13 +73,13 @@
             <div class="col-md-4 text-right">
                 <div class="feature_box">
                     <span><img src="{{asset('assets/images/awesome_icon.png')}}"></span>
-                    <h3>Awesome Features</h3>
-                    <p>Purus ipsum neque primis libero tempor posuere in ligula varius ipsum</p>
+                    <h3>{{__('frontend.text_13')}}</h3>
+                    <p>{{__('frontend.text_14')}}</p>
                 </div>
                  <div class="feature_box">
                     <span><img src="{{asset('assets/images/platform_icon.png')}}"></span>
-                    <h3>Cross-Platform</h3>
-                    <p>Semper a augue suscript, luctus neque purus ipsum neque primis libero</p>
+                    <h3>{{__('frontend.text_15')}}</h3>
+                    <p>{{__('frontend.text_16')}}</p>
                 </div>
             </div>
             <div class="col-md-4">
@@ -94,13 +90,13 @@
             <div class="col-md-4">
                 <div class="feature_box">
                     <span><img src="{{asset('assets/images/update_icon.png')}}"></span>
-                    <h3>Free Updates</h3>
-                    <p>Purus ipsum neque primis libero tempor posuere in ligula varius ipsum</p>
+                    <h3>{{__('frontend.text_17')}}</h3>
+                    <p>{{__('frontend.text_18')}}</p>
                 </div>
                  <div class="feature_box">
                     <span><img src="{{asset('assets/images/support_icon.png')}}"></span>
-                    <h3>Fast-Support</h3>
-                    <p>Purus ipsum neque primis libero tempor posuere in ligula varius ipsum</p>
+                    <h3>{{__('frontend.text_19')}}</h3>
+                    <p>{{__('frontend.text_20')}}</p>
                 </div>
             </div>
         </div>
@@ -110,14 +106,14 @@
 <div class="testimonial_panel">
     <div class="container">
         <div class="heading text-center">
-            <h2>Nos Derniers Temoigna</h2>
+            <h2>{{__('frontend.text_21')}}</h2>
             <img src="{{asset('assets/images/heading_bottom.png')}}"/>
         </div>  
         <div class="row">
             <div class="col-md-4">
                 <div class="testimonial_box">
                     <div class="testimonial_cont">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+                        <p>{{__('frontend.text_22')}}</p>
                     </div>
                     <div class="testimonial_img_name">
                         <div class="row">
@@ -141,7 +137,7 @@
             <div class="col-md-4">
                 <div class="testimonial_box">
                     <div class="testimonial_cont">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+                        <p>{{__('frontend.text_23')}}</p>
                     </div>
                     <div class="testimonial_img_name">
                         <div class="row">
@@ -165,7 +161,7 @@
             <div class="col-md-4">
                 <div class="testimonial_box">
                     <div class="testimonial_cont">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
+                        <p>{{__('frontend.text_24')}}</p>
                     </div>
                     <div class="testimonial_img_name">
                         <div class="row">

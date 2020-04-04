@@ -7,28 +7,25 @@
                     <div class="location_btn">
                         <form id="search_filter_form" method="get" action="{{url('/available-agents')}}">
                             <div class="locationSearch">
-                                <input id="autocomplete1" name="location" placeholder="Enter your location" class="form-control"  onFocus="geolocate('autocomplete1')" type="text"/>
+                                <input id="autocomplete1" name="location" placeholder="{{__('frontend.text_33')}}" class="form-control"  onFocus="geolocate('autocomplete1')" type="text"/>
                                 <span><i class="fa fa-paper-plane"></i></span>
                             </div>
                         <input type="hidden" id="latitude1" name="latitude" value="@if(isset($search['latitude'])) {{$search['latitude']}} @endif" />
                         <input type="hidden" id="longitude1" name="longitude" value="@if(isset($search['longitude'])) {{$search['longitude']}} @endif" />
                         <input id="is_vehicle_field" type="hidden" name="is_vehicle">
                         <input id="agent_type_field" type="hidden" name="agent_type">
-                        <button class="yellow_btn">Search Now</button>
+                        <button class="yellow_btn">{{__('frontend.text_34')}}</button>
                         </form>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <!-- <div class="location_btn d-inline-block">
-                                <button @if(Auth::check() && Auth::user()->role_id==1) data-toggle="modal" data-target="#create_mission_model" @else data-msg-type="error" data-msg="Please login or signup before booking an agent." @endif class="@if(!(Auth::check() && Auth::user()->role_id==1)) alert-msg @endif orange_btn d-block">Book An Agent Now</button>
-                            </div> -->
                     <div class="float-right">
                         <ul class="dropdown filter-wrap">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle filterSearch" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter Agents By</a>
+                                <a class="nav-link dropdown-toggle filterSearch" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{__('frontend.text_35')}}</a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li class="dropdown-submenu">
-                                        <a class="dropdown-item dropdown-toggle" style="border:none;" href="#">Agent Type</a>
+                                        <a class="dropdown-item dropdown-toggle" style="border:none;" href="#">{{__('frontend.text_36')}}</a>
                                         <ul class="dropdown-menu agent_types">
                                             <li class="search_filter" data-type="agent_type" id="1"><a href="javascript:void(0)">Agent SSIAP 1</a></li>
                                             <li class="search_filter" data-type="agent_type" id="2"><a href="javascript:void(0)">Agent SSIAP 2</a></li>
@@ -39,8 +36,8 @@
                                             <li class="search_filter" data-type="agent_type" id="7"><a href="javascript:void(0)">Hostesses</a></li>
                                         </ul>
                                     </li>
-                                  <li class="search_filter" data-type="is_vehicle" id="1"><a class="dropdown-item" href="javascript:void(0)">Agent With Veichle</a></li>
-                                  <li class="search_filter" data-type="is_vehicle" id="0"><a class="dropdown-item" href="javascript:void(0)">Agent Without Veichle</a></li>
+                                  <li class="search_filter" data-type="is_vehicle" id="1"><a class="dropdown-item" href="javascript:void(0)">{{__('frontend.text_37')}}</a></li>
+                                  <li class="search_filter" data-type="is_vehicle" id="0"><a class="dropdown-item" href="javascript:void(0)">{{__('frontend.text_38')}}</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -53,14 +50,14 @@
         <div class="row">
             <div class="col-md-4 padding_right_0">
                 <div class="Agent_list">
-                    <h3>{{__('frontend.text_2')}} {{$search['location']}}</h3> 
+                    <h3>{{__('frontend.text_39')}} {{$search['location']}}</h3> 
                     <div class="mt-2 mb-2">
                         <div class="float-left pt-2">
-                                <span data-container="body" data-toggle="popover" data-placement="left" data-content="Click on <b>Book An Agent Now</b> button and fill your mission details. After submit, choose an agent and click on <b>Book Now </b> button." data-html="true" data-trigger="hover">How to book an agent <i class="fa fa-question-circle"></i></span>
+                                <span data-container="body" data-toggle="popover" data-placement="top" data-content="{{__('frontend.text_41')}}" data-html="true" data-trigger="hover">{{__('frontend.text_40')}} <i class="fa fa-question-circle"></i></span>
                         </div>
                         @if(Session::has('mission'))
                         <div class="float-right">
-                            <button class="btn_submit" data-toggle="modal" data-target="#create_mission_model">CHANGE MISSION DETAILS</button>
+                            <button class="btn_submit" data-toggle="modal" data-target="#create_mission_model">{{__('frontend.text_48')}}</button>
                         </div>
                         @endif
                         <div class="clearfix"></div> 
@@ -80,16 +77,16 @@
                                         <div class="agent_cont">
                                             <h4>{{$agent->username}}</h4>
                                             <p>{{Helper::get_agent_type_name_multiple($agent->types)}}</p>
-                                            <p>@if($agent->is_vehicle==1) With Vehicle @else Without Vehicle @endif</p>
-                                            @if(Session::has('mission'))<p class="pt-2"><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" data-distance="{{$agent->distance}}" class="btn_submit bookAgentBtn">Book Now</a></p>@endif
+                                            <p>@if($agent->is_vehicle==1) {{__('frontend.text_49')}} @else {{__('frontend.text_50')}} @endif</p>
+                                            @if(Session::has('mission'))<p class="pt-2"><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" data-distance="{{$agent->distance}}" class="btn_submit bookAgentBtn">{{__('frontend.text_54')}}</a></p>@endif
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="agent_review">
                                             <div class="star">
                                                 <img src="{{asset('assets/images/star.jpg')}}"/>
-                                                <h5>Agent at Home <br><span>An Agent of USA</span></h5>
-                                                @if(Session::has('mission'))<a target="_blank" href="{{url('/agent-details/'.Helper::encrypt($agent->id))}}" class="text-link">View Agent Details</a>@endif<br>
+                                                <h5>{{__('frontend.text_51')}} <br><span>{{__('frontend.text_52')}}</span></h5>
+                                                @if(Session::has('mission'))<a target="_blank" href="{{url('/agent-details/'.Helper::encrypt($agent->id))}}" class="text-link">{{__('frontend.text_53')}}</a>@endif<br>
                                                 <span>{{$agent->distance}} Km away</span>
                                             </div>
                                         </div>
@@ -97,20 +94,20 @@
                                 </div>
                             </div>
                             <div class="text-center no_avail_agent_message pt-3 d-none">
-                                <i>No agent available at the moment on this location. </i>
+                                <i>{{__('frontend.text_47')}} </i>
                             </div>
                         @empty
                             <div class="text-center no_avail_agent_message pt-3 d-none">
-                                <i>No agent available at the moment on this location. </i>
+                                <i>{{__('frontend.text_47')}} </i>
                             </div>
                         @endforelse
                     @else
                         <div class="card text-center card_section" style="width: 96%;">
                           <div class="card-body">
                             <!-- <h5 class="card-title">Book An Agent Now</h5> -->
-                            <p class="card-text">Click on <b>Book An Agent Now</b> button and fill your mission details. After submit, choose an agent and click on <b>Book Now </b> button.</p>
+                            <p class="card-text">{{__('frontend.text_42')}}</p>
                             <div class="location_btn d-inline-block">
-                                <button @if(Auth::check() && Auth::user()->role_id==1) data-toggle="modal" data-target="#create_mission_model" @else data-msg-type="error" data-msg="Please login or signup before booking an agent." @endif class="@if(!(Auth::check() && Auth::user()->role_id==1)) alert-msg @endif orange_btn d-block">Book An Agent Now</button>
+                                <button @if(Auth::check() && Auth::user()->role_id==1) data-toggle="modal" data-target="#create_mission_model" @else data-msg-type="error" data-msg="Please login or signup before booking an agent." @endif class="@if(!(Auth::check() && Auth::user()->role_id==1)) alert-msg @endif orange_btn d-block">{{__('frontend.text_43')}}</button>
                             </div>
                           </div>
                         </div>
@@ -133,18 +130,18 @@
                                 <div class="legend_icons">
                                     <div class="pb-1">
                                         <img src="{{asset('avatars/marker-male.png')}}"/> 
-                                        <span>Security agent icon</span>
+                                        <span>{{__('frontend.text_44')}}</span>
                                     </div>
                                     <div>
                                         <img src="{{asset('avatars/marker-female.png')}}"/> 
-                                        <span>Hostess agent icon</span>
+                                        <span>{{__('frontend.text_45')}}</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h6>Research radius</h6>
+                                <h6>{{__('frontend.text_46')}}</h6>
                                 <div class="slidecontainer">
-                                  <input type="range" min="1" max="100" value="10" class="slider" id="mapZommRange">
+                                  <input type="range" min="1" max="100" value="70" class="slider" id="mapZommRange">
                                 </div>
                                 <div class="km"><span id="km"></span> km</div>
                             </div>
@@ -260,17 +257,16 @@
         var slider = document.getElementById("mapZommRange");
         var output = document.getElementById("km");
         output.innerHTML = slider.value; // Display the default slider value
-        // Update the current slider value (each time you drag the slider handle)
         slider.oninput = function() {
-            output.innerHTML = this.value;
+            let slider_val = this.value;
+            output.innerHTML = slider_val;
         }
-        $(document).on('mouseup','#mapZommRange',function(){
-            var radius = $(this).val();
-            radius = parseInt(radius);
-            radius = radius*1000;
-            setTimeout(function(){ initMap(radius); }, 500);
-        });
-
+        slider.onmouseup = function() {
+            let slider_val = this.value;
+            let zoomPlus = slider_val*(0.07);
+            let zoomLevel = 16-(zoomPlus);
+            initMap(zoomLevel);
+        }
 
         $(document).on('click','.search_filter', function(){
             let type = $(this).attr('data-type');
@@ -309,7 +305,7 @@
     var zoomVal = parseInt('@php echo $search["zoom"]; @endphp');
     var map,
         markArray = [];
-    function initMap(radius) {
+    function initMap(zoomVal) {
         var mapOptions = {
             center: new google.maps.LatLng(latitude, longitude),
             zoom: zoomVal,
@@ -379,7 +375,7 @@
         getAvailableAgents();
         // console.log(count);
     }
-    window.onload = function(){ initMap(10000); };
+    window.onload = function(){ initMap(zoomVal); };
     </script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA"></script>
 

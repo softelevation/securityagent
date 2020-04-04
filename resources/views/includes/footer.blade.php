@@ -4,31 +4,31 @@
      <div class="row">
          <div class="col-md-4">
           <div class="about_info">
-              <h3>About our platform</h3>
-              <p>Lorem Ipsum est un générateur de faux textes aléatoires. Vous choisissez le nombre de paragraphes, de mots ou de listes. Vous obtenez alors un texte aléatoire que vous pourrez ensuite utiliser librement dans vos maquettes. Lorem Ipsum est un générateur de faux textes aléatoires. Vous choisissez le nombre de paragraphes, listes. obtenez alors un texte aléatoire que vous pourrez ensuite utiliser librement dans vos maquettes.</p>   
+              <h3>{{__('frontend.text_25')}}</h3>
+              <p>{{__('frontend.text_26')}}</p>   
           </div>
          </div>
          <div class="col-md-4">
           <div class="shortLink">
-              <h3>Short links</h3>
+              <h3>{{__('frontend.text_27')}}</h3>
               <ul>
-                  <li><a href=""><i class="fa fa-share" aria-hidden="true"></i> contact</a></li>
-                  <li><a href=""><i class="fa fa-share" aria-hidden="true"></i> available agent on map</a></li>
+                  <li><a href="{{url('/contact-us')}}"><i class="fa fa-share" aria-hidden="true"></i> {{__('frontend.text_28')}}</a></li>
+                  <li><a href="{{url('/available-agents')}}"><i class="fa fa-share" aria-hidden="true"></i> {{__('frontend.text_29')}}</a></li>
               </ul> 
               <div class="social_sprite">
-                  <a class="facebook" href=""></a>
-                  <a class="google" href=""></a>
-                  <a class="twitter" href=""></a>
-                  <a class="instagram" href=""></a>
+                  <a class="facebook" href="#"></a>
+                  <a class="google" href="#"></a>
+                  <a class="twitter" href="#"></a>
+                  <a class="instagram" href="#"></a>
               </div>
           </div>
          </div>
          <div class="col-md-4">
           <div class="newsletter">
               <h3>Newsletter</h3>
-              <p>Sign up for our newsletter and be informed of all the news in preview!</p>   
+              <p>{{__('frontend.text_30')}}</p>   
               <div class="newsletter_box">
-                  <input type="text" class="form-control" placeholder="Your Email Here"/>
+                  <input type="text" class="form-control" placeholder="{{__('frontend.text_31')}}"/>
                   <span><i class="fa fa-envelope"></i></span>
                   <input type="button" class="btn_submit" value="Submit" />
               </div>
