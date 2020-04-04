@@ -64,11 +64,16 @@
                         <em>|</em>  
                         <!-- <li><a href="">Registration</a></li> -->
                         <li><div class="dropdown">
-                          <a class="dropdown-toggle" data-toggle="dropdown"><img src="{{asset('assets/images/usa_flag.png')}}"/> English
+                          <a class="dropdown-toggle" data-toggle="dropdown">
+                            @if(Session::has('locale') && Session::get('locale')=='fr')
+                              French
+                            @else
+                              English  
+                            @endif
                           <span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                            <li><a href="#">English</a></li>
-                            <li><a href="#">French</a></li>
+                            <li><a href="{{url('change-language/en')}}">English</a></li>
+                            <li><a href="{{url('change-language/fr')}}">French</a></li>
                           </ul>
                         </div></li>
                     </ul>

@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="banner_cont">
-                    <h1>Votre agent de securite des que possible</h1>
+                    <h1>@lang('frontend.text_1')</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, suscipit, rerum quos facilis repellat architecto commodi officia atque nemo facere eum non illo voluptatem quae delectus odit vel itaque amet.</p>
                 </div>
             </div>

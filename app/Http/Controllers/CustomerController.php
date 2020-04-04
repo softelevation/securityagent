@@ -27,7 +27,7 @@ class CustomerController extends Controller
      * @method index
      * @purpose Load customer signup view 
      */
-    public function customerSignupView(){
+    public function customerSignupView(Request $request){
         return view('customer-register');
     }
 

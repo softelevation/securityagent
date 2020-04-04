@@ -53,7 +53,7 @@
         <div class="row">
             <div class="col-md-4 padding_right_0">
                 <div class="Agent_list">
-                    <h3>Agents In {{$search['location']}}</h3> 
+                    <h3>{{__('frontend.text_2')}} {{$search['location']}}</h3> 
                     <div class="mt-2 mb-2">
                         <div class="float-left pt-2">
                                 <span data-container="body" data-toggle="popover" data-placement="left" data-content="Click on <b>Book An Agent Now</b> button and fill your mission details. After submit, choose an agent and click on <b>Book Now </b> button." data-html="true" data-trigger="hover">How to book an agent <i class="fa fa-question-circle"></i></span>

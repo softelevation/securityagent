@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Helpers\Helper;
 use App\Traits\MissionTrait;
 use Log;
+use Session;
 
 class CommonController extends Controller
 {
@@ -41,5 +42,17 @@ class CommonController extends Controller
         }catch(\Exception $e){
             Log::info($e->getMessage());
         }
+    }
+
+
+    public function changeLanguage($lang){
+        if($lang=='en'){
+            Session::put('locale','en');
+        }
+        if($lang=='fr'){
+            Session::put('locale','fr');
+        }
+        Session::save();
+        return redirect()->back();
     }
 }

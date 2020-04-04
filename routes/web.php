@@ -24,6 +24,7 @@ Route::get('/agent_information', function () {
 // Cron Jobs
 Route::get('/mission-expired-cron', 'CommonController@missionExpiredCronJob');
 
+Route::get('/change-language/{lang}', 'CommonController@changeLanguage');
 Route::get('/register-agent-view','AgentController@index');
 Route::post('/register_agent', 'AgentController@signup');
 Route::get('/customer-signup', 'CustomerController@customerSignupView');

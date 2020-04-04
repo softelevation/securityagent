@@ -36,7 +36,7 @@
          </div>
       </div>
       <div class="copyright text-center">
-          <p>Copyright © 2019 - Alright reserved by <b>OnTimeBee</b>. Design By: <b>CMO Agency</b></p>
+        <p>Copyright © 2020 - Alright reserved by <b>Be On Time</b>. Design & Develop By <b><a class="" href="https://www.cmo-agency.com/">CMO Agency</a></b></p>
       </div>
   </div>
   <form id="agent_availabity_form" method="post" action="{{url('agent/set-availability')}}">

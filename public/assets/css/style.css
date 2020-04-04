@@ -247,6 +247,9 @@ a:hover{text-decoration: none;}
     border-top: 1px solid #222222;
 }
 .copyright p{margin: 0; color:#696969;}
+.copyright a, .copyright a:hover {
+    color: #ffc107;
+}
 .footer:before{content: ''; position: absolute; bottom: 0; left: 0; background: url("../images/footer_before_left.png") no-repeat; width:363px; height: 212px;}
 .footer:after{content: ''; position: absolute; top: 0; right: 0; background: url("../images/footer_after_right.png") no-repeat; width:363px; height: 212px;}
 
@@ -1341,4 +1344,10 @@ span.form-control i{
 .text_panel a,
 .text_panel a:hover {
     color: #ffc107;
+}
+.lang_select{
+    padding: 0px 5px 0px 10px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
 }
