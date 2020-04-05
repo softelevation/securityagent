@@ -9,11 +9,10 @@
                 <div class="contact_form">
                     <div class="address_box">
                         <h4>Head Office:</h4>
-                        <p>Unigas Limited <br/>Gulshan C/A, Dhaka 1000, Dummy<br/>Bangladesh, Post Box: 3301 </p>
+                        <p>Be On Time SAS <br/>66 Avenue des Champs-Elysées<br/>75008 Paris<br><a href="mailto:contact@ontimebe.com">contact@ontimebe.com</a></p>
                     </div>
                     <div class="address_box">
-                        <h4>Corporate Office:</h4>
-                        <p>205-207, Tejgaon I/A, Dhaka 1208<br/>Tel: 880 (2) 58810499, 880 (2) 9851211<br/>Fax: 880 (2) 9892585<br/>Cell: 01964499501<br/>Email: info@unigasbd.com<br/>Website: www.unigasbd.com </p>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.33361118055!2d2.303238315640143!3d48.87091647928871!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66fc3c52c6deb%3A0x9eda90a43280f6b0!2s66%20Av.%20des%20Champs-%C3%89lys%C3%A9es%2C%2075008%20Paris%2C%20France!5e0!3m2!1sen!2sin!4v1586073334006!5m2!1sen!2sin" width="100%" height="165" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                     </div>
                 </div>
             </div>
@@ -22,39 +21,36 @@
             <div class="contact_box">
                 <h3><i class="fa fa-pin"></i> Send Your Feedback</h3>
                 <div class="contact_form">
+                  {{Form::open(['url'=>url('contact-form-submission'),'id'=>'general_form'])}}
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
                         <label>Your Name:</label>
-                        <input type="text" class="form-control" placeholder="Type Your Name" />
+                        <input type="text" name="name" class="form-control" placeholder="Type Your Name" />
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
                         <label>Email:</label>
-                        <input type="text" class="form-control" placeholder="Type Your Email" />
+                        <input type="email" name="email" class="form-control" placeholder="Type Your Email" />
                       </div>
                     </div>
                       <div class="col-md-4">
                       <div class="form-group">
                         <label>Phone:</label>
-                        <input type="text" class="form-control" placeholder="Type Your Phone No" />
+                        <input type="text" name="phone" class="form-control" placeholder="Type Your Phone No" />
                       </div>
                     </div>
-                  </div>
-                    <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Subject/Title:</label>
-                        <input type="text" class="form-control" placeholder="Type Your Feedback in details"/>
+                        <input type="text" name="subject" class="form-control" placeholder="Type Your Feedback in details"/>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Your Feedback Details:</label>
-                        <textarea class="form-control" placeholder="Type Your Feedback Title"></textarea>
+                        <textarea name="feedback" class="form-control" placeholder="Type Your Feedback Title"></textarea>
                       </div>
                     </div>
                   </div>
@@ -64,7 +60,8 @@
                         <input type="submit" class="yellow_btn" value="Send"/>
                       </div>
                     </div>
-                  </div>  
+                  </div>
+                  {{Form::close()}}  
                 </div>
             </div>
         </div>        

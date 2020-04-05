@@ -117,12 +117,7 @@
                     </div>
                     <div class="testimonial_img_name">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="testimonial_img">
-                                    <img src="{{asset('assets/images/testi_person1.jpg')}}"/>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="testimonial_name">
                                     <h4>Robert Peterson</h4>
                                     <div class="star">
@@ -141,12 +136,7 @@
                     </div>
                     <div class="testimonial_img_name">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="testimonial_img">
-                                    <img src="{{asset('assets/images/testi_person2.jpg')}}"/>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="testimonial_name">
                                     <h4>Evelyn Martinez</h4>
                                     <div class="star">
@@ -165,12 +155,7 @@
                     </div>
                     <div class="testimonial_img_name">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="testimonial_img">
-                                    <img src="{{asset('assets/images/testi_person3.jpg')}}"/>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="testimonial_name">
                                     <h4>Dan Hodges</h4>
                                     <div class="star">

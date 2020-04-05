@@ -72,4 +72,27 @@ trait UserValidator
         }
         return $this->response;
     }
+
+    /**
+     * @param   : Request $request
+     * @method  : contactFormValidations
+     * @purpose : Validation rule for contact page
+     */
+    public function contactFormValidations(Request $request){
+        try{
+            $validations = array(
+                'name' => 'required',
+                'email' => 'required|email',
+                'phone' => 'required|numeric',
+                'subject' => 'required',
+                'feedback' => 'required',
+
+            );
+            $validator = Validator::make($request->all(),$validations);
+            $this->response = $this->validateData($validator);
+        }catch(\Exception $e){
+            $this->response = $e->getMessage();
+        }
+        return $this->response;
+    }
 }

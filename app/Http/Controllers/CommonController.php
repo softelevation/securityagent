@@ -9,10 +9,12 @@ use App\Helpers\Helper;
 use App\Traits\MissionTrait;
 use Log;
 use Session;
+use App\Traits\ResponseTrait;
+use App\Validators\UserValidator;
 
 class CommonController extends Controller
 {
-    use MissionTrait;
+    use MissionTrait, ResponseTrait, UserValidator;
 
 	/**
      * @param $request
@@ -44,7 +46,11 @@ class CommonController extends Controller
         }
     }
 
-
+    /**
+     * @param $lang
+     * @method changeLanguage
+     * @purpose Change website language
+     */
     public function changeLanguage($lang){
         if($lang=='en'){
             Session::put('locale','en');
@@ -54,5 +60,31 @@ class CommonController extends Controller
         }
         Session::save();
         return redirect()->back();
+    }
+
+    /**
+     * @param $lang
+     * @method changeLanguage
+     * @purpose Change website language
+     */
+    public function submitContactForm(Request $request){
+        try{
+            $validation = $this->contactFormValidations($request);
+            if($validation['status']==false){
+                return response($this->getValidationsErrors($validation));
+            }
+            $data = $request->all();
+            $templateName = 'emails.contact';
+            $toEmail = 'contact@ontimebe.com';
+            $toName = 'Be On Time';
+            $subject = $request->subject;
+            Helper::sendCommonMail($templateName,$data,$toEmail,$toName,$subject);
+            $response['message'] = 'Feedback submitted successfully.';
+            $response['delayTime'] = 2000;
+            $response['url'] = url('contact-us');
+            return response($this->getSuccessResponse($response));
+        }catch(\Exception $e){
+            return response('Something went wrong! Please try again later.');
+        }
     }
 }

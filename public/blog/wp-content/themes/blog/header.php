@@ -63,7 +63,9 @@
                                     <!-- <li><a href="">Registration</a></li> -->
                                     <li>
                                         <div class="dropdown">
-                                            <a class="dropdown-toggle" data-toggle="dropdown"> French
+                                            <a class="dropdown-toggle" data-toggle="dropdown"> 
+                                                <img height="18" src="<?php echo APP_URL; ?>/assets/images/france_flag.png">
+                                                French
                                                 <span class="caret"></span></a>
                                             <ul class="dropdown-menu">
                                                 <li><a href="#">English</a></li>

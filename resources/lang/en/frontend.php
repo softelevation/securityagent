@@ -21,7 +21,7 @@ return [
 	"text_17" => "QUALIFIED AND CERTIFIED AGENTS",
 	"text_18" => "Security guards, store security, filtering, event agents. All our agents are certified with a professional card issued by the National Council for Private Security Activities (CNAPS)",
 	"text_19" => "24 HOUR OPERATIONAL CENTER",
-	"text_20" => "Les agents sont disponibles 24h/24 et 7j/7 pour répondre à vos attentes et au sein de notre centre opérationnel. N’hésitez pas à nous contacter sur le numéro 000000000",
+	"text_20" => "The agents are available 24/7 to meet your expectations and within our operational center. Do not hesitate to contact us on the number 000000000",
 	"text_21" => "Our Latest Testimonials",
 	"text_22" => "I appreciate the seriousness of the relationships established with our association and the quality of their teams on our different sites",
 	"text_23" => "Conscientious, available with great adaptability, I recommend",

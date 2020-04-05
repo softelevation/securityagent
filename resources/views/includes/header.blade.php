@@ -66,8 +66,10 @@
                         <li><div class="dropdown">
                           <a class="dropdown-toggle" data-toggle="dropdown">
                             @if(Session::has('locale') && Session::get('locale')=='fr')
+                              <img height="18" src="{{asset('assets/images/france_flag.png')}}">
                               French
                             @else
+                              <img src="{{asset('assets/images/usa_flag.png')}}">
                               English  
                             @endif
                           <span class="caret"></span></a>

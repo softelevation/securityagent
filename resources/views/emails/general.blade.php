@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Agent Verification</title>
+	<title>Be On Time</title>
 </head>
 <body>
 	{!!$data['message']!!}

@@ -207,6 +207,7 @@ a:hover{text-decoration: none;}
     font-size: 26px;
     font-weight: 600;
     margin: 5px 0;
+    text-transform: uppercase;
 }
 .feature_box p {
     font-size: 17px;
@@ -283,7 +284,7 @@ input.btn_submit {background: #d6fb04;border: none;padding: 6px 20px;
 input.btn_submit:hover{background: #fdda42 ;}
 .shortLink li a:hover {color: #d6fb04 ;}
 .about_info p{ line-height: 22px;}
-.testimonial_name {margin-top: 15px;}
+.testimonial_name {text-align: center;}
 button.navbar-toggler { background: #fdde59;}
 button.navbar-toggler i.fa.fa-bars { line-height: 35px;}
 .top_menu em{font-style: normal;}
@@ -1344,7 +1345,9 @@ span.form-control i{
     font-size: 18px;
 }
 .text_panel a,
-.text_panel a:hover {
+.text_panel a:hover,
+.address_box a,
+.address_box a:hover{
     color: #ffc107;
 }
 .lang_select{
@@ -1352,4 +1355,8 @@ span.form-control i{
     text-transform: uppercase;
     border: none;
     cursor: pointer;
+}
+.text_panel a,
+.text_panel a:hover {
+    color: #ffc107;
 }
