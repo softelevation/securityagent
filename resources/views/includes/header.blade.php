@@ -50,16 +50,16 @@
                         @if(\Auth::check())
                           <li>
                             <div class="dropdown">
-                              <a class="dropdown-toggle" data-toggle="dropdown"><img class="rounded-circle" width="25" src="{{asset('avatars/dummy_avatar.jpg')}}"/> Logged In
+                              <a class="dropdown-toggle" data-toggle="dropdown"><img class="rounded-circle" width="25" src="{{asset('avatars/dummy_avatar.jpg')}}"/> {{__('frontend.text_82')}}
                               <span class="caret"></span></a>
                               <ul class="dropdown-menu">
-                                <li><a href="{{url('login')}}">Dashboard</a></li>
-                                <li><a href="{{url('logout')}}">Log Out</a></li>
+                                <li><a href="{{url('login')}}">{{__('frontend.text_83')}}</a></li>
+                                <li><a href="{{url('logout')}}">{{__('frontend.text_84')}}</a></li>
                               </ul>
                             </div>
                           </li>
                         @else
-                          <li><a href="{{url('/login')}}">Login</a></li> 
+                          <li><a href="{{url('/login')}}">{{__('frontend.text_74')}}</a></li> 
                         @endif
                         <em>|</em>  
                         <!-- <li><a href="">Registration</a></li> -->
@@ -82,11 +82,11 @@
                 </div>
                 <div class="primary">
                     <ul>
-                        <li><a class="@if(url()->current()==url('/')) active @endif" href="{{url('/')}}">Home</a></li>
-                        <li><a class="@if(url()->current()==url('/available-agents')) active @endif" href="{{url('/available-agents')}}">Available Agent on Map</a></li>
-                        <li><a class="@if(url()->current()==url('/agent_information')) active @endif" href="{{url('/agent_information')}}">Agent</a></li>
-                        <li><a class="" href="{{url('/blog')}}">Blogs</a></li>
-                        <li><a class="@if(url()->current()==url('/contact-us')) active @endif" href="{{url('/contact-us')}}">Contact us</a></li>
+                        <li><a class="@if(url()->current()==url('/')) active @endif" href="{{url('/')}}">{{__('frontend.text_75')}}</a></li>
+                        <li><a class="@if(url()->current()==url('/available-agents')) active @endif" href="{{url('/available-agents')}}">{{__('frontend.text_76')}}</a></li>
+                        <li><a class="@if(url()->current()==url('/agent_information')) active @endif" href="{{url('/agent_information')}}">{{__('frontend.text_77')}}</a></li>
+                        <li><a class="" href="{{url('/blog')}}">{{__('frontend.text_78')}}</a></li>
+                        <li><a class="@if(url()->current()==url('/contact-us')) active @endif" href="{{url('/contact-us')}}">{{__('frontend.text_79')}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                     </div>
                     <!-- Availability -->
                     <div class="float-right">
-                      <span class="pr-3">Availability</span> 
+                      <span class="pr-3">{{__('frontend.text_85')}}</span> 
                       <label class="switch">
                         <input 
                         @if(\Auth::user()->agent_info->available==2) disabled="disabled" @endif 
@@ -149,8 +149,8 @@
                   </div>
                 @endif
               @else
-                <a href="{{url('/register-agent-view')}}">Become an Agent</a>
-                <a href="{{url('/customer-signup')}}">Become an User</a>
+                <a href="{{url('/register-agent-view')}}">{{__('frontend.text_80')}}</a>
+                <a href="{{url('/customer-signup')}}">{{__('frontend.text_81')}}</a>
               @endif
             </div>  
         </div>

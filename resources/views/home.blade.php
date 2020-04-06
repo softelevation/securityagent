@@ -119,7 +119,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="testimonial_name">
-                                    <h4>Robert Peterson</h4>
+                                    <h4>T. Magnis</h4>
                                     <div class="star">
                                         <img src="{{asset('assets/images/star.jpg')}}"/>
                                     </div>
@@ -138,7 +138,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="testimonial_name">
-                                    <h4>Evelyn Martinez</h4>
+                                    <h4>E. Delattre</h4>
                                     <div class="star">
                                         <img src="{{asset('assets/images/star.jpg')}}"/>
                                     </div>
@@ -157,7 +157,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="testimonial_name">
-                                    <h4>Dan Hodges</h4>
+                                    <h4>A. Dembert</h4>
                                     <div class="star">
                                         <img src="{{asset('assets/images/star.jpg')}}"/>
                                     </div>

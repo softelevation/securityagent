@@ -60,7 +60,7 @@ a:hover{text-decoration: none;}
     background: #f2f3f8;
     font-weight: 600;
     border: 1px solid #ccc;
-    padding: 6px 16px;
+    padding: 6px 8px;
 }
 .primary ul li a.active, .primary ul li a:hover{ background: #d6fb04 ; color:#000;}
 .primary ul li:first-child a {
@@ -70,7 +70,8 @@ a:hover{text-decoration: none;}
     border-left: 0;
 }
 .menu_right a {
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: 600;
     color: #000;
     background: #d6fb04;
     width: auto;
@@ -79,7 +80,7 @@ a:hover{text-decoration: none;}
     border: 1px solid #ccc;
     text-align: center;
     height: 47px;
-    padding: 0 12px;
+    padding: 0 10px;
     line-height: 47px;
     margin-top: 14px;
 }
@@ -542,7 +543,7 @@ border-radius: 50%;}
     box-shadow: none;
     height: 40px;
     line-height: 40px;
-    max-width: 130px;
+    /*max-width: 130px;*/
 }
 .contact_form .form-control::placeholder {
     color: #8e8e8e;
@@ -740,7 +741,7 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
   }
  .login_form .div_header .lock-icon{
     position: relative;
-    top:-35px;
+    top:-22px;
     left:8px;
     color: rgb(253, 218, 66);
     font-size: 32px;
@@ -852,8 +853,6 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
     font-weight: 600;
     display: inline-block;
     text-decoration: none;
-    width: 100%;
-    max-width: 226px;
 }
 .success_btn{
     background: #d6fb04 ;
@@ -896,7 +895,7 @@ a.success_btn{
     padding: 0 25px;
     line-height: 47px;
     margin-top: 14px;
-    max-width: 250px;
+    /*max-width: 250px;*/
 }
 .pending-details .danger_btn{
     background: #d60e21;

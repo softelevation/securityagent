@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-md-4">
             <div class="contact_box">
-                <h3><i class="fa fa-pin"></i> Location</h3>
+                <h3><i class="fa fa-pin"></i> {{__('frontend.text_60')}}</h3>
                 <div class="contact_form">
                     <div class="address_box">
-                        <h4>Head Office:</h4>
+                        <h4>{{__('frontend.text_72')}}:</h4>
                         <p>Be On Time SAS <br/>66 Avenue des Champs-Elysées<br/>75008 Paris<br><a href="mailto:contact@ontimebe.com">contact@ontimebe.com</a></p>
                     </div>
                     <div class="address_box">
@@ -19,45 +19,45 @@
         </div>    
         <div class="col-md-8">
             <div class="contact_box">
-                <h3><i class="fa fa-pin"></i> Send Your Feedback</h3>
+                <h3><i class="fa fa-pin"></i> {{__('frontend.text_61')}}</h3>
                 <div class="contact_form">
                   {{Form::open(['url'=>url('contact-form-submission'),'id'=>'general_form'])}}
                   <div class="row">
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label>Your Name:</label>
-                        <input type="text" name="name" class="form-control" placeholder="Type Your Name" />
+                        <label>{{__('frontend.text_62')}}:</label>
+                        <input type="text" name="name" class="form-control" placeholder="{{__('frontend.text_67')}}" />
                       </div>
                     </div>
                     <div class="col-md-4">
                       <div class="form-group">
-                        <label>Email:</label>
-                        <input type="email" name="email" class="form-control" placeholder="Type Your Email" />
+                        <label>{{__('frontend.text_63')}}:</label>
+                        <input type="email" name="email" class="form-control" placeholder="{{__('frontend.text_68')}}" />
                       </div>
                     </div>
                       <div class="col-md-4">
                       <div class="form-group">
-                        <label>Phone:</label>
-                        <input type="text" name="phone" class="form-control" placeholder="Type Your Phone No" />
+                        <label>{{__('frontend.text_64')}}:</label>
+                        <input type="text" name="phone" class="form-control" placeholder="{{__('frontend.text_69')}}" />
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Subject/Title:</label>
-                        <input type="text" name="subject" class="form-control" placeholder="Type Your Feedback in details"/>
+                        <label>{{__('frontend.text_65')}}:</label>
+                        <input type="text" name="subject" class="form-control" placeholder="{{__('frontend.text_70')}}"/>
                       </div>
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <label>Your Feedback Details:</label>
-                        <textarea name="feedback" class="form-control" placeholder="Type Your Feedback Title"></textarea>
+                        <label>{{__('frontend.text_66')}}:</label>
+                        <textarea name="feedback" class="form-control" placeholder="{{__('frontend.text_71')}}"></textarea>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group text-center mb-0 ">
-                        <input type="submit" class="yellow_btn" value="Send"/>
+                        <input type="submit" class="yellow_btn" value="{{__('frontend.text_73')}}"/>
                       </div>
                     </div>
                   </div>

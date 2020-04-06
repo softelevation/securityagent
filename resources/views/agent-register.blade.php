@@ -16,21 +16,21 @@
     <div class="row"> 
         <div class="col-md-12">
             <div class="contact_box">
-                <h3><i class="fa fa-pin"></i> Become An Agent</h3>
+                <h3>{{__('frontend.text_94')}}</h3>
                 <form id="general_form" method="post" action="{{url('/register_agent')}}" enctype="multipart/form-data" novalidate="novalidate">
                 	@csrf
 	                <div class="contact_form">
 	                  	<div class="row">
 		                    <div class="col-md-6">
 		                      	<div class="form-group">
-			                       	<label>First Name</label>
-				                	<input type="text" name="first_name" class="form-control" placeholder="Enter Your First Name" />
+			                       	<label>{{__('frontend.text_95')}}</label>
+				                	<input type="text" name="first_name" class="form-control" placeholder="{{__('frontend.text_96')}}" />
 			             	  	</div>
 		                    </div>
 		                    <div class="col-md-6">
 		                      <div class="form-group">
-				                <label>Last Name</label>
-				                <input type="text" name="last_name" class="form-control" placeholder="Enter Your last Name" />
+				                <label>{{__('frontend.text_97')}}</label>
+				                <input type="text" name="last_name" class="form-control" placeholder="{{__('frontend.text_98')}}" />
 		                      </div>
 		                    </div>
 	                	</div>
@@ -38,33 +38,33 @@
 	                    <div class="row">
 	     					<div class="col-md-6">
 		                      <div class="form-group">
-				                <label>Email Address</label>
-				                <input type="text" name="email" class="form-control" placeholder="Enter Your Email" />
+				                <label>{{__('frontend.text_99')}}</label>
+				                <input type="text" name="email" class="form-control" placeholder="{{__('frontend.text_100')}}" />
 		                      </div>
 		                    </div>
 	                      	<div class="col-md-6">
 		                      <div class="form-group">
-				                <label>Phone Number</label>
-				                <input type="text" name="phone" class="form-control" placeholder="Enter Your Phone Number" />
+				                <label>{{__('frontend.text_101')}}</label>
+				                <input type="text" name="phone" class="form-control" placeholder="{{__('frontend.text_102')}}" />
 		                      </div>
 	                    	</div>
 	               		</div>
 	                	<div class="row">
 	                		<div class="col-md-6">
 		                      <div class="form-group">
-				                <label>Identity Card</label><br>
+				                <label>{{__('frontend.text_103')}}</label><br>
 	                      		<div class="custom-file">
 				                	<input type="file" name="identity_card" class="custom-file-input" id="identityCard"/>
-		                         	<label class="custom-file-label" for="identityCard"> Upload Your ID Proof Document </label>
+		                         	<label class="custom-file-label" for="identityCard"> {{__('frontend.text_104')}} </label>
 	                     		</div>
 		                      </div>
 	                    	</div>
 		                  <div class="col-md-6">
 		                      <div class="form-group ">
-				                <label>Social Security Number</label><br>
+				                <label>{{__('frontend.text_105')}}</label><br>
 				                <div class="custom-file">
 				                	<input type="file" name="social_security_number" class="custom-file-input" id="socialSecurityNumber"/>
-		                         	<label class="custom-file-label" for="socialSecurityNumber"> Upload Your Agent Number Document </label>
+		                         	<label class="custom-file-label" for="socialSecurityNumber"> {{__('frontend.text_106')}} </label>
 	                     		</div>
 		                      </div>
 		                    </div>
@@ -72,17 +72,17 @@
 	                	<div class="row">
 	                		<div class="col-md-6">
 		                      <div class="form-group">
-				                <label>Anonymous Curriculum Vitae (without name and contact details) </label><br>
+				                <label>{{__('frontend.text_107')}} </label><br>
 				                <div class="custom-file">
 				                	<input type="file" name="cv" class="custom-file-input" id="cv"/>
-		                         	<label class="custom-file-label" for="cv"> Upload Your Curriculum Vitae </label>
+		                         	<label class="custom-file-label" for="cv"> {{__('frontend.text_108')}} </label>
 	                     		</div>
 		                      </div>
 	                    	</div>
 		                  	<div class="col-md-6">
 		                      <div class="form-group ">
-				                <label>IBAN Info</label><br>
-				                <input type="text" name="iban" class="form-control" placeholder="Enter Your IBAN Info" />
+				                <label>{{__('frontend.text_109')}}</label><br>
+				                <input type="text" name="iban" class="form-control" placeholder="{{__('frontend.text_110')}}" />
 		                      </div>
 		                    </div>
 	                	</div> 
@@ -90,7 +90,7 @@
 	                   <div class="row">
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
-					                <label>Agent Type</label>
+					                <label>{{__('frontend.text_111')}}</label>
 					                <input type="hidden" name="agent_type" id="agent_type_hidden">
 					                <select class="form-control multi_select" multiple="multiple" id="select_agent_type" placeholder="Choose Agent Type">
 					                    <option>Select</option>
@@ -106,19 +106,19 @@
 		                    </div>
 							<div class="col-md-6" >
 		                      	<div class="form-group ">
-					                <label>CNAPS Number</label>
-				                    <input type="text" name="cnaps_number" class="form-control cnaps_number" placeholder="Enter Your CNAPS Number" />
+					                <label>{{__('frontend.text_113')}}</label>
+				                    <input type="text" name="cnaps_number" class="form-control cnaps_number" placeholder="{{__('frontend.text_114')}}" />
 		                     	</div>
 		                    </div>
 	                  </div>   
 	                  <div class="row diploma  d-none">
 	                		<div class="col-md-6">
 		                      <div class="form-group">
-				                <label>Diploma Certificate </label><br>
+				                <label>{{__('frontend.text_123')}}</label><br>
 				                <div id="diploma-group">
 					                <div class="custom-file mt-2">
 					                	<input type="file" name="diploma[]" class="custom-file-input" id="diploma1"/>
-			                         	<label class="custom-file-label" for="diploma1"> Upload Your Diploma Certificate 1</label>
+			                         	<label class="custom-file-label" for="diploma1"> {{__('frontend.text_124')}} 1</label>
 		                     		</div>
 				                </div>
 				                <button type="button" class="add-diploma-btn btn btn-secondary mt-3" title="Add files">+</button>
@@ -129,10 +129,10 @@
 	                    <div class="row d-none dog_info">
 		                    <div class="col-md-6">
 		                      <div class="form-group">
-				                <label>Dog Mutual Info</label><br>
+				                <label>{{__('frontend.text_125')}}</label><br>
 				                <div class="custom-file">
 				                	<input type="file" name="dog_info" class="custom-file-input" id="dog_info"/>
-		                         	<label class="custom-file-label" for="dog_info"> Upload Document </label>
+		                         	<label class="custom-file-label" for="dog_info"> {{__('frontend.text_126')}}</label>
 	                     		</div>
 		                      </div>
 		                    </div>
@@ -140,14 +140,14 @@
 	                   	<div class="row">
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
-				                <label>Home Address</label>
-			                    <input type="text" name="home_address" class="form-control" placeholder="Enter Your home address " />
+				                <label>{{__('frontend.text_115')}}</label>
+			                    <input type="text" name="home_address" class="form-control" placeholder="{{__('frontend.text_116')}}" />
 		                      </div>
 		                    </div>
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
-				                <label>Work Location</label>
-				                <input id="autocomplete" name="work_location_address" placeholder="Enter your address" class="form-control"  onFocus="geolocate()" type="text"/>
+				                <label>{{__('frontend.text_117')}}</label>
+				                <input id="autocomplete" name="work_location_address" placeholder="{{__('frontend.text_118')}}" class="form-control"  onFocus="geolocate()" type="text"/>
 				                <!--Work Location Lat Longs  -->
 				                <input type="hidden" name="work_location[lat]" />
 				                <input type="hidden" name="work_location[long]" />
@@ -157,9 +157,9 @@
 	                  	<div class="row">
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
-				                <label>Do you have a vehicle to do the missions ?</label><br>
-			                    <input type="radio" name="is_vehicle" value="1"> Yes
-			                    <input type="radio" name="is_vehicle" value="0"> No
+				                <label>{{__('frontend.text_119')}}</label><br>
+			                    <input type="radio" name="is_vehicle" value="1"> {{__('frontend.text_120')}}
+			                    <input type="radio" name="is_vehicle" value="0"> {{__('frontend.text_121')}}
 		                      </div>
 		                    </div>
 	                  	</div>  
@@ -168,7 +168,7 @@
 		                    <input type="hidden" name="current_location[lat]" />
 			                <input type="hidden" name="current_location[long]" />
 				            <div class="form-group">
-				               <input type="submit" class="yellow_btn" value="Become Agent"/>
+				               <input type="submit" class="yellow_btn" value="{{__('frontend.text_122')}}"/>
 				            </div>
 	                    </div>
 	                  </div>  
@@ -184,6 +184,7 @@
           
 <!-- Google Place API -->
 <script>
+var locale = '@php echo Session::get("locale"); @endphp';
 //script for SIAP 
 $('#select_agent_type').change(function(){
 	var values = [];
@@ -216,8 +217,11 @@ $('#select_agent_type').change(function(){
 
 $('.add-diploma-btn').click(function(){
 	let totalItems = $('#diploma-group').children().length+1;
-
-	let diploma_label = '<div class="custom-file mt-2"><input type="file" name="diploma[]" class="custom-file-input" id="diploma'+totalItems+'"/><label class="custom-file-label" for="diploma'+totalItems+'"> Upload Your Diploma Certificate '+totalItems+'</label></div>';
+	var txt = 'Upload Your Diploma Certificate';
+	if(locale=='fr'){
+		txt = 'Téléchargez votre curriculum vitae';
+	}
+	let diploma_label = '<div class="custom-file mt-2"><input type="file" name="diploma[]" class="custom-file-input" id="diploma'+totalItems+'"/><label class="custom-file-label" for="diploma'+totalItems+'">'+txt+' '+totalItems+'</label></div>';
 	$('#diploma-group').append(diploma_label);
 	$('.remove-diploma-btn').removeClass('d-none');
 });

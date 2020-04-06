@@ -8,34 +8,30 @@
                 <div class="login_inner">
                 <div class="div_header">
                    <span class="lock-icon"><i class="fa fa-unlock"></i></span>
-                    <h3>Log In</h3>
-                    <p>Become a Part of Our Agency</p>
+                    <h3>{{__('frontend.text_86')}}</h3>
                 </div>
 
                 <div class="div_body">
                   <form id="general_form" method="post" action="{{url('/login')}}">
                     @csrf
                     <div class="form-group">
-                      <input type="text" name="email" placeholder="Email Address" class="form-control" >
+                      <input type="text" name="email" placeholder="{{__('frontend.text_87')}}" class="form-control" >
                     </div>
                     <div class="form-group">
-                      <input type="password" name="password" placeholder="Password" class="form-control" >
+                      <input type="password" name="password" placeholder="{{__('frontend.text_88')}}" class="form-control" >
                     </div>
-                    <div class="form-group">
-                      <label><input type="checkbox"> Remember Me</label>
+                    <div class="form-group mt-4">
+                      <button type="submit" class="yellow_btn"> {{__('frontend.text_89')}}</button>
                     </div>
-                    <div class="form-group">
-                      <button type="submit" class="yellow_btn"> LOGIN</button>
-                    </div>
-                    <div class="help">
+<!--                     <div class="help">
                       Forgot Your Password ? 
                       <a href="">Get Help</a>
-                    </div>
+                    </div> -->
                   </form>
                 </div>
               </div>
                 <div class="footer_login">
-                  Not a Member? <a href="{{url('customer-signup')}}" class="register_btn yellow_btn">Register</a> 
+                  {{__('frontend.text_92')}} <a href="{{url('customer-signup')}}" class="register_btn yellow_btn">{{__('frontend.text_93')}}</a> 
                 </div>
             </div>
           </div>

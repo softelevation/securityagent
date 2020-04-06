@@ -1,0 +1,30 @@
+<?php
+
+return [
+	// Profile Tab
+    'profile' => 'Profile',
+    'mission_requests' => 'Mission Requests',
+    'missions' => 'Missions',
+    'schedule' => 'Schedule',
+    'logout' => 'Log Out',
+	'back' => 'Back',
+	'agent' => 'Agent',
+	'customer' => 'Customer',
+	'operator' => 'Operator',
+	'change_profile' => 'Change Profile',
+	'first_name' => 'First Name',
+	'last_name' => 'Last Name',
+	'phone_number' => 'Phone Number',
+	'home_address' => 'Home Address',
+	'profile_image' => 'Profile Image',
+	'upload_image' => 'Upload an image',
+	'update_profile' => 'Update Profile',
+	'change_password' => 'Change Password',
+	'current_password' => 'Current Password',
+	'current_password_place' => 'Your Current Password',
+	'new_password' => 'New Password',
+	'new_password_place' => 'Your New Password',
+	'confirm_password' => 'Confirm Password',
+	'confirm_password_place' => 'Confirm Your Password',
+	'update_password' => 'Update Password', 
+];
