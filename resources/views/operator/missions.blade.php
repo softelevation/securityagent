@@ -7,26 +7,26 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Missions</h2>
+                  <h2>{{__('dashboard.missions')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
                       <li class="nav-item w-25">
-                          <a id="nav-all-mission-tab" data-toggle="tab" href="#nav-mission-all" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='all') active @endif">All Missions </a>
+                          <a id="nav-all-mission-tab" data-toggle="tab" href="#nav-mission-all" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='all') active @endif">{{__('dashboard.mission.all')}} </a>
                       </li>
                       <li class="nav-item w-25">
-                          <a id="nav-future-tab" data-toggle="tab" href="#nav-mission-future" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='future') active @endif">Future Missions</a>
+                          <a id="nav-future-tab" data-toggle="tab" href="#nav-mission-future" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='future') active @endif">{{__('dashboard.mission.future')}}</a>
                       </li>
                       <li class="nav-item w-25">
-                          <a id="nav-quick-tab" data-toggle="tab" href="#nav-mission-quick" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='quick') active @endif">Quick Missions</a>
+                          <a id="nav-quick-tab" data-toggle="tab" href="#nav-mission-quick" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='quick') active @endif">{{__('dashboard.mission.quick')}}</a>
                       </li>
                       <li class="nav-item w-25">
-                          <a id="nav-finished-tab" data-toggle="tab" href="#nav-mission-finished" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='finished') active @endif">Missions Finished</a>
+                          <a id="nav-finished-tab" data-toggle="tab" href="#nav-mission-finished" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='finished') active @endif">{{__('dashboard.mission.finished')}}</a>
                       </li>
                   </ul>
                   <div class="tab-content" id="nav-tabContent">
@@ -37,11 +37,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Mission Title</th>
-                                    <th>Mission Ref.</th>
-                                    <th>Mission Location</th>
-                                    <th>Mission Status</th>
-                                    <th>Payment Status</th>
+                                    <th>{{__('dashboard.mission.title')}}</th>
+                                    <th>{{__('dashboard.mission.ref')}}</th>
+                                    <th>{{__('dashboard.mission.location')}}</th>
+                                    <th>{{__('dashboard.mission.status')}}</th>
+                                    <th>{{__('dashboard.payment.status')}}</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -60,30 +60,30 @@
                                     <td>{{$mission->title}}</td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
-                                    <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                    <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
+                                    <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
+                                    <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                     <td>
-                                      <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>
                                 </tr>
                                 @forelse($mission->child_missions as $mission)
                                   <tr>
                                       <td></td>
-                                      <td>{{$mission->title}} <small class="action_icons">(sub mission)</small></td>
+                                      <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
                                       <td>{{Helper::mission_id_str($mission->id)}}</td>
                                       <td>{{$mission->location}}</td>
                                       <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                      <td>@if($mission->payment_status==0) Not Paid Yet @else Completed @endif</td>
+                                      <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                       <td>
                                         @if($mission->agent_id!=0)
-                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
+                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
                                         @else
                                         <div class="dropdown">
                                           <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
                                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
+                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
 
-                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a>
+                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> {{__('dashboard.agents.assign')}}</a>
                                           </div>
                                         </div>
                                         @endif
@@ -93,7 +93,7 @@
                                   @endforelse
                               @empty
                                 <tr>
-                                    <td colspan="7">No record found</td>
+                                    <td colspan="7">{{__('dashboard.no_record')}}</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -114,11 +114,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Mission Title</th>
-                                    <th>Mission Ref.</th>
-                                    <th>Mission Duration</th>
-                                    <th>Start Datetime</th>
-                                    <th>Status</th>
+                                    <th>{{__('dashboard.mission.title')}}</th>
+                                    <th>{{__('dashboard.mission.ref')}}</th>
+                                    <th>{{__('dashboard.mission.duration')}}</th>
+                                    <th>{{__('dashboard.mission.start_time')}}</th>
+                                    <th>{{__('dashboard.mission.status')}}</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -138,49 +138,49 @@
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</td>
-                                    <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
+                                    <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                     <td>
                                       @if($mission->child_missions->count() == 0)
                                         @if($mission->agent_id!=0)
-                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
+                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
                                         @else
                                         <div class="dropdown">
                                           <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
                                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
+                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
 
-                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a>
+                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> {{__('dashboard.agents.assign')}}</a>
 
                                             <!-- <a class="dropdown-item" href="#"><i class="far fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a> -->
                                             @if($mission->total_hours > 12)
-                                            <a class="dropdown-item" href="{{url('operator/sub-mission')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-border-all text-grey" aria-hidden="true"></i> Create Sub Missions</a>
+                                            <a class="dropdown-item" href="{{url('operator/sub-mission')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-border-all text-grey" aria-hidden="true"></i> {{__('dashboard.mission.create_sub')}}</a>
                                             @endif
                                           </div>
                                         </div>
                                         @endif
                                       @else
-                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
+                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
                                       @endif  
                                     </td>
                                 </tr>
                                 @forelse($mission->child_missions as $mission)
                                 <tr>
                                     <td></td>
-                                    <td>{{$mission->title}} <small class="action_icons">(sub mission)</small></td>
+                                    <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
-                                    <td>{{$mission->total_hours}} Hour(s)</td>
+                                    <td>{{$mission->total_hours}} {{__('dashboard.hours')}}</td>
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</td>
                                     <td>{{Helper::get_mission_status($mission->status)}}</td>
                                     <td>
                                       @if($mission->agent_id!=0)
-                                      <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
+                                      <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
                                       @else
                                       <div class="dropdown">
                                         <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                          <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
+                                          <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
 
-                                          <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a>
+                                          <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> {{__('dashboard.agents.assign')}}</a>
                                         </div>
                                       </div>
                                       @endif
@@ -190,7 +190,7 @@
                                 @endforelse
                               @empty
                                 <tr>
-                                    <td colspan="7">No record found</td>
+                                    <td colspan="7">{{__('dashboard.no_record')}}</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -211,10 +211,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Mission Title</th>
-                                    <th>Mission Ref.</th>
-                                    <th>Mission Location</th>
-                                    <th>Mission Duration</th>
+                                    <th>{{__('dashboard.mission.title')}}</th>
+                                    <th>{{__('dashboard.mission.ref')}}</th>
+                                    <th>{{__('dashboard.mission.location')}}</th>
+                                    <th>{{__('dashboard.mission.duration')}}</th>
+                                    <th>{{__('dashboard.mission.status')}}</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -234,46 +235,46 @@
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>{{$mission->total_hours}} Hour(s)</td>
-                                    <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
+                                    <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                     <td>
                                       @if($mission->child_missions->count() == 0)
                                         @if($mission->agent_id!=0)
-                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
+                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
                                         @else
                                         <div class="dropdown">
                                           <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
                                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
+                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
 
-                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a>
+                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> {{__('dashboard.agents.assign')}}</a>
 
                                             <!-- <a class="dropdown-item" href="#"><i class="far fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a> -->
-                                            <a class="dropdown-item" href="{{url('operator/sub-mission')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-border-all text-grey" aria-hidden="true"></i> Create Sub Missions</a>
+                                            <a class="dropdown-item" href="{{url('operator/sub-mission')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-border-all text-grey" aria-hidden="true"></i> {{__('dashboard.mission.create_sub')}}</a>
                                           </div>
                                         </div>
                                         @endif
                                       @else
-                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
+                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
                                       @endif  
                                     </td>
                                 </tr>
                                 @forelse($mission->child_missions as $mission)
                                 <tr>
                                     <td></td>
-                                    <td>{{$mission->title}} <small class="action_icons">(sub mission)</small></td>
+                                    <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>{{Helper::get_mission_status($mission->status)}}</td>
                                     <td>
                                       @if($mission->agent_id!=0)
-                                      <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
+                                      <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
                                       @else
                                       <div class="dropdown">
                                         <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                          <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
-                                          <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a>
+                                          <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
+                                          <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> {{__('dashboard.agents.assign')}}</a>
                                         </div>
                                       </div>
                                       @endif
@@ -283,7 +284,7 @@
                                 @endforelse
                               @empty
                                 <tr>
-                                    <td colspan="6">No record found</td>
+                                    <td colspan="6">{{__('dashboard.no_record')}}</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -304,11 +305,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Mission Title</th>
-                                    <th>Mission Ref.</th>
-                                    <th>Mission Location</th>
-                                    <th>Mission Started At</th>
-                                    <th>Mission Ended At</th>
+                                    <th>{{__('dashboard.mission.title')}}</th>
+                                    <th>{{__('dashboard.mission.ref')}}</th>
+                                    <th>{{__('dashboard.mission.location')}}</th>
+                                    <th>{{__('dashboard.mission.started_at')}}</th>
+                                    <th>{{__('dashboard.mission.ended_at')}}</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -330,30 +331,19 @@
                                     <td>@if(isset($mission->started_at)){{date('m/d/Y H:i:s', strtotime($mission->started_at))}}@endif</td>
                                     <td>@if(isset($mission->started_at)){{date('m/d/Y H:i:s', strtotime($mission->ended_at))}}@endif</td>
                                     <td>
-                                      <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>
                                 </tr>
                                 @forelse($mission->child_missions as $mission)
                                   <tr>
                                       <td></td>
-                                      <td>{{$mission->title}} <small class="action_icons">(sub mission)</small></td>
+                                      <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
                                       <td>{{Helper::mission_id_str($mission->id)}}</td>
                                       <td>{{$mission->location}}</td>
                                       <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
                                       <td>{{date('m/d/Y H:i:s', strtotime($mission->ended_at))}}</td>
                                       <td>
-                                        @if($mission->agent_id!=0)
-                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
-                                        @else
-                                        <div class="dropdown">
-                                          <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
-                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
-
-                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a>
-                                          </div>
-                                        </div>
-                                        @endif
+                                        <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
                                       </td>
                                   </tr>
                                   @empty

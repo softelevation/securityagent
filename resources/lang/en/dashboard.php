@@ -28,7 +28,7 @@ return [
 	'confirm_password_place' => 'Confirm Your Password',
 	'update_password' => 'Update Password', 
 	'action' => 'Action',
-	'status' => 'Status',
+	'status' => 'Statut',
 	'no_record' => 'No record found',	
 	'hours' => 'Hour(s)',
 	'now' => 'Now',
@@ -49,6 +49,23 @@ return [
 	'action' => 'Actions',
 	'download' => 'Download',
 	'no' => 'No',
+	'customers' => 'Customers',
+	'approve' => 'Approve',
+	'decline' => 'Decline',
+	'email' => 'Email Address',
+	'future_booking' => 'Future Booking',
+	'assign' => 'Assign',
+	'not_set' => "Not Set",
+	'customer_details' => 'Customer Details',
+	'customer_heading' => 'All Customer List View',
+	'customer_name' => 'Customer Name',
+	'customer_type' => 'Customer Type',
+	'invoice_date' => 'Date of Invoice',
+	'amount' => 'Amount',
+	'grand_total' => 'Grand Total',
+	'pdf_copyright' => 'Copyright © 2020 - All rights reserved by Be On Time.',
+
+
 
 	// Mission Related
 	'mission' => [
@@ -96,7 +113,14 @@ return [
 		'description_place' => 'Enter mission description',
 		'confirm_create' => 'Are you sure, you want to create a new mission ?',
 		'title_place' => 'Enter mission title',
-		'location_place' => 'Enter your location',	
+		'location_place' => 'Enter your location',
+		'without_agents' => 'Missions Without Agents',	
+		'type' => 'Mission Type',
+		'future' => 'Future Missions',
+		'quick' => 'Quick Missions',
+		'status' => 'Mission Status',
+		'create_sub' => 'Create Sub Missions',
+		'without_agent_heading' => 'ALL MISSIONS WITHOUT AGENTS LIST VIEW',
 	],	
 
 	// Agents 
@@ -113,13 +137,19 @@ return [
 		'available_to' => 'Available To',
 		'available_to_place' => 'Set availability to time',
 		'save_schedule' => 'Save Schedule',
-
 		'details' => 'Agent Details',
 		'name' => 'Agent Name',
-		'type' => 'Agent Type'
+		'type' => 'Agent Type',
+		'agents' => 'Agents',
+		'pending_heading' => 'Pending Verification',
+		'verified_heading' => 'Verified Agents',
+		'username' => 'Username',
+		'available' => 'Agents Available',
+		'assign' => 'Assign Agent',
+
 	],
 
-	'billing' => [
+	'billings' => [
 		'heading' => "MISSION'S PAYMENT HISTORY",
 		'amount_charged' => 'Amount Charged',
 		'date_time' => 'Date Time',
@@ -146,5 +176,16 @@ return [
 		'mission_amount' => 'Mission Amount',
 		'date' => 'Payment Date',
 		'status' => 'Payment Status',
+		'approvals' => 'Payment Approvals',
+		'refund_req' => 'Refund Requests',
+		'approvals_heading' => "All Mission's Extra Payment Approvals",
+		'refund_req_heading' => "All Mission's Refund Requests",
+		'refund_status' => 'Refund Status',
+		'refund_amount' => 'Refund Amount',
+		'reject_refund' => 'Reject Request',
+		'date' => 'Payment Date',
+		'refund_mission' => 'Refund Mission',
+		'refunded' => 'Refunded',
+		'refund' => 'Refund',
 	],
 ];

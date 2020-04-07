@@ -7,51 +7,51 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Missions</h2>
+                  <h2>{{__('dashboard.missions')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="contact_box">
-                <h3>Mission Details</h3>
+                <h3>{{__('dashboard.mission.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-6 form-group">
-                        <label>Mission Title</label>
+                        <label>{{__('dashboard.mission.title')}}</label>
                         <span class="form-control">{{$mission->title}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Ref.</label>
+                        <label>{{__('dashboard.mission.ref')}}</label>
                         <span class="form-control">{{Helper::mission_id_str($mission->id)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Location</label>
+                        <label>{{__('dashboard.mission.location')}}</label>
                         <span class="form-control">{{$mission->location}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Agent Type Needed</label>
+                        <label>{{__('dashboard.mission.agent_needed')}}</label>
                         <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Hours</label>
-                        <span class="form-control">{{$mission->total_hours}} Hour(s)</span>
+                        <label>{{__('dashboard.mission.mission_hours')}}</label>
+                        <span class="form-control">{{$mission->total_hours}} {{__('dashboard.hours')}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Type</label>
-                        <span class="form-control">@if($mission->quick_book==1) Quick Booking @else Future Booking @endif</span>
+                        <label>{{__('dashboard.mission.type')}}</label>
+                        <span class="form-control">@if($mission->quick_book==1) {{__('dashboard.quick_booking')}} @else {{__('dashboard.future_booking')}} @endif</span>
                       </div>
                       @if(isset($mission->start_date_time))
                       <div class="col-md-6 form-group">
-                        <label>Start Datetme</label>
+                        <label>{{__('dashboard.mission.start_time')}}</label>
                         <span class="form-control">{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</span>
                       </div>
                       @endif
                     </div>
                   </div>
                 </div>
-                <h3>Agents Available</h3>
+                <h3>{{__('dashboard.agents.available')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
@@ -60,10 +60,10 @@
                           <table class="table table-hover table-striped">
                               <thead>
                                   <tr>
-                                    <th>Agent</th>
+                                    <th>{{__('dashboard.agent')}}</th>
                                     <th>Date</th>
-                                    <th>Available From</th>
-                                    <th>Available To</th>
+                                    <th>{{__('dashboard.agents.available_from')}}</th>
+                                    <th>{{__('dashboard.agents.available_to')}}</th>
                                     <th>Action</th>
                                   </tr>
                               </thead>
@@ -71,14 +71,14 @@
                                 @forelse($agents as $agent)
                                 <tr>
                                   <td>{{$agent->username}}</td>
-                                  <td>@if($agent->schedule->count() > 0) {{Helper::date_format_show('m/d/Y', $agent->schedule[0]->schedule_date)}} @else Not Set @endif</td>
-                                  <td>@if($agent->schedule->count() > 0) {{$agent->schedule[0]->available_from}} @else Not Set @endif</td>
-                                  <td>@if($agent->schedule->count() > 0) {{$agent->schedule[0]->available_to}} @else Not Set @endif</td>
-                                  <td><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" class="action_icons day_on book_agent_later"><i class="fa fa-user-plus"></i> Assign</a></td>
+                                  <td>@if($agent->schedule->count() > 0) {{Helper::date_format_show('m/d/Y', $agent->schedule[0]->schedule_date)}} @else {{__('dashboard.not_set')}} @endif</td>
+                                  <td>@if($agent->schedule->count() > 0) {{$agent->schedule[0]->available_from}} @else {{__('dashboard.not_set')}} @endif</td>
+                                  <td>@if($agent->schedule->count() > 0) {{$agent->schedule[0]->available_to}} @else {{__('dashboard.not_set')}} @endif</td>
+                                  <td><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" class="action_icons day_on book_agent_later"><i class="fa fa-user-plus"></i> {{__('dashboard.assign')}}</a></td>
                                 </tr>
                                 @empty
                                 <tr>
-                                  <td colspan="9">No Agent Available</td>
+                                  <td colspan="9">{{__('dashboard.no_record')}}</td>
                                 </tr>
                                 @endforelse
                               </tbody>
