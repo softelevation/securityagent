@@ -7,23 +7,23 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Missions</h2>
+                  <h2>{{__('dashboard.missions')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>  
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
                       <li class="nav-item w-33">
-                          <a id="nav-in-progress-tab" data-toggle="tab" href="#nav-mission-in-progress" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link active">Missions In Progress</a>
+                          <a id="nav-in-progress-tab" data-toggle="tab" href="#nav-mission-in-progress" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link active">{{__('dashboard.mission.in_progress')}}</a>
                       </li>
                       <li class="nav-item w-33">
-                          <a id="nav-pending-tab" data-toggle="tab" href="#nav-mission-pending" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link ">Missions Pending</a>
+                          <a id="nav-pending-tab" data-toggle="tab" href="#nav-mission-pending" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link ">{{__('dashboard.mission.pending')}}</a>
                       </li>
                       <li class="nav-item w-33">
-                          <a id="nav-finished-tab" data-toggle="tab" href="#nav-mission-finished" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link">Missions Finished</a>
+                          <a id="nav-finished-tab" data-toggle="tab" href="#nav-mission-finished" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link">{{__('dashboard.mission.finished')}}</a>
                       </li>
                   </ul>
                   <div class="tab-content" id="nav-tabContent">
@@ -34,12 +34,12 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Mission Title</th>
-                                    <th>Mission Ref.</th>
-                                    <th width="25%">Mission Location</th>
-                                    <th>Mission Duration</th>
-                                    <th>Mission Start At</th>
-                                    <th>Action</th>
+                                    <th>{{__('dashboard.mission.title')}}</th>
+                                    <th>{{__('dashboard.mission.ref')}}</th>
+                                    <th>{{__('dashboard.mission.location')}}</th>
+                                    <th>{{__('dashboard.mission.duration')}}</th>
+                                    <th>{{__('dashboard.mission.started_at')}}</th>
+                                    <th>{{__('dashboard.action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,15 +51,15 @@
                                     <td>{{$mission->title}}</td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
-                                    <td>{{$mission->total_hours}} Hour(s)</td>
+                                    <td>{{$mission->total_hours}} {{__('dashboard.hours')}}</td>
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
                                     <td>
-                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>
                                 </tr>
                               @empty
                                 <tr>
-                                    <td colspan="7">No record found</td>
+                                    <td colspan="7">{{__('dashboard.no_record')}}</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -73,12 +73,12 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Mission Title</th>
-                                    <th>Mission Ref.</th>
-                                    <th width="25%">Mission Location</th>
-                                    <th>Duration</th>
-                                    <th>Mission Start Date</th>
-                                    <th>Action</th>
+                                    <th>{{__('dashboard.mission.title')}}</th>
+                                    <th>{{__('dashboard.mission.ref')}}</th>
+                                    <th>{{__('dashboard.mission.location')}}</th>
+                                    <th>{{__('dashboard.mission.duration')}}</th>
+                                    <th>{{__('dashboard.mission.start_time')}}</th>
+                                    <th>{{__('dashboard.action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -90,15 +90,15 @@
                                     <td>{{$mission->title}}</td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
-                                    <td>{{$mission->total_hours}} Hour(s)</td>
-                                    <td>@if($mission->quick_book==1) Now (Quick Booking) @else {{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}} @endif</td>
+                                    <td>{{$mission->total_hours}} {{__('dashboard.hours')}}</td>
+                                    <td>@if($mission->quick_book==1) {{__('dashboard.now')}} ({{__('dashboard.quick_booking')}}) @else {{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}} @endif</td>
                                     <td>
-                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>
                                 </tr>
                               @empty
                                 <tr>
-                                    <td colspan="6">No record found</td>
+                                    <td colspan="6">{{__('dashboard.no_record')}}</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -112,12 +112,12 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Mission Title</th>
-                                    <th>Mission Ref.</th>
-                                    <th width="25%">Mission Location</th>
-                                    <th>Mission Started At</th>
-                                    <th>Mission Ended At</th>
-                                    <th>Action</th>
+                                    <th>{{__('dashboard.mission.title')}}</th>
+                                    <th>{{__('dashboard.mission.ref')}}</th>
+                                    <th>{{__('dashboard.mission.location')}}</th>
+                                    <th>{{__('dashboard.mission.started_at')}}</th>
+                                    <th>{{__('dashboard.mission.ended_at')}}</th>
+                                    <th>{{__('dashboard.action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -132,7 +132,7 @@
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->ended_at))}}</td>
                                     <td>
-                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                         <!-- <div class="dropdown ac-cstm">
                                             <a class="dropdown-toggle" data-toggle="dropdown">
                                                 <img src="{{asset('assets/images/dots.png')}}">
@@ -148,7 +148,7 @@
                                 </tr>
                               @empty
                                 <tr>
-                                    <td colspan="6">No record found</td>
+                                    <td colspan="6">{{__('dashboard.no_record')}}</td>
                                 </tr>
                               @endforelse
                             </tbody>

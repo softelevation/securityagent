@@ -6,26 +6,26 @@
             @else
                 <img src="{{asset('assets/images/user_img.jpg')}}" class="img-fluid" />
             @endif
-            <h3>{{Auth::user()->email}} <span>Customer</span></h3>
+            <h3>{{Auth::user()->email}} <span>{{__('dashboard.customer')}}</span></h3>
         </div>
         <div class="tabs_menu">
             <ul class="nav flex-column sidebar_nav" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a href="{{url('operator/profile')}}" class="nav-link"><i class="fa fa-user-edit"></i> Profile</a>
+                    <a href="{{url('operator/profile')}}" class="nav-link"><i class="fa fa-user-edit"></i> {{__('dashboard.profile')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('customer/missions')}}" class="nav-link"><i class="fa fa-edit"></i> Missions</a>
+                    <a href="{{url('customer/missions')}}" class="nav-link"><i class="fa fa-edit"></i> {{__('dashboard.missions')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url('customer/billing-details')}}" class="nav-link"><i class="fa fa-file-invoice"></i> &nbsp; Billing</a>
+                    <a href="{{url('customer/billing-details')}}" class="nav-link"><i class="fa fa-file-invoice"></i> &nbsp; {{__('dashboard.billing')}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('logout')}}"><i class="fa fa-sign-out-alt"></i> Log Out</a>
+                    <a class="nav-link" href="{{url('logout')}}"><i class="fa fa-sign-out-alt"></i> {{__('dashboard.logout')}}</a>
                 </li>
             </ul>
         </div>
         <div class="Quick_Order_Agent">
-            <a href="{{url('customer/quick-create-mission')}}">Quick Order My Agent</a>
+            <a href="{{url('customer/quick-create-mission')}}">{{__('dashboard.quick_order_agent')}}</a>
         </div>
     </div>
 </div>

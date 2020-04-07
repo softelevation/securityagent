@@ -7,10 +7,10 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Schedule</h2>
+                  <h2>{{__('dashboard.schedule')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="tab-pane">
@@ -34,7 +34,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">        
-        <h4 class="modal-title">Agent Schedule (<span></span>)</h4>
+        <h4 class="modal-title">{{__('dashboard.agents.schedule')}} (<span></span>)</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       {{Form::open(['url'=>url('agent/save-schedule'),'id'=>'general_form'])}}
@@ -42,18 +42,18 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-6 form-group">
-            <label>Available From</label>
-            {{Form::text('available_from',null,['class'=>'form-control timepicker','placeholder'=>'Set availability from time','id'=>'available_from'])}}
+            <label>{{__('dashboard.agents.available_from')}}</label>
+            {{Form::text('available_from',null,['class'=>'form-control timepicker','placeholder'=>__('dashboard.agents.available_from_place'),'id'=>'available_from'])}}
           </div>
           <div class="col-md-6 form-group">
-            <label>Available To</label>
-            {{Form::text('available_to',null,['class'=>'form-control timepicker', 'placeholder'=>'Set availability to time','id'=>'available_to'])}}
+            <label>{{__('dashboard.agents.available_to')}}</label>
+            {{Form::text('available_to',null,['class'=>'form-control timepicker', 'placeholder'=>__('dashboard.agents.available_to_place'),'id'=>'available_to'])}}
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary success_btn">Save Schedule</button>
-        <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary success_btn">{{__('dashboard.agents.save_schedule')}}</button>
+        <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">{{__('dashboard.close')}}</button>
       </div>
       {{Form::close()}}
     </div>

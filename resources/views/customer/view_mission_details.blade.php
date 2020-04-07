@@ -7,82 +7,82 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Missions</h2>
+                  <h2>{{__('dashboard.missions')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="contact_box">
-                <h3>Mission Details</h3>
+                <h3>{{__('dashboard.mission.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-6 form-group">
-                        <label>Mission Title</label>
+                        <label>{{__('dashboard.mission.title')}}</label>
                         <span class="form-control">{{$mission->title}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Ref.</label>
+                        <label>{{__('dashboard.mission.ref')}}</label>
                         <span class="form-control">{{Helper::mission_id_str($mission->id)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Location</label>
+                        <label>{{__('dashboard.mission.location')}}</label>
                         <span class="form-control">{{$mission->location}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Agent Type Needed</label>
+                        <label>{{__('dashboard.agent_needed')}}</label>
                         <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Vehicle Required</label>
+                        <label>{{__('dashboard.vehicle_required')}}</label>
                         <span class="form-control">{{Helper::vehicle_required_status($mission->vehicle_required)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Hours</label>
-                        <span class="form-control">{{$mission->total_hours}} Hour(s)</span>
+                        <label>{{__('dashboard.mission.mission_hours')}}</label>
+                        <span class="form-control">{{$mission->total_hours}} {{__('dashboard.hours')}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>Mission Status</label>
                         <span class="form-control">@if($mission->status==0) Unverified @else {{Helper::getMissionStatus($mission->status)}} @endif</span>
                       </div>
                       <div class="col-md-12 form-group">
-                        <label>Mission Description</label>
+                        <label>{{__('dashboard.mission.description')}}</label>
                         <span class="form-control">{{$mission->description}}</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 @if(isset($mission->agent_details))
-                <h3>Agent Details</h3>
+                <h3>{{__('dashboard.agents.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-6 form-group">
-                        <label>Agent Name</label>
+                        <label>{{__('dashboard.agents.name')}}</label>
                         <span class="form-control">{{ucfirst($mission->agent_details->username)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Agent Type</label>
+                        <label>{{__('dashboard.agents.type')}}</label>
                         <span class="form-control">{{Helper::get_agent_type_name_multiple($mission->agent_details->types)}}</span>
                       </div>
                     </div>
                     <div class="row">
                       @if(isset($mission->started_at) && $mission->started_at!="")
                       <div class="col-md-6 form-group">
-                        <label>Mission Started At</label>
+                        <label>{{__('dashboard.mission.started_at')}}</label>
                         <span class="form-control">{{Helper::date_format_show('m/d/Y H:i:s',$mission->started_at)}}</span>
                       </div>
                       @endif
                       @if(isset($mission->ended_at) && $mission->ended_at!="")
                       <div class="col-md-6 form-group">
-                        <label>Mission Ended At </label>
+                        <label>{{__('dashboard.mission.ended_at')}} </label>
                         <span class="form-control">{{Helper::date_format_show('m/d/Y H:i:s',$mission->ended_at)}}</span>
                       </div>
                       @endif
                       @if($mission->status==5)
                       <div class="col-md-6 form-group">
-                        <label>Total Hours Taken By Agent </label>
+                        <label>{{__('dashboard.mission.hours_taken')}} </label>
                         <span class="form-control">{{Helper::get_mission_hours($mission->started_at,$mission->ended_at)}}</span>
                       </div>
                       @endif
@@ -90,7 +90,7 @@
                   </div>
                 </div>
                 @endif
-                <h3>Payment Details</h3>
+                <h3>{{__('dashboard.payment.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="table-responsive">
@@ -98,9 +98,9 @@
                           <thead>
                               <tr>
                                   <th>#</th>
-                                  <th>Mission Amount</th>
-                                  <th>Patment Date</th>
-                                  <th>Payment Status</th>
+                                  <th>{{__('dashboard.payment.mission_amount')}}</th>
+                                  <th>{{__('dashboard.payment.date')}}</th>
+                                  <th>{{__('dashboard.payment.status')}}</th>
                               </tr>
                           </thead>
                           <tbody>
@@ -115,7 +115,7 @@
                             </tr>
                             @empty
                             <tr>
-                              <td colspan="4">No payment records</td>
+                              <td colspan="4">{{__('dashboard.no_record')}}</td>
                             </tr>
                             @endforelse
                           </tbody>
