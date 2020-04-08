@@ -97,7 +97,7 @@ class MissionController extends Controller
                 return response($this->getValidationsErrors($validation));
             }
             if(!(isset($request->latitude) && trim($request->latitude)!='' && isset($request->longitude) && trim($request->longitude)!='')){
-                return response($this->getErrorResponse('The lat/long values of the entered location are invalid. Please clear the current location and try again!'));    
+                return response($this->getErrorResponse(trans('messages.invalid_lat_log')));    
             }
             $data = array_except($request->all(),['_token']);
             if($data['quick_book']==0){
@@ -110,7 +110,7 @@ class MissionController extends Controller
                 $mission_id = $this->saveQuickMissionDetails($data);
                 if($mission_id){
                     $mission_id = Helper::encrypt($mission_id);
-                    $response['message'] = 'Mission details saved successfully.';
+                    $response['message'] = trans('messages.mission_saved');
                     $response['delayTime'] = 2000;
                     $response['url'] = url('customer/find-mission-agent/'.$mission_id);
                     return $this->getSuccessResponse($response);
@@ -162,17 +162,17 @@ class MissionController extends Controller
                 }
                 if($missionID){
                     $missionID = Helper::encrypt($missionID);
-                    $response['message'] = 'Mission details saved successfully';
+                    $response['message'] = trans('messages.mission_saved');
                     $response['delayTime'] = 5000;
                     $response['url'] = url('customer/find-mission-agent/'.$missionID);
                     return $this->getSuccessResponse($response);
                 }else{
-                    $response['message'] = 'Something went wrong while submitting your mission details. Please try again later.';
+                    $response['message'] = trans('messages.error');
                     $response['delayTime'] = 5000;
                     return $this->getErrorResponse($response);
                 }
             }else{
-                return response($this->getErrorResponse('No agent available at the moment. Please try again later!'));
+                return response($this->getErrorResponse(trans('messages.agent_not_available')));
             }                       
 
             // $agents = $agents->toArray();
@@ -284,7 +284,7 @@ class MissionController extends Controller
             foreach($addedCards['data'] as $card){
                 // If entered card is already been added
                 if($card['last4']==$last4digit){
-                    return $this->getErrorResponse('This card has already been added.');
+                    return $this->getErrorResponse(trans('messages.card_already_added'));
                 }
             }
             // Add New Card
@@ -320,7 +320,7 @@ class MissionController extends Controller
                 /*----Customer Notification-----*/
                 $mailContent = [
                     'name' => ucfirst($mission->customer_details->first_name),
-                    'message' => 'Your mission has been created successfully.', 
+                    'message' => trans('messages.mission_created'), 
                     'url' => url('customer/mission-details/view').'/'.$request->mission_id 
                 ];
                 $mission->customer_details->user->notify(new MissionCreated($mailContent));
@@ -329,18 +329,18 @@ class MissionController extends Controller
                 if(isset($mission->agent_details)){
                     $mailContent = [
                         'name' => ucfirst($mission->agent_details->first_name),
-                        'message' => 'You have a new mission request. Click on the button below to view details and accept/reject mission, before it expires.', 
+                        'message' => trans('messages.agent_new_mission_notification'), 
                         'url' => url('agent/mission-details/view').'/'.$request->mission_id 
                     ];
                     $mission->agent_details->user->notify(new MissionCreated($mailContent));
                 }
                 /*--------------*/
-                $response['message'] = 'Mission payment completed successfully';
+                $response['message'] = trans('messages.payment_completed');
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');
                 return $this->getSuccessResponse($response);
             }else{
-                $response['message'] = 'Unknown error !';
+                $response['message'] = trans('messages.error');
                 $response['delayTime'] = 2000;
                 $response['url'] = url('customer/missions');
                 $response['data'] = $charge;
@@ -419,7 +419,7 @@ class MissionController extends Controller
                 /*----Customer Notification-----*/
                 $mailContent = [
                     'name' => ucfirst($mission->customer_details->first_name),
-                    'message' => 'Your mission has been created successfully.', 
+                    'message' => trans('messages.mission_created'), 
                     'url' => url('customer/mission-details/view').'/'.$request->mission_id 
                 ];
                 $mission->customer_details->user->notify(new MissionCreated($mailContent));
@@ -428,18 +428,18 @@ class MissionController extends Controller
                 if(isset($mission->agent_details)){
                     $mailContent = [
                         'name' => ucfirst($mission->agent_details->first_name),
-                        'message' => 'You have a new mission request. Click on the button below to view details and accept/reject mission, before it expires.', 
+                        'message' => trans('messages.agent_new_mission_notification'), 
                         'url' => url('agent/mission-details/view').'/'.$request->mission_id 
                     ];
                     $mission->agent_details->user->notify(new MissionCreated($mailContent));
                 }
                 /*--------------*/ 
-                $response['message'] = 'Mission payment completed successfully';
+                $response['message'] = trans('messages.payment_completed');
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');
                 return $this->getSuccessResponse($response);
             }else{
-                $response['message'] = 'Unknown error !';
+                $response['message'] = trans('messages.error');
                 $response['delayTime'] = 2000;
                 $response['url'] = url('customer/missions');
                 $response['data'] = $charge;
@@ -463,7 +463,7 @@ class MissionController extends Controller
                 return response($this->getValidationsErrors($validation));
             }
             if(!(isset($request->latitude) && trim($request->latitude)!='' && isset($request->longitude) && trim($request->longitude)!='')){
-                return response($this->getErrorResponse('The lat/long values of the entered location are invalid. Please clear the current location and try again!'));    
+                return response($this->getErrorResponse(trans('messages.invalid_lat_long')));    
             }
             $data = array_except($request->all(),['_token']);
             if($data['quick_book']==0){
@@ -476,14 +476,14 @@ class MissionController extends Controller
                 $mission_id = $this->saveQuickMissionDetails($data);
                 if($mission_id){
                     $mission_id = Helper::encrypt($mission_id);
-                    $response['message'] = 'Please wait while redirecting to dashboard.';
+                    $response['message'] = trans('messages.redirect_dashboard');
                     $response['delayTime'] = 2000;
                     $response['url'] = url('customer/find-mission-agent/'.$mission_id);
                     return $this->getSuccessResponse($response);
                 }
             }
             Session::put('mission',$data);
-            $response['message'] = 'Please wait while finding agents near your location.';
+            $response['message'] = trans('messages.finding_agents');
             $response['delayTime'] = 2000;
             $params = [
                 'location'=>$data['location'],
@@ -523,19 +523,19 @@ class MissionController extends Controller
                     if($mission_id){
                         Session::forget('mission');
                         $mission_id = Helper::encrypt($mission_id);
-                        $response['message'] = 'Please wait while redirecting to dashboard.';
+                        $response['message'] = trans('messages.redirect_dashboard');
                         $response['delayTime'] = 2000;
                         $response['url'] = url('customer/find-mission-agent/'.$mission_id);
                         return $this->getSuccessResponse($response);
                     }
                 }else{
-                    $response['message'] = 'You need to login first !';
+                    $response['message'] = trans('messages.login_first');
                     $response['delayTime'] = 2000;
                     $response['url'] = url('login');
                     return $this->getSuccessResponse($response);
                 }
             }else{
-                $response['message'] = 'Sesson has expired !';
+                $response['message'] = trans('messages.session_expired');
                 $response['delayTime'] = 2000;
                 $response['url'] = url('available-agents');
                 return $this->getErrorResponse($response);
@@ -556,11 +556,11 @@ class MissionController extends Controller
             $mission_id = Helper::decrypt($mission_id);
             $cancelled = $this->cancelMissionRequest($mission_id);
             if($cancelled==1){
-                $response['message'] = 'Your mission has been cancelled successfully.';
+                $response['message'] = trans('messages.mission_cancelled');
                 $response['url'] = url('customer/missions'); 
                 return $this->getSuccessResponse($response);
             }else{
-                return $this->getErrorResponse('Something went wrong !');
+                return $this->getErrorResponse(trans('messages.error'));
             }
         }catch(\Exception $e){
             return $this->getErrorResponse($e->getMessage());
@@ -578,7 +578,7 @@ class MissionController extends Controller
             $mission_id = Helper::decrypt($mission_id);
             $deleted = $this->deleteMissionRequest($mission_id);
             if($deleted==1){
-                $response['message'] = 'Your mission has been deleted successfully.';
+                $response['message'] = trans('messages.mission_deleted');
                 $response['url'] = url('customer/missions'); 
                 return $this->getSuccessResponse($response);
             }else{

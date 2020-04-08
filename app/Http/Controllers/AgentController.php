@@ -45,7 +45,7 @@ class AgentController extends Controller
             }
             $agentType = json_decode($request->agent_type);
             if(empty($agentType)){
-                return $this->getErrorResponse('Choose an agent type');
+                return $this->getErrorResponse(trans('messages.choose_agent'));
             }else{
                 $cnaps = 0;
                 foreach($agentType as $type){
@@ -58,17 +58,17 @@ class AgentController extends Controller
                 }
                 if($cnaps == 1){
                     if(empty(trim($request->cnaps_number))){
-                        return $this->getErrorResponse('Please enter CNAPS Number');
+                        return $this->getErrorResponse(trans('messages.enter_cnaps'));
                     }
                 }
                 if($dog == 1){
                     if(empty(trim($request->dog_info))){
-                        return $this->getErrorResponse('Please enter dog mutual info');
+                        return $this->getErrorResponse(trans('messages.add_dog_info'));
                     }
                 }
             }
             if(!isset($request->work_location['lat']) || empty($request->work_location['lat'])){
-                return $this->getErrorResponse('GPS location is not enabled.');
+                return $this->getErrorResponse(trans('messages.gps_disable'));
             }
             // Works on HTTPS
             // if(!isset($request->current_location['lat']) || empty($request->current_location['lat'])){
@@ -139,21 +139,21 @@ class AgentController extends Controller
             if(Auth::check() && Auth::user()->role_id==2){
                 $data = Agent::where('user_id',Auth::user()->id)->first();
                 if($data->available==2){
-                    return response($this->getErrorResponse("Availability status can't be changed during ongoing mission."));
+                    return response($this->getErrorResponse(trans('messages.cant_change_availability')));
                 }else{
                     $availableStatus = $request->availability_status;
                     $update = Agent::where('user_id',Auth::user()->id)->update(['available'=>$availableStatus]);
                     if($update){
-                        $response['message'] = 'Your availability status has been changed successfully.';
+                        $response['message'] = trans('messages.availability_changed');
                         $response['delayTime'] = 5000;
                         $response['url'] = $request->current_url;
                         return response($this->getSuccessResponse($response));
                     }else{
-                        return response($this->getErrorResponse('Something went wrong!'));
+                        return response($this->getErrorResponse(trans('messages.error')));
                     }
                 }
             }else{
-                return response($this->getErrorResponse('Unauthorized Access!'));    
+                return response($this->getErrorResponse(trans('messages.error')));    
             }
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
@@ -206,12 +206,12 @@ class AgentController extends Controller
             $result = AgentSchedule::insert($post);
         }
         if($result){
-            $response['message'] = 'Your schedule saved successfully.';
+            $response['message'] = trans('messages.schedule_saved');
             $response['delayTime'] = 2000;
             $response['url'] = url('agent/schedule/'.Helper::encrypt($agent_id));
             return response($this->getSuccessResponse($response));
         }else{
-            return response($this->getErrorResponse('Something went wrong!'));
+            return response($this->getErrorResponse(trans('messages.error')));
         }
     }
 
@@ -258,13 +258,13 @@ class AgentController extends Controller
             $result = Mission::insert($subMissions);
             if($result){
                 Mission::where('id',$mission_id)->update(['agent_id'=>0]);
-                $response['message'] = 'Mission request accepted successfully for 12 hours.';
+                $response['message'] = trans('messages.mission_accepted_12');
                 $response['delayTime'] = 2000;
                 $response['modelhide'] = '#mission_action';
                 $response['url'] = url('agent/mission-requests');
                 return response($this->getSuccessResponse($response));
             }else{
-                return response($this->getErrorResponse('Something went wrong!'));
+                return response($this->getErrorResponse(trans('messages.error')));
             }
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
@@ -282,7 +282,7 @@ class AgentController extends Controller
         // Check if mission request is expired or not
         $mission_expired = $this->missionExpired($mission_id);
         if($mission_expired==1){
-            $response = $this->getErrorResponse('Your mission has expired !');
+            $response = $this->getErrorResponse(trans('messages.mission_expired'));
             $response['url'] = url('agent/mission-requests');
             return response($response);
         }
@@ -299,11 +299,11 @@ class AgentController extends Controller
             $id = Helper::decrypt($id);
             $update = MissionRequestsIgnored::where('id',$id)->update(['is_deleted'=>1]);
             if($update){
-                $response['message'] = 'Mission request deleted successfully.';
+                $response['message'] = trans('messages.mission_req_deleted');
                 $response['url'] = url('agent/mission-requests'); 
                 return $this->getSuccessResponse($response);
             }else{
-                return $this->getErrorResponse('Something went wrong !');
+                return $this->getErrorResponse(trans('messages.error'));
             }
         }catch(\Exception $e){
             return $this->getErrorResponse($e->getMessage());

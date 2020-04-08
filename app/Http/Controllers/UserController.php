@@ -65,12 +65,12 @@ class UserController extends Controller
                     break;
             }
             if($result){
-                $response['message'] = 'Profile details updated successfully.';
+                $response['message'] = trans('messages.profile_updated');
                 $response['delayTime'] = 3000;
                 $response['url'] = $url;
                 return response($this->getSuccessResponse($response));
             }else{
-                return response($this->getErrorResponse('Something went wrong!'));
+                return response($this->getErrorResponse(trans('messages.error')));
             }
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
@@ -97,13 +97,13 @@ class UserController extends Controller
                 $new_password = Hash::make($new_password);
                 $result = User::where('id',Auth::id())->update(['password'=>$new_password]);
                 if($result){
-                    $response['message'] = 'Your password changed successfully. You need to login again.';
+                    $response['message'] = trans('messages.password_changed');
                     $response['delayTime'] = 5000;
                     $response['url'] = url('/logout');
                     return response($this->getSuccessResponse($response));
                 }
             }else{
-                return response($this->getErrorResponse('The current password is wrong.'));
+                return response($this->getErrorResponse(trans('messages.wrong_current_password')));
             }
             
         }catch(\Exception $e){

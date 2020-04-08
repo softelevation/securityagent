@@ -101,9 +101,9 @@ class OperatorController extends Controller
             User::where('id',$user_id)->update(['password'=>$password]);
             $user = User::where('id',$user_id)->first();
             if($status==1){
-                $message = "<b>Congratulations</b><br>Your agent verification is completed successfully and your details are approved.<br><br>Your login credentials are:<br><br>Email:".$user->email."<br> Password:".$password1;
+                $message = trans('messages.agent_verification_message',['email'=>$user->email,'password'=>$password1]);
             }else{
-                $message = "Your agent verification is completed successfully and your details are rejected.<br><br>Thanks";
+                $message = trans('messages.agent_verification_rejected');
             }
             $templateName = 'emails.general';
             $data['message'] = $message;
@@ -111,12 +111,12 @@ class OperatorController extends Controller
             $toName = $user->email;
             $subject = "Agent Verification";
             Helper::sendCommonMail($templateName,$data,$toEmail,$toName,$subject);
-            $response['message'] = 'Agent verification completed successfully.';
+            $response['message'] = trans('messages.agent_verified');
             $response['delayTime'] = 2000;
             $response['url'] = url('operator/agents');
             return $this->getSuccessResponse($response);
         }else{
-            return response($this->getErrorResponse('Something went wrong. Try again later !'));
+            return response($this->getErrorResponse(trans('messages.error')));
         }
     }
 
@@ -154,34 +154,34 @@ class OperatorController extends Controller
      * @method agentVerificationAction
      * @purpose To process agent verification
      */
-    public function customerVerificationAction(Request $request){
-        $status = $request->verify_status;
-        $user_id = Helper::decrypt($request->user_id);
-        $result = Customer::where('user_id',$user_id)->update(['status'=>$status]);
-        if($result){
-            $password1 = Helper::generateToken(8);
-            $password = Hash::make($password1);
-            User::where('id',$user_id)->update(['password'=>$password]);
-            $user = User::where('id',$user_id)->first();
-            if($status==1){
-                $message = "<b>Congratulations</b><br>Your profile verification is completed successfully and your details are approved.<br><br>Your login credentials are:<br><br>Email: ".$user->email."<br> Password: ".$password1;
-            }else{
-                $message = "Your profile verification is completed successfully and your details are rejected.<br><br>Thanks";
-            }
-            $templateName = 'emails.general';
-            $data['message'] = $message;
-            $toEmail = $user->email;
-            $toName = $user->email;
-            $subject = "Customer Verification";
-            Helper::sendCommonMail($templateName,$data,$toEmail,$toName,$subject);
-            $response['message'] = 'Customer verification completed successfully.';
-            $response['delayTime'] = 2000;
-            $response['url'] = url('operator/customers/pending');
-            return $this->getSuccessResponse($response);
-        }else{
-            return response($this->getErrorResponse('Something went wrong. Try again later !'));
-        }
-    }
+    // public function customerVerificationAction(Request $request){
+    //     $status = $request->verify_status;
+    //     $user_id = Helper::decrypt($request->user_id);
+    //     $result = Customer::where('user_id',$user_id)->update(['status'=>$status]);
+    //     if($result){
+    //         $password1 = Helper::generateToken(8);
+    //         $password = Hash::make($password1);
+    //         User::where('id',$user_id)->update(['password'=>$password]);
+    //         $user = User::where('id',$user_id)->first();
+    //         if($status==1){
+    //             $message = "<b>Congratulations</b><br>Your profile verification is completed successfully and your details are approved.<br><br>Your login credentials are:<br><br>Email: ".$user->email."<br> Password: ".$password1;
+    //         }else{
+    //             $message = "Your profile verification is completed successfully and your details are rejected.<br><br>Thanks";
+    //         }
+    //         $templateName = 'emails.general';
+    //         $data['message'] = $message;
+    //         $toEmail = $user->email;
+    //         $toName = $user->email;
+    //         $subject = "Customer Verification";
+    //         Helper::sendCommonMail($templateName,$data,$toEmail,$toName,$subject);
+    //         $response['message'] = 'Customer verification completed successfully.';
+    //         $response['delayTime'] = 2000;
+    //         $response['url'] = url('operator/customers/pending');
+    //         return $this->getSuccessResponse($response);
+    //     }else{
+    //         return response($this->getErrorResponse('Something went wrong. Try again later !'));
+    //     }
+    // }
 
     /**
      * @return mixed
@@ -299,13 +299,13 @@ class OperatorController extends Controller
             if(isset($mission->agent_details)){
                 $mailContent = [
                     'name' => ucfirst($mission->agent_details->first_name),
-                    'message' => 'You have a new mission request. Click on the button below to view details and accept/reject mission, before it expires.', 
+                    'message' => trans('messages.agent_new_mission_notification'), 
                     'url' => url('agent/mission-details/view').'/'.$request->mission_id 
                 ];
                 $mission->agent_details->user->notify(new MissionCreated($mailContent));
             }
             /*--------------*/
-            $response['message'] = 'Mission request sent to agent.';
+            $response['message'] = trans('messages.mission_req_sent');
             $response['delayTime'] = 2000;
             $response['url'] = url('operator/missions');
             return $this->getSuccessResponse($response);
@@ -417,12 +417,12 @@ class OperatorController extends Controller
                     $result = UserPaymentHistory::insert($responseData);
                     if($result){
                         PaymentApproval::where('id',$record_id)->update(['status'=>1]);
-                        $response['message'] = 'Mission payment done successfully.';
+                        $response['message'] = trans('messages.payment_completed');
                         $response['delayTime'] = 2000;
                         $response['url'] = url('operator/payment-approvals');
                         return $this->getSuccessResponse($response);
                     }else{
-                        $response['message'] = 'Something went wrong !';
+                        $response['message'] = trans('messages.error');
                         $response['delayTime'] = 2000;
                         $response['url'] = url('operator/payment-approvals');
                         return $this->getErrorResponse($response);
@@ -435,14 +435,14 @@ class OperatorController extends Controller
                     ];
                     FailedPayment::insert($responseData);
 
-                    $response['message'] = 'Mission payment failed !';
+                    $response['message'] = trans('messages.payment_failed');
                     $response['delayTime'] = 2000;
                     $response['url'] = url('operator/payment-approvals');
                     return $this->getErrorResponse($response);
                 }
             }else{
                 PaymentApproval::where('id',$record_id)->update(['status'=>2]);
-                $response['message'] = 'Mission payment reject successfully.';
+                $response['message'] = trans('messages.payment_rejected');
                 $response['delayTime'] = 2000;
                 $response['url'] = url('operator/payment-approvals');
                 return $this->getSuccessResponse($response);
@@ -508,7 +508,7 @@ class OperatorController extends Controller
             if($refund_status==2){
                 $result = RefundRequest::where('id',$record_id)->update(['status'=>3]);
                 if($result){
-                    $response['message'] = 'Refund request rejected successfully.';
+                    $response['message'] = trans('messages.refund_rejected');
                     $response['delayTime'] = 2000;
                     $response['url'] = url('operator/refund-requests');
                     return $this->getSuccessResponse($response);
@@ -547,7 +547,7 @@ class OperatorController extends Controller
                 RefundRequest::where('mission_id',$mission_id)->update(['status'=>1]);
                 $result = UserPaymentHistory::where('charge_id',$charge_id)->where('mission_id',$mission_id)->update(['refund_status'=>$response['status']]);
                 if($result){
-                    $response['message'] = 'Amount refunded successfully.';
+                    $response['message'] = trans('messages.amount_refunded');
                     $response['delayTime'] = 2000;
                     $response['url'] = url('operator/refund-mission-view/'.Helper::encrypt($mission_id));
                     return $this->getSuccessResponse($response);
