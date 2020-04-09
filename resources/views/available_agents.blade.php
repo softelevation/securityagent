@@ -385,6 +385,7 @@
 
     function initAutocomplete(selecter='autocomplete1') {    
         autocomplete = new google.maps.places.Autocomplete(document.getElementById(selecter), {types: ['geocode']});
+        // autocomplete.setComponentRestrictions({'country':['fr']});
         if(selecter=='autocomplete1'){ autocomplete.addListener('place_changed', fillInAddress1); }
         if(selecter=='autocomplete2'){ autocomplete.addListener('place_changed', fillInAddress2); }
     }

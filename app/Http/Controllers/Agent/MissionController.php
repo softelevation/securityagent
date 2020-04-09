@@ -278,7 +278,7 @@ class MissionController extends Controller
         // Charge for extra minutes spent for every kind of missions
         if($totalMissionMinutes > $bookedMinutes){
             $extraMinutes = $totalMissionMinutes - $bookedMinutes;
-            $baseRatePerHour = Helper::BASE_AGENT_RATE;
+            $baseRatePerHour = Helper::get_agent_rate($data->agent_type,$data->quick_book);
             $baseRatePerMin = $baseRatePerHour/60;
             $extraAmount = $extraMinutes*$baseRatePerMin;
             // Make Charge Payment

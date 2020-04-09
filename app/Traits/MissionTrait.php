@@ -29,14 +29,15 @@ trait MissionTrait
         $data['created_at'] = Carbon::now();
         $data['updated_at'] = Carbon::now();
         $data['step'] = 1;
-        $data['amount'] = 120;
         // If customer dont know, then set 8 hours default
         if($data['total_hours']==0){
             $data['total_hours'] = 8;
         }
-        $baseRate = Helper::BASE_AGENT_RATE;
+        $baseRate = Helper::get_agent_rate($data['agent_type'],$data['quick_book']);
         if($data['total_hours'] > 4){
             $data['amount'] = $data['total_hours']*$baseRate;
+        }else{
+            $data['amount'] = 4*$baseRate;
         }
         // If distance is greater than 50 KM, add travel fee per km
         if(isset($data['distance'])){

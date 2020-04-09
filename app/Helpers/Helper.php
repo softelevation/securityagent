@@ -16,6 +16,35 @@ class Helper {
     const VAT_PERCENTAGE = 20;
     const REQUEST_TIMEOUT_MINUTES = 05;
 
+
+    /*
+     * @method       : get_agent_rate
+     * @purpose      : get agent rate based on agent type and mission type
+     */
+    public static function get_agent_rate($agentType,$quickBooking){
+        // Set rates for future missions
+        if($quickBooking==0){
+            $rate[1] = 25; //Agent SSIAP 1
+            $rate[2] = 28; //Agent SSIAP 2
+            $rate[3] = 75; //Agent SSIAP 3
+            $rate[4] = 25; //ADS
+            $rate[5] = 100; //Body Guard Without Weapon
+            $rate[6] = 28; //Dog Handler
+            $rate[7] = 25; //Hostesses
+        }
+        // Set rates for future missions
+        if($quickBooking==1){
+            $rate[1] = 30; //Agent SSIAP 1
+            $rate[2] = 35; //Agent SSIAP 2
+            $rate[3] = 100; //Agent SSIAP 3
+            $rate[4] = 30; //ADS
+            $rate[5] = 150; //Body Guard Without Weapon
+            $rate[6] = 30; //Dog Handler
+            $rate[7] = 30; //Hostesses
+        }
+        return $rate[$agentType];
+    }
+
     /*
      * @method       :  encryptDataId
      * @created_date :  22-03-2019

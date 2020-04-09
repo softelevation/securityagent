@@ -65,7 +65,7 @@
                         <!-- <li><a href="">Registration</a></li> -->
                         <li><div class="dropdown">
                           <a class="dropdown-toggle" data-toggle="dropdown">
-                            @if(Session::has('locale') && Session::get('locale')=='fr')
+                            @if(app()->getLocale()=='fr')
                               <img height="18" src="{{asset('assets/images/france_flag.png')}}">
                               French
                             @else
