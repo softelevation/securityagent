@@ -98,7 +98,7 @@
                                         @endif
                                         @if($mission->quick_book==1 && $mission->status==3 && $mission->child_missions->count()==0 && $mission->assigned_at!=null)
                                           @if(Helper::check_mission_starting_delay($mission->assigned_at)==true)
-                                          <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="This mission is awaiting to be started by agent from more than 60 minutes."><i class="fa fa-exclamation-circle"></i></span>
+                                          <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.start_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
                                           @endif
                                         @endif
                                       </td>
@@ -273,12 +273,12 @@
                                     <td>
                                       @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
                                         @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
-                                        <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="This mission is awaiting to be assigned to an agent from more than 30 minutes."><i class="fa fa-exclamation-circle"></i></span>
+                                        <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.assign_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
                                         @endif
                                       @endif
                                       @if($mission->quick_book==1 && $mission->status==3 && $mission->child_missions->count()==0 && $mission->assigned_at!=null)
                                         @if(Helper::check_mission_starting_delay($mission->assigned_at)==true)
-                                        <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="This mission is awaiting to be started by agent from more than 60 minutes."><i class="fa fa-exclamation-circle"></i></span>
+                                        <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.start_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
                                         @endif
                                       @endif
                                     </td>
@@ -316,12 +316,12 @@
                                     <td>
                                       @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
                                         @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
-                                        <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="This mission is awaiting to be assigned to an agent from more than 30 minutes."><i class="fa fa-exclamation-circle"></i></span>
+                                        <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.assign_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
                                         @endif
                                       @endif
                                       @if($mission->quick_book==1 && $mission->status==3 && $mission->child_missions->count()==0 && $mission->assigned_at!=null)
                                         @if(Helper::check_mission_starting_delay($mission->assigned_at)==true)
-                                        <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="This mission is awaiting to be started by agent from more than 60 minutes."><i class="fa fa-exclamation-circle"></i></span>
+                                        <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.start_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
                                         @endif
                                       @endif
                                     </td>
