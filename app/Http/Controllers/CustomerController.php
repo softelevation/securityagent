@@ -73,12 +73,12 @@ class CustomerController extends Controller
         $url = $request->notification_url;
         $result = CustomerNotification::where('id',$id)->update(['status'=>1]);
         if($result){
-            $response['message'] = 'Please wait...';
+            $response['message'] = trans('messages.please_wait');
             $response['delayTime'] = 1000;
             $response['url'] = $url;
             return response($this->getSuccessResponse($response));
         }else{
-            return response($this->getErrorResponse('Something went wrong!'));
+            return response($this->getErrorResponse(trans('messages.error')));
         }
     }
 

@@ -7,20 +7,20 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Agents</h2>
+                  <h2>{{__('dashboard.agents.agents')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
                       <li class="nav-item w-50">
-                          <a id="nav-pending-tab" data-toggle="tab" href="#nav-pending" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='pending') active @endif">Pending Verification </a>
+                          <a id="nav-pending-tab" data-toggle="tab" href="#nav-pending" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='pending') active @endif">{{__('dashboard.agents.pending_heading')}} </a>
                       </li>
                       <li class="nav-item w-50">
-                          <a id="nav-verified-tab" data-toggle="tab" href="#nav-verified" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='verified') active @endif">Verified Agents</a>
+                          <a id="nav-verified-tab" data-toggle="tab" href="#nav-verified" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='verified') active @endif">{{__('dashboard.agents.verified_heading')}}</a>
                       </li>
                   </ul>
                   <div class="tab-content" id="nav-tabContent">
@@ -31,10 +31,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Agent Name</th>
-                                    <th>Username</th>
-                                    <th>Agent Type</th>
-                                    <th>Email Address</th>
+                                    <th>{{__('dashboard.agents.name')}}</th>
+                                    <th>{{__('dashboard.agents.username')}}</th>
+                                    <th>{{__('dashboard.agents.type')}}</th>
+                                    <th>{{__('dashboard.email')}}</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -56,12 +56,12 @@
                                     <td>{{Helper::get_agent_type_name_multiple($agent->types)}}</td>
                                     <td>{{$agent->user->email}}</td>
                                     <td>
-                                      <a class="action_icons" href="{{url('operator/agent/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
+                                      <a class="action_icons" href="{{url('operator/agent/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
                                     </td>
                                 </tr>
                               @empty
                                 <tr>
-                                    <td colspan="6">No record found</td>
+                                    <td colspan="6">{{__('dashboard.no_record')}}</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -82,10 +82,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Agent Name</th>
-                                    <th>Username</th>
-                                    <th>Agent Type</th>
-                                    <th>Email Address</th>
+                                    <th>{{__('dashboard.agents.name')}}</th>
+                                    <th>{{__('dashboard.agents.username')}}</th>
+                                    <th>{{__('dashboard.agents.type')}}</th>
+                                    <th>{{__('dashboard.email')}}</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -107,12 +107,12 @@
                                     <td>{{Helper::get_agent_type_name_multiple($agent->types)}}</td>
                                     <td>{{$agent->user->email}}</td>
                                     <td>
-                                      <a class="action_icons" href="{{url('operator/agent/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <a class="action_icons" href="{{url('operator/agent/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>
                                 </tr>
                               @empty
                                 <tr>
-                                    <td colspan="6">No record found</td>
+                                    <td colspan="6">{{__('dashboard.no_record')}}</td>
                                 </tr>
                               @endforelse
                             </tbody>

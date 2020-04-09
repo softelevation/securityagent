@@ -7,43 +7,43 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Customers</h2>
+                  <h2>{{__('dashboard.customers')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="contact_box">
-                <h3>Customer Details</h3>
+                <h3>{{__('dashboard.customer_details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-6 form-group">
-                        <label>First Name</label>
+                        <label>{{__('frontend.text_127')}}</label>
                         <span class="form-control">{{$data->first_name}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Last Name</label>
+                        <label>{{__('frontend.text_129')}}</label>
                         <span class="form-control">{{$data->last_name}}</span>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 form-group">
-                        <label>Email Address</label>
+                        <label>{{__('frontend.text_131')}}</label>
                         <span class="form-control">{{$data->user->email}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Phone</label>
+                        <label>{{__('frontend.text_133')}}</label>
                         <span class="form-control">{{$data->phone}}</span>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 form-group">
-                        <label>Home Address</label>
+                        <label>{{__('frontend.text_139')}}</label>
                         <span class="form-control">{{$data->home_address}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Are you an individual or company ?</label>
+                        <label>{{__('frontend.text_141')}}</label>
                         <span class="form-control">{{Helper::get_customer_type_name($data->customer_type)}}</span>
                       </div>
                     </div>

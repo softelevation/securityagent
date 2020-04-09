@@ -7,64 +7,64 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Missions</h2>
+                  <h2>{{__('dashboard.missions')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="contact_box">
-                <h3>Mission Details</h3>
+                <h3>{{__('dashboard.mission.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-6 form-group">
-                        <label>Mission Title</label>
+                        <label>{{__('dashboard.mission.title')}}</label>
                         <span class="form-control">{{$mission->title}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Ref.</label>
+                        <label>{{__('dashboard.mission.ref')}}</label>
                         <span class="form-control">{{Helper::mission_id_str($mission->id)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Location</label>
+                        <label>{{__('dashboard.mission.location')}}</label>
                         <span class="form-control">{{$mission->location}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Agent Type Needed</label>
+                        <label>{{__('dashboard.agent_needed')}}</label>
                         <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Vehicle Required</label>
+                        <label>{{__('dashboard.vehicle_required')}}</label>
                         <span class="form-control">{{Helper::vehicle_required_status($mission->vehicle_required)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Hours</label>
-                        <span class="form-control">{{$mission->total_hours}} Hour(s)</span>
+                        <label>{{__('dashboard.mission.mission_hours')}}</label>
+                        <span class="form-control">{{$mission->total_hours}} {{__('dashboard.hours')}}</span>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-12 form-group">
-                        <label>Mission Description</label>
+                        <label>{{__('dashboard.mission.description')}}</label>
                         <span class="form-control">{{$mission->description}}</span>
                       </div>
                     </div>
                     @if($mission->status==5)
                     <div class="row">
                       <div class="col-md-6 form-group">
-                        <label>Mission Status</label>
+                        <label>{{__('dashboard.mission.mission_status')}}</label>
                         <span class="form-control">{{Helper::getMissionStatus($mission->status)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Total Hours Taken By Agent </label>
+                        <label>{{__('dashboard.mission.hours_taken')}}</label>
                         <span class="form-control">{{Helper::get_mission_hours($mission->started_at,$mission->ended_at)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Started At</label>
+                        <label>{{__('dashboard.mission.started_at')}}</label>
                         <span class="form-control">{{Helper::date_format_show('m/d/Y H:i:s',$mission->started_at)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>Mission Ended At </label>
+                        <label>{{__('dashboard.mission.ended_at')}}</label>
                         <span class="form-control">{{Helper::date_format_show('m/d/Y H:i:s',$mission->ended_at)}}</span>
                       </div>
                     </div>
@@ -72,17 +72,17 @@
                     <div class="row">
                       <div class="col-md-12 text-center">
                           @if($mission->status==3)
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/start-mission')}}" data-type="start" class="button success_btn confirmBtn"><i class="fa fa-check"></i> Start Mission</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/start-mission')}}" data-type="start" class="button success_btn confirmBtn"><i class="fa fa-check"></i> {{__('dashboard.mission.start_mission')}}</button>
                           @endif
                           @if($mission->status==4)
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/finish-mission')}}" data-type="finish" class="button success_btn confirmBtn"><i class="fa fa-check"></i> Finish Mission</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/finish-mission')}}" data-type="finish" class="button success_btn confirmBtn"><i class="fa fa-check"></i> {{__('dashboard.mission.finish_mission')}}</button>
                           @endif
                           @if($mission->status==3 || $mission->status==4)
                             <!-- <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/cancel-mission-agent')}}" data-type="cancel_agent" class="button danger_btn confirmBtn" data-action="2"><i class="fa fa-times"></i> Cancel Mission</button> -->
                           @endif
                           @if($mission->status==0 && $mission->agent_id==Auth::user()->agent_info->id)
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="accept" class="button success_btn confirmBtn" data-value="1" data-hours="{{$mission->total_hours}}"><i class="fa fa-check"></i> Accept Mission</button>
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="reject" class="button danger_btn confirmBtn" data-value="2"><i class="fa fa-times"></i> Reject Mission</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="accept" class="button success_btn confirmBtn" data-value="1" data-hours="{{$mission->total_hours}}"><i class="fa fa-check"></i> {{__('dashboard.mission.accept_mission')}}</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="reject" class="button danger_btn confirmBtn" data-value="2"><i class="fa fa-times"></i> {{__('dashboard.mission.reject_mission')}}</button>
                           @endif
                       </div>
                   </div>
@@ -102,7 +102,7 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">        
-        <h4 class="modal-title">Confirm Action</h4>
+        <h4 class="modal-title">{{__('dashboard.confirm')}}</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <form id="general_form" class="mission_action_form" method="post" action="" novalidate="novalidate">
@@ -116,7 +116,7 @@
                 <input id="actionInput" type="hidden" name="action_value">  
                 <div class="reject_reason">
                   <div class="form-group">
-                    <label>Specify a reason</label>
+                    <label>{{__('dashboard.specify_reason')}}</label>
                     <textarea name="reason" class="form-control"></textarea>
                   </div>
                 </div>
@@ -125,9 +125,9 @@
           </div>
         </div>
         <div class="modal-footer">
-          @if($mission->total_hours > 12)<button id="12_hrs_btn" type="button" class="btn btn-primary orange_bg">No, Book For 12 Hours</button>@endif
-          <button type="submit" class="btn btn-primary success_btn" >Yes</button>
-          <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">Close</button>
+          @if($mission->total_hours > 12)<button id="12_hrs_btn" type="button" class="btn btn-primary orange_bg">{!!__('dashboard.book_12_hours')!!}</button>@endif
+          <button type="submit" class="btn btn-primary success_btn" >{{__('dashboard.yes')}}</button>
+          <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">{{__('dashboard.close')}}</button>
         </div>
       </form>
     </div>
@@ -137,6 +137,7 @@
 {{Form::hidden('mission_id',Helper::encrypt($mission->id))}}
 {{Form::close()}}
 <script>
+  var locale = '@php echo Session::get("locale"); @endphp';
   $(document).on('click','.confirmBtn', function(){
     $(document).find('.reject_reason').addClass('d-none');
     let url = $(this).attr('data-url');
@@ -147,17 +148,33 @@
     var txtMsg = '';
     if(type=='start'){
       txtMsg = 'Are you sure to start this mission now?';
+      if(locale=='fr'){
+        txtMsg = 'Êtes-vous sûr de commencer cette mission maintenant?';
+      }
     }
     if(type=='finish'){
       txtMsg = 'Are you sure to finish this mission now?';
+      if(locale=='fr'){
+        txtMsg = 'Êtes-vous sûr de terminer cette mission maintenant?';
+      }
     }
     if(type=='cancel_agent'){
       txtMsg = 'Are you sure to cancel this mission now?';
+      if(locale=='fr'){
+        txtMsg = "Êtes-vous sûr d'annuler cette mission maintenant?";
+      }
     }
     if(type=='accept'){
       txtMsg = 'Are you sure you want to accept this mission?';
+      if(locale=='fr'){
+        txtMsg = "Êtes-vous sûr de vouloir accepter cette mission?";
+      }
+
       if(hours > 12){
         txtMsg = 'As this mission exceeds 12 hours so are you sure you want to accept this full mission for '+hours+' hours?';
+        if(locale=='fr'){
+          txtMsg = "Comme cette mission dépasse 12 heures, êtes-vous sûr de vouloir accepter cette mission complète pendant "+hours+" heures?";
+        }
       }
     }
     if(type=='reject'){
@@ -165,6 +182,9 @@
       console.log(reason);
       $('#reasonInput').val(reason);
       txtMsg = 'Are you sure you want to reject this mission?';
+      if(locale=='fr'){
+        txtMsg = "Êtes-vous sûr de vouloir rejeter cette mission?";
+      }
       $(document).find('.reject_reason').removeClass('d-none');  
     }
     $(document).find('.confirmation_text').html(txtMsg);

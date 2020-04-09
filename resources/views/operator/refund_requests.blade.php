@@ -7,17 +7,17 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Refund Requests</h2>
+                  <h2>{{__('dashboard.payment.refund_req')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
                       <li class="nav-item w-100">
-                          <a class="nav-link active">All Mission's Refund Requests </a>
+                          <a class="nav-link active">{{__('dashboard.payment.refund_req_heading')}} </a>
                       </li>
                   </ul>
                   <div>
@@ -27,9 +27,9 @@
                                   <thead>
                                       <tr>
                                           <th>#</th>
-                                          <th>Mission Title</th>
-                                          <th>Mission Ref. No.</th>
-                                          <th>Refund Status</th>
+                                          <th>{{__('dashboard.mission.title')}}</th>
+                                          <th>{{__('dashboard.mission.ref')}}</th>
+                                          <th>{{__('dashboard.payment.refund_status')}}</th>
                                           <th>Action</th>
                                       </tr>
                                   </thead>
@@ -50,18 +50,18 @@
                                             <div class="dropdown">
                                               <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
                                               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($data->mission_id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View Details</a>
+                                                <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($data->mission_id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
 
-                                                <a href="{{url('operator/refund-mission-view')}}/{{Helper::encrypt($data->mission_id)}}" class="dropdown-item" data-status="1"><i class="fa fa-undo"></i> Refund Mission</a>
+                                                <a href="{{url('operator/refund-mission-view')}}/{{Helper::encrypt($data->mission_id)}}" class="dropdown-item" data-status="1"><i class="fa fa-undo"></i> {{__('dashboard.payment.refund_amount')}}</a>
                                                 
-                                                <a id="{{Helper::encrypt($data->id)}}" href="javascript:void(0)" class="dropdown-item refund_cls" data-status="2"><i class="fa fa-times"></i> Reject Request</a>
+                                                <a id="{{Helper::encrypt($data->id)}}" href="javascript:void(0)" class="dropdown-item refund_cls" data-status="2"><i class="fa fa-times"></i> {{__('dashboard.payment.reject_refund')}}</a>
                                               </div>
                                             </div>
                                           </td>
                                       </tr>
                                     @empty
                                       <tr>
-                                          <td colspan="7">No record found !</td>
+                                          <td colspan="7">{{__('dashboard.no_record')}} !</td>
                                       </tr>
                                     @endforelse
                                   </tbody>

@@ -7,17 +7,17 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Mission</h2>
+                  <h2>{{__('dashboard.mission.mission')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="contact_box">
-                <h3><i class="fa fa-edit"></i> Mission Payment</h3>
+                <h3><i class="fa fa-edit"></i> {{__('dashboard.payment.mission')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
-                  <h5>Amount To Be Paid: {{$charge_amount}} <i class="fa fa-euro-sign"></i></h5>
+                  <h5>{{__('dashboard.payment.to_paid')}}: {{$charge_amount}} <i class="fa fa-euro-sign"></i></h5>
                     <!-- Added cards -->
                     @if(isset($cards) && !empty($cards['data']))
                     <div class="table-responsive">
@@ -25,9 +25,9 @@
                           <thead>
                               <tr>
                                   <th>#</th>
-                                  <th>Card Type</th>
-                                  <th>Card Number</th>
-                                  <th>Expire Date</th>
+                                  <th>{{__('dashboard.payment.card_type')}}</th>
+                                  <th>{{__('dashboard.payment.card_no')}}</th>
+                                  <th>{{__('dashboard.payment.exp_date')}}</th>
                                   <th>Action</th>
                               </tr>
                           </thead>
@@ -40,7 +40,7 @@
                                   <td>{{$card['brand']}}</td>
                                   <td>**** **** **** {{$card['last4']}}</td>
                                   <td>{{$card['exp_month']}}/{{$card['exp_year']}}</td>
-                                  <td><a id="{{$card['id']}}" href="javascript:void(0)" class="btn_submit pay_now_btn"> Pay Now</a></td>
+                                  <td><a id="{{$card['id']}}" href="javascript:void(0)" class="btn_submit pay_now_btn"> {{__('dashboard.payment.now')}}</a></td>
                               </tr>
                             @endforeach
                           </tbody>
@@ -49,7 +49,7 @@
                     @endif
                   <div class="creditCardForm">
                     <div class="heading">
-                      <button class="btn success_btn add_new_card_btn"><i class="fa fa-plus"></i> Add New Card</button>
+                      <button class="btn success_btn add_new_card_btn"><i class="fa fa-plus"></i> {{__('dashboard.payment.new_card')}}</button>
                     </div>
                     <hr>
                     <div class="card_form_div d-none">
@@ -59,7 +59,7 @@
                           @csrf
                           <div class="row">
                             <div class="form-group col-md-8 owner">
-                              <label for="owner">Card Holder's Name</label>
+                              <label for="owner">{{__('dashboard.payment.holder_name')}}</label>
                               <input type="text" name="name" class="form-control" id="owner" placeholder="Enter card holder's name">
                             </div>
                             <div class="form-group col-md-4 CVV">
@@ -67,11 +67,11 @@
                               <input type="text" name="cvc" class="form-control" id="cvv" placeholder="Enter CVV number">
                             </div>
                             <div class="form-group col-md-12" id="card-number-field">
-                              <label for="cardNumber">Card Number</label>
+                              <label for="cardNumber">{{__('dashboard.payment.card_no')}}</label>
                               <input type="text" maxlength="16" name="card_number" class="form-control" id="cardNumber" placeholder="Enter 16 digits card number">
                             </div>
                             <div class="form-group col-md-3" id="expiration-date">
-                              <label>Expiration Month</label>
+                              <label>{{__('dashboard.payment.exp_month')}}</label>
                               <div>
                                 <select class="form-control" name="expire_month">
                                     <option value="01">January</option>
@@ -90,7 +90,7 @@
                               </div>
                             </div>
                             <div class="form-group col-md-3" id="expiration-date">
-                              <label>Expiration Year</label>
+                              <label>{{__('dashboard.payment.exp_year')}}</label>
                               <div>
                                 <select class="form-control" name="expire_year">
                                     <option value="20"> 2020</option>
@@ -111,7 +111,7 @@
                           <hr>
                           <div class="col-md-12 text-center">
                               <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->id)}}">
-                              <button type="submit" class="button success_btn">Make Payment</button>
+                              <button type="submit" class="button success_btn">{{__('dashboard.payment.make')}}</button>
                           </div>
                           <!-- <div class="form-group" id="pay-now">
                             <button type="submit" class="btn btn-default" id="confirm-purchase">Confirm</button>

@@ -76,7 +76,7 @@ class LoginController extends Controller
         try{
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
-                $response['message'] = 'Login Success.';
+                $response['message'] = trans('messages.login_success');
                 switch(Auth::user()->role_id){
                     // Customer
                     case 1:
@@ -109,7 +109,7 @@ class LoginController extends Controller
                 $response['delayTime'] = 2000;
                 return $this->getSuccessResponse($response);
             }else{
-                return response($this->getErrorResponse('Invalid login credentials !'));    
+                return response($this->getErrorResponse(trans('messages.invalid_login')));    
             }
 
         }catch(\Exception $e){

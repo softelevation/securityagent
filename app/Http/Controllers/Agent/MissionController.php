@@ -106,7 +106,7 @@ class MissionController extends Controller
             // Check if mission request is expired or not
             $mission_expired = $this->missionExpired($mission_id);
             if($mission_expired==1){
-                $response = $this->getErrorResponse('Your mission has expired !');
+                $response = $this->getErrorResponse(trans('messages.mission_expired'));
                 $response['url'] = url('agent/mission-requests');
                 return response($response);
             }
@@ -122,13 +122,13 @@ class MissionController extends Controller
                         Session::forget($sessionName);
                         Session::save();
                     }
-                    $response['message'] = 'Mission request accepted successfully';
+                    $response['message'] = trans('messages.mission_accepted');
                     $response['delayTime'] = 2000;
                     $response['modelhide'] = '#mission_action';
                     $response['url'] = url('agent/mission-requests');
                     return response($this->getSuccessResponse($response));
                 }else{
-                    return response($this->getErrorResponse('Something went wrong!'));
+                    return response($this->getErrorResponse(trans('messages.error')));
                 }
             }
             if($action==2){
@@ -141,16 +141,16 @@ class MissionController extends Controller
                 if($result){
                     $result = Mission::where('id',$mission_id)->update(['agent_id'=>0]);
                     if($result){
-                        $response['message'] = 'Mission request rejected successfully';
+                        $response['message'] = trans('messages.mission_rejected');
                         $response['delayTime'] = 2000;
                         $response['modelhide'] = '#mission_action';
                         $response['url'] = url('agent/mission-requests');
                         return response($this->getSuccessResponse($response));
                     }else{
-                        return response($this->getErrorResponse('Something went wrong!'));    
+                        return response($this->getErrorResponse(trans('messages.error')));    
                     }
                 }else{
-                    return response($this->getErrorResponse('Something went wrong while adding mission to rejected list!'));
+                    return response($this->getErrorResponse(trans('messages.error')));
                 }
             }
         }catch(\Exception $e){
@@ -183,7 +183,7 @@ class MissionController extends Controller
                 $notification = array(
                     'customer_id' => $data->customer_id,
                     'mission_id' => $mission_id,
-                    'content' => 'Your mission has started now.',
+                    'content' => trans('messages.mission_started'),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()  
                 );
@@ -191,18 +191,18 @@ class MissionController extends Controller
                 /*----Customer Notification-----*/
                 $mailContent = [
                     'name' => ucfirst($data->customer_details->first_name),
-                    'message' => 'Your mission has been started now at '.$timeNow.'.', 
+                    'message' => trans('messages.mission_started_at').$timeNow.'.', 
                     'url' => url('customer/mission-details/view').'/'.$request->mission_id 
                 ];
                 $data->customer_details->user->notify(new MissionCreated($mailContent));
                 /*------------*/
-                $response['message'] = 'Your Mission has started now.';
+                $response['message'] = trans('messages.mission_started');
                 $response['delayTime'] = 2000;
                 $response['modelhide'] = '#mission_action';
                 $response['url'] = url('agent/missions');
                 return response($this->getSuccessResponse($response));
             }else{
-                $response['message'] = 'Something went wrong. Unable to start the misison at the moment.';
+                $response['message'] = trans('messages.error');
                 $response['delayTime'] = 2000;
                 $response['url'] = url('agent/missions');
                 $response['modelhide'] = '#mission_action';
@@ -301,7 +301,7 @@ class MissionController extends Controller
             $notification = array(
                 'customer_id' => $data->customer_id,
                 'mission_id' => $mission_id,
-                'content' => 'Your mission has finished now.',
+                'content' => trans('messages.mission_finished'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()  
             );
@@ -309,7 +309,7 @@ class MissionController extends Controller
             /*----Customer Notification-----*/
             $mailContent = [
                 'name' => ucfirst($data->customer_details->first_name),
-                'message' => 'Your mission has been finished now at '.$timeNow.'.', 
+                'message' => trans('messages.mission_finished_at').$timeNow.'.', 
                 'url' => url('customer/mission-details/view').'/'.$request->mission_id 
             ];
             $data->customer_details->user->notify(new MissionCreated($mailContent));
@@ -364,13 +364,13 @@ class MissionController extends Controller
                     Mission::where('id',$parentMissionId)->update(['status'=>5]);
                 }
             }
-            $response['message'] = 'Your Mission has finished now.';
+            $response['message'] = trans('messages.mission_finished');
             $response['delayTime'] = 2000;
             $response['modelhide'] = '#mission_action';
             $response['url'] = url('agent/missions');
             return response($this->getSuccessResponse($response));
         }else{
-            $response['message'] = 'Something went wrong. Unable to start the misison at the moment.';
+            $response['message'] = trans('messages.error');
             $response['delayTime'] = 2000;
             $response['url'] = url('agent/missions');
             $response['modelhide'] = '#mission_action';

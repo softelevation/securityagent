@@ -79,12 +79,12 @@ class CommonController extends Controller
             $toName = 'Be On Time';
             $subject = $request->subject;
             Helper::sendCommonMail($templateName,$data,$toEmail,$toName,$subject);
-            $response['message'] = 'Feedback submitted successfully.';
+            $response['message'] = trans('messages.feedback_submitted');
             $response['delayTime'] = 2000;
             $response['url'] = url('contact-us');
             return response($this->getSuccessResponse($response));
         }catch(\Exception $e){
-            return response('Something went wrong! Please try again later.');
+            return response(trans('messages.error'));
         }
     }
 }

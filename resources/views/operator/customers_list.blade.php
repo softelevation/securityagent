@@ -7,17 +7,17 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Customers</h2>
+                  <h2>{{__('dashboard.customers')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
                       <li class="nav-item w-100">
-                          <a class="nav-link active">All Customer List View </a>
+                          <a class="nav-link active">{{__('dashboard.customer_heading')}} </a>
                       </li>
                   </ul>
                   <div>
@@ -27,9 +27,9 @@
                                   <thead>
                                       <tr>
                                           <th>#</th>
-                                          <th>Customer Name</th>
-                                          <th>Customer Type</th>
-                                          <th>E-mail Address</th>
+                                          <th>{{__('dashboard.customer_name')}}</th>
+                                          <th>{{__('dashboard.customer_type')}}</th>
+                                          <th>{{__('dashboard.email')}}</th>
                                           <th>Action</th>
                                       </tr>
                                   </thead>
@@ -48,12 +48,12 @@
                                           <td>{{Helper::get_customer_type_name($customer->customer_type)}}</td>
                                           <td>{{$customer->user->email}}</td>
                                           <td>
-                                            <a class="action_icons" href="{{url('operator/customer/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View</a>
+                                            <a class="action_icons" href="{{url('operator/customer/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
                                           </td>
                                       </tr>
                                     @empty
                                       <tr>
-                                          <td colspan="5">No record found !</td>
+                                          <td colspan="5">{{__('dashboard.no_record')}} !</td>
                                       </tr>
                                     @endforelse
                                   </tbody>

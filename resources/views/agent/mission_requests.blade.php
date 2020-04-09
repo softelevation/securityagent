@@ -7,20 +7,20 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Mission Requests</h2>
+                  <h2>{{__('dashboard.mission_requests')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
                       <li class="nav-item w-50">
-                          <a id="nav-awaiting-tab" data-toggle="tab" href="#nav-awaiting" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='awaiting') active @endif">Awaiting Requests</a>
+                          <a id="nav-awaiting-tab" data-toggle="tab" href="#nav-awaiting" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='awaiting') active @endif">{{__('dashboard.agents.awaiting_requests')}}</a>
                       </li>
                       <li class="nav-item w-50">
-                          <a id="nav-expired-tab" data-toggle="tab" href="#nav-expired" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='expired') active @endif">Expired Requests</a>
+                          <a id="nav-expired-tab" data-toggle="tab" href="#nav-expired" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='expired') active @endif">{{__('dashboard.agents.expired_requests')}}</a>
                       </li>
                   </ul>
                   <div class="tab-content" id="nav-tabContent">
@@ -31,12 +31,12 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Mission Title</th>
-                                    <th>Mission Location</th>
-                                    <th>Duration</th>
-                                    <th>Starts Time</th>
-                                    <th>Request Timeout</th>
-                                    <th>Action</th>
+                                    <th>{{__('dashboard.mission.title')}}</th>
+                                    <th>{{__('dashboard.mission.location')}}</th>
+                                    <th>{{__('dashboard.mission.duration')}}</th>
+                                    <th>{{__('dashboard.mission.start_time')}}</th>
+                                    <th>{{__('dashboard.agents.request_timeout')}}</th>
+                                    <th>{{__('dashboard.action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,17 +53,17 @@
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
                                     <td>{{$mission->location}}</td>
-                                    <td>{{$mission->total_hours}} Hour(s)</td>
-                                    <td>@if($mission->quick_book==1) Now (Quick Booking) @else {{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}} @endif</td>
+                                    <td>{{$mission->total_hours}} {!!__('dashboard.hours')!!}</td>
+                                    <td>@if($mission->quick_book==1) {{__('dashboard.now')}} ({{__('dashboard.quick_booking')}}) @else {{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}} @endif</td>
                                     @php $timerDivId = 'req'.$mission->id; @endphp
                                     <td><p class="timeout_p" id="req{{$mission->id}}" data-record-id="{{Helper::encrypt($mission->id)}}" data-timeout="{{Helper::get_timeout_datetime($mission->assigned_at)}}"></p></td>
                                     <td>
-                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
+                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>
                                 </tr>
                               @empty
                                 <tr>
-                                    <td colspan="7">No record found</td>
+                                    <td colspan="7">{{__('dashboard.no_record')}}</td>
                                 </tr>
                               @endforelse
                             </tbody>
@@ -84,11 +84,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Mission Title</th>
-                                    <th>Mission Location</th>
-                                    <th>Duration</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>{{__('dashboard.mission.title')}}</th>
+                                    <th>{{__('dashboard.mission.location')}}</th>
+                                    <th>{{__('dashboard.mission.duration')}}</th>
+                                    <th>{{__('dashboard.status')}}</th>
+                                    <th>{{__('dashboard.action')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -105,16 +105,16 @@
                                     <td>{{$i}}.</td>
                                     <td>{{$data->mission_details->title}}</td>
                                     <td>{{$data->mission_details->location}}</td>
-                                    <td>{{$data->mission_details->total_hours}} Hour(s)</td>
-                                    <td><button class="btn btn-outline-danger status_btn">EXPIRED</button></td>
+                                    <td>{{$data->mission_details->total_hours}} {!!__('dashboard.hours')!!}</td>
+                                    <td><button class="btn btn-outline-danger status_btn">{{__('dashboard.expired')}}</button></td>
                                     <td>
-                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($data->mission_details->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> View </a>
-                                      <a href="{{url('agent/remove-expired-mission/')}}/{{Helper::encrypt($data->id)}}" class="action_icons remove_mission_request"><i class="fas fa-trash text-grey" aria-hidden="true"></i> Delete </a>
+                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($data->mission_details->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
+                                      <a href="{{url('agent/remove-expired-mission/')}}/{{Helper::encrypt($data->id)}}" class="action_icons remove_mission_request"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.delete')}} </a>
                                     </td>
                                 </tr>
                               @empty
                                 <tr>
-                                    <td colspan="7">No record found</td>
+                                    <td colspan="7">{{__('dashboard.no_record')}}</td>
                                 </tr>
                               @endforelse
                             </tbody>

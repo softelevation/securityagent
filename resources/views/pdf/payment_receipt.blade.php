@@ -204,14 +204,14 @@
                 <div class="main">
                     <div class="row contacts">
                         <div class="pull-left invoice-to">
-                            <div class="text-gray-light">Customer Details:</div>
+                            <div class="text-gray-light">{{__('dashboard.customer_details')}}:</div>
                             <p class="to">{{$data->customer_details->first_name}} {{$data->customer_details->last_name}}</p>
                             <div class="address">{{$data->customer_details->home_address}}</div>
                             <div class="email"><a href="mailto:{{$data->customer_details->user->email}}">{{$data->customer_details->user->email}}</a></div>
                         </div>
                         <div class="pull-right">
                             <h2 class="invoice-id">REC-000-{{$data->id}}</h2>
-                            <div class="date">Date of Invoice: {{Helper::date_format_show('m/d/Y',$data->created_at)}}</div>
+                            <div class="date">{{__('dashboard.invoice_date')}}: {{Helper::date_format_show('m/d/Y',$data->created_at)}}</div>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -224,18 +224,18 @@
                     <table border="0" cellspacing="0" cellpadding="0">
                         <thead>
                             <tr>
-                                <th class="text-center">Mission Ref.</th>
-                                <th class="text-center">Mission Title</th>
-                                <th class="text-center">Description</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-right">Amount</th>
+                                <th class="text-center">{{__('dashboard.mission.ref')}}</th>
+                                <th class="text-center">{{__('dashboard.mission.title')}}</th>
+                                <th class="text-center">{{__('dashboard.mission.description')}}</th>
+                                <th class="text-center">{{__('dashboard.status')}}</th>
+                                <th class="text-right">{{__('dashboard.amount')}}</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td class="text-center">{{Helper::mission_id_str($data->mission_details->id)}}</td>
                                 <td class="text-center">{{strtoupper($data->mission_details->title)}}</td>
-                                <td class="text-center">@if($data->mission_details->quick_book==1) Quick Booking @else Future Booking @endif Mission Payment</td>
+                                <td class="text-center">@if($data->mission_details->quick_book==1) {{__('dashboard.quick_booking')}} @else {{__('dashboard.future_booking')}} @endif</td>
                                 <td class="text-center">{{strtoupper($data->status)}}</td>
                                 <td class="text-right">{{$original_amount}} &euro;</td>
                             </tr>
@@ -246,7 +246,7 @@
                                 <td class="text-right">{{$vat_amount}} &euro;</td>
                             </tr>
                             <tr>
-                                <td class="text-right" colspan="4">GRAND TOTAL</td>
+                                <td class="text-right" colspan="4">{{__('dashboard.grand_total')}}</td>
                                 <td class="text-right">{{$data->amount}} &euro;</td>
                             </tr>
                         </tfoot>
@@ -254,7 +254,7 @@
                 </div>
                 <hr>
                 <div class="footer text-center">
-                    <p>Copyright © 2020 - All rights reserved by OnTimeBe.</p>
+                    <p>{!!__('dashboard.pdf_copyright')!!}</p>
                 </div>
             </div>
         </div>

@@ -98,7 +98,7 @@
                     <!-- Notifications Dropdown -->
                     <div class="float-left dropdown pl-3 position-relative">
                       <div class="notification" data-toggle="dropdown">
-                        <span @if(Helper::get_misison_request_count()==0) data-container="body" data-toggle="popover" data-placement="bottom" data-content="No new notification." data-html="true" data-trigger="hover" @endif><i class="fa fa-bell"></i></span>
+                        <span @if(Helper::get_misison_request_count()==0) data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{__('dashboard.no_notification')}}" data-html="true" data-trigger="hover" @endif><i class="fa fa-bell"></i></span>
                         @if(Helper::get_misison_request_count() > 0)
                           <span class="badge">{{Helper::get_misison_request_count()}}</span>
                         @endif

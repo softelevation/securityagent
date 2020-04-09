@@ -7,72 +7,72 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>Mission</h2>
+                  <h2>{{__('dashboard.mission.mission')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> Back</a>
+                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="contact_box">
-                <h3>Mission Details Summary</h3>
+                <h3>{{__('dashboard.mission.summary')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-4 form-group">
-                        <label>Mission Title</label>
+                        <label>{{__('dashboard.mission.title')}}</label>
                         <span class="form-control">{{$mission->title}}</span>
                       </div>
                       <div class="col-md-4 form-group">
-                        <label>Mission Ref.</label>
+                        <label>{{__('dashboard.mission.ref')}}</label>
                         <span class="form-control">{{Helper::mission_id_str($mission->id)}}</span>
                       </div>
                       <div class="col-md-4 form-group">
-                        <label>Mission Location</label>
+                        <label>{{__('dashboard.mission.location')}}</label>
                         <span class="form-control">{{$mission->location}}</span>
                       </div>
                       <div class="col-md-4 form-group">
-                        <label>Agent Type Needed</label>
+                        <label>{{__('dashboard.agent_needed')}}</label>
                         <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
                       </div>
                       <div class="col-md-4 form-group">
-                        <label>Vehicle Required</label>
+                        <label>{{__('dashboard.vehicle_required')}}</label>
                         <span class="form-control">{{Helper::vehicle_required_status($mission->vehicle_required)}}</span>
                       </div>
                       <div class="col-md-4 form-group">
-                        <label>Mission Hours</label>
+                        <label>{{__('dashboard.mission.mission_hours')}}</label>
                         <span class="form-control">{{$mission->total_hours}} Hour(s)</span>
                       </div>
                       @if($mission->quick_book==0)
                       <div class="col-md-4 form-group">
-                        <label>Start Datetime</label>
+                        <label>{{__('dashboard.mission.start_time')}}</label>
                         <span class="form-control">{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</span>
                       </div>
                       @endif
                       <div class="col-md-12 form-group">
-                        <label>Mission Description</label>
+                        <label>{{__('dashboard.mission.description')}}</label>
                         <span class="form-control">{{$mission->description}}</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 @if(isset($mission->agent_details))
-                <h3>Agent Details</h3>
+                <h3>{{__('dashboard.agents.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-4 form-group">
-                        <label>Agent Name</label>
+                        <label>{{__('dashboard.agents.name')}}</label>
                         <span class="form-control">{{ucfirst($mission->agent_details->username)}}</span>
                       </div>
                       <div class="col-md-4 form-group">
-                        <label>Agent Type</label>
+                        <label>{{__('dashboard.agents.type')}}</label>
                         <span class="form-control">{{Helper::get_agent_type_name_multiple($mission->agent_details->types)}}</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 @endif
-                <h3>Payment Details</h3>
+                <h3>{{__('dashboard.payment.details')}}</h3>
                 @php 
                   $vat_amount = Helper::get_vat_amount($mission->amount,$mission->vat);
                   $original_amount = $mission->amount-$vat_amount;
@@ -83,7 +83,7 @@
                         <table class="table table-hover table-striped table-bordered">
                           <tbody>
                             <tr>
-                              <td width="50%" class="text-right">Total Amount:</td>
+                              <td width="50%" class="text-right">{{__('dashboard.payment.total')}}:</td>
                               <td class="text-left">{{$original_amount}} <i class="fa fa-euro-sign"></i></td>
                             </tr>
                             <tr>
@@ -91,12 +91,12 @@
                               <td class="text-left">{{$vat_amount}} <i class="fa fa-euro-sign"></i></td>
                             </tr>
                             <tr>
-                              <th class="text-right">Total Mission Amount</th>
+                              <th class="text-right">{{__('dashboard.payment.total_mission_amount')}}</th>
                               <th class="text-left">{{$mission->amount}} <i class="fa fa-euro-sign"></i></th>
                             </tr>
                             @if($mission->quick_book==0)
                             <tr>
-                              <th class="text-right">Total Charge Amount Now</th>
+                              <th class="text-right">{{__('dashboard.payment.total_charge_amount')}}</th>
                               <th class="text-left">{{$charge_amount}} <i class="fa fa-euro-sign"></i></th>
                             </tr>
                             @endif
@@ -105,12 +105,12 @@
                     </div>
                     @if($mission->quick_book==0)
                     <div class="text-center">
-                      <small class="note-div">Note: You will be charged for 30% of the total mission amount for now. Rest of the amount will get deducted automatically after completion of your mission.</small>
+                      <small class="note-div">{{__('dashboard.payment.note_30')}}</small>
                     </div>
                     @endif
                   </div>
                   <div class="text-center">
-                    <a href="{{url('customer/proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn">Proceed to Checkout</a>
+                    <a href="{{url('customer/proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn">{{__('dashboard.payment.proceed')}}</a>
                   </div>
                 </div>
               </div>
