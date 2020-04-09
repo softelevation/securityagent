@@ -64,6 +64,9 @@ return [
 	'amount' => 'Montant',
 	'grand_total' => 'Somme Finale',
 	'pdf_copyright' => 'Copyright © 2020 - Tous droits réservés par Be On Time.',
+	'block' => 'Bloquer',
+	'unblock' => 'Débloquer',
+
 	// Mission Related
 	'mission' => [
 		'mission' => 'Mission',

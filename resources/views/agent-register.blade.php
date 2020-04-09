@@ -163,7 +163,8 @@
 		                      </div>
 		                    </div>
 	                  	</div>  
-	                  <div class="row text-center pt-5">
+		                <div class="text-center pt-2 text_panel">{!!__('frontend.terms_conditions_text1',['url'=>url('terms-conditions')])!!}</a>.</div>
+	                  <div class="row text-center pt-3">
 	                    <div class="col-md-12">
 		                    <input type="hidden" name="current_location[lat]" />
 			                <input type="hidden" name="current_location[long]" />

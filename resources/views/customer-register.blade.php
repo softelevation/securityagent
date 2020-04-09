@@ -81,7 +81,8 @@
 			                    <input type="radio" name="customer_type" value="2"> {{__('frontend.text_143')}}
 		                      </div>
 		                    </div>
-	                  	</div>  
+	                  	</div>
+	                  	<div class="text-center pt-2 text_panel">{!!__('frontend.terms_conditions_text2',['url'=>url('terms-conditions')])!!}</a>.</div>  
 	                  <div class="row text-center pt-3">
 	                    <div class="col-md-12">
 				            <div class="form-group">

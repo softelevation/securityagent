@@ -267,5 +267,14 @@ $(document).ready(function() {
     ajaxGetRequest(url);
   });
 
+  $(document).on('click','.block_un_agent', function(e){
+    e.preventDefault();
+    let agent_id = $(this).attr('id');
+    let type = $(this).attr('data-type');
+    $(document).find('#agent_id').val(agent_id);
+    $(document).find('#type').val(type);
+    $(document).find('#general_form').submit();
+  });
+
 
 });

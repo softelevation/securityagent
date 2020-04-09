@@ -174,6 +174,7 @@ trait AgentTrait
             $strArr['types'] = $agent->types;
             $strArr['marker'] = $markerIcon;
             $strArr['distance'] = round($agent->distance_in_km);
+            $strArr['work_location_address'] = $agent->work_location_address;            
             $agentArr[] = $strArr; 
         }
         return $agentArr;

@@ -95,7 +95,13 @@ class LoginController extends Controller
                     break;
                     // Agent
                     case 2:
-                        $response['url'] = url('agent/missions');
+                        if(Auth::user()->agent_info->status==1){
+                            $response['url'] = url('agent/missions');
+                        }else{
+                            Auth::logout();
+                            return response($this->getErrorResponse(trans('messages.invalid_login')));
+                        }
+
                     break;
                     // Operator
                     case 3:

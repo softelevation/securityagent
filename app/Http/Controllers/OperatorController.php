@@ -56,7 +56,7 @@ class OperatorController extends Controller
      */
     public function viewAgentsList(Request $request){
         $pendingAgents = Agent::where('status',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'pending');
-        $verifiedAgents = Agent::where('status',1)->orderBy('id','DESC')->paginate($this->limit,['*'],'verified');
+        $verifiedAgents = Agent::whereIn('status',[1,3])->orderBy('id','DESC')->paginate($this->limit,['*'],'verified');
         $params = [
             'pending_agents' => $pendingAgents,
             'verified_agents' => $verifiedAgents,
@@ -556,5 +556,34 @@ class OperatorController extends Controller
         } catch (\Exception $e) {
             return response($this->getErrorResponse($e->getMessage()));
         }
-    }    
+    } 
+
+    /**
+     * @param $request
+     * @return mixed
+     * @method blockUnblockAgent
+     * @purpose Block or Unblock an agent
+     */
+    public function blockUnblockAgent(Request $request){
+        try{
+            $agent_id = Helper::decrypt($request->agent_id);
+            $type = $request->type;
+            if($type==1){
+                $result = Agent::where('id',$agent_id)->update(['status'=>3]);
+            }
+            if($type==0){
+                $result = Agent::where('id',$agent_id)->update(['status'=>1]);
+            }
+            if($result){
+                $response['message'] = trans('messages.agent_status_changed');
+                $response['delayTime'] = 2000;
+                $response['url'] = url('operator/agents');
+                return $this->getSuccessResponse($response);
+            }else{
+                return response(trans('messages.error'));   
+            }
+        }catch(\Exception $e){
+            return response($this->getErrorResponse($e->getMessage()));  
+        }
+    }   
 }

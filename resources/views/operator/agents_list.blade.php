@@ -85,7 +85,8 @@
                                     <th>{{__('dashboard.agents.name')}}</th>
                                     <th>{{__('dashboard.agents.username')}}</th>
                                     <th>{{__('dashboard.agents.type')}}</th>
-                                    <th>{{__('dashboard.email')}}</th>
+                                    <!-- <th>{{__('dashboard.email')}}</th> -->
+                                    <th>{{__('dashboard.status')}}</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -105,9 +106,20 @@
                                     <td>{{ucfirst($agent->first_name)}} {{ucfirst($agent->last_name)}}</td>
                                     <td>{{ucfirst($agent->username)}}</td>
                                     <td>{{Helper::get_agent_type_name_multiple($agent->types)}}</td>
-                                    <td>{{$agent->user->email}}</td>
+                                    <!-- <td>{{$agent->user->email}}</td> -->
+                                    <td>
+                                      @if($agent->status==1)
+                                      <span class="btn btn-outline-success status_outline"> Active </span> @else 
+                                        <span class="btn btn-outline-danger status_outline"> Blocked </span>
+                                      @endif</td>
                                     <td>
                                       <a class="action_icons" href="{{url('operator/agent/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
+                                      @if($agent->status==3)
+                                        <a id="{{Helper::encrypt($agent->id)}}" data-type="0" class="action_icons block_un_agent" href="javascript:void(0)"><i class="fas fa-toggle-off text-grey" aria-hidden="true"></i> {{__('dashboard.unblock')}}</a>
+                                      @else
+                                        <a id="{{Helper::encrypt($agent->id)}}" data-type="1" class="action_icons block_un_agent" href="javascript:void(0)"><i class="fas fa-toggle-on text-grey" aria-hidden="true"></i> {{__('dashboard.block')}}</a>
+                                      @endif
+
                                     </td>
                                 </tr>
                               @empty
@@ -136,4 +148,8 @@
     </div>
     <!-- /.container -->
 </div>
+{{Form::open(['url'=>url('operator/block-unblock-agent'),'id'=>'general_form'])}}
+{{Form::hidden('agent_id',null,['id'=>'agent_id'])}}
+{{Form::hidden('type',null,['id'=>'type'])}}
+{{Form::close()}}
 @endsection

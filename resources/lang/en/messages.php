@@ -47,4 +47,5 @@ return [
 	'payment_rejected' => 'Mission payment reject successfully.',
 	'refund_rejected' => 'Refund request rejected successfully.',
 	'amount_refunded' => 'Amount refunded successfully.',
+	'agent_status_changed' => 'Agent status changed successfully.',
 ];

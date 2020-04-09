@@ -85,7 +85,7 @@
                                         <div class="agent_review">
                                             <div class="star">
                                                 <img src="{{asset('assets/images/star.jpg')}}"/>
-                                                <h5>{{__('frontend.text_51')}} <br><span>{{__('frontend.text_52')}}</span></h5>
+                                                <h5>{{$agent->work_location_address}}</h5>
                                                 @if(Session::has('mission'))<a target="_blank" href="{{url('/agent-details/'.Helper::encrypt($agent->id))}}" class="text-link">{{__('frontend.text_53')}}</a>@endif<br>
                                                 <span>{{$agent->distance}} Km away</span>
                                             </div>

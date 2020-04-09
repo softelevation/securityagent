@@ -1359,3 +1359,7 @@ span.form-control i{
 .text_panel a:hover {
     color: #ffc107;
 }
+.status_outline{
+    padding: 0px 5px; 
+    font-size: 14px;
+}

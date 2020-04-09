@@ -27,7 +27,7 @@ return [
 	"text_23" => "Conscientious, available with great adaptability, I recommend",
 	"text_24" => "I did not complain about any problems during the missions that I planned",
 	"text_25" => "ABOUT OUR PLATFORM",
-	"text_26" => "Beontime is a family business of security and guarding, which is based on 20 years experience, holder of a CNAPS certification. We act 24 hours a day, 7 days a week. We respond to your needs as soon as possible and put in place agents in 1 hour throughout France, act for different types of events: guarding, events, personal and premises security, We have agents ADS, dog handler, SSIAP 1,2 and 3, bodyguard, as well as hostesses.",
+	"text_26" => "Be on time is a security and guard company, which is based on 20 years of experience. Holder of a CNAPS accreditation, we act 24/7. We respond to your needs as soon as possible with the installation of agents as soon as possible within 1 hour throughout France. We act for different types of events: guarding, events, personal and premises security, We have ADS agents, dog handlers, SSIAP 1,2 and 3, bodyguard, as well as hostesses.",
 	"text_27" => "SHORT LINKS",
 	"text_28" => "Contact Us",
 	"text_29" => "Available agents on map",
@@ -164,4 +164,6 @@ return [
 	"text_142" => "Individual ",
 	"text_143" => "Company",
 	"text_144" => "Become An User",
+	"terms_conditions_text1" => "By clicking <b>Become Agent</b>, you agree to our <a href=':url' target='_blank'>Terms and Conditions Policy",
+	"terms_conditions_text2" => "By clicking <b>Become An User</b>, you agree to our <a href=':url' target='_blank'>Terms and Conditions Policy",
 ];

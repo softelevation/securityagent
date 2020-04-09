@@ -27,7 +27,7 @@ return [
 	"text_23" => "Consciencieux, disponibles avec de grandes capacités d’adaptation, je recommande",
 	"text_24" => "Je n’ai déploré aucun problème durant les missions que j’ai planifié",
 	"text_25" => "A propos",
-	"text_26" => "Beontime est une entreprise familiale de sécurité et gardiennage, qui se repose sur 20 ans expérience, titulaire d’un agrément CNAPS. Nous agissons 24h/24h et 7j/7j. Nous répondons à vos besoins dans les plus brefs délais et la mise en place d’agents en 1h sur toute le France, agissons pour différents types d’événements : gardiennage, événementiel, sûreté de la personne et de locaux, Nous disposons d’agents ADS, maitre-chien, SSIAP 1,2 et 3, garde du corps, ainsi que des hôtesses d’accueil.",
+	"text_26" => "Be on time est une entreprise de sécurité et de gardiennage, qui se repose sur 20 ans d’expérience. Titulaire d’un agrément CNAPS, nous agissons 24h/24 et 7j/7. Nous répondons à vos besoins dans les plus brefs délais avec la mise en place d’agents en dès que possible sous 1h sur toute le France. Nous agissons pour différents types d’événements : gardiennage, événementiel, sûreté de la personne et de locaux, Nous disposons d’agents ADS, maitre-chien, SSIAP 1,2 et 3, garde du corps, ainsi que des hôtesses d’accueil.",
 	"text_27" => "Liens",
 	"text_28" => "Nous contacter",
 	"text_29" => "Agents disponibles sur la carte",
@@ -165,5 +165,6 @@ return [
 	"text_142" => "Individuel",
 	"text_143" => "Société",
 	"text_144" => "Devenez un utilisateur",
-    
+    "terms_conditions_text1" => "En cliquant sur <b> Devenir agent </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",
+	"terms_conditions_text2" => "En cliquant sur <b> Devenir utilisateur </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",
 ];

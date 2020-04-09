@@ -21,6 +21,10 @@ Route::get('/agent_information', function () {
     return view('agent_information');
 });
 
+Route::get('/terms-conditions', function () {
+    return view('terms_conditions');
+});
+
 // Cron Jobs
 Route::get('/mission-expired-cron', 'CommonController@missionExpiredCronJob');
 
@@ -66,6 +70,7 @@ Route::group(['prefix'=>'operator'], function () {
         Route::post('/process-refund-request', 'OperatorController@processRefundRequest');
         Route::get('/refund-mission-view/{mission_id}', 'OperatorController@viewMissionDetailsRefund');
         Route::post('/refund-mission-amount', 'OperatorController@refundMissionAmount');
+        Route::post('/block-unblock-agent', 'OperatorController@blockUnblockAgent');
     });
 });
 

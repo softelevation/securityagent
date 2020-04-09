@@ -47,4 +47,5 @@ return [
 	'payment_rejected' => 'Le paiement de la mission a été rejeté avec succès.',
 	'refund_rejected' => 'La demande de remboursement a été rejetée avec succès.',
 	'amount_refunded' => 'Montant remboursé avec succès.',
+	'agent_status_changed' => "Le statut de l'agent a bien changé.",
 ];

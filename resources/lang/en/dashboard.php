@@ -64,6 +64,8 @@ return [
 	'amount' => 'Amount',
 	'grand_total' => 'Grand Total',
 	'pdf_copyright' => 'Copyright © 2020 - All rights reserved by Be On Time.',
+	'block' => 'Block',
+	'unblock' => 'Unblock',
 
 
 
