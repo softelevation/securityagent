@@ -44,6 +44,7 @@ class AgentController extends Controller
                 return response($this->getValidationsErrors($validation));
             }
             $agentType = json_decode($request->agent_type);
+            $dog = 0;
             if(empty($agentType)){
                 return $this->getErrorResponse(trans('messages.choose_agent'));
             }else{

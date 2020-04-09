@@ -166,4 +166,7 @@ return [
 	"text_144" => "Become An User",
 	"terms_conditions_text1" => "By clicking <b>Become Agent</b>, you agree to our <a href=':url' target='_blank'>Terms and Conditions Policy",
 	"terms_conditions_text2" => "By clicking <b>Become An User</b>, you agree to our <a href=':url' target='_blank'>Terms and Conditions Policy",
+	'sub_contract_title' => 'Are you a Subcontractor?',
+	'suplier_title' => 'Supplier Company Name',
+	'suplier_title_place' => 'Enter your supplier company name',
 ];

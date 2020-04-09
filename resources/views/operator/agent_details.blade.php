@@ -109,6 +109,16 @@
                         <label>{{__('frontend.text_119')}}</label>
                         <span class="form-control">@if($data->is_vehicle==1) {{__('dashboard.yes')}} @else {{__('dashboard.no')}} @endif</span>
                       </div>
+                      <div class="col-md-6 form-group">
+                        <label>{{__('frontend.sub_contract_title')}}</label>
+                        <span class="form-control">@if($data->is_subcontractor==1) {{__('dashboard.yes')}} @else {{__('dashboard.no')}} @endif</span>
+                      </div>
+                      @if($data->is_subcontractor==1)
+                      <div class="col-md-6 form-group">
+                        <label>{{__('frontend.suplier_title')}}</label>
+                        <span class="form-control">{{$data->supplier_company}}</span>
+                      </div>
+                      @endif
                     </div>
                     @if($data->status==0)
                     <div class="row">

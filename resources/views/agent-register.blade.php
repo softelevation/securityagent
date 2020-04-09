@@ -162,8 +162,23 @@
 			                    <input type="radio" name="is_vehicle" value="0"> {{__('frontend.text_121')}}
 		                      </div>
 		                    </div>
-	                  	</div>  
-		                <div class="text-center pt-2 text_panel">{!!__('frontend.terms_conditions_text1',['url'=>url('terms-conditions')])!!}</a>.</div>
+		                    <div class="col-md-6">
+		                      <div class="form-group ">
+				                <label>{{__('frontend.sub_contract_title')}}</label><br>
+			                    <input type="radio" class="is_subc" name="is_subcontractor" value="1"> {{__('frontend.text_120')}}
+			                    <input type="radio" class="is_subc" name="is_subcontractor" value="0"> {{__('frontend.text_121')}}
+		                      </div>
+		                    </div>
+	                  	</div>
+	                  	<div class="row">
+		                    <div class="col-md-6 d-none suppl_comp">
+		                      <div class="form-group ">
+				                <label>{{__('frontend.suplier_title')}}</label>
+			                    <input type="text" name="supplier_company" class="form-control" placeholder="{{__('frontend.suplier_title_place')}}" />
+		                      </div>
+		                    </div>
+		                </div>  
+		                <div class="text-center pt-5 text_panel">{!!__('frontend.terms_conditions_text1',['url'=>url('terms-conditions')])!!}</a>.</div>
 	                  <div class="row text-center pt-3">
 	                    <div class="col-md-12">
 		                    <input type="hidden" name="current_location[lat]" />
@@ -186,6 +201,15 @@
 <!-- Google Place API -->
 <script>
 var locale = '@php echo Session::get("locale"); @endphp';
+
+$(document).on('click','.is_subc',function(){
+	if($(this).val()==1){
+		$('.suppl_comp').removeClass('d-none');
+	}else{
+		$('.suppl_comp').addClass('d-none');
+	}
+});	
+
 //script for SIAP 
 $('#select_agent_type').change(function(){
 	var values = [];

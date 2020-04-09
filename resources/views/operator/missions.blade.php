@@ -39,9 +39,11 @@
                                     <th>#</th>
                                     <th>{{__('dashboard.mission.title')}}</th>
                                     <th>{{__('dashboard.mission.ref')}}</th>
-                                    <th>{{__('dashboard.mission.location')}}</th>
+                                    <!-- <th>{{__('dashboard.mission.location')}}</th> -->
                                     <th>{{__('dashboard.mission.status')}}</th>
                                     <th>{{__('dashboard.payment.status')}}</th>
+                                    <th>{{__('dashboard.created_at')}}</th>
+                                    <td></td>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -59,9 +61,22 @@
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
-                                    <td>{{$mission->location}}</td>
+                                    <!-- <td>{{$mission->location}}</td> -->
                                     <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                     <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                    <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
+                                    <td>
+                                      @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
+                                        @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
+                                        <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.assign_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
+                                        @endif
+                                      @endif
+                                      @if($mission->quick_book==1 && $mission->status==3 && $mission->child_missions->count()==0 && $mission->assigned_at!=null)
+                                        @if(Helper::check_mission_starting_delay($mission->assigned_at)==true)
+                                        <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.start_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
+                                        @endif
+                                      @endif
+                                    </td>
                                     <td>
                                       <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>
@@ -71,9 +86,22 @@
                                       <td></td>
                                       <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
                                       <td>{{Helper::mission_id_str($mission->id)}}</td>
-                                      <td>{{$mission->location}}</td>
+                                      <!-- <td>{{$mission->location}}</td> -->
                                       <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                       <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                      <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
+                                      <td>
+                                        @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
+                                          @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
+                                          <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.assign_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
+                                          @endif
+                                        @endif
+                                        @if($mission->quick_book==1 && $mission->status==3 && $mission->child_missions->count()==0 && $mission->assigned_at!=null)
+                                          @if(Helper::check_mission_starting_delay($mission->assigned_at)==true)
+                                          <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="This mission is awaiting to be started by agent from more than 60 minutes."><i class="fa fa-exclamation-circle"></i></span>
+                                          @endif
+                                        @endif
+                                      </td>
                                       <td>
                                         @if($mission->agent_id!=0)
                                         <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
@@ -119,6 +147,7 @@
                                     <th>{{__('dashboard.mission.duration')}}</th>
                                     <th>{{__('dashboard.mission.start_time')}}</th>
                                     <th>{{__('dashboard.mission.status')}}</th>
+                                    <th>{{__('dashboard.created_at')}}</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -139,6 +168,7 @@
                                     <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</td>
                                     <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
+                                    <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
                                     <td>
                                       @if($mission->child_missions->count() == 0)
                                         @if($mission->agent_id!=0)
@@ -171,6 +201,7 @@
                                     <td>{{$mission->total_hours}} {{__('dashboard.hours')}}</td>
                                     <td>{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</td>
                                     <td>{{Helper::get_mission_status($mission->status)}}</td>
+                                    <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
                                     <td>
                                       @if($mission->agent_id!=0)
                                       <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
@@ -213,9 +244,11 @@
                                     <th>#</th>
                                     <th>{{__('dashboard.mission.title')}}</th>
                                     <th>{{__('dashboard.mission.ref')}}</th>
-                                    <th>{{__('dashboard.mission.location')}}</th>
+                                    <!-- <th>{{__('dashboard.mission.location')}}</th> -->
                                     <th>{{__('dashboard.mission.duration')}}</th>
                                     <th>{{__('dashboard.mission.status')}}</th>
+                                    <th>{{__('dashboard.created_at')}}</th>
+                                    <th></th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -233,9 +266,22 @@
                                     <td>{{$i}}.</td>
                                     <td>{{$mission->title}}</td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
-                                    <td>{{$mission->location}}</td>
+                                    <!-- <td>{{$mission->location}}</td> -->
                                     <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
+                                    <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
+                                    <td>
+                                      @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
+                                        @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
+                                        <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="This mission is awaiting to be assigned to an agent from more than 30 minutes."><i class="fa fa-exclamation-circle"></i></span>
+                                        @endif
+                                      @endif
+                                      @if($mission->quick_book==1 && $mission->status==3 && $mission->child_missions->count()==0 && $mission->assigned_at!=null)
+                                        @if(Helper::check_mission_starting_delay($mission->assigned_at)==true)
+                                        <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="This mission is awaiting to be started by agent from more than 60 minutes."><i class="fa fa-exclamation-circle"></i></span>
+                                        @endif
+                                      @endif
+                                    </td>
                                     <td>
                                       @if($mission->child_missions->count() == 0)
                                         @if($mission->agent_id!=0)
@@ -263,9 +309,22 @@
                                     <td></td>
                                     <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
-                                    <td>{{$mission->location}}</td>
+                                    <!-- <td>{{$mission->location}}</td> -->
                                     <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>{{Helper::get_mission_status($mission->status)}}</td>
+                                    <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
+                                    <td>
+                                      @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
+                                        @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
+                                        <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="This mission is awaiting to be assigned to an agent from more than 30 minutes."><i class="fa fa-exclamation-circle"></i></span>
+                                        @endif
+                                      @endif
+                                      @if($mission->quick_book==1 && $mission->status==3 && $mission->child_missions->count()==0 && $mission->assigned_at!=null)
+                                        @if(Helper::check_mission_starting_delay($mission->assigned_at)==true)
+                                        <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="This mission is awaiting to be started by agent from more than 60 minutes."><i class="fa fa-exclamation-circle"></i></span>
+                                        @endif
+                                      @endif
+                                    </td>
                                     <td>
                                       @if($mission->agent_id!=0)
                                       <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>

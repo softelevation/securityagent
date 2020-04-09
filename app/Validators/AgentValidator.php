@@ -32,7 +32,9 @@ trait AgentValidator
                 'iban'    => 'required',
                 'home_address'          => 'required',
                 'work_location_address' => 'required',
-                'is_vehicle' => 'required'
+                'is_vehicle' => 'required',
+                'is_subcontractor' => 'required',
+                'supplier_company' => 'required_if:is_subcontractor,1',
             );
             $validator = Validator::make($request->all(),$validations);
             $this->response = $this->validateData($validator);

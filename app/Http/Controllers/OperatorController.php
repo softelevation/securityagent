@@ -17,6 +17,7 @@ use App\Helpers\Helper;
 use Hash;
 use DB;
 use App\Notifications\MissionCreated;
+use App\Notifications\PaymentDone;
 use Carbon\Carbon;
 use App\UserPaymentHistory;
 use App\PaymentApproval;
@@ -417,6 +418,14 @@ class OperatorController extends Controller
                     $result = UserPaymentHistory::insert($responseData);
                     if($result){
                         PaymentApproval::where('id',$record_id)->update(['status'=>1]);
+                        /*----Payment Notification-----*/
+                        $mailContent = [
+                            'name' => ucfirst($data->customer_details->first_name),
+                            'message' => trans('messages.payment_done_message',['amount'=>$data->amount]), 
+                            'url' => url('customer/billing-details') 
+                        ];
+                        $data->customer_details->user->notify(new PaymentDone($mailContent));
+                        /*--------------*/
                         $response['message'] = trans('messages.payment_completed');
                         $response['delayTime'] = 2000;
                         $response['url'] = url('operator/payment-approvals');

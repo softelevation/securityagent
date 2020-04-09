@@ -9,6 +9,9 @@ use App\Mission;
 use App\CustomerNotification;
 use App\PaymentApproval;
 use App\RefundRequest;
+use Carbon\Carbon;
+use DB;
+
 class Helper {
 
     const BASE_AGENT_RATE = 30;
@@ -483,6 +486,48 @@ class Helper {
        if($vehicle_required==3){
         return "Doesn't Matter";
        }
+    }
+
+    /**
+     * @return string
+     * @method check_mission_assigning_delay
+     * @purpose check is mission is not yet assigned to any agent from more than 30 minutes
+     */
+    public static function check_mission_assigning_delay($created_at){
+        $timeFrom = Carbon::parse($created_at);
+        $timeTo = Carbon::now();
+        $diffMinutes = $timeFrom->diffInMinutes($timeTo);
+        if($diffMinutes > 30){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * @return string
+     * @method check_mission_starting_delay
+     * @purpose check is mission is not started after accepting from more than 60 minutes
+     */
+    public static function check_mission_starting_delay($assigned_at){
+        $timeFrom = Carbon::parse($assigned_at);
+        $timeTo = Carbon::now();
+        $diffMinutes = $timeFrom->diffInMinutes($timeTo);
+        if($diffMinutes > 60){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * @return string
+     * @method get_total_worked_hours
+     * @purpose get total worked hours duration of agent
+     */
+    public static function get_total_worked_hours($agent_id){
+        $data = Mission::selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ended_at,started_at)))) as total_hours')->where('status',5)->where('agent_id',$agent_id)->first();
+        return $data->total_hours;
     }
     
 

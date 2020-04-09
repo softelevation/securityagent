@@ -28,6 +28,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('logout')}}"><i class="fa fa-sign-out-alt"></i> {{__('dashboard.logout')}}</a>
                 </li>
+                <li class="nav-item text-center total_hours">
+                    <a class="nav-link" href="javascript:void(0)"><i class="fa fa-clock"></i> <span>{{Helper::get_total_worked_hours(Auth::user()->agent_info->id)}}</span><br><small>Total Hours Worked</small></a>
+                </li>
             </ul>
         </div>
     </div>

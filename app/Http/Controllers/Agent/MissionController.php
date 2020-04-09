@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use App\Helpers\Helper;
 use App\CustomerNotification;
 use App\Notifications\MissionCreated;
+use App\Notifications\PaymentDone;
 use App\PaymentApproval;
 use App\Traits\MissionTrait;
 use App\MissionRequestsIgnored;
@@ -248,17 +249,27 @@ class MissionController extends Controller
                 ];
                 try{
                     $charge = $this->createCharge($chargeData);
-                    // Save data to payment history
-                    $paymentDetails = [
-                        'amount'      => $missionBalanceAmount,
-                        'status'      => $charge['status'],  
-                        'charge_id'   => $charge['id'],
-                        'mission_id'  => $mission_id,
-                        'customer_id' => $data->customer_details->id,
-                        'created_at'  => Carbon::now(),
-                        'updated_at'  => Carbon::now() 
-                    ];
-                    UserPaymentHistory::insert($paymentDetails);
+                    if($charge['status']=='succeeded'){
+                        // Save data to payment history
+                        $paymentDetails = [
+                            'amount'      => $missionBalanceAmount,
+                            'status'      => $charge['status'],  
+                            'charge_id'   => $charge['id'],
+                            'mission_id'  => $mission_id,
+                            'customer_id' => $data->customer_details->id,
+                            'created_at'  => Carbon::now(),
+                            'updated_at'  => Carbon::now() 
+                        ];
+                        UserPaymentHistory::insert($paymentDetails);
+                        /*----Payment Notification-----*/
+                        $mailContent = [
+                            'name' => ucfirst($data->customer_details->first_name),
+                            'message' => trans('messages.payment_done_message',['amount'=>$missionBalanceAmount]), 
+                            'url' => url('customer/billing-details') 
+                        ];
+                        $data->customer_details->user->notify(new PaymentDone($mailContent));
+                        /*--------------*/ 
+                    }
                 }catch(\Exception $e){
                     // Store Failed Payment 
                     $failedData = [
@@ -334,17 +345,27 @@ class MissionController extends Controller
                         ];
                         try{
                             $charge = $this->createCharge($chargeData);
-                            // Save data to payment history
-                            $paymentDetails = [
-                                'amount'      => $missionBalanceAmount,
-                                'status'      => $charge['status'],  
-                                'charge_id'   => $charge['id'],
-                                'mission_id'  => $data->id,
-                                'customer_id' => $data->customer_details->id,
-                                'created_at'  => Carbon::now(),
-                                'updated_at'  => Carbon::now() 
-                            ];
-                            UserPaymentHistory::insert($paymentDetails);
+                            if($charge['status']=='succeeded'){
+                                // Save data to payment history
+                                $paymentDetails = [
+                                    'amount'      => $missionBalanceAmount,
+                                    'status'      => $charge['status'],  
+                                    'charge_id'   => $charge['id'],
+                                    'mission_id'  => $data->id,
+                                    'customer_id' => $data->customer_details->id,
+                                    'created_at'  => Carbon::now(),
+                                    'updated_at'  => Carbon::now() 
+                                ];
+                                UserPaymentHistory::insert($paymentDetails);
+                                /*----Payment Notification-----*/
+                                $mailContent = [
+                                    'name' => ucfirst($data->customer_details->first_name),
+                                    'message' => trans('messages.payment_done_message',['amount'=>$missionBalanceAmount]), 
+                                    'url' => url('customer/billing-details') 
+                                ];
+                                $data->customer_details->user->notify(new PaymentDone($mailContent));
+                                /*--------------*/
+                            }
                         }catch(\Exception $e){
                             // Store Failed Payment 
                             $failedData = [

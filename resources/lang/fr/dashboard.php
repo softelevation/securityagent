@@ -66,6 +66,7 @@ return [
 	'pdf_copyright' => 'Copyright © 2020 - Tous droits réservés par Be On Time.',
 	'block' => 'Bloquer',
 	'unblock' => 'Débloquer',
+	'created_at' => 'Créé à',
 
 	// Mission Related
 	'mission' => [
@@ -121,6 +122,8 @@ return [
 		'status' => 'Statut de la mission',
 		'create_sub' => 'Créer des sous-missions',
 		'without_agent_heading' => 'TOUTES LES MISSIONS SANS VUE LISTE DES AGENTS',
+		'assign_delay_text' => "Cette mission attend d'être assignée à un agent à partir de plus de 30 minutes.",
+		'start_delay_text' => "Cette mission attend d'être lancée par l'agent à partir de plus de 60 minutes.",
 	],
 
 	// Agents 

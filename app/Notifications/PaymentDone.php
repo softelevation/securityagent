@@ -7,12 +7,12 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class MissionCreated extends Notification
+class PaymentDone extends Notification
 {
     use Queueable;
 
     protected $content;
-
+    
     /**
      * Create a new notification instance.
      *
@@ -31,7 +31,7 @@ class MissionCreated extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail']; 
+        return ['mail'];
     }
 
     /**
@@ -43,8 +43,8 @@ class MissionCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('New Mission')
-            ->markdown('mail.mission.created',$this->content);
+            ->subject('Payment Sucessfull')
+            ->markdown('mail.payment_done',$this->content);
     }
 
     /**

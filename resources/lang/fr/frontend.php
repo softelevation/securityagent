@@ -167,4 +167,7 @@ return [
 	"text_144" => "Devenez un utilisateur",
     "terms_conditions_text1" => "En cliquant sur <b> Devenir agent </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",
 	"terms_conditions_text2" => "En cliquant sur <b> Devenir utilisateur </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",
+	'sub_contract_title' => 'Êtes-vous un sous-traitant?',
+	'suplier_title' => 'Nom de la société du fournisseur',
+	'suplier_title_place' => 'Entrez le nom de votre entreprise fournisseur',
 ];

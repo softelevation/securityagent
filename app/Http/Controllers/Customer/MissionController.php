@@ -18,6 +18,7 @@ use App\Traits\MissionTrait;
 use Auth;
 use DB;
 use App\Notifications\MissionCreated;
+use App\Notifications\PaymentDone;
 
 class MissionController extends Controller
 {
@@ -325,7 +326,15 @@ class MissionController extends Controller
                     'url' => url('customer/mission-details/view').'/'.$request->mission_id 
                 ];
                 $mission->customer_details->user->notify(new MissionCreated($mailContent));
-                /*--------------*/ 
+                /*--------------*/
+                /*----Payment Notification-----*/
+                $mailContent = [
+                    'name' => ucfirst($mission->customer_details->first_name),
+                    'message' => trans('messages.payment_done_message',['amount'=>$chargeAmount]), 
+                    'url' => url('customer/billing-details') 
+                ];
+                $mission->customer_details->user->notify(new PaymentDone($mailContent));
+                /*--------------*/  
                 /*----Agent Notification-----*/
                 if(isset($mission->agent_details)){
                     $mailContent = [
@@ -424,6 +433,14 @@ class MissionController extends Controller
                     'url' => url('customer/mission-details/view').'/'.$request->mission_id 
                 ];
                 $mission->customer_details->user->notify(new MissionCreated($mailContent));
+                /*--------------*/
+                /*----Payment Notification-----*/
+                $mailContent = [
+                    'name' => ucfirst($mission->customer_details->first_name),
+                    'message' => trans('messages.payment_done_message',['amount'=>$chargeAmount]), 
+                    'url' => url('customer/billing-details') 
+                ];
+                $mission->customer_details->user->notify(new PaymentDone($mailContent));
                 /*--------------*/ 
                 /*----Agent Notification-----*/
                 if(isset($mission->agent_details)){
