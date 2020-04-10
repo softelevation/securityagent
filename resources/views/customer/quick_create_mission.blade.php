@@ -25,7 +25,7 @@
                     @endif
                       <div class="row">
                         <div class="col-md-6 form-group">
-                          <label>{{__('dashboard.mission.title')}}</label>
+                          <label>{{__('dashboard.mission.title')}}</label> 
                           {{Form::text('title',null,['class'=>'form-control','placeholder'=>__('dashboard.mission.title_place')])}}
                         </div>
                         <div class="col-md-6 form-group">

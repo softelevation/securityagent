@@ -124,12 +124,17 @@ return [
 		'without_agent_heading' => 'TOUTES LES MISSIONS SANS VUE LISTE DES AGENTS',
 		'assign_delay_text' => "Cette mission attend d'être assignée à un agent à partir de plus de 30 minutes.",
 		'start_delay_text' => "Cette mission attend d'être lancée par l'agent à partir de plus de 60 minutes.",
+		'mission_completed' => 'Missions terminées',
+		'hours_completed' => 'Heures terminées',
+		'have_vehicle' => 'Avoir un <span>véhicule</span>',
+		'no_vehicle' => 'Sans véhicule',
+		'book_now' => 'Reserve maintenant',
 	],
 
 	// Agents 
 	'agents' => [
 		// Mission Requests Tab
-		'expecting_requests' => 'En attente de demandes',
+		'awaiting_requests' => 'En attente de demandes',
 		'expired_requests' => 'Demandes expirées',
 		'request_timeout' => 'Request Timeout',
 		
@@ -149,6 +154,9 @@ return [
 		'username' => 'Username',
 		'available' => 'Agents disponibles',
 		'assign' => 'Attribuer un agent',
+		'docs' => "DOCUMENTS DE L'AGENT",
+		'reviews' => 'COMMENTAIRES RÉCENTS',
+		'total_hours_worked' => 'Total des heures travaillées',
 	],
 
 	'billings' => [

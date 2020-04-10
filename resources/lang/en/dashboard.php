@@ -124,6 +124,11 @@ return [
 		'without_agent_heading' => 'ALL MISSIONS WITHOUT AGENTS LIST VIEW',
 		'assign_delay_text' => 'This mission is awaiting to be assigned to an agent from more than 30 minutes.',
 		'start_delay_text' => 'This mission is awaiting to be started by agent from more than 60 minutes.',
+		'mission_completed' => 'Missions Completed',
+		'hours_completed' => 'Hours Completed',
+		'have_vehicle' => 'Having <span>Vehicle</span>',
+		'no_vehicle' => 'Without Vehicle',
+		'book_now' => 'Book Now',
 	],	
 
 	// Agents 
@@ -149,6 +154,9 @@ return [
 		'username' => 'Username',
 		'available' => 'Agents Available',
 		'assign' => 'Assign Agent',
+		'docs' => 'AGENT DOCUMENTS',
+		'reviews' => 'RECENT REVIEWS',
+		'total_hours_worked' => 'Total Hours Worked',
 
 	],
 

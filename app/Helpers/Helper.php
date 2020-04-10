@@ -529,6 +529,15 @@ class Helper {
         $data = Mission::selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(ended_at,started_at)))) as total_hours')->where('status',5)->where('agent_id',$agent_id)->first();
         return $data->total_hours;
     }
+
+    /**
+     * @return string
+     * @method get_total_worked_hours
+     * @purpose get total worked hours duration of agent
+     */
+    public static function get_total_missin_completed($agent_id){
+        return Mission::where('status',5)->where('agent_id',$agent_id)->count();
+    }
     
 
 

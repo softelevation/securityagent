@@ -292,6 +292,10 @@ class MissionController extends Controller
             $baseRatePerHour = Helper::get_agent_rate($data->agent_type,$data->quick_book);
             $baseRatePerMin = $baseRatePerHour/60;
             $extraAmount = $extraMinutes*$baseRatePerMin;
+            // Calculate VAT
+            $vat = Helper::VAT_PERCENTAGE;
+            $vatAmount = ($extraAmount*$vat)/100;
+            $extraAmount = $extraAmount+$vatAmount;
             // Make Charge Payment
             $customer_stripe_id = $data->customer_details->customer_stripe_id;
             $paymentApprovalData = array(

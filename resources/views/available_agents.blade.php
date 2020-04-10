@@ -158,7 +158,7 @@
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">        
-            <h4 class="modal-title">Book an agent for a mission</h4>
+            <h4 class="modal-title">{{__('dashboard.mission.create_new')}}</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
@@ -172,24 +172,24 @@
                     @endif
                       <div class="row">
                         <div class="col-md-6 form-group">
-                          <label>Mission Title</label>
-                          {{Form::text('title',null,['class'=>'form-control','placeholder'=>'Enter mission title'])}}
+                          <label>{{__('dashboard.mission.title')}}</label>
+                          {{Form::text('title',null,['class'=>'form-control','placeholder'=>__('dashboard.mission.title_place')])}}
                         </div>
                         <div class="col-md-6 form-group">
-                          <label>Mission Location</label>
-                          {{Form::text('location',null,['id'=>'autocomplete2', 'placeholder'=>'Enter your location', 'class'=>'form-control',  'onFocus'=>'geolocate("autocomplete2")'])}}
+                          <label>{{__('dashboard.mission.location')}}</label>
+                          {{Form::text('location',null,['id'=>'autocomplete2', 'placeholder'=>__('dashboard.mission.location_place'), 'class'=>'form-control',  'onFocus'=>'geolocate("autocomplete2")'])}}
                           <!--Work Location Lat Longs  -->
                           {{Form::hidden('latitude',null,['id'=>'latitude2'])}}
                           {{Form::hidden('longitude',null,['id'=>'longitude2'])}}
                         </div>
                         <div class="col-md-6 form-group">
-                          <label>Agent Type</label>
+                          <label>{{__('dashboard.agents.type')}}</label>
                           @php $agentTypes = Helper::get_agent_type_list(); @endphp
                           {{Form::select('agent_type',$agentTypes,null,['class'=>'form-control'])}}
                         </div>
                         <div class="col-md-6 form-group">
-                          <label>Hours Required</label>
-                          @php $hours[] = "Don't know how many hours needed"; @endphp
+                          <label>{{__('dashboard.mission.hours_req')}}</label>
+                          @php $hours[] = __('dashboard.mission.dont_know_hours') @endphp
                           @for($i=1; $i<=72; $i++)
                             @php 
                               if($i==1){
@@ -200,46 +200,46 @@
                             @endphp
                           @endfor
                           {{Form::select('total_hours',$hours,null,['class'=>'form-control mission_hours'])}}
-                          <span class="mission_hours_note @if(isset($tempMission['total_hours'])) d-none @endif">Note: You will be charged for 8 Hours, if you don't know how many hours needed.</span>
+                          <span class="mission_hours_note @if(isset($tempMission['total_hours'])) d-none @endif">{{__('dashboard.mission.note_hours')}}</span>
                         </div>
                         <div class="col-md-6 form-group">
-                          <label>From When You Want To Start The Mission?</label>
-                          <label class="rd_container form-inline">Now
+                          <label>{{__('dashboard.mission.from_when_start')}}</label>
+                          <label class="rd_container form-inline">{{__('dashboard.now')}}
                             {{Form::radio('quick_book',1,true,['class'=>'mission_start_radio'])}}
                             <span class="checkmark"></span>
                           </label>
-                          <label class="rd_container">Later
+                          <label class="rd_container">{{__('dashboard.mission.later')}}
                             {{Form::radio('quick_book',0,false,['class'=>'mission_start_radio'])}}
                             <span class="checkmark"></span>
                           </label>
                         </div>
                         <div id="misionStartEndDiv" class="col-md-6 form-group d-none">
-                            <label>Mission Start Date Time</label>
+                            <label>{{__('dashboard.mission.start_time')}}</label>
                             <input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time" type="text">
                         </div>
                         <div class="col-md-6 form-group">
-                          <label>Do you prefer an agent having a vehicle?</label><br>
-                          <label class="rd_container form-inline">Yes
+                          <label>{{__('dashboard.mission.agent_vehicle')}}</label><br>
+                          <label class="rd_container form-inline">{{__('dashboard.yes')}}
                             {{Form::radio('vehicle_required',1,false)}}
                             <span class="checkmark"></span>
                           </label>
-                          <label class="rd_container">No
+                          <label class="rd_container">{{__('dashboard.no')}}
                             {{Form::radio('vehicle_required',2,true)}}
                             <span class="checkmark"></span>
                           </label>
-                          <label class="rd_container">Doesn't Matter
+                          <label class="rd_container">{{__('dashboard.mission.not_matter')}}
                             {{Form::radio('vehicle_required',3,true)}}
                             <span class="checkmark"></span>
                           </label>
                         </div>
                         <div class="col-md-12 form-group">
-                          <label>Mission Description</label>
-                          {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>'Enter mission description'])}}
+                          <label>{{__('dashboard.mission.description')}}</label>
+                          {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>__('dashboard.mission.description_place')])}}
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-center">
-                            <button type="submit" class="button success_btn">Find An Agent Now</button>
+                            <button type="submit" class="button success_btn">{{__('dashboard.mission.book_agent_now')}}</button>
                         </div>
                       </div>
                     {{Form::close()}}
