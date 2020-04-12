@@ -129,6 +129,8 @@ return [
 		'have_vehicle' => 'Having <span>Vehicle</span>',
 		'no_vehicle' => 'Without Vehicle',
 		'book_now' => 'Book Now',
+		'new_mission' => 'New Mission',
+		'payment_success' => 'Payment successfull',
 	],	
 
 	// Agents 

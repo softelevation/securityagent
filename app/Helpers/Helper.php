@@ -11,6 +11,7 @@ use App\PaymentApproval;
 use App\RefundRequest;
 use Carbon\Carbon;
 use DB;
+use App;
 
 class Helper {
 
@@ -123,16 +124,30 @@ class Helper {
     * @return       :   Get agent type list
     */
     public static function get_agent_type_list(){
-        $agentList = [
-            'Select',
-            'Agent SSIAP 1',
-            'Agent SSIAP 2',
-            'Agent SSIAP 3',
-            'ADS',
-            'Body Guard Without Weapon',
-            'Dog Handler',
-            'Hostesses'
-        ];
+        if(App::getLocale()=='fr'){
+            $agentList = [
+                'Select',
+                'Agent SSIAP 1',
+                'Agent SSIAP 2',
+                'Agent SSIAP 3',
+                'ADS',
+                'Garde du corps sans arme',
+                'Maitre-chien',
+                'Hôtesses d’accueil'
+            ];
+        }else{
+            $agentList = [
+                'Select',
+                'Agent SSIAP 1',
+                'Agent SSIAP 2',
+                'Agent SSIAP 3',
+                'ADS',
+                'Body Guard Without Weapon',
+                'Dog Handler',
+                'Hostesses'
+            ];
+
+        }
         return $agentList;
     }
 
@@ -142,30 +157,58 @@ class Helper {
     * @return       :   Get agent type name
     */
     public static function get_agent_type_name($param){
-        $agentList = [
-            '',
-            'Agent SSIAP 1',
-            'Agent SSIAP 2',
-            'Agent SSIAP 3',
-            'ADS',
-            'Body Guard Without Weapon',
-            'Dog Handler',
-            'Hostesses'
-        ];
+        if(App::getLocale()=='fr'){
+            $agentList = [
+                '',
+                'Agent SSIAP 1',
+                'Agent SSIAP 2',
+                'Agent SSIAP 3',
+                'ADS',
+                'Garde du corps sans arme',
+                'Maitre-chien',
+                'Hôtesses d’accueil'
+            ];
+        }else{
+            $agentList = [
+                '',
+                'Agent SSIAP 1',
+                'Agent SSIAP 2',
+                'Agent SSIAP 3',
+                'ADS',
+                'Body Guard Without Weapon',
+                'Dog Handler',
+                'Hostesses'
+            ];
+
+        }
         return $agentList[$param];
     }
 
     public static function get_agent_type_name_multiple($param){
-        $agentList = [
-            '',
-            'Agent SSIAP 1',
-            'Agent SSIAP 2',
-            'Agent SSIAP 3',
-            'ADS',
-            'Body Guard Without Weapon',
-            'Dog Handler',
-            'Hostesses'
-        ];
+        if(App::getLocale()=='fr'){
+            $agentList = [
+                '',
+                'Agent SSIAP 1',
+                'Agent SSIAP 2',
+                'Agent SSIAP 3',
+                'ADS',
+                'Garde du corps sans arme',
+                'Maitre-chien',
+                'Hôtesses d’accueil'
+            ];
+        }else{
+            $agentList = [
+                '',
+                'Agent SSIAP 1',
+                'Agent SSIAP 2',
+                'Agent SSIAP 3',
+                'ADS',
+                'Body Guard Without Weapon',
+                'Dog Handler',
+                'Hostesses'
+            ];
+
+        }
         $strArr = [];
         foreach($param as $p){
             $strArr[] = $agentList[$p->agent_type]; 

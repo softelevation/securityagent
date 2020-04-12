@@ -33,7 +33,7 @@ return [
 	"text_29" => "Agents disponibles sur la carte",
 	"text_30" => "Laissez nous votre email afin de recevoir notre newsletter et être informés des nouveautés",
 	"text_31" => "Votre email",
-	"text_32" => "Comment Ca Marche ?",
+	"text_32" => "Comment ça marche ?",
 
 	// Available Agents Map Page
 	"text_33" => "Entrez votre position",
@@ -44,8 +44,8 @@ return [
 	"text_38" => "Agent sans véhicule",
 	"text_39" => "Agents entrants",
 	"text_40" => "COMMENT RÉSERVER UN AGENT",
-	"text_41" => "Cliquez sur le bouton <b> Réserver un agent </b> et remplissez les détails de votre mission. Après avoir soumis, choisissez un agent et cliquez sur le bouton <b> Réserver maintenant </b>.",
-	"text_42" => "Cliquez sur le bouton Réserver un agent maintenant et remplissez les détails de votre mission. Après avoir soumis, choisissez un agent et cliquez sur le bouton Réserver maintenant.",
+	"text_41" => "Cliquez sur le bouton Réserver un agent maintenant et remplissez les détails de votre mission. Après avoir soumis votre demande, choisissez un agent et cliquez sur le bouton Réserver maintenant.",
+	"text_42" => "Cliquez sur le bouton Réserver un agent maintenant et remplissez les détails de votre mission. Après avoir soumis votre demande, choisissez un agent et cliquez sur le bouton Réserver maintenant.",
 	"text_43" => "Réserver un agent maintenant",
 	"text_44" => "Icône d'agent de sécurité",
 	"text_45" => "Icône d'agent d'hôtesse",

@@ -43,7 +43,7 @@ class MissionCreated extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('New Mission')
+            ->subject(trans('dashboard.new_mission'))
             ->markdown('mail.mission.created',$this->content);
     }
 
