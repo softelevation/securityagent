@@ -1,3 +1,3 @@
-@include('includes.header')
+@include('includes.head')
 @yield('content')
 @include('includes.footer')

@@ -24,7 +24,7 @@ body{
 a:hover{text-decoration: none;}
 .text-link{color: #ffc107; font-style: italic; text-decoration: underline;}
 .text-link:hover{color: #fdda42;}
-/*.main_menu {
+.main_menu {
     float: right; text-transform: uppercase;
     width: 100%;
 }
@@ -58,12 +58,11 @@ a:hover{text-decoration: none;}
 }
 
 .primary ul li a {
-    
     color: #9a9a9a;
     background: #f2f3f8;
     font-weight: 600;
     border: 1px solid #ccc;
-    padding: 6px 30px;
+    padding: 6px 8px;
 }
 .primary ul li a.active, .primary ul li a:hover{ background: #d6fb04 ; color:#000;}
 .primary ul li:first-child a {
@@ -73,7 +72,8 @@ a:hover{text-decoration: none;}
     border-left: 0;
 }
 .menu_right a {
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: 600;
     color: #000;
     background: #d6fb04;
     width: auto;
@@ -82,16 +82,14 @@ a:hover{text-decoration: none;}
     border: 1px solid #ccc;
     text-align: center;
     height: 47px;
-    padding: 0 12px;
+    padding: 0 10px;
     line-height: 47px;
     margin-top: 14px;
 }
 .menu_right a:hover{background: #ffdb3f;}
 .main_menu ul {
     margin:0;
-}*/
-
-
+}
 
 
 .banner {

@@ -8,12 +8,11 @@
  * @subpackage Twenty_Twenty
  * @since Twenty Twenty 1.0
  */
-
 ?><!DOCTYPE html>
 
 <html class="no-js" <?php language_attributes(); ?>>
 	<head>
-		<meta charset="<?php bloginfo( 'charset' ); ?>">
+		<meta charset="<?php bloginfo( 'charset' ); ?>"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" >
 
 		<link rel="profile" href="https://gmpg.org/xfn/11">
@@ -40,12 +39,10 @@
 	</head>
 
 	<body <?php body_class(); ?>>
-
-
-		  <div id="preloader">
-        <div id="loader"></div>
-    </div>
-    <div id="Header">
+    	<div id="preloader">
+            <div id="loader"></div>
+        </div>
+        <div id="Header">
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg">
             <div class="container">
@@ -58,7 +55,7 @@
                         <div class="menu_left">
                             <div class="top_menu">
                                 <ul>
-                                    <li><a href="<?php echo APP_URL; ?>/login">Login</a></li>
+                                    <li><a href="<?php echo APP_URL; ?>/login">Connexion</a></li>
                                     <em>|</em>
                                     <!-- <li><a href="">Registration</a></li> -->
                                     <li>
@@ -77,17 +74,17 @@
                             </div>
                             <div class="primary">
                                 <ul>
-                                    <li><a href="<?php echo APP_URL; ?>">Home</a></li>
-                                    <li><a href="<?php echo APP_URL; ?>/available-agents">Available Agent on Map</a></li>
+                                    <li><a href="<?php echo APP_URL; ?>">Accueil</a></li>
+                                    <li><a href="<?php echo APP_URL; ?>/available-agents">Agent disponible sur la carte</a></li>
                                     <li><a href="<?php echo APP_URL; ?>/agent_information">Agent</a></li>
                                     <li><a class="active" href="<?php echo APP_URL; ?>/blog">Blogs</a></li>
-                                    <li><a href="<?php echo APP_URL; ?>/contact-us">Contact us</a></li>
+                                    <li><a href="<?php echo APP_URL; ?>/contact-us">Contactez-nous</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="menu_right">
-                            <a href="<?php echo APP_URL; ?>/register-agent-view">Become an Agent</a>
-                            <a href="<?php echo APP_URL; ?>/customer-signup">Become an User</a>
+                            <a href="<?php echo APP_URL; ?>/register-agent-view">Devenez un agent</a>
+                            <a href="<?php echo APP_URL; ?>/customer-signup">Devenez un utilisateur</a>
                         </div>
                     </div>
                 </div>
