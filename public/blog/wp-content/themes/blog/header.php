@@ -20,7 +20,7 @@
 		<!-- Bootstrap core CSS -->
 	    <link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/custom/css/bootstrap.min.css" rel="stylesheet">
 	    <!-- Custom styles for this template -->
-        <link href="style.css" rel="stylesheet">
+        <link href="<?php echo get_stylesheet_directory_uri(); ?>/style.css" rel="stylesheet">
         <link href="<?php echo APP_URL; ?>/assets/css/style.css" rel="stylesheet">
 	    <link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/custom/css/toaster.css" rel="stylesheet">
 	    <link href="<?php echo get_stylesheet_directory_uri(); ?>/assets/custom/css/all.css" rel="stylesheet">
