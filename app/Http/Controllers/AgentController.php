@@ -167,10 +167,10 @@ class AgentController extends Controller
      * @method viewAgentDetails
      * @purpose View agent details
      */
-    public function viewAgentDetails($agent_id){
+    public function viewAgentDetails($agent_id,$distance){
         $agent_id = Helper::decrypt($agent_id);
         $agent = Agent::where('id',$agent_id)->first();
-        return view('view-agent-details',['agent'=>$agent]);
+        return view('view-agent-details',['agent'=>$agent,'distance'=>$distance]);
     }
 
     /**

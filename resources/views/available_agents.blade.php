@@ -86,7 +86,7 @@
                                             <div class="star">
                                                 <img src="{{asset('assets/images/star.jpg')}}"/>
                                                 <h5>{{$agent->work_location_address}}</h5>
-                                                @if(Session::has('mission'))<a target="_blank" href="{{url('/agent-details/'.Helper::encrypt($agent->id))}}" class="text-link">{{__('frontend.text_53')}}</a>@endif<br>
+                                                @if(Session::has('mission'))<a target="_blank" href="{{url('/agent-details/'.Helper::encrypt($agent->id)).'/'.$agent->distance}}" class="text-link">{{__('frontend.text_53')}}</a>@endif<br>
                                                 <span>{{$agent->distance}} Km away</span>
                                             </div>
                                         </div>
@@ -251,7 +251,7 @@
     </div>
     {{Form::open(['id'=>'general_form','url'=>url('book-agent')])}}
     {{Form::hidden('agent_id',null,['id'=>'bookingAgentId'])}}
-    {{Form::hidden('distance',null,['id'=>'bookingAgentDistance'])}}
+    {{Form::hidden('distance',null,['id'=>'bookingAgentDistance'])}} 
     {{Form::close()}}
     <script>
         var slider = document.getElementById("mapZommRange");
@@ -283,7 +283,7 @@
         // Book an agent
         $(document).on('click','.bookAgentBtn',function(){
             let id = $(this).attr('id');
-            let distance = $(this).attr('data-distance')
+            let distance = $(this).attr('data-distance');
             $('#bookingAgentId').val(id);
             $('#bookingAgentDistance').val(distance);
             $('#general_form').submit();

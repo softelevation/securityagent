@@ -170,4 +170,6 @@ return [
 	'sub_contract_title' => 'Êtes-vous un sous-traitant?',
 	'suplier_title' => 'Nom de la société du fournisseur',
 	'suplier_title_place' => 'Entrez le nom de votre entreprise fournisseur',
+	'agent_register_subject' => "Inscription d'agent",
+	'agent_register_message' => "L'agent a été enregistré avec succès. Vous recevrez un e-mail pour vos informations de connexion, une fois que vos informations auront été vérifiées par l'opérateur.",
 ];

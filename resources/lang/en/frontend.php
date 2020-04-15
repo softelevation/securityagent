@@ -169,4 +169,6 @@ return [
 	'sub_contract_title' => 'Are you a Subcontractor?',
 	'suplier_title' => 'Supplier Company Name',
 	'suplier_title_place' => 'Enter your supplier company name',
+	'agent_register_subject' => 'Agent Registration',
+	'agent_register_message' => 'Agent has been registered successfully. You will receive an email for your login credentials, once your details get verified by operator.',
 ];

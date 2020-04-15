@@ -12,6 +12,7 @@ use App\AgentType;
 use App\Traits\HelperTrait;
 use App\Traits\ResponseTrait;
 use App\AgentDiplomaCertificate;
+use App\Notifications\AgentCreated;
 use DB;
 use Session;
 
@@ -119,7 +120,17 @@ trait AgentTrait
                 }
             }
             DB::commit();
-            $response['message'] = 'Agent has been registered successfully. You will receive an email for your login credentials.';
+            /*----Agent Register Notification-----*/
+            if(isset($userID)){
+                $user = User::where('id',$userID)->first();
+                $mailContent = [
+                    'name' => ucfirst($user->agent_info->first_name),
+                    'message' => trans('frontend.agent_register_message'), 
+                ];
+                $user->notify(new AgentCreated($mailContent));
+            }
+            /*--------------*/
+            $response['message'] = trans('frontend.agent_register_message');
             $response['delayTime'] = 5000;
             $response['url'] = url('/');
             return $this->getSuccessResponse($response);

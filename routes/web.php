@@ -39,7 +39,7 @@ Route::get('/login', 'Auth\LoginController@loginView');
 Route::post('/login', 'Auth\LoginController@allInOneLogin')->name('login');
 Route::post('/save-mission-temporary', 'Customer\MissionController@saveMissionTemp');
 Route::post('/book-agent', 'Customer\MissionController@bookAgent');
-Route::get('/agent-details/{agent_id}', 'AgentController@viewAgentDetails');
+Route::get('/agent-details/{agent_id}/{distance}', 'AgentController@viewAgentDetails');
 Route::post('/process-notification', 'CustomerController@processNotifications');
 Route::post('/update-profile', 'UserController@updateProfileDetails');
 Route::post('/update-password', 'UserController@updatePassword');

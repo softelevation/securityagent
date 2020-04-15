@@ -118,6 +118,7 @@
 </div>
 {{Form::open(['id'=>'general_form','url'=>url('book-agent')])}}
 {{Form::hidden('agent_id',null,['id'=>'bookingAgentId'])}}
+{{Form::hidden('distance',$distance,['id'=>'bookingAgentDistance'])}}
 {{Form::close()}}
 <script>
   $(document).on('click','.bookAgentBtn',function(){

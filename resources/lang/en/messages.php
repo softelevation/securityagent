@@ -23,7 +23,7 @@ return [
 	'please_wait' => 'Please wait...',
 	'agent_verified' => 'Agent verification completed successfully.',
 	'agent_verification_rejected' => "Your agent verification is completed successfully and your details are rejected.<br><br>Thanks",
-	'agent_verification_message' => "<b>Congratulations</b><br>Your agent verification is completed successfully and your details are approved.<br><br>Your login credentials are:<br><br>Email: :email<br> Password: :password",
+	'agent_verification_message' => "Your agent verification is completed successfully and your details are approved.<br>Your login credentials are:<br><br>Email: :email <br> Password: :password ",
 	'mission_req_sent' => 'Mission request sent to agent.',
 	'profile_updated' => 'Profile details updated successfully.',
 	'password_changed' => 'Your password changed successfully. You need to login again.',

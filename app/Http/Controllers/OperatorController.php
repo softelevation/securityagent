@@ -18,6 +18,7 @@ use Hash;
 use DB;
 use App\Notifications\MissionCreated;
 use App\Notifications\PaymentDone;
+use App\Notifications\AgentCreated;
 use Carbon\Carbon;
 use App\UserPaymentHistory;
 use App\PaymentApproval;
@@ -106,12 +107,13 @@ class OperatorController extends Controller
             }else{
                 $message = trans('messages.agent_verification_rejected');
             }
-            $templateName = 'emails.general';
-            $data['message'] = $message;
-            $toEmail = $user->email;
-            $toName = $user->email;
-            $subject = "Agent Verification";
-            Helper::sendCommonMail($templateName,$data,$toEmail,$toName,$subject);
+            /*----Agent Register Confirmation-----*/
+            $mailContent = [
+                'name' => ucfirst($user->agent_info->first_name),
+                'message' => $message, 
+            ];
+            $user->notify(new AgentCreated($mailContent));    
+            /*--------------*/
             $response['message'] = trans('messages.agent_verified');
             $response['delayTime'] = 2000;
             $response['url'] = url('operator/agents');

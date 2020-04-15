@@ -23,7 +23,7 @@ return [
 	'please_wait' => 'Veuillez patienter ...',
 	'agent_verified' => "La vérification de l'agent s'est terminée avec succès.",
 	'agent_verification_rejected' => "La vérification de votre agent est terminée avec succès et vos informations sont rejetées. <br> <br> Merci",
-	'agent_verification_message' => "<b> Félicitations </b> <br> La vérification de votre agent est terminée avec succès et vos informations sont approuvées. <br> <br> Vos identifiants de connexion sont: <br> <br> Email:: email <br> Mot de passe:: mot de passe ",
+	'agent_verification_message' => "La vérification de votre agent est terminée avec succès et vos informations sont approuvées. <br> Vos identifiants de connexion sont: <br> <br> Email: :email <br> Mot de passe: :password ",
 	'mission_req_sent' => "Demande de mission envoyée à l'agent.",
 	'profile_updated' => 'Les détails du profil ont été mis à jour avec succès.',
 	'password_changed' => 'Votre mot de passe a bien été modifié. Vous devez vous reconnecter. ',
