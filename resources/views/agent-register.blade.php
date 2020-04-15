@@ -90,17 +90,20 @@
 	                   <div class="row">
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
+					                @php $agentTypes = Helper::get_agent_type_list(); @endphp
 					                <label>{{__('frontend.text_111')}}</label>
 					                <input type="hidden" name="agent_type" id="agent_type_hidden">
 					                <select class="form-control multi_select" multiple="multiple" id="select_agent_type" placeholder="Choose Agent Type">
-					                    <option>Select</option>
-					                    <option value="1">Agent SSIAP 1</option>
+					                    @foreach($agentTypes as $key => $agent_types)
+					                    	<option value="{{$key}}">{{$agent_types}}</option>
+					                    @endforeach
+					                    <!-- <option value="1">Agent SSIAP 1</option>
 					                    <option value="2">Agent SSIAP 2</option>
 					                    <option value="3">Agent SSIAP 3</option>
 					                    <option value="4">ADS</option>
 					                    <option value="5">Body Guard Without Weapon</option>
 					                    <option value="6">Dog Handler</option>
-					                    <option value="7">Hostesses</option>
+					                    <option value="7">Hostesses</option> -->
 					                </select>
 			                    </div>
 		                    </div>

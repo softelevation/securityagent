@@ -43,7 +43,7 @@ class PaymentDone extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject(trans('dashboard.payment_success'))
+            ->subject(trans('dashboard.mission.payment_success'))
             ->markdown('mail.payment_done',$this->content);
     }
 

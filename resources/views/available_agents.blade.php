@@ -87,7 +87,7 @@
                                                 <img src="{{asset('assets/images/star.jpg')}}"/>
                                                 <h5>{{$agent->work_location_address}}</h5>
                                                 @if(Session::has('mission'))<a target="_blank" href="{{url('/agent-details/'.Helper::encrypt($agent->id)).'/'.$agent->distance}}" class="text-link">{{__('frontend.text_53')}}</a>@endif<br>
-                                                <span>{{$agent->distance}} Km away</span>
+                                                <span>Distance {{$agent->distance}} Km</span>
                                             </div>
                                         </div>
                                     </div>
@@ -193,9 +193,9 @@
                           @for($i=1; $i<=72; $i++)
                             @php 
                               if($i==1){
-                                $hours[$i] = $i.' Hour';  
+                                $hours[$i] = $i.' '.__('dashboard.hours');  
                               }else{
-                                $hours[$i] = $i.' Hours';
+                                $hours[$i] = $i.' '.__('dashboard.hours');
                               }
                             @endphp
                           @endfor

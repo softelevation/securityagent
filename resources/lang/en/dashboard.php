@@ -71,12 +71,12 @@ return [
 	// Mission Related
 	'mission' => [
 		'mission' => 'Mission',
-		'title' => 'Misson Title',
-		'ref' => 'Misson Ref.',
-		'location' => 'Misson Location',
-		'duration' => 'Misson Duration',
-		'start_time' => 'Misson Start Time',
-		'location' => 'Misson Location',
+		'title' => 'Mission Title',
+		'ref' => 'Mission Ref.',
+		'location' => 'Mission Location',
+		'duration' => 'Mission Duration',
+		'start_time' => 'Mission Start Time',
+		'location' => 'Mission Location',
 		'in_progress' => 'Mission In Progress',
 		'pending' => 'Mission Pending',
 		'finished' => 'Mission Finished',

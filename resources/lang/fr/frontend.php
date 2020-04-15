@@ -42,7 +42,7 @@ return [
 	"text_36" => "Type d'agent",
 	"text_37" => "Agent avec véhicule",
 	"text_38" => "Agent sans véhicule",
-	"text_39" => "Agents entrants",
+	"text_39" => "Agents situés à",
 	"text_40" => "COMMENT RÉSERVER UN AGENT",
 	"text_41" => "Cliquez sur le bouton Réserver un agent maintenant et remplissez les détails de votre mission. Après avoir soumis votre demande, choisissez un agent et cliquez sur le bouton Réserver maintenant.",
 	"text_42" => "Cliquez sur le bouton Réserver un agent maintenant et remplissez les détails de votre mission. Après avoir soumis votre demande, choisissez un agent et cliquez sur le bouton Réserver maintenant.",
