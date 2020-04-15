@@ -92,10 +92,11 @@ trait MissionTrait
                 if($agent){
                     $res = Mission::where('id',$mission_id)->update(['agent_id'=>$agent->id,'assigned_at'=>Carbon::now()]);
                     if($res){
+                        $mission = Mission::where('id',$mission_id)->first();
                         /*----Agent Notification-----*/
                         $mailContent = [
                             'name' => ucfirst($mission->agent_details->first_name),
-                            'message' => 'You have a new mission request. Click on the button below to view details and accept/reject mission, before it expires.', 
+                            'message' => trans('messages.agent_new_mission_notification'), 
                             'url' => url('agent/mission-details/view').'/'.Helper::encrypt($mission_id)
                         ];
                         $mail = $mission->agent_details->user->notify(new MissionCreated($mailContent));
