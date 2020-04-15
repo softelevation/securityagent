@@ -107,7 +107,7 @@
                             <!-- <h5 class="card-title">Book An Agent Now</h5> -->
                             <p class="card-text">{{__('frontend.text_42')}}</p>
                             <div class="location_btn d-inline-block">
-                                <button @if(Auth::check() && Auth::user()->role_id==1) data-toggle="modal" data-target="#create_mission_model" @else data-msg-type="error" data-msg="Please login or signup before booking an agent." @endif class="@if(!(Auth::check() && Auth::user()->role_id==1)) alert-msg @endif orange_btn d-block">{{__('frontend.text_43')}}</button>
+                                <button @if(Auth::check() && Auth::user()->role_id==1) data-toggle="modal" data-target="#create_mission_model" @else data-msg-type="error" data-msg="{{__('dashboard.login_before')}}" @endif class="@if(!(Auth::check() && Auth::user()->role_id==1)) alert-msg @endif orange_btn d-block">{{__('frontend.text_43')}}</button>
                             </div>
                           </div>
                         </div>

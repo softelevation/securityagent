@@ -67,6 +67,7 @@ return [
 	'block' => 'Bloquer',
 	'unblock' => 'Débloquer',
 	'created_at' => 'Créé à',
+	'login_before' => 'Veuillez vous connecter ou vous inscrire avant de réserver un agent.',
 
 	// Mission Related
 	'mission' => [

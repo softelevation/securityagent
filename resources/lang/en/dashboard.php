@@ -67,6 +67,7 @@ return [
 	'block' => 'Block',
 	'unblock' => 'Unblock',
 	'created_at' => 'Created At',
+	'login_before' => 'Please login or signup before booking an agent.',
 
 	// Mission Related
 	'mission' => [

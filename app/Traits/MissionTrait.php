@@ -117,7 +117,9 @@ trait MissionTrait
         $agent_type_needed = $mission->agent_type;
         $a = Agent::whereHas('types',function($q) use($agent_type_needed){
                 $q->where('agent_type',$agent_type_needed);
-            })->doesntHave('agent_ignored');
+            })->whereDoesnthave('agent_ignored',function($w) use ($mission_id){
+                $w->where('mission_id',$mission_id);
+            });
         // Check if vehicle required or not
         if($mission->vehicle_required==1){
             $a->where('is_vehicle',1);
@@ -130,7 +132,7 @@ trait MissionTrait
                     * COS(RADIANS(work_location_latitude))
                     * COS(RADIANS(".$mission->longitude." - work_location_longitude))
                     + SIN(RADIANS(".$mission->latitude."))
-                    * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->orderBy('distance_in_km','ASC')->first();
+                    * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->orderBy('distance_in_km','ASC')->first();  
         return $agent;
     }
 
