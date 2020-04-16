@@ -87,4 +87,9 @@ class CommonController extends Controller
             return response(trans('messages.error'));
         }
     }
+
+
+    public function refreshCaptcha(){
+        return captcha_img();
+    }
 }

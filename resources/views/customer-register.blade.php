@@ -82,6 +82,18 @@
 		                      </div>
 		                    </div>
 	                  	</div>
+	                  	<div class="row">
+	                  		<div class="col-md-6">
+		                      <div class="form-group ">
+				                <label>Captcha</label><br>
+				                <div class="captcha">
+				                	<span>{!! captcha_img() !!}</span>
+				                	<button data-url="{{url('refresh-captcha')}}" type="button" class="btn btn-warning captcha_refresh">Refresh</button>
+				                </div>
+			                    <input type="text" name="captcha" class="form-control mt-2" placeholder="{{__('frontend.captcha_place')}}" />
+		                      </div>
+		                    </div>
+	                  	</div>
 	                  	<div class="text-center pt-2 text_panel">{!!__('frontend.terms_conditions_text2',['url'=>url('terms-conditions')])!!}</a>.</div>  
 	                  <div class="row text-center pt-3">
 	                    <div class="col-md-12">

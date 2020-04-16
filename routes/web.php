@@ -28,6 +28,7 @@ Route::get('/terms-conditions', function () {
 // Cron Jobs
 Route::get('/mission-expired-cron', 'CommonController@missionExpiredCronJob');
 
+Route::get('/refresh-captcha', 'CommonController@refreshCaptcha');
 Route::get('/change-language/{lang}', 'CommonController@changeLanguage');
 Route::post('/contact-form-submission', 'CommonController@submitContactForm');
 Route::get('/register-agent-view','AgentController@index');

@@ -49,4 +49,6 @@ return [
 	'amount_refunded' => 'Amount refunded successfully.',
 	'agent_status_changed' => 'Agent status changed successfully.',
 	'payment_done_message' => 'A payment of :amount EUR has been done successfully. To check more details about this payment or to download the invoice of this payment, click on the button given below.',
+
+	'user_registered' => 'User has been registered successfully.',
 ];

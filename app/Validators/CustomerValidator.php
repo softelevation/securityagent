@@ -27,7 +27,8 @@ trait CustomerValidator
                 'phone'         => 'required',
                 'home_address'  => 'required',
                 'customer_type' => 'required',
-                'password'      => 'required|confirmed|min:8'
+                'password'      => 'required|confirmed|min:8',
+                'captcha'       => 'required|captcha',
             );
             $validator = Validator::make($request->all(),$validations);
             $this->response = $this->validateData($validator);

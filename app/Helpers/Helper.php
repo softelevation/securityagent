@@ -455,16 +455,29 @@ class Helper {
      * @method get_mission_status
      */
     public static function get_mission_status($status){
-        if($status==0){ $response = 'Unverified'; }
-        if($status==1){ $response = 'Verified'; }
-        if($status==2){ $response = 'Rejected'; }
-        if($status==3){ $response = 'Active'; }
-        if($status==4){ $response = 'In Progress'; }
-        if($status==5){ $response = 'Completed'; }
-        if($status==6){ $response = 'Cancelled'; }
-        if($status==7){ $response = 'Cancelled'; }
-        if($status==8){ $response = 'Cancelled'; }
-        if($status==9){ $response = 'Cancelled'; }
+        if(App::getLocale()=='fr'){
+            if($status==0){ $response = 'Non vérifié'; }
+            if($status==1){ $response = 'Vérifié'; }
+            if($status==2){ $response = 'Rejeté'; }
+            if($status==3){ $response = 'Actif'; }
+            if($status==4){ $response = 'En cours'; }
+            if($status==5){ $response = 'Terminé'; }
+            if($status==6){ $response = 'Annulé'; }
+            if($status==7){ $response = 'Annulé'; }
+            if($status==8){ $response = 'Annulé'; }
+            if($status==9){ $response = 'Annulé'; }
+        }else{
+            if($status==0){ $response = 'Unverified'; }
+            if($status==1){ $response = 'Verified'; }
+            if($status==2){ $response = 'Rejected'; }
+            if($status==3){ $response = 'Active'; }
+            if($status==4){ $response = 'In Progress'; }
+            if($status==5){ $response = 'Completed'; }
+            if($status==6){ $response = 'Cancelled'; }
+            if($status==7){ $response = 'Cancelled'; }
+            if($status==8){ $response = 'Cancelled'; }
+            if($status==9){ $response = 'Cancelled'; }
+        }
         return $response;
     }
 
@@ -473,10 +486,17 @@ class Helper {
      * @method get_request_status
      */
     public static function get_refund_status($status){
-        if($status==0) { $response = 'Pending'; }
-        if($status==1) { $response = 'Success'; }
-        if($status==2) { $response = 'Failed'; }
-        if($status==3) { $response = 'Rejected'; }
+        if(App::getLocale()=='fr'){
+            if($status==0) { $response = 'En attente'; }
+            if($status==1) { $response = 'Succès'; }
+            if($status==2) { $response = 'Échoué'; }
+            if($status==3) { $response = 'Rejeté'; }
+        }else{
+            if($status==0) { $response = 'Pending'; }
+            if($status==1) { $response = 'Success'; }
+            if($status==2) { $response = 'Failed'; }
+            if($status==3) { $response = 'Rejected'; }
+        }
         return $response;
     }
 

@@ -26,7 +26,7 @@ trait CustomerTrait
     public function registerCustomer($request){
     	try{
             DB::beginTransaction();
-            $post = array_except($request->all(),['_token','password_confirmation']);
+            $post = array_except($request->all(),['_token','password_confirmation','captcha']);
             $roleID = $this->get_user_role_id('customer');
             // Insert data to users table
             $userData = [
@@ -60,16 +60,16 @@ trait CustomerTrait
                             }
                         }
                     }
-                    $response['message'] = 'User has been registered successfully.';
+                    $response['message'] = trans('messages.user_registered');
                     $response['delayTime'] = 5000;
                     return $this->getSuccessResponse($response); 
                 }else{
                     DB::rollback();
-                    return $this->getErrorResponse('Something went wrong. Please try again later !');
+                    return $this->getErrorResponse(trans('messages.error'));
                 }
             }else{
                 DB::rollback();
-                return $this->getErrorResponse('Something went wrong. Please try again later !');
+                return $this->getErrorResponse(trans('messages.error'));
             }
         }catch(\Exception $e){
             DB::rollback();

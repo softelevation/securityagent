@@ -137,7 +137,7 @@
 {{Form::hidden('mission_id',Helper::encrypt($mission->id))}}
 {{Form::close()}}
 <script>
-  var locale = '@php echo Session::get("locale"); @endphp';
+  var locale = '@php echo app()->getLocale(); @endphp';
   $(document).on('click','.confirmBtn', function(){
     $(document).find('.reject_reason').addClass('d-none');
     let url = $(this).attr('data-url');

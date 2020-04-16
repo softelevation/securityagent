@@ -49,4 +49,6 @@ return [
 	'amount_refunded' => 'Montant remboursé avec succès.',
 	'agent_status_changed' => "Le statut de l'agent a bien changé.",
 	'payment_done_message' => 'Un paiement de :amount EUR a été fait avec succès. Pour vérifier plus de détails sur ce paiement ou pour télécharger la facture de ce paiement, cliquez sur le bouton ci-dessous.',
+
+	'user_registered' => "L'utilisateur a été enregistré avec succès.",
 ];

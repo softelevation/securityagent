@@ -178,6 +178,7 @@ return [
         Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
 
     ],
 
@@ -235,6 +236,7 @@ return [
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ],
 
 ];

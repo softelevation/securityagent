@@ -44,7 +44,7 @@
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.status')}}</label>
-                        <span class="form-control">@if($mission->status==0) Unverified @else {{Helper::getMissionStatus($mission->status)}} @endif</span>
+                        <span class="form-control">{{Helper::get_mission_status($mission->status)}}</span>
                       </div>
                       @if(isset($mission->start_date_time) && $mission->start_date_time!='')
                       <div class="col-md-6 form-group">

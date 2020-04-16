@@ -276,5 +276,16 @@ $(document).ready(function() {
     $(document).find('#general_form').submit();
   });
 
+  // Refresh Captcha
+  $(document).on('click','.captcha_refresh',function(){
+    let url = $(this).attr('data-url');
+    $.ajax({
+      type: 'GET',
+      url: url,
+      success: function(response) {
+        $('.captcha span').html(response);
+      }
+    });
+  });
 
 });

@@ -27,7 +27,7 @@ trait AgentTrait
     public function registerAgent($request){
     	try{
             DB::beginTransaction();
-            $post = array_except($request->all(),['_token']);
+            $post = array_except($request->all(),['_token','captcha']);
             $agentType = json_decode($post['agent_type']);
             $dogInfo = $request->file('dog_info');  
             $roleID = $this->get_user_role_id('agent');

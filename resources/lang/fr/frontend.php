@@ -8,7 +8,7 @@ return [
     'text_4' => 'Saisissez votre position',
     'text_5' => 'Rechercher',
     'text_6' => "Besoin d'assurer le gardiennage d'un chantier, la surveillance d'un parking, la sécurité d'un magasin ou la prévention des risques incendie dans un établissement recevant du public ?",
-    "text_7" => "Be on time propose une intervention en une heure dans toute l'Île-de-France pour vos demandes urgentes. Il vous suffit d’ouvrir la carte pour géolocaliser l’agent de sécurité qui vous convient. Puis, en quelques secondes, après validation, l’agent démarre sa mission.",
+    "text_7" => "Be on time propose une intervention en une heure dans toute la France pour vos demandes urgentes. Il vous suffit d’ouvrir la carte pour géolocaliser l’agent de sécurité qui vous convient. Puis, en quelques secondes, après validation, l’agent démarre sa mission.",
     "text_8" => "Je suis un Agent",
     "text_9" => "Je suis un Client",
     "text_10" => "Trouvez un agent disponible ou programmer une mission",
@@ -172,4 +172,5 @@ return [
 	'suplier_title_place' => 'Entrez le nom de votre entreprise fournisseur',
 	'agent_register_subject' => "Inscription d'agent",
 	'agent_register_message' => "L'agent a été enregistré avec succès. Vous recevrez un e-mail pour vos informations de connexion, une fois que vos informations auront été vérifiées par l'opérateur.",
+	'captcha_place'=>'Entrez le code captcha.',
 ];

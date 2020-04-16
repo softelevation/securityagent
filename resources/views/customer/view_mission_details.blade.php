@@ -44,7 +44,7 @@
                       </div>
                       <div class="col-md-6 form-group">
                         <label>Mission Status</label>
-                        <span class="form-control">@if($mission->status==0) Unverified @else {{Helper::getMissionStatus($mission->status)}} @endif</span>
+                        <span class="form-control">{{Helper::get_mission_status($mission->status)}}</span>
                       </div>
                       <div class="col-md-12 form-group">
                         <label>{{__('dashboard.mission.description')}}</label>

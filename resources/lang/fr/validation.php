@@ -146,5 +146,5 @@ return [
     */
 
     'attributes' => [],
-
+    'captcha' => 'La validation du captcha a échoué.',
 ];
