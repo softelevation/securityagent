@@ -485,12 +485,10 @@ class MissionController extends Controller
             }
             $data = array_except($request->all(),['_token']);
             if($data['quick_book']==0){
-                $date = $data['start_date_time'];
-                $dt = explode(' ',$date);
-                $date = date('Y-m-d',strtotime($dt[0]));
-                $time = $dt[1];
-                $startDateTime = $date.' '.$time;
+                $date = str_replace('/', '-', $data['start_date_time']);
+                $startDateTime = date('Y-m-d H:i:s', strtotime($date));
                 $data['start_date_time'] = $startDateTime;
+                
                 $mission_id = $this->saveQuickMissionDetails($data);
                 if($mission_id){
                     $mission_id = Helper::encrypt($mission_id);

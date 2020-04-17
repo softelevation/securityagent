@@ -52,7 +52,7 @@ $(document).ready(function() {
     $( ".datepicker" ).datepicker();
     // Datetimepicker
     jQuery('.datetimepicker').datetimepicker({
-      format:'d/m/Y H:i'
+      format:'d/m/Y H:i:s'
     });
     jQuery('.timepicker').datetimepicker({
       datepicker:false,

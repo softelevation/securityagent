@@ -31,7 +31,7 @@
                         <span class="form-control">{{$mission->location}}</span>
                       </div>
                       <div class="col-md-6 form-group">
-                        <label>{{__('dashboard.mission.agent_needed')}}</label>
+                        <label>{{__('dashboard.agent_needed')}}</label>
                         <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
@@ -45,7 +45,7 @@
                       @if(isset($mission->start_date_time))
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.start_time')}}</label>
-                        <span class="form-control">{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</span>
+                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->start_date_time)}}</span>
                       </div>
                       @endif
                     </div>

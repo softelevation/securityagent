@@ -66,9 +66,9 @@
                             <span class="checkmark"></span>
                           </label>
                         </div>
-                        <div id="misionStartEndDiv" class="col-md-6 form-group d-none">
+                        <div id="misionStartEndDiv" class="col-md-6 form-group @if(!(isset($mission->start_date_time) && $mission->start_date_time!=null)) d-none @endif">
                             <label>{{__('dashboard.mission.start_time')}}</label>
-                            <input class="form-control datetimepicker" placeholder="{{__('dashboard.mission.start_time')}}" name="start_date_time" type="text">
+                            {{Form::text('start_date_time',null,['class'=>'form-control datetimepicker','placeholder'=>__('dashboard.mission.start_time')])}}
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.agent_vehicle')}}</label><br>

@@ -174,6 +174,20 @@ class MissionController extends Controller
             $mission_id = Helper::decrypt($request->mission_id);
             $timeNow = Carbon::now();
             $data = Mission::where('id',$mission_id)->first();
+            // Check if mission cant be started before start time
+            if(isset($data->start_date_time) && $data->start_date_time!=""){
+                $start_time = Carbon::parse($data->start_date_time);
+                $diff_in_minutes = $start_time->diffInMinutes($timeNow,false);
+                if(!($diff_in_minutes > 0)){
+                    return response($this->getErrorResponse(trans('messages.start_before_time_error')));
+                }else{
+                    // Check if mission cant be started while any other mission is in progress
+                    $activeCount = Mission::where('parent_id',$data->parent_id)->where('status',4)->count();
+                    if($activeCount > 0){
+                        return response($this->getErrorResponse(trans('messages.start_error_in_progress')));
+                    }
+                }
+            }
             $count = Mission::where('parent_id',$data->parent_id)->where('status', 4)->count();
             if($count==0){
                 Mission::where('id',$data->parent_id)->update(['status'=>4]);

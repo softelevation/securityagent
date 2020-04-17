@@ -29,6 +29,7 @@ trait MissionTrait
         $data['created_at'] = Carbon::now();
         $data['updated_at'] = Carbon::now();
         $data['step'] = 1;
+
         // If customer dont know, then set 8 hours default
         if($data['total_hours']==0){
             $data['total_hours'] = 8;

@@ -51,4 +51,6 @@ return [
 	'payment_done_message' => 'A payment of :amount EUR has been done successfully. To check more details about this payment or to download the invoice of this payment, click on the button given below.',
 
 	'user_registered' => 'User has been registered successfully.',
+	'start_before_time_error' => "Mission can't be started before its start time.",
+	'start_error_in_progress' => "Mission can't be started while any other submission is in progress.",
 ];
