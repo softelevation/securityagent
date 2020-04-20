@@ -164,8 +164,11 @@ trait MissionTrait
         }
         $response = 0;
         if($status!='INVALID'){
-            $update = Mission::where('id',$mission_id)->update(['status'=>$status]);
+            $now = Carbon::now();
+            $update = Mission::where('id',$mission_id)->update(['status'=>$status,'ended_at'=>$now]);
             if($update){
+                $mission = Mission::where('id',$mission_id)->first();
+                Agent::where('id',$mission->agent_id)->update(['available'=>1]);
                 RefundRequest::insert([
                     'mission_id' => $mission_id,
                     'created_at' => Carbon::now(),

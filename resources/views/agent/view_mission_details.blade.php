@@ -42,6 +42,12 @@
                         <label>{{__('dashboard.mission.mission_hours')}}</label>
                         <span class="form-control">{{$mission->total_hours}} {{__('dashboard.hours')}}</span>
                       </div>
+                      @if(isset($mission->start_date_time) && $mission->start_date_time!="")
+                      <div class="col-md-6 form-group">
+                        <label>{{__('dashboard.mission.start_time')}}</label>
+                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->start_date_time)}}</span>
+                      </div>
+                      @endif
                     </div>
                     <div class="row">
                       <div class="col-md-12 form-group">
@@ -61,11 +67,11 @@
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.started_at')}}</label>
-                        <span class="form-control">{{Helper::date_format_show('m/d/Y H:i:s',$mission->started_at)}}</span>
+                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->started_at)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.ended_at')}}</label>
-                        <span class="form-control">{{Helper::date_format_show('m/d/Y H:i:s',$mission->ended_at)}}</span>
+                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->ended_at)}}</span>
                       </div>
                     </div>
                     @endif

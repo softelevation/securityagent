@@ -211,7 +211,7 @@
                         </div>
                         <div class="pull-right">
                             <h2 class="invoice-id">REC-000-{{$data->id}}</h2>
-                            <div class="date">{{__('dashboard.invoice_date')}}: {{Helper::date_format_show('m/d/Y',$data->created_at)}}</div>
+                            <div class="date">{{__('dashboard.invoice_date')}}: {{Helper::date_format_show('d/m/Y',$data->created_at)}}</div>
                         </div>
                         <div class="clearfix"></div>
                     </div>

@@ -18,6 +18,7 @@ use App\Traits\MissionTrait;
 use Auth;
 use DB;
 use App\Notifications\MissionCreated;
+use App\Notifications\MissionCancelled;
 use App\Notifications\PaymentDone;
 
 class MissionController extends Controller
@@ -569,9 +570,19 @@ class MissionController extends Controller
      */
     public function cancelMission($mission_id){
         try{
+            $encMissionId = $mission_id;
             $mission_id = Helper::decrypt($mission_id);
             $cancelled = $this->cancelMissionRequest($mission_id);
             if($cancelled==1){
+                $mission = Mission::where('id',$mission_id)->first();
+                /*----Agent Notification-----*/
+                $mailContent = [
+                    'name' => ucfirst($mission->agent_details->first_name),
+                    'message' => trans('messages.cancel_mission_notify_agent'), 
+                    'url' => url('agent/mission-details/view').'/'.$encMissionId
+                ];
+                $mission->agent_details->user->notify(new MissionCancelled($mailContent));
+                /*--------------*/
                 $response['message'] = trans('messages.mission_cancelled');
                 $response['url'] = url('customer/missions'); 
                 return $this->getSuccessResponse($response);

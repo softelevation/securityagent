@@ -178,7 +178,7 @@ class MissionController extends Controller
             if(isset($data->start_date_time) && $data->start_date_time!=""){
                 $start_time = Carbon::parse($data->start_date_time);
                 $diff_in_minutes = $start_time->diffInMinutes($timeNow,false);
-                if(!($diff_in_minutes > 0)){
+                if(!($diff_in_minutes >= 0)){
                     return response($this->getErrorResponse(trans('messages.start_before_time_error')));
                 }else{
                     // Check if mission cant be started while any other mission is in progress

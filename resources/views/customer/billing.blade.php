@@ -49,7 +49,7 @@
                                           <td>{{Helper::mission_id_str($data->mission_details->id)}}</td>
                                           <td>{{$data->amount}} <i class="fa fa-euro-sign"></i></td>
                                           <td>{{$data->status}}</td>
-                                          <td>{{date('m/d/Y H:i:s', strtotime($data->created_at))}}</td>
+                                          <td>{{date('d/m/Y H:i:s', strtotime($data->created_at))}}</td>
                                           <td><a target="_blank" class="action_icons" href="{{url('download-payment-receipt/'.Helper::encrypt($data->id))}}"><i class="fa fa-download"></i> {{__('dashboard.download')}}</a></td>
                                       </tr>
                                     @empty

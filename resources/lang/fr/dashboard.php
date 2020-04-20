@@ -132,6 +132,7 @@ return [
 		'book_now' => 'Reserve maintenant',
 		'new_mission' => 'Nouvelle mission',
 		'payment_success' => 'Paiement réussi',
+		'cancelled' => 'Mission annulée',
 	],
 
 	// Agents 

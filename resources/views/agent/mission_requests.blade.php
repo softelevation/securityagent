@@ -54,7 +54,7 @@
                                     <td>{{$mission->title}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>{{$mission->total_hours}} {!!__('dashboard.hours')!!}</td>
-                                    <td>@if($mission->quick_book==1) {{__('dashboard.now')}} ({{__('dashboard.quick_booking')}}) @else {{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}} @endif</td>
+                                    <td>@if($mission->quick_book==1) {{__('dashboard.now')}} ({{__('dashboard.quick_booking')}}) @else {{Helper::date_format_show('d/m/Y H:i:s',$mission->start_date_time)}} @endif</td>
                                     @php $timerDivId = 'req'.$mission->id; @endphp
                                     <td><p class="timeout_p" id="req{{$mission->id}}" data-record-id="{{Helper::encrypt($mission->id)}}" data-timeout="{{Helper::get_timeout_datetime($mission->assigned_at)}}"></p></td>
                                     <td>

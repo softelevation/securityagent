@@ -45,7 +45,7 @@
                       @if($mission->quick_book==0)
                       <div class="col-md-4 form-group">
                         <label>{{__('dashboard.mission.start_time')}}</label>
-                        <span class="form-control">{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</span>
+                        <span class="form-control">{{date('d/m/Y H:i:s', strtotime($mission->start_date_time))}}</span>
                       </div>
                       @endif
                       <div class="col-md-12 form-group">

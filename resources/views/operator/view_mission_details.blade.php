@@ -49,7 +49,7 @@
                       @if(isset($mission->start_date_time) && $mission->start_date_time!='')
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.start_time')}}</label>
-                        <span class="form-control">{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</span>
+                        <span class="form-control">{{date('d/m/Y H:i:s', strtotime($mission->start_date_time))}}</span>
                       </div>
                       @endif
                       <div class="col-md-12 form-group">
@@ -77,13 +77,13 @@
                       @if(isset($mission->started_at) && $mission->started_at!="")
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.started_at')}}</label>
-                        <span class="form-control">{{Helper::date_format_show('m/d/Y H:i:s',$mission->started_at)}}</span>
+                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->started_at)}}</span>
                       </div>
                       @endif
                       @if(isset($mission->ended_at) && $mission->ended_at!="")
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.ended_at')}} </label>
-                        <span class="form-control">{{Helper::date_format_show('m/d/Y H:i:s',$mission->ended_at)}}</span>
+                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->ended_at)}}</span>
                       </div>
                       @endif
                       @if($mission->status==5)
@@ -116,7 +116,7 @@
                             <tr>
                               <td>{{$i}}.</td>
                               <td>{{$payment->amount}} <i class="fa fa-euro-sign"></i></td>
-                              <td>{{date('m/d/Y H:i:s', strtotime($payment->created_at))}}</td>
+                              <td>{{date('d/m/Y H:i:s', strtotime($payment->created_at))}}</td>
                               <td>{{ucfirst($payment->status)}}</td>
                             </tr>
                             @empty

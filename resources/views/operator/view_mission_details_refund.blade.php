@@ -37,7 +37,7 @@
                               <td>{{$i}}.</td>
                               <td>{{Helper::mission_id_str($mission->id)}}</td>
                               <td>{{$payment->amount}} <i class="fa fa-euro-sign"></i></td>
-                              <td>{{date('m/d/Y H:i:s', strtotime($payment->created_at))}}</td>
+                              <td>{{date('d/m/Y H:i:s', strtotime($payment->created_at))}}</td>
                               <td>{{ucfirst($payment->status)}}</td>
                               <td>
                                 @if($payment->refund_status=='succeeded')

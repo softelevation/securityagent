@@ -64,7 +64,7 @@
                                     <!-- <td>{{$mission->location}}</td> -->
                                     <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                     <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
-                                    <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
+                                    <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                     <td>
                                       @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
                                         @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
@@ -89,7 +89,7 @@
                                       <!-- <td>{{$mission->location}}</td> -->
                                       <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                       <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
-                                      <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
+                                      <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                       <td>
                                         @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
                                           @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
@@ -166,9 +166,9 @@
                                     <td>{{$mission->title}}</td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->total_hours}} Hour(s)</td>
-                                    <td>{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</td>
+                                    <td>{{date('d/m/Y H:i:s', strtotime($mission->start_date_time))}}</td>
                                     <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                    <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
+                                    <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                     <td>
                                       @if($mission->child_missions->count() == 0)
                                         @if($mission->agent_id!=0)
@@ -199,9 +199,9 @@
                                     <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->total_hours}} {{__('dashboard.hours')}}</td>
-                                    <td>{{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}}</td>
+                                    <td>{{date('d/m/Y H:i:s', strtotime($mission->start_date_time))}}</td>
                                     <td>{{Helper::get_mission_status($mission->status)}}</td>
-                                    <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
+                                    <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                     <td>
                                       @if($mission->agent_id!=0)
                                       <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
@@ -269,7 +269,7 @@
                                     <!-- <td>{{$mission->location}}</td> -->
                                     <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                    <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
+                                    <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                     <td>
                                       @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
                                         @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
@@ -312,7 +312,7 @@
                                     <!-- <td>{{$mission->location}}</td> -->
                                     <td>{{$mission->total_hours}} Hour(s)</td>
                                     <td>{{Helper::get_mission_status($mission->status)}}</td>
-                                    <td>{{Helper::date_format_show('m/d/Y H:i:s',$mission->created_at)}}</td>
+                                    <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                     <td>
                                       @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
                                         @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
@@ -387,8 +387,8 @@
                                     <td>{{$mission->title}}</td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
-                                    <td>@if(isset($mission->started_at)){{date('m/d/Y H:i:s', strtotime($mission->started_at))}}@endif</td>
-                                    <td>@if(isset($mission->started_at)){{date('m/d/Y H:i:s', strtotime($mission->ended_at))}}@endif</td>
+                                    <td>@if(isset($mission->started_at)){{date('d/m/Y H:i:s', strtotime($mission->started_at))}}@endif</td>
+                                    <td>@if(isset($mission->started_at)){{date('d/m/Y H:i:s', strtotime($mission->ended_at))}}@endif</td>
                                     <td>
                                       <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>
@@ -399,8 +399,8 @@
                                       <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
                                       <td>{{Helper::mission_id_str($mission->id)}}</td>
                                       <td>{{$mission->location}}</td>
-                                      <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
-                                      <td>{{date('m/d/Y H:i:s', strtotime($mission->ended_at))}}</td>
+                                      <td>{{date('d/m/Y H:i:s', strtotime($mission->started_at))}}</td>
+                                      <td>{{date('d/m/Y H:i:s', strtotime($mission->ended_at))}}</td>
                                       <td>
                                         <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
                                       </td>

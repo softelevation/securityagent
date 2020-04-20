@@ -53,4 +53,5 @@ return [
 	'user_registered' => "L'utilisateur a été enregistré avec succès.",
 	'start_before_time_error' => "La mission ne peut pas commencer avant son heure de début.",
 	'start_error_in_progress' => "La mission ne peut pas être lancée tant qu'aucune autre soumission n'est en cours.",
+	'cancel_mission_notify_agent' => "Votre mission a été annulée par le client et votre statut de disponibilité est à nouveau défini comme disponible pour accepter d'autres demandes de mission.",
 ];

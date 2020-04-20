@@ -23,11 +23,11 @@
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>Start Date</label>
-                        <span class="form-control">{{date('m/d/Y', strtotime($data->start_date))}}</span>
+                        <span class="form-control">{{date('d/m/Y', strtotime($data->start_date))}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>End Date</label>
-                        <span class="form-control">{{date('m/d/Y', strtotime($data->end_date))}}</span>
+                        <span class="form-control">{{date('d/m/Y', strtotime($data->end_date))}}</span>
                       </div>
                     </div>
                     <div class="row">

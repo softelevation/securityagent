@@ -52,7 +52,7 @@
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>{{$mission->total_hours}} {{__('dashboard.hours')}}</td>
-                                    <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
+                                    <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->started_at)}}</td>
                                     <td>
                                       <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>
@@ -91,7 +91,7 @@
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>{{$mission->total_hours}} {{__('dashboard.hours')}}</td>
-                                    <td>@if($mission->quick_book==1) {{__('dashboard.now')}} ({{__('dashboard.quick_booking')}}) @else {{date('m/d/Y H:i:s', strtotime($mission->start_date_time))}} @endif</td>
+                                    <td>@if($mission->quick_book==1) {{__('dashboard.now')}} ({{__('dashboard.quick_booking')}}) @else {{Helper::date_format_show('d/m/Y H:i:s',$mission->start_date_time)}} @endif</td>
                                     <td>
                                       <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>
@@ -129,8 +129,8 @@
                                     <td>{{$mission->title}}</td>
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
-                                    <td>{{date('m/d/Y H:i:s', strtotime($mission->started_at))}}</td>
-                                    <td>{{date('m/d/Y H:i:s', strtotime($mission->ended_at))}}</td>
+                                    <td>{{date('d/m/Y H:i:s', strtotime($mission->started_at))}}</td>
+                                    <td>{{date('d/m/Y H:i:s', strtotime($mission->ended_at))}}</td>
                                     <td>
                                       <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                         <!-- <div class="dropdown ac-cstm">
