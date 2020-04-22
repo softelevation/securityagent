@@ -197,9 +197,9 @@ class AgentController extends Controller
         $agent_id = Auth::user()->agent_info->id;
         $schedule_date = date('Y-m-d', strtotime($request->schedule_date));
         $post['schedule_date'] = $schedule_date;
-        $isExists = AgentSchedule::where('agent_id',$agent_id)->whereDate('schedule_date',$schedule_date)->first();
-        if($isExists){
-            $result = AgentSchedule::where('agent_id',$agent_id)->update($post);
+        $isExists = AgentSchedule::where('agent_id',$agent_id)->whereDate('schedule_date',$schedule_date)->count();
+        if($isExists!=0){
+            $result = AgentSchedule::where('agent_id',$agent_id)->whereDate('schedule_date',$schedule_date)->update($post);
         }else{
             $post['agent_id'] = $agent_id;
             $post['created_at'] = Carbon::now();

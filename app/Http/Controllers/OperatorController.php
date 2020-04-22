@@ -260,10 +260,19 @@ class OperatorController extends Controller
     public function assignMissionAgent($mission_id){
         $mission_id = Helper::decrypt($mission_id);
         $data['mission'] = $mission = Mission::where('id',$mission_id)->first();
+        //Calculate mission start and end times 
+        $add_mission_hours = '+'.$mission->total_hours.' hours';
+        $mission_start_date_time = $mission->start_date_time;
+        $mission_end_date_time = date('Y-m-d H:i:s', strtotime($add_mission_hours, strtotime($mission->start_date_time)));
+        $mission_start_time = date('H:i:s',strtotime($mission_start_date_time));
+        $mission_end_time = date('H:i:s',strtotime($mission_end_date_time));
         // Check if any agent available 
         $agent_type_needed = $mission->agent_type;
         if($mission->quick_book==1){
             $start_date = date('Y-m-d');    
+            if(isset($mission->start_date_time) && $mission->start_date_time!=''){
+                $start_date = date('Y-m-d',strtotime($mission->start_date_time));
+            }
         }else{
             $start_date = date('Y-m-d',strtotime($mission->start_date_time));
         }
@@ -271,15 +280,19 @@ class OperatorController extends Controller
         $a = Agent::whereHas('types',function($q) use($agent_type_needed){
             $q->where('agent_type',$agent_type_needed);
         });
-        $a->with(['schedule'=>function($q) use ($start_date){
-            $q->whereDate('schedule_date',$start_date);
+        $a->with(['schedule'=>function($q) use ($start_date,$mission_start_time,$mission_end_time){
+            $q->whereDate('schedule_date',$start_date)
+            ->whereTime('available_from','<=',$mission_start_time)
+            ->whereTime('available_to','>=',$mission_end_time);
         }]);
-        if($mission->quick_book==0){
-            $a->whereHas('schedule',function($q) use ($start_date){
-                $q->whereDate('schedule_date',$start_date);
+        if($mission->quick_book==0 || (isset($mission->start_date_time) && $mission->start_date_time!='')){
+            $a->whereHas('schedule',function($q) use ($start_date,$mission_start_time,$mission_end_time){
+                $q->whereDate('schedule_date',$start_date)
+                ->whereTime('available_from','<=',$mission_start_time)
+                ->whereTime('available_to','>=',$mission_end_time);
             });
-            $a->whereHas('missions',function($q) use ($start_date){
-                $q->whereDate('start_date_time','!=',$start_date)->where('status',0);
+            $a->whereDoesntHave('missions',function($q) use ($mission_start_date_time,$mission_end_date_time){
+                $q->whereBetween('start_date_time',[$mission_start_date_time,$mission_end_date_time])->where('status',0);
             });
         }
         $agents = $a->where('status',1)->where('available',1)->select(DB::raw("*, 111.111 *
@@ -288,7 +301,7 @@ class OperatorController extends Controller
                 * COS(RADIANS(".$mission->longitude." - work_location_longitude))
                 + SIN(RADIANS(".$mission->latitude."))
                 * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->orderBy('distance_in_km','ASC')->get();  
-        $data['agents'] = $agents;  
+        $data['agents'] = $agents;
         return view('operator.assign_agent',$data);
     }
 
@@ -470,7 +483,7 @@ class OperatorController extends Controller
      * @purpose To get all missions list without agents
      */
     public function missionsListWithoutAgents(Request $request){
-        $missions = Mission::where('status',0)->where('agent_id',0)->where('payment_status',1)->orderBy('id','DESC')->paginate($this->limit); 
+        $missions = Mission::whereDoesntHave('child_missions')->where('status',0)->where('agent_id',0)->where('payment_status',1)->orderBy('id','DESC')->paginate($this->limit); 
         $statusArr = Helper::getMissionStatus();
         $params = [
             'data' => $missions,

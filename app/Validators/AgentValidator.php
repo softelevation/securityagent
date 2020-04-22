@@ -36,6 +36,7 @@ trait AgentValidator
                 'is_subcontractor' => 'required',
                 'supplier_company' => 'required_if:is_subcontractor,1',
                 'captcha' => 'required|captcha',
+                'terms_conditions' => 'required',
             );
             $validator = Validator::make($request->all(),$validations);
             $this->response = $this->validateData($validator);

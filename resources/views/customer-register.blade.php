@@ -94,7 +94,8 @@
 		                      </div>
 		                    </div>
 	                  	</div>
-	                  	<div class="text-center pt-2 text_panel">{!!__('frontend.terms_conditions_text2',['url'=>url('terms-conditions')])!!}</a>.</div>  
+	                  	<div class="text-center pt-2 text_panel">
+	                  		<input type="checkbox" name="terms_conditions" value="1">{!!__('frontend.terms_conditions_text2',['url'=>url('terms-conditions')])!!}</a>.</div>  
 	                  <div class="row text-center pt-3">
 	                    <div class="col-md-12">
 				            <div class="form-group">
