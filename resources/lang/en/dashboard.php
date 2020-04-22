@@ -68,6 +68,7 @@ return [
 	'unblock' => 'Unblock',
 	'created_at' => 'Created At',
 	'login_before' => 'Please login or signup before booking an agent.',
+	'vat' => 'VAT',
 
 	// Mission Related
 	'mission' => [

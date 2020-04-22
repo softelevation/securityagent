@@ -87,7 +87,7 @@
                               <td class="text-left">{{$original_amount}} <i class="fa fa-euro-sign"></i></td>
                             </tr>
                             <tr>
-                              <td class="text-right">VAT ({{Helper::VAT_PERCENTAGE}}%)</td>
+                              <td class="text-right">{{__('dashboard.vat')}} ({{Helper::VAT_PERCENTAGE}}%)</td>
                               <td class="text-left">{{$vat_amount}} <i class="fa fa-euro-sign"></i></td>
                             </tr>
                             <tr>
