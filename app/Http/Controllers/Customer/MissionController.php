@@ -529,9 +529,46 @@ class MissionController extends Controller
      */
     public function bookAgent(Request $request){
         try{
+            //Calculate mission start and end times 
+            // $add_mission_hours = '+'.$mission->total_hours.' hours';
+            // $mission_start_date_time = $mission->start_date_time;
+            // $mission_end_date_time = date('Y-m-d H:i:s', strtotime($add_mission_hours, strtotime($mission->start_date_time)));
+            // $mission_start_time = date('H:i:s',strtotime($mission_start_date_time));
+            // $mission_end_time = date('H:i:s',strtotime($mission_end_date_time));
+            // // Check if any agent available 
+            // $agent_type_needed = $mission->agent_type;
+            // if($mission->quick_book==1){
+            //     $start_date = date('Y-m-d');    
+            //     if(isset($mission->start_date_time) && $mission->start_date_time!=''){
+            //         $start_date = date('Y-m-d',strtotime($mission->start_date_time));
+            //     }
+            // }else{
+            //     $start_date = date('Y-m-d',strtotime($mission->start_date_time));
+            // }
+
+            //     $a->whereDoesntHave('missions',function($q) use ($mission_start_date_time,$mission_end_date_time){
+            //         $q->whereBetween('start_date_time',[$mission_start_date_time,$mission_end_date_time])->where('status',0);
+            //     });
+            // }
+
+
+
             $agent_id = Helper::decrypt($request->agent_id);
             if(Session::has('mission')){
                 $mission = Session::get('mission');
+                //Calculate mission start and end times 
+                $add_mission_hours = '+'.$mission['total_hours'].' hours';
+                $mission_start_date_time = date('Y-m-d H:i:s');
+                $mission_end_date_time = date('Y-m-d H:i:s', strtotime($add_mission_hours, strtotime($mission_start_date_time)));
+
+                $res = Mission::where('agent_id',$agent_id)->whereBetween('start_date_time',[$mission_start_date_time,$mission_end_date_time])->first();
+                if($res){
+                    $time1 = Carbon::parse($mission_start_date_time);
+                    $time2 = Carbon::parse($res->start_date_time);
+                    $diffHours = $time1->diff($time2)->format('%H:%I:%S');
+                    $msg = 'This agent is only available for '.$diffHours.' Hours';
+                    return $this->getErrorResponse($msg);
+                }
                 $mission['agent_id'] = $agent_id;
                 $mission['distance'] = $request->distance;
                 Session::put('mission',$mission);

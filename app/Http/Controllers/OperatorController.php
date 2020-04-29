@@ -344,7 +344,11 @@ class OperatorController extends Controller
         }
         $data = $mission->toArray();
         $data = array_except($data,['id','created_at','updated_at','total_hours']);
-        $time = $mission->start_date_time;
+        if(isset($mission->start_date_time)){
+            $time = $mission->start_date_time;
+        }else{
+            $time = Carbon::now();
+        }
         $x=0;
         foreach ($hours as $key => $value) {
             $x++;
