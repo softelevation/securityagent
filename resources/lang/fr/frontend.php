@@ -173,4 +173,5 @@ return [
 	'agent_register_subject' => "Inscription d'agent",
 	'agent_register_message' => "L'agent a été enregistré avec succès. Vous recevrez un e-mail pour vos informations de connexion, une fois que vos informations auront été vérifiées par l'opérateur.",
 	'captcha_place'=>'Entrez le code captcha.',
+	'hours_available_msg' => "Cet agent n'est disponible que pendant :time heures",
 ];

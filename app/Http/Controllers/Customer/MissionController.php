@@ -566,7 +566,7 @@ class MissionController extends Controller
                     $time1 = Carbon::parse($mission_start_date_time);
                     $time2 = Carbon::parse($res->start_date_time);
                     $diffHours = $time1->diff($time2)->format('%H:%I:%S');
-                    $msg = 'This agent is only available for '.$diffHours.' Hours';
+                    $msg = trans('frontend.hours_available_msg',['time'=>$diffHours]);
                     return $this->getErrorResponse($msg);
                 }
                 $mission['agent_id'] = $agent_id;
