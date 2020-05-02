@@ -135,7 +135,7 @@ class UserController extends Controller
             if($exists){
                 $result = DB::table('password_resets')->where('email',$email)->update(['token'=>$token]);
             }else{
-                $result = DB::table('password_resets')->update(['email'=>$email,'token'=>$token]);
+                $result = DB::table('password_resets')->insert(['email'=>$email,'token'=>$token]);
             }
             if($result){
                 /*----Send Reset Password Link-----*/
