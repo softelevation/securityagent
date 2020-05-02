@@ -10,22 +10,18 @@
                    <span class="lock-icon"><i class="fa fa-unlock"></i></span>
                     <h3>{{__('frontend.text_86')}}</h3>
                 </div>
-
                 <div class="div_body">
-                  <form id="general_form" method="post" action="{{url('/login')}}">
+                  <form id="general_form" method="post" action="{{url('/set_new_password')}}">
                     @csrf
+                    <input type="hidden" name="email_token" value="{{$token}}">
                     <div class="form-group">
-                      <input type="text" name="email" placeholder="{{__('frontend.text_87')}}" class="form-control" >
+                      <input type="password" name="password" class="form-control" placeholder="{{__('frontend.text_136')}}" />
                     </div>
                     <div class="form-group">
-                      <input type="password" name="password" placeholder="{{__('frontend.text_88')}}" class="form-control" >
+                      <input type="password" name="confirm_password" class="form-control" placeholder="{{__('frontend.text_138')}}" />
                     </div>
                     <div class="form-group mt-4">
-                      <button type="submit" class="yellow_btn"> {{__('frontend.text_89')}}</button>
-                    </div>
-                    <div class="help">
-                      Forgot Your Password ? 
-                      <a href="{{ url('reset-password') }}">Get Help</a>
+                      <button type="submit" class="yellow_btn"> {{__('frontend.reset_password_btn')}}</button>
                     </div>
                   </form>
                 </div>

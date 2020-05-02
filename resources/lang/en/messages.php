@@ -54,4 +54,9 @@ return [
 	'start_before_time_error' => "Mission can't be started before its start time.",
 	'start_error_in_progress' => "Mission can't be started while any other submission is in progress.",
 	'cancel_mission_notify_agent' => 'Your mission has been cancelled by customer and your availability status is again set to available for accepting other mission requests.',
+	'email_not_exists' => 'This email address not exists.',
+	'reset_password_subject' => 'Reset Password',
+	'reset_pwd_text1' => 'You are receiving this email because we received a password reset request for your account.',
+	'reset_pwd_text2' => 'If you did not request a password reset, no further action is required.',
+	'reset_pwd_link_sent' => 'A link has been sent on your email to reset your password.',
 ];

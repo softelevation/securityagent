@@ -8,10 +8,13 @@ use App\Traits\ResponseTrait;
 use App\Customer;
 use App\Operator;
 use App\Agent;
+use App\User;
 use App\Helpers\Helper;
 use App\UserPaymentHistory;
+use App\Notifications\ResetPasswordNotification;
 use Hash;
 use Auth;
+use DB;
 
 class UserController extends Controller
 {
@@ -118,4 +121,70 @@ class UserController extends Controller
         return $pdf->download('invoice.pdf');
         // return view('pdf.payment_receipt',['data'=>$data]);
     }
+
+    public function ResetPasswordRequest(Request $request){
+        $validation = $this->resetPasswordValidations($request);
+        if($validation['status']==false){
+            return response($this->getValidationsErrors($validation));
+        }
+        $email = $request->email;
+        $user = User::where('email',$email)->first();
+        if($user){
+            $token = Helper::generateToken(30);
+            $result = DB::table('password_resets')->where('email',$email)->update(['token'=>$token]);
+            if($result){
+                /*----Send Reset Password Link-----*/
+                $mailContent = [
+                    'name' => $user->first_name,
+                    'url' => url('reset-password-request/'.$token) 
+                ];
+                $user->notify(new ResetPasswordNotification($mailContent));
+                /*------------*/
+                $response['message'] = trans('messages.reset_pwd_link_sent');
+                $response['delayTime'] = 2000;
+                return response($this->getSuccessResponse($response));
+            }else{
+                return response($this->getErrorResponse(trans('messages.error')));
+            }
+        }else{
+            return response($this->getErrorResponse(trans('messages.email_not_exists')));
+        }
+    }
+
+    public function ChangePasswordView($token){
+        $data = DB::table('password_resets')->where('token',$token)->first();
+        if($data){
+            $param['token'] = $data->token;
+            return view('set_password',$param);
+        }else{
+            abort('404');
+        }
+    }
+
+    public function SetNewPassword(Request $request){
+        try{
+            $validation = $this->setNewPasswordValidations($request);
+            if($validation['status']==false){
+                return response($this->getValidationsErrors($validation));
+            }
+            $token = $request->email_token;
+            $data = DB::table('password_resets')->where('token',$token)->first();
+            $email = $data->email;
+            $password = Hash::make($request->password);
+            $result = User::where('email',$email)->update(['password'=>$password]);
+            if($result){
+                DB::table('password_resets')->where('token',$token)->delete();
+                $response['message'] = trans('messages.password_changed');
+                $response['delayTime'] = 5000;
+                $response['url'] = url('/login');
+                return response($this->getSuccessResponse($response));
+            }else{
+                return response($this->getErrorResponse(trans('messages.error')));    
+            }
+        }catch(\Exception $e){
+            return response($this->getErrorResponse($e->getMessage()));
+        }
+        $this->print($request->all());
+    }
+    
 }

@@ -95,4 +95,42 @@ trait UserValidator
         }
         return $this->response;
     }
+
+    /**
+     * @param   : Request $request
+     * @method  : resetPasswordValidations
+     * @purpose : Validation rule for reset password
+     */
+    public function resetPasswordValidations(Request $request){
+        try{
+            $validations = array(
+                'email' => 'required|email',
+            );
+            $validator = Validator::make($request->all(),$validations);
+            $this->response = $this->validateData($validator);
+        }catch(\Exception $e){
+            $this->response = $e->getMessage();
+        }
+        return $this->response;
+    } 
+
+    /**
+     * @param   : Request $request
+     * @method  : setNewPasswordValidations
+     * @purpose : Validation rule for reset password
+     */
+    public function setNewPasswordValidations(Request $request){
+        try{
+            $validations = array(
+                'password' => 'required|min:6',
+                'confirm_password' => 'required|same:password',
+            );
+            $validator = Validator::make($request->all(),$validations);
+            $this->response = $this->validateData($validator);
+        }catch(\Exception $e){
+            $this->response = $e->getMessage();
+        }
+        return $this->response;
+    } 
+    
 }

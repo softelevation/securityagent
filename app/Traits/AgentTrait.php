@@ -163,9 +163,19 @@ trait AgentTrait
 
         if(Session::has('mission')){
             $a->having('distance_in_km', '<', 100);
+            $mission = Session::get('mission');
+            //Calculate mission start and end times 
+            $add_mission_hours = '+'.$mission['total_hours'].' hours';
+            $mission_start_date_time = Carbon::now();
+            $mission_end_date_time = date('Y-m-d H:i:s', strtotime($add_mission_hours, strtotime($mission_start_date_time)));
+            $mission_start_time = date('H:i:s',strtotime($mission_start_date_time));
+            $mission_end_time = date('H:i:s',strtotime($mission_end_date_time));
+            $a->with(['upcoming_mission' => function($q) use ($mission_start_date_time,$mission_end_date_time){
+                $q->whereBetween('start_date_time',[$mission_start_date_time,$mission_end_date_time]);
+            }]);
         }
-
         $agents = $a->get();
+
         $agentArr = [];
         foreach($agents as $agent){
             // Set marker icon
@@ -185,7 +195,14 @@ trait AgentTrait
             $strArr['types'] = $agent->types;
             $strArr['marker'] = $markerIcon;
             $strArr['distance'] = round($agent->distance_in_km);
-            $strArr['work_location_address'] = $agent->work_location_address;            
+            $strArr['work_location_address'] = $agent->work_location_address;     
+
+            if(isset($agent->upcoming_mission)){
+                $time1 = Carbon::parse($mission_start_date_time);
+                $time2 = Carbon::parse($agent->upcoming_mission->start_date_time);
+                $diffHours = $time1->diff($time2)->format('%H:%I:%S'); 
+                $strArr['available_hours'] = $diffHours;       
+            }
             $agentArr[] = $strArr; 
         }
         return $agentArr;

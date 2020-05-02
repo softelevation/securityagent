@@ -173,4 +173,5 @@ return [
 	'agent_register_message' => 'Agent has been registered successfully. You will receive an email for your login credentials, once your details get verified by operator.',
 	'captcha_place'=>'Enter captcha code.',
 	'hours_available_msg' => 'This agent is only available for :time Hours',
+	'reset_password_btn' => 'Reset Password',
 ];

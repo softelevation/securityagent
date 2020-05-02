@@ -78,7 +78,11 @@
                                             <h4>{{$agent->username}}</h4>
                                             <p>{{Helper::get_agent_type_name_multiple($agent->types)}}</p>
                                             <p>@if($agent->is_vehicle==1) {{__('frontend.text_49')}} @else {{__('frontend.text_50')}} @endif</p>
-                                            @if(Session::has('mission'))<p class="pt-2"><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" data-distance="{{$agent->distance}}" class="btn_submit bookAgentBtn">{{__('frontend.text_54')}}</a></p>@endif
+                                            @if(Session::has('mission'))<p class="pt-2"><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" data-distance="{{$agent->distance}}" class="btn_submit bookAgentBtn">{{__('frontend.text_54')}}</a>
+                                            @if(isset($agent->available_hours))    
+                                            <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="{{__('frontend.hours_available_msg',['time'=>$agent->available_hours])}}"><i class="fa fa-exclamation-circle"></i></span>
+                                            @endif
+                                            </p>@endif
                                         </div>
                                     </div>
                                     <div class="col-md-4">

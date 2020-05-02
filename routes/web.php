@@ -24,10 +24,17 @@ Route::get('/agent_information', function () {
 Route::get('/terms-conditions', function () {
     return view('terms_conditions');
 });
+Route::get('/reset-password', function () {
+    return view('reset_password');
+});
 
 // Cron Jobs
 Route::get('/mission-expired-cron', 'CommonController@missionExpiredCronJob');
 
+
+Route::get('/reset-password-request/{token}', 'UserController@ChangePasswordView');
+Route::post('/set_new_password', 'UserController@SetNewPassword');
+Route::post('/reset-password', 'UserController@ResetPasswordRequest');
 Route::get('/refresh-captcha', 'CommonController@refreshCaptcha');
 Route::get('/change-language/{lang}', 'CommonController@changeLanguage');
 Route::post('/contact-form-submission', 'CommonController@submitContactForm');

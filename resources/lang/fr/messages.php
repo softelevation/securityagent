@@ -54,4 +54,9 @@ return [
 	'start_before_time_error' => "La mission ne peut pas commencer avant son heure de début.",
 	'start_error_in_progress' => "La mission ne peut pas être lancée tant qu'aucune autre soumission n'est en cours.",
 	'cancel_mission_notify_agent' => "Votre mission a été annulée par le client et votre statut de disponibilité est à nouveau défini comme disponible pour accepter d'autres demandes de mission.",
+	'email_not_exists' => "Cette adresse e-mail n'existe pas.",
+	'reset_password_subject' => 'réinitialiser le mot de passe',
+	'reset_pwd_text1' => 'Vous recevez cet e-mail, car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.',
+	'reset_pwd_text2' => "Si vous n'avez pas demandé de réinitialisation du mot de passe, aucune autre action n'est requise.",
+	'reset_pwd_link_sent' => 'Un lien a été envoyé sur votre e-mail pour réinitialiser votre mot de passe.',
 ];

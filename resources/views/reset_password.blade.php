@@ -12,20 +12,13 @@
                 </div>
 
                 <div class="div_body">
-                  <form id="general_form" method="post" action="{{url('/login')}}">
+                  <form id="general_form" method="post" action="{{url('/reset-password')}}">
                     @csrf
                     <div class="form-group">
                       <input type="text" name="email" placeholder="{{__('frontend.text_87')}}" class="form-control" >
                     </div>
-                    <div class="form-group">
-                      <input type="password" name="password" placeholder="{{__('frontend.text_88')}}" class="form-control" >
-                    </div>
                     <div class="form-group mt-4">
-                      <button type="submit" class="yellow_btn"> {{__('frontend.text_89')}}</button>
-                    </div>
-                    <div class="help">
-                      Forgot Your Password ? 
-                      <a href="{{ url('reset-password') }}">Get Help</a>
+                      <button type="submit" class="yellow_btn"> {{__('frontend.reset_password_btn')}}</button>
                     </div>
                   </form>
                 </div>

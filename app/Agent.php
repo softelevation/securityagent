@@ -28,6 +28,10 @@ class Agent extends Model
         return $this->hasMany('App\Mission', 'agent_id');
     }
 
+    public function upcoming_mission(){
+        return $this->hasOne('App\Mission', 'agent_id');
+    }
+
     public function agent_ignored(){
         return $this->hasMany('App\MissionRequestsIgnored', 'agent_id');
     }
