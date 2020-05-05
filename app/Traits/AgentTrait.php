@@ -197,7 +197,7 @@ trait AgentTrait
             $strArr['distance'] = round($agent->distance_in_km);
             $strArr['work_location_address'] = $agent->work_location_address;     
 
-            if(isset($agent->upcoming_mission)){
+            if(Session::has('mission')){
                 $time1 = Carbon::parse($mission_start_date_time);
                 $time2 = Carbon::parse($agent->upcoming_mission->start_date_time);
                 $diffHours = $time1->diff($time2)->format('%H:%I:%S'); 
