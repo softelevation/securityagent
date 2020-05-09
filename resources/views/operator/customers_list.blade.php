@@ -59,7 +59,7 @@
                                             <a class="action_icons" href="{{url('operator/customer/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a></br>
 
                                             @if(Auth::user()->role_id == 3)
-                                             <a class="action_icons" href="{{url('operator/customer/delete/'.$en_id)}}"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </a>
+                                             <a class="action_icons" onclick="return confirm('Are you sure you want to delete?');" href="{{url('operator/customer/delete/'.$en_id)}}"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </a>
                                             @endif
 
                                           </td>

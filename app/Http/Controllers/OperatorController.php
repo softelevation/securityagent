@@ -205,14 +205,36 @@ class OperatorController extends Controller
      * @method missionsList
      * @purpose To get all missions list
      */
+
     public function missionsList(Request $request){
-        $missionAll = Mission::with('child_missions')->where('parent_id',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
-        $missionFuture = Mission::with('child_missions')->where('quick_book',0)->where('parent_id',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
-        $missionQuick = Mission::with('child_missions')->where('quick_book',1)->where('parent_id',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
-        $missionCompleted = Mission::with('child_missions')->where('parent_id',0)->where('status',5)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
-        $statusArr = Helper::getMissionStatus();
-        $statusArr = array_flip($statusArr);
+        $statusCond = [];
+        $missionArchived = [];
+        $missionAll = [];
+        $missionFuture = [];
+        $missionQuick = [];
+        $missionCompleted = [];
+        $statusArr = [];
+        
+        if($request->get('archived')){
+            $missionArchived = Mission::with('child_missions')->where('parent_id',0)->where('status',10)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
+
+        }else{
+            $missionStatus = $request->get('missionStatus'); 
+            if($missionStatus !== null && $missionStatus !== 'all'){
+                $statusCond = ['status'=>$missionStatus];
+            }
+
+            $missionAll = Mission::with('child_missions')->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
+            $missionFuture = Mission::with('child_missions')->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
+            $missionQuick = Mission::with('child_missions')->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
+            $missionCompleted = Mission::with('child_missions')->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
+            $statusArr = Helper::getMissionStatus();
+            $statusArr = array_flip($statusArr);
+            
+        }
+        
         $params = [
+            'archived_mission' => $missionArchived,
             'mission_all' => $missionAll,
             'future_mission' => $missionFuture,
             'quick_mission' => $missionQuick,
@@ -222,6 +244,7 @@ class OperatorController extends Controller
             'page_no' => 1,
             'page_name' => 'all'
         ];
+        
         if($request->isMethod('get')){
             if(isset($request->all)){ 
                 $params['page_no'] = $request->all; 
@@ -237,10 +260,16 @@ class OperatorController extends Controller
             }
             if(isset($request->finished)){ 
                 $params['page_no'] = $request->finished; 
-                $params['page_name'] = 'finished'; }
+                $params['page_name'] = 'finished';
+            }
+            if(isset($request->archived)){ 
+                $params['page_no'] = $request->archived; 
+                $params['page_name'] = 'archived';
+            }
         }
         return view('operator.missions',$params);
     }
+
 
     /**
      * @param $mission_id
@@ -627,5 +656,18 @@ class OperatorController extends Controller
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));  
         }
-    }   
+    }  
+    
+    public function missionChageStatus($status, $id){
+        $mission_id = Helper::decrypt($id);
+        if($status == 'archive'){
+            $status = 10;
+        }
+//        dd();
+        $mission = Mission::where('id',$mission_id)->update(['status'=>$status]);
+//        dd($mission);
+        return redirect()->back();        
+//        $response['url'] = url()->previous();
+//        return $this->getSuccessResponse($response);
+    }
 }

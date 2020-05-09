@@ -134,6 +134,9 @@ return [
 		'new_mission' => 'New Mission',
 		'payment_success' => 'Payment successfull',
 		'cancelled' => 'Mission Cancelled',
+                'archive' => 'Archive',
+                'archive_mission'=> 'Archive Mission'
+
 	],	
 
 	// Agents 
