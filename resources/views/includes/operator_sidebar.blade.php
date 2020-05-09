@@ -33,6 +33,7 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{url('operator/refund-requests')}}" class="nav-link"><i class="fa fa-wallet"></i> {{__('dashboard.payment.refund_req')}} @if(Helper::get_refund_request_count() > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_refund_request_count()}}</span>@endif</a>  
+                                <a href="{{url('operator/missions?archived=1')}}" class="nav-link"><i class="fa fa-edit"></i> {{__('dashboard.mission.archive_mission')}}</a>  
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('logout')}}"><i class="fa fa-sign-out-alt"></i> {{__('dashboard.logout')}}</a>

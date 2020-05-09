@@ -79,6 +79,7 @@ Route::group(['prefix'=>'operator'], function () {
         Route::get('/refund-mission-view/{mission_id}', 'OperatorController@viewMissionDetailsRefund');
         Route::post('/refund-mission-amount', 'OperatorController@refundMissionAmount');
         Route::post('/block-unblock-agent', 'OperatorController@blockUnblockAgent');
+        Route::get('/mission_chage_status/{status}/{mission_id}', 'OperatorController@missionChageStatus');
     });
 });
 

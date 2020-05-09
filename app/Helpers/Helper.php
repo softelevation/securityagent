@@ -466,6 +466,7 @@ class Helper {
             if($status==7){ $response = 'Annulé'; }
             if($status==8){ $response = 'Annulé'; }
             if($status==9){ $response = 'Annulé'; }
+            if($status==10){ $response = 'Archived'; }
         }else{
             if($status==0){ $response = 'Unverified'; }
             if($status==1){ $response = 'Verified'; }
@@ -477,6 +478,7 @@ class Helper {
             if($status==7){ $response = 'Cancelled'; }
             if($status==8){ $response = 'Cancelled'; }
             if($status==9){ $response = 'Cancelled'; }
+            if($status==10){ $response = 'Archived'; }
         }
         return $response;
     }
@@ -600,6 +602,21 @@ class Helper {
      */
     public static function get_total_missin_completed($agent_id){
         return Mission::where('status',5)->where('agent_id',$agent_id)->count();
+    }
+    
+    /**
+     * @return array
+     * @method get_mission_status_array
+     * @purpose get array of mission status
+     */
+    public static function get_mission_status_array(){
+        $statusArray = [];
+        if(App::getLocale()=='fr'){
+            $statusArray = ['Non vérifié', 'Vérifié', 'Rejeté', 'Actif', 'En cours', 'Terminé', 'Annulé par le client', 'Annulé par l\'agent', 'Annulé par l\'opérateur', 'Annulé par l\'administrateur'];
+        }else{
+            $statusArray = ['Unverified', 'Verified', 'Rejected', 'Active', 'In Progress', 'Completed', 'Cancelled By Customer', 'Cancelled By Agent', 'Cancelled By Operator', 'Cancelled By Admin'];
+        }
+        return $statusArray;
     }
     
 
