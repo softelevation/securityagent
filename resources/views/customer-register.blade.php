@@ -77,7 +77,7 @@
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
 				                <label>{{__('frontend.text_141')}}</label><br>
-			                    <input type="radio" name="customer_type" value="1"> {{__('frontend.text_142')}}
+			                    <input type="radio" name="customer_type" value="1" checked> {{__('frontend.text_142')}}
 			                    <input type="radio" name="customer_type" value="2"> {{__('frontend.text_143')}}
 		                      </div>
 		                    </div>
@@ -87,7 +87,7 @@
 		                      <div class="form-group ">
 				                <label>Captcha</label><br>
 				                <div class="captcha">
-				                	<span>{!! captcha_img() !!}</span>
+				                	<span class="captcha-img">{!! captcha_img() !!}</span>
 				                	<button data-url="{{url('refresh-captcha')}}" type="button" class="btn btn-warning captcha_refresh">Refresh</button>
 				                </div>
 			                    <input type="text" name="captcha" class="form-control mt-2" placeholder="{{__('frontend.captcha_place')}}" />
@@ -95,11 +95,15 @@
 		                    </div>
 	                  	</div>
 	                  	<div class="text-center pt-2 text_panel">
-	                  		<input type="checkbox" name="terms_conditions" value="1">{!!__('frontend.terms_conditions_text2',['url'=>url('terms-conditions')])!!}</a>.</div>  
+						   <input type="checkbox" name="terms_conditions" value="1">I do accept the « privacy policy » with link of the file </a></br>
+
+							<input type="checkbox" name="terms_conditions" value="2">I do accept General Terms and Conditions of sale and General Terms of use</a>.
+
+	                  		<!-- <input type="checkbox" name="terms_conditions" value="1">{!!__('frontend.terms_conditions_text2',['url'=>url('terms-conditions')])!!}</a>.</div>   -->
 	                  <div class="row text-center pt-3">
 	                    <div class="col-md-12">
 				            <div class="form-group">
-				               <input type="submit" class="yellow_btn" value="{{__('frontend.text_144')}}"/>
+				               <input type="button" onClick="checkValidation();" class="yellow_btn" value="{{__('frontend.text_144')}}"/>
 				            </div>
 	                    </div>
 	                  </div>  
@@ -111,3 +115,25 @@
     </div>
 </div>
 @endsection
+
+<script>
+function checkValidation(){ 
+	var empty = true;
+	$('input').each(function(){
+		
+		if($(this).val() == "" &&  $(this).attr('name') != 'notification_url' && $(this).attr('name') != 'notification_id' && $(this).attr('name') != undefined && $(this).attr('name') != 'availability_status'){
+			console.log($(this).attr('name'),'2222222',$(this).val());
+			empty = false;
+			$(this).css('border-color','red');
+			return false;
+		}else{
+			empty = true;
+		}
+	});
+
+	if(empty){ alert('asdfasdf');
+		$( "#general_form" ).submit();
+	}
+} 
+
+</script>

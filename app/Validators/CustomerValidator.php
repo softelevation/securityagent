@@ -19,7 +19,7 @@ trait CustomerValidator
      * @purpose : Validation rule for add page
      */
     public function customerSignupValidations(Request $request){
-        try{
+        try{ 
             $validations = array(
                 'first_name'    => 'required',
                 'last_name'     => 'required',

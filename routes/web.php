@@ -30,7 +30,7 @@ Route::get('/reset-password', function () {
 
 // Cron Jobs
 Route::get('/mission-expired-cron', 'CommonController@missionExpiredCronJob');
-
+ 
 
 Route::get('/reset-password-request/{token}', 'UserController@ChangePasswordView');
 Route::post('/set_new_password', 'UserController@SetNewPassword');
@@ -60,9 +60,13 @@ Route::group(['prefix'=>'operator'], function () {
 	    Route::get('/profile', 'OperatorController@loadProfileView');
         Route::get('/agents', 'OperatorController@viewAgentsList');
         Route::get('/agent/view/{id}', 'OperatorController@viewAgentDetails');
+        Route::get('/agent/delete/{id}', 'OperatorController@deleteAgentDetails');
+        
         Route::post('/agent_verification', 'OperatorController@agentVerificationAction');
         Route::get('/customers', 'OperatorController@viewCustomersList');
         Route::get('/customer/view/{id}', 'OperatorController@viewCustomerDetails');
+        Route::get('/customer/delete/{id}', 'OperatorController@deleteCustomerDetails');
+
         Route::post('/customer_verification', 'OperatorController@customerVerificationAction');
         Route::get('/missions', 'OperatorController@missionsList');
         Route::get('/mission-details/view/{mission_id}', 'OperatorController@viewMissionDetails');

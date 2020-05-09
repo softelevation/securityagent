@@ -2,6 +2,14 @@
 @section('content')
 <div class="profile">
     <div class="container">
+      @if ( session()->has('message_success'))
+        <div class="alert alert-info" role="alert">
+            <a class="close" title="close" aria-label="close" data-dismiss="alert" href="#">×</a>
+            {{ session()->get('message_success') }}
+        </div>
+      @endif
+
+
         <div class="row">
             @include('includes.operator_sidebar')
             <!-- /.col-md-4 -->
@@ -48,7 +56,12 @@
                                           <td>{{Helper::get_customer_type_name($customer->customer_type)}}</td>
                                           <td>{{$customer->user->email}}</td>
                                           <td>
-                                            <a class="action_icons" href="{{url('operator/customer/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
+                                            <a class="action_icons" href="{{url('operator/customer/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a></br>
+
+                                            @if(Auth::user()->role_id == 3)
+                                             <a class="action_icons" href="{{url('operator/customer/delete/'.$en_id)}}"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </a>
+                                            @endif
+
                                           </td>
                                       </tr>
                                     @empty

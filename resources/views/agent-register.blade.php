@@ -162,14 +162,14 @@
 		                      <div class="form-group ">
 				                <label>{{__('frontend.text_119')}}</label><br>
 			                    <input type="radio" name="is_vehicle" value="1"> {{__('frontend.text_120')}}
-			                    <input type="radio" name="is_vehicle" value="0"> {{__('frontend.text_121')}}
+			                    <input type="radio" name="is_vehicle" value="0" checked> {{__('frontend.text_121')}}
 		                      </div>
 		                    </div>
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
 				                <label>{{__('frontend.sub_contract_title')}}</label><br>
 			                    <input type="radio" class="is_subc" name="is_subcontractor" value="1"> {{__('frontend.text_120')}}
-			                    <input type="radio" class="is_subc" name="is_subcontractor" value="0"> {{__('frontend.text_121')}}
+			                    <input type="radio" class="is_subc" name="is_subcontractor" value="0" checked> {{__('frontend.text_121')}}
 		                      </div>
 		                    </div>
 	                  	</div>
@@ -186,7 +186,7 @@
 		                      <div class="form-group ">
 				                <label>Captcha</label><br>
 				                <div class="captcha">
-				                	<span>{!! captcha_img() !!}</span>
+				                	<span class="captcha-img">{!! captcha_img() !!}</span>
 				                	<button data-url="{{url('refresh-captcha')}}" type="button" class="btn btn-warning captcha_refresh">Refresh</button>
 				                </div>
 			                    <input type="text" name="captcha" class="form-control mt-2" placeholder="{{__('frontend.captcha_place')}}" />
@@ -194,14 +194,18 @@
 		                    </div>
 	                  	</div>
 		                <div class="text-center pt-5 text_panel">
-		                	<input type="checkbox" name="terms_conditions" value="1">{!!__('frontend.terms_conditions_text1',['url'=>url('terms-conditions')])!!}</a>.
+						<input type="checkbox" name="terms_conditions" value="1">I do accept the « privacy policy » with link of the file </a></br>
+
+						<input type="checkbox" name="terms_conditions" value="2">I do accept General Terms and Conditions of sale and General Terms of use</a>.
+
+		                	<!-- <input type="checkbox" name="terms_conditions" value="1">{!!__('frontend.terms_conditions_text1',['url'=>url('terms-conditions')])!!}</a>. -->
 		                </div>
 	                  <div class="row text-center pt-3">
 	                    <div class="col-md-12">
 		                    <input type="hidden" name="current_location[lat]" />
 			                <input type="hidden" name="current_location[long]" />
 				            <div class="form-group">
-				               <input type="submit" class="yellow_btn" value="{{__('frontend.text_122')}}"/>
+				               <input type="button" onClick="checkValidation()" class="yellow_btn" value="{{__('frontend.text_122')}}"/>
 				            </div>
 	                    </div>
 	                  </div>  
@@ -218,6 +222,58 @@
 <!-- Google Place API -->
 <script>
 var locale = '@php echo Session::get("locale"); @endphp';
+
+$("input:checkbox").on('click', function() {
+  // in the handler, 'this' refers to the box clicked on
+  var $box = $(this);
+  if ($box.is(":checked")) {
+    // the name of the box is retrieved using the .attr() method
+    // as it is assumed and expected to be immutable
+    var group = "input:checkbox[name='" + $box.attr("name") + "']";
+    // the checked state of the group/box on the other hand will change
+    // and the current value is retrieved using .prop() method
+    $(group).prop("checked", false);
+    $box.prop("checked", true);
+  } else {
+    $box.prop("checked", false);
+  }
+});
+
+function checkValidation(){ 
+	var empty = true;
+	$('input,textarea,select,checkbox').each(function(){
+		if($(this).val() == "" && $(this).attr('name') != "supplier_company" && $(this).attr('name') != "cnaps_number" 
+		&& $(this).attr('name') != "diploma[]"
+		&& $(this).attr('name') != "dog_info"
+		&& $(this).attr('name') != "current_location[lat]"
+		&& $(this).attr('name') != "current_location[long]"
+		&& $(this).attr('name') != "availability_status"
+		&& $(this).attr('name') != "notification_id"
+		&& $(this).attr('name') != "notification_url"	
+		&& $(this).attr('name') != undefined
+		){
+			console.log($(this).attr('name'));
+			empty = false;
+			$(this).css('border-color','red');
+			$(this).parent('.custom-file').css('border','1px solid red');
+			$(this).next().next('.select2.select2-container').css('border','1px solid red');
+			return false;
+		}else{
+			empty = true;
+		}
+	});
+
+	if(empty){
+		$( "#general_form" ).submit();
+	}
+} 
+
+// function checkValidation(){
+// 	if($('input,select,textarea').val() == ''){
+// 		$(this).css('border-color','red');
+// 	}
+// }
+
 
 $(document).on('click','.is_subc',function(){
 	if($(this).val()==1){

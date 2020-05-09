@@ -58,7 +58,7 @@ class OperatorController extends Controller
      */
     public function viewAgentsList(Request $request){
         $pendingAgents = Agent::where('status',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'pending');
-        $verifiedAgents = Agent::whereIn('status',[1,3])->orderBy('id','DESC')->paginate($this->limit,['*'],'verified');
+        $verifiedAgents = Agent::where('status','!=',3)->whereIn('status',[1,3])->orderBy('id','DESC')->paginate($this->limit,['*'],'verified');
         $params = [
             'pending_agents' => $pendingAgents,
             'verified_agents' => $verifiedAgents,
@@ -86,6 +86,12 @@ class OperatorController extends Controller
         $id = Helper::decrypt($en_id);
         $agent = Agent::where('id',$id)->first();
         return view('operator.agent_details',['data'=>$agent]);
+    }
+
+    public function deleteAgentDetails($e_id){
+        $id = Helper::decrypt($e_id);
+        Agent::where('id',$id)->update(['status'=>3]);
+        return redirect()->back()->with('message_success', 'Deleted Successfully.');
     }
 
     /**
@@ -129,7 +135,8 @@ class OperatorController extends Controller
      * @purpose Load customer list view
      */
     public function viewCustomersList(Request $request){
-        $customers = Customer::orderBy('id','DESC')->paginate($this->limit);
+        $customers = Customer::orderBy('id','DESC')->where('status','!=',3)->paginate($this->limit);
+       
         $params = [
             'data' => $customers,
             'limit' => $this->limit,
@@ -138,6 +145,7 @@ class OperatorController extends Controller
         if(isset($request->page)){
             $params['page_no'] = $request->page; 
         }
+   
         return view('operator.customers_list',$params);
     }
 
@@ -150,6 +158,12 @@ class OperatorController extends Controller
         $id = Helper::decrypt($en_id);
         $customer = Customer::where('id',$id)->first();
         return view('operator.customer_details',['data'=>$customer]);
+    }
+
+    public function deleteCustomerDetails($e_id){ 
+        $id = Helper::decrypt($e_id);
+        Customer::where('id',$id)->update(['status'=>3]);
+        return redirect()->back()->with('message_success', 'Deleted Successfully.');
     }
 
     /**
