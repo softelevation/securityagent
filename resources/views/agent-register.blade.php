@@ -194,9 +194,9 @@
 		                    </div>
 	                  	</div>
 		                <div class="text-center pt-5 text_panel">
-						<input type="checkbox" name="terms_conditions" value="1">I do accept the <a href="javasciprt:;"> privacy policy </a> with link of the file </a></br>
+						<input type="checkbox" name="terms_conditions" value="1">I do accept the <a href="javascript:;"> privacy policy </a> </br>
 
-						<input type="checkbox" name="terms_conditions" value="2">I do accept General Terms and Conditions of sale and General Terms of use</a>.
+						<input type="checkbox" name="terms_conditions" value="2">I do accept <a href="javascript:;">General Terms and Conditions</a> of sale and <a href="javascript:;">General Terms of use</a>
 
 		                	<!-- <input type="checkbox" name="terms_conditions" value="1">{!!__('frontend.terms_conditions_text1',['url'=>url('terms-conditions')])!!}</a>. -->
 		                </div>

@@ -199,7 +199,7 @@ trait AgentTrait
 
             if(Session::has('mission')){
                 $time1 = Carbon::parse($mission_start_date_time);
-                $time2 = Carbon::parse($agent->upcoming_mission->start_date_time);
+                $time2 = Carbon::parse(@$agent->upcoming_mission->start_date_time);
                 $diffHours = $time1->diff($time2)->format('%H:%I:%S'); 
                 $strArr['available_hours'] = $diffHours;       
             }

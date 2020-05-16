@@ -42,7 +42,7 @@ trait PaymentTrait
         $charge = $stripe->charges()->create($data);
         return $charge;
     }
-
+ 
     // Get all card's list
     public function getCardsList($customer_stripe_id){
         // $header = "Authorization: Bearer ". config('services.stripe.secret');

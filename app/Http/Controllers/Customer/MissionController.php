@@ -305,6 +305,7 @@ class MissionController extends Controller
                 'amount'   => $chargeAmount,
                 'description' => 'Mission Charge Amount'
             ];
+
             $charge = $this->createCharge($chargeData);
             if($charge['status']=='succeeded'){
                 // Save data to payment history
@@ -399,6 +400,7 @@ class MissionController extends Controller
             $card_id = $request->card_id;
             $mission_id = Helper::decrypt($request->mission_id);
             $mission = Mission::where('id',$mission_id)->first();
+          
             $chargeAmount = $mission->amount;
             if($mission->quick_book==0){
                 $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
