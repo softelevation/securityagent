@@ -39,7 +39,9 @@ trait AgentTrait
                 'updated_at' => Carbon::now(),
             ];
             $userID = User::insertGetId($userData);
-    	    // Insert data to agents table
+            // Insert data to agents table
+            
+            $post['phone'] = '+33'.$post['phone'];
             $post['user_id'] = $userID;
             $post['avatar_icon'] = 'dummy_avatar.jpg';
     	    $username = 'agent'.mt_rand(10000, 99999);

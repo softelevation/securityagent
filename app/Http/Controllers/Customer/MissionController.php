@@ -20,6 +20,7 @@ use DB;
 use App\Notifications\MissionCreated;
 use App\Notifications\MissionCancelled;
 use App\Notifications\PaymentDone;
+use Plivo\RestClient;
 
 class MissionController extends Controller
 {
@@ -395,12 +396,13 @@ class MissionController extends Controller
      * @method makeCardPayment
      * @purpose Make payment from added cards
      */
-    public function makeCardPayment(Request $request){
+    public function makeCardPayment(Request $request){      
         try{
+           
             $card_id = $request->card_id;
             $mission_id = Helper::decrypt($request->mission_id);
             $mission = Mission::where('id',$mission_id)->first();
-          
+       // dd($mission->customer_details);
             $chargeAmount = $mission->amount;
             if($mission->quick_book==0){
                 $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
@@ -429,6 +431,20 @@ class MissionController extends Controller
                 UserPaymentHistory::insert($paymentDetails);
                 // Update Mission Data
                 Mission::where('id',$mission_id)->update(['payment_status'=>1]);
+
+                /*----Customer send phone notification-----*/
+                //$phone_no = $mission->customer_details->phone;
+
+                $client = new RestClient("MAYZMWZDIYYMU5OGRHNJ", "NzI1YWFhMjE1NjZhY2U4YTliYzJiZjFhNjY4ODkx");
+          
+                $message_created = $client->messages->create(
+                    '+33685151627',
+                    ['+33678541558'],
+                    'You have received a new mission your mission id  "'.$mission_id.'" for more details please login into https://www.ontimebe.com'
+                );
+//dd($message_created);  
+                /*--------------*/
+
                 /*----Customer Notification-----*/
                 $mailContent = [
                     'name' => ucfirst($mission->customer_details->first_name),

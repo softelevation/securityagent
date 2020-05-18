@@ -24,13 +24,13 @@
 		                    <div class="col-md-6">
 		                      	<div class="form-group">
 			                       	<label>{{__('frontend.text_95')}}</label>
-				                	<input type="text" name="first_name" class="form-control" placeholder="{{__('frontend.text_96')}}" />
+				                	<input type="text" name="first_name" class="form-control validation" placeholder="{{__('frontend.text_96')}}" />
 			             	  	</div>
 		                    </div>
 		                    <div class="col-md-6">
 		                      <div class="form-group">
 				                <label>{{__('frontend.text_97')}}</label>
-				                <input type="text" name="last_name" class="form-control" placeholder="{{__('frontend.text_98')}}" />
+				                <input type="text" name="last_name" class="form-control validation" placeholder="{{__('frontend.text_98')}}" />
 		                      </div>
 		                    </div>
 	                	</div>
@@ -39,13 +39,13 @@
 	     					<div class="col-md-6">
 		                      <div class="form-group">
 				                <label>{{__('frontend.text_99')}}</label>
-				                <input type="text" name="email" class="form-control" placeholder="{{__('frontend.text_100')}}" />
+				                <input type="text" name="email" class="form-control validation" placeholder="{{__('frontend.text_100')}}" />
 		                      </div>
 		                    </div>
 	                      	<div class="col-md-6">
 		                      <div class="form-group">
 				                <label>{{__('frontend.text_101')}}</label>
-				                <input type="text" name="phone" class="form-control" placeholder="{{__('frontend.text_102')}}" />
+				                <input type="text" name="phone" class="form-control validation" placeholder="{{__('frontend.text_102')}}" />
 		                      </div>
 	                    	</div>
 	               		</div>
@@ -54,7 +54,7 @@
 		                      <div class="form-group">
 				                <label>{{__('frontend.text_103')}}</label><br>
 	                      		<div class="custom-file">
-				                	<input type="file" name="identity_card" class="custom-file-input" id="identityCard"/>
+				                	<input type="file" name="identity_card" class="custom-file-input validation" id="identityCard"/>
 		                         	<label class="custom-file-label" for="identityCard"> {{__('frontend.text_104')}} </label>
 	                     		</div>
 		                      </div>
@@ -63,7 +63,7 @@
 		                      <div class="form-group ">
 				                <label>{{__('frontend.text_105')}}</label><br>
 				                <div class="custom-file">
-				                	<input type="file" name="social_security_number" class="custom-file-input" id="socialSecurityNumber"/>
+				                	<input type="file" name="social_security_number" class="custom-file-input validation" id="socialSecurityNumber"/>
 		                         	<label class="custom-file-label" for="socialSecurityNumber"> {{__('frontend.text_106')}} </label>
 	                     		</div>
 		                      </div>
@@ -74,7 +74,7 @@
 		                      <div class="form-group">
 				                <label>{{__('frontend.text_107')}} </label><br>
 				                <div class="custom-file">
-				                	<input type="file" name="cv" class="custom-file-input" id="cv"/>
+				                	<input type="file" name="cv" class="custom-file-input validation" id="cv"/>
 		                         	<label class="custom-file-label" for="cv"> {{__('frontend.text_108')}} </label>
 	                     		</div>
 		                      </div>
@@ -82,7 +82,7 @@
 		                  	<div class="col-md-6">
 		                      <div class="form-group ">
 				                <label>{{__('frontend.text_109')}}</label><br>
-				                <input type="text" name="iban" class="form-control" placeholder="{{__('frontend.text_110')}}" />
+				                <input type="text" name="iban" class="form-control validation" placeholder="{{__('frontend.text_110')}}" />
 		                      </div>
 		                    </div>
 	                	</div> 
@@ -93,7 +93,7 @@
 					                @php $agentTypes = Helper::get_agent_type_list(); @endphp
 					                <label>{{__('frontend.text_111')}}</label>
 					                <input type="hidden" name="agent_type" id="agent_type_hidden">
-					                <select class="form-control multi_select" multiple="multiple" id="select_agent_type" placeholder="Choose Agent Type">
+					                <select class="form-control multi_select validation" multiple="multiple" id="select_agent_type" placeholder="Choose Agent Type">
 					                    @foreach($agentTypes as $key => $agent_types)
 					                    	<option value="{{$key}}">{{$agent_types}}</option>
 					                    @endforeach
@@ -144,13 +144,13 @@
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
 				                <label>{{__('frontend.text_115')}}</label>
-			                    <input type="text" name="home_address" class="form-control" placeholder="{{__('frontend.text_116')}}" />
+			                    <input type="text" name="home_address" class="form-control validation" placeholder="{{__('frontend.text_116')}}" />
 		                      </div>
 		                    </div>
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
 				                <label>{{__('frontend.text_117')}}</label>
-				                <input id="autocomplete" name="work_location_address" placeholder="{{__('frontend.text_118')}}" class="form-control"  onFocus="geolocate()" type="text"/>
+				                <input id="autocomplete" name="work_location_address" placeholder="{{__('frontend.text_118')}}" class="form-control validation"  onFocus="geolocate()" type="text"/>
 				                <!--Work Location Lat Longs  -->
 				                <input type="hidden" name="work_location[lat]" />
 				                <input type="hidden" name="work_location[long]" />
@@ -189,7 +189,7 @@
 				                	<span class="captcha-img">{!! captcha_img() !!}</span>
 				                	<button data-url="{{url('refresh-captcha')}}" type="button" class="btn btn-warning captcha_refresh">Refresh</button>
 				                </div>
-			                    <input type="text" name="captcha" class="form-control mt-2" placeholder="{{__('frontend.captcha_place')}}" />
+			                    <input type="text" name="captcha" class="form-control mt-2 validation" placeholder="{{__('frontend.captcha_place')}}" />
 		                      </div>
 		                    </div>
 	                  	</div>
@@ -240,40 +240,25 @@ $("input:checkbox").on('click', function() {
 });
 
 function checkValidation(){ 
+	
 	var empty = true;
-	$('input,textarea,select,checkbox').each(function(){
-		if($(this).val() == "" && $(this).attr('name') != "supplier_company" && $(this).attr('name') != "cnaps_number" 
-		&& $(this).attr('name') != "diploma[]"
-		&& $(this).attr('name') != "dog_info"
-		&& $(this).attr('name') != "current_location[lat]"
-		&& $(this).attr('name') != "current_location[long]"
-		&& $(this).attr('name') != "availability_status"
-		&& $(this).attr('name') != "notification_id"
-		&& $(this).attr('name') != "notification_url"	
-		&& $(this).attr('name') != undefined
-		){
-			console.log($(this).attr('name'));
+	$('.validation').each(function(){
+		console.log($(this).val(),'sssssss');
+		if($(this).val() == ""){
 			empty = false;
 			$(this).css('border-color','red');
 			$(this).parent('.custom-file').css('border','1px solid red');
 			$(this).next().next('.select2.select2-container').css('border','1px solid red');
-			return false;
+			//return false;
 		}else{
 			empty = true;
 		}
 	});
-
+	
 	if(empty){
 		$( "#general_form" ).submit();
 	}
 } 
-
-// function checkValidation(){
-// 	if($('input,select,textarea').val() == ''){
-// 		$(this).css('border-color','red');
-// 	}
-// }
-
 
 $(document).on('click','.is_subc',function(){
 	if($(this).val()==1){

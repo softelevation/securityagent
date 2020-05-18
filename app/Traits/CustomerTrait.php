@@ -40,6 +40,8 @@ trait CustomerTrait
             if($userID){
                 $credentials = array('email'=>$post['email'],'password'=>$post['password']);
                 unset($post['email'],$post['password']);
+
+                $post['phone'] = '+33'.$post['phone'];
                 $post['user_id']    = $userID;
                 $post['status']     = 1;
                 $post['created_at'] = Carbon::now();

@@ -24,13 +24,13 @@
 		                    <div class="col-md-6">
 		                      	<div class="form-group">
 			                       	<label>{{__('frontend.text_127')}}</label>
-				                	<input type="text" name="first_name" class="form-control" placeholder="{{__('frontend.text_128')}}" />
+				                	<input type="text" name="first_name" class="form-control validation" placeholder="{{__('frontend.text_128')}}" />
 			             	  	</div>
 		                    </div>
 		                    <div class="col-md-6">
 		                      <div class="form-group">
 				                <label>{{__('frontend.text_129')}}</label>
-				                <input type="text" name="last_name" class="form-control" placeholder="{{__('frontend.text_130')}}" />
+				                <input type="text" name="last_name" class="form-control validation" placeholder="{{__('frontend.text_130')}}" />
 		                      </div>
 		                    </div>
 	                	</div>
@@ -39,13 +39,13 @@
 	     					<div class="col-md-6">
 		                      <div class="form-group">
 				                <label>{{__('frontend.text_131')}}</label>
-				                <input type="text" name="email" class="form-control" placeholder="{{__('frontend.text_132')}}" />
+				                <input type="text" name="email" class="form-control validation" placeholder="{{__('frontend.text_132')}}" />
 		                      </div>
 		                    </div>
 	                      	<div class="col-md-6">
 		                      <div class="form-group">
 				                <label>{{__('frontend.text_133')}}</label>
-				                <input type="text" name="phone" class="form-control" placeholder="{{__('frontend.text_134')}}" />
+				                <input type="text" name="phone" class="form-control validation" placeholder="{{__('frontend.text_134')}}" />
 		                      </div>
 	                    	</div>
 	               		</div>
@@ -54,13 +54,13 @@
 	     					<div class="col-md-6">
 		                      <div class="form-group">
 				                <label>{{__('frontend.text_135')}}</label>
-				                <input type="password" name="password" class="form-control" placeholder="{{__('frontend.text_136')}}" />
+				                <input type="password" name="password" class="form-control validation" placeholder="{{__('frontend.text_136')}}" />
 		                      </div>
 		                    </div>
 	                      	<div class="col-md-6">
 		                      <div class="form-group">
 				                <label>{{__('frontend.text_137')}}</label>
-				                <input type="password" name="password_confirmation" class="form-control" placeholder="{{__('frontend.text_138')}}" />
+				                <input type="password" name="password_confirmation" class="form-control validation" placeholder="{{__('frontend.text_138')}}" />
 		                      </div>
 	                    	</div>
 	               		</div>
@@ -68,7 +68,7 @@
 		                    <div class="col-md-12">
 		                      <div class="form-group ">
 				                <label>{{__('frontend.text_139')}}</label>
-			                    <input type="text" name="home_address" class="form-control" placeholder="{{__('frontend.text_140')}}" />
+			                    <input type="text" name="home_address" class="form-control validation" placeholder="{{__('frontend.text_140')}}" />
 		                      </div>
 		                    </div>
 
@@ -90,7 +90,7 @@
 				                	<span class="captcha-img">{!! captcha_img() !!}</span>
 				                	<button data-url="{{url('refresh-captcha')}}" type="button" class="btn btn-warning captcha_refresh">Refresh</button>
 				                </div>
-			                    <input type="text" name="captcha" class="form-control mt-2" placeholder="{{__('frontend.captcha_place')}}" />
+			                    <input type="text" name="captcha" class="form-control mt-2 validation" placeholder="{{__('frontend.captcha_place')}}" />
 		                      </div>
 		                    </div>
 	                  	</div>
@@ -119,19 +119,20 @@
 <script>
 function checkValidation(){ 
 	var empty = true;
-	$('input').each(function(){
-		
-		if($(this).val() == "" &&  $(this).attr('name') != 'notification_url' && $(this).attr('name') != 'notification_id' && $(this).attr('name') != undefined && $(this).attr('name') != 'availability_status'){
-			console.log($(this).attr('name'),'2222222',$(this).val());
+	$('.validation').each(function(){
+		console.log($(this).val(),'sssssss');
+		if($(this).val() == ""){
 			empty = false;
 			$(this).css('border-color','red');
-			return false;
+			$(this).parent('.custom-file').css('border','1px solid red');
+			$(this).next().next('.select2.select2-container').css('border','1px solid red');
+			//return false;
 		}else{
 			empty = true;
 		}
 	});
-
-	if(empty){ alert('asdfasdf');
+	
+	if(empty){
 		$( "#general_form" ).submit();
 	}
 } 
