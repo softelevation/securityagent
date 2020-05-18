@@ -401,8 +401,11 @@ class MissionController extends Controller
            
             $card_id = $request->card_id;
             $mission_id = Helper::decrypt($request->mission_id);
-            $mission = Mission::where('id',$mission_id)->first();
-       // dd($mission->customer_details);
+
+            $mission = Mission::with('agent_details')->where('id',$mission_id)->first();
+      
+            $agentNumber = $mission->agent_details->phone;
+       
             $chargeAmount = $mission->amount;
             if($mission->quick_book==0){
                 $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
@@ -439,10 +442,10 @@ class MissionController extends Controller
           
                 $message_created = $client->messages->create(
                     '+33685151627',
-                    ['+33678541558'],
+                    [$agentNumber],
                     'You have received a new mission your mission id  "'.$mission_id.'" for more details please login into https://www.ontimebe.com'
                 );
-//dd($message_created);  
+
                 /*--------------*/
 
                 /*----Customer Notification-----*/
