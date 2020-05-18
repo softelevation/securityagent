@@ -50,6 +50,7 @@ class MissionController extends Controller
         $data['inprogress_mission'] = $missionInProgress;
         $data['finished_mission'] = $missionCompleted;
         $data['status_list'] = $statusArr;
+       
         return view('agent.missions',$data);
     }
 

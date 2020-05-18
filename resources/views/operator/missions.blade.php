@@ -470,7 +470,8 @@
                             </div>
                             
                             <!-- Archived Missions -->
-                            <div class="tab-pane fade show @if($page_name=='finished') active @endif" id="nav-mission-archived" role="tabpanel" aria-labelledby="nav-in-progress-tab">
+
+                            <div class="tab-pane fade show @if($page_name=='archived') active @endif" id="nav-mission-archived" role="tabpanel" aria-labelledby="nav-in-progress-tab">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped">
                                         <thead>
@@ -488,7 +489,8 @@
                                         <tbody>
                                             @php 
                                             $i = 0; 
-                                            if($page_name=='all'){
+
+                                            if($page_name=='finished'){
                                             $records = $limit*($page_no-1);
                                             $i = $i+$records;
                                             }
@@ -568,7 +570,8 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($mission_all) {{$mission_all->links()}} @endif
+
+                                            @if($archived_mission) {{$archived_mission->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>

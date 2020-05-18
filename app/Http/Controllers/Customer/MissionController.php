@@ -20,6 +20,7 @@ use DB;
 use App\Notifications\MissionCreated;
 use App\Notifications\MissionCancelled;
 use App\Notifications\PaymentDone;
+use Plivo\RestClient;
 
 class MissionController extends Controller
 {
@@ -305,6 +306,7 @@ class MissionController extends Controller
                 'amount'   => $chargeAmount,
                 'description' => 'Mission Charge Amount'
             ];
+
             $charge = $this->createCharge($chargeData);
             if($charge['status']=='succeeded'){
                 // Save data to payment history
@@ -394,11 +396,16 @@ class MissionController extends Controller
      * @method makeCardPayment
      * @purpose Make payment from added cards
      */
-    public function makeCardPayment(Request $request){
+    public function makeCardPayment(Request $request){      
         try{
+           
             $card_id = $request->card_id;
             $mission_id = Helper::decrypt($request->mission_id);
-            $mission = Mission::where('id',$mission_id)->first();
+
+            $mission = Mission::with('agent_details')->where('id',$mission_id)->first();
+      
+            $agentNumber = $mission->agent_details->phone;
+       
             $chargeAmount = $mission->amount;
             if($mission->quick_book==0){
                 $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
@@ -427,6 +434,20 @@ class MissionController extends Controller
                 UserPaymentHistory::insert($paymentDetails);
                 // Update Mission Data
                 Mission::where('id',$mission_id)->update(['payment_status'=>1]);
+
+                /*----Customer send phone notification-----*/
+                //$phone_no = $mission->customer_details->phone;
+
+                $client = new RestClient("MAYZMWZDIYYMU5OGRHNJ", "NzI1YWFhMjE1NjZhY2U4YTliYzJiZjFhNjY4ODkx");
+          
+                $message_created = $client->messages->create(
+                    '+33685151627',
+                    [$agentNumber],
+                    'You have received a new mission your mission id  "'.$mission_id.'" for more details please login into https://www.ontimebe.com'
+                );
+
+                /*--------------*/
+
                 /*----Customer Notification-----*/
                 $mailContent = [
                     'name' => ucfirst($mission->customer_details->first_name),

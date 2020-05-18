@@ -9,7 +9,7 @@ use Illuminate\Validation\Rule;
 trait AgentValidator
 {
     use BaseValidator;
-
+ 
     public $response;
 
     /**
@@ -25,7 +25,7 @@ trait AgentValidator
                 'first_name'    => 'required',
                 'last_name'     => 'required',
                 'phone'         => 'required',
-                'identity_card'      => 'required',
+                'identity_card'      => 'required', 
                 'social_security_number' => 'required',
                 'agent_type'    => 'required',
                 'cv'    => 'required',

@@ -1372,3 +1372,4 @@ span.form-control i{
     /*padding: 0px !important;*/
     line-height: 20px;
 }
+.captcha-img img{width:250px;}

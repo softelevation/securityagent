@@ -620,6 +620,16 @@ class Helper {
     }
     
 
+    public static function get_mission_status_array(){
+        $statusArray = [];
+        if(App::getLocale()=='fr'){
+            $statusArray = ['Non vérifié', 'Vérifié', 'Rejeté', 'Actif', 'En cours', 'Terminé', 'Annulé par le client', 'Annulé par l\'agent', 'Annulé par l\'opérateur', 'Annulé par l\'administrateur'];
+        }else{
+            $statusArray = ['Unverified', 'Verified', 'Rejected', 'Active', 'In Progress', 'Completed', 'Cancelled By Customer', 'Cancelled By Agent', 'Cancelled By Operator', 'Cancelled By Admin'];
+        }
+        return $statusArray;
+    }
+    
 
 }
 

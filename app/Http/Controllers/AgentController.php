@@ -30,7 +30,7 @@ class AgentController extends Controller
         return view('agent-register');
     }
 
-    /**
+    /** 
      * @param $request
      * @return mixed
      * @method agentRegister
@@ -39,10 +39,12 @@ class AgentController extends Controller
     public function signup(Request $request){
     	try{
             // Check Agent Table Validation
-        	$validation = $this->agentSignupValidations($request);
+            $validation = $this->agentSignupValidations($request);
+        
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
             }
+          
             $agentType = json_decode($request->agent_type);
             $dog = 0;
             if(empty($agentType)){
