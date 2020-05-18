@@ -104,7 +104,9 @@ class MissionController extends Controller
         try{
             $action = $request->action_value;
             $mission_id = Helper::decrypt($request->mission_id);
-            $mission = Mission::where('id',$mission_id)->first();
+            $mission = Mission::with('customer_details')->where('id',$mission_id)->first();
+            $customerNumber = $mission->customer_details->phone;
+            
             // Check if mission request is expired or not
             $mission_expired = $this->missionExpired($mission_id);
             if($mission_expired==1){
@@ -124,6 +126,10 @@ class MissionController extends Controller
                         Session::forget($sessionName);
                         Session::save();
                     }
+                    
+                    PlivoSms::sendSms(['phoneNumber' => $customerNumber, 'msg' => 'Mission id  "'.$mission_id.'" is accepted by agent, for more details please login into https://www.ontimebe.com' ]);
+                    
+                    
                     $response['message'] = trans('messages.mission_accepted');
                     $response['delayTime'] = 2000;
                     $response['modelhide'] = '#mission_action';

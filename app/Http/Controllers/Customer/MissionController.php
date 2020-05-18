@@ -20,7 +20,7 @@ use DB;
 use App\Notifications\MissionCreated;
 use App\Notifications\MissionCancelled;
 use App\Notifications\PaymentDone;
-use Plivo\RestClient;
+use App\Helpers\PlivoSms;
 
 class MissionController extends Controller
 {
@@ -438,13 +438,17 @@ class MissionController extends Controller
                 /*----Customer send phone notification-----*/
                 //$phone_no = $mission->customer_details->phone;
 
-                $client = new RestClient("MAYZMWZDIYYMU5OGRHNJ", "NzI1YWFhMjE1NjZhY2U4YTliYzJiZjFhNjY4ODkx");
-          
-                $message_created = $client->messages->create(
-                    '+33685151627',
-                    [$agentNumber],
-                    'You have received a new mission your mission id  "'.$mission_id.'" for more details please login into https://www.ontimebe.com'
-                );
+//                $c
+//                $message_created = $client->messages->create(
+//                    '+33685151627',
+//                    [$agentNumber],
+//                    'You have received a new mission your mission id  "'.$mission_id.'" for more details please login into https://www.ontimebe.com'
+//                );lient = new RestClient("MAYZMWZDIYYMU5OGRHNJ", "NzI1YWFhMjE1NjZhY2U4YTliYzJiZjFhNjY4ODkx");
+//          
+
+                    PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => 'You have received a new mission your mission id  "'.$mission_id.'" for more details please login into https://www.ontimebe.com' ]);
+//                
+                
 
                 /*--------------*/
 

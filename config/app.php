@@ -237,6 +237,7 @@ return [
         'Html' => 'Collective\Html\HtmlFacade',
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
+        'PlivoSms' => App\Helpers\PlivoSms::class,
     ],
 
 ];

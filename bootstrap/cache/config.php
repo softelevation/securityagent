@@ -10,7 +10,7 @@
     'locale' => 'fr',
     'fallback_locale' => 'fr',
     'faker_locale' => 'en_US',
-    'key' => 'base64:0H5l3z22zlyuvI7C51WeK2wV2yOlEgWOV4sJ06nlUJI=',
+    'key' => 'base64:fjZF4AtIrtueguwO5sy+oYlJEEngoW0nbY7pryDQdVE=',
     'cipher' => 'AES-256-CBC',
     'providers' => 
     array (
@@ -90,6 +90,7 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
       'PDF' => 'Barryvdh\\DomPDF\\Facade',
       'Captcha' => 'Mews\\Captcha\\Facades\\Captcha',
+      'PlivoSms' => 'App\\Helpers\\PlivoSms',
     ),
   ),
   'auth' => 
@@ -880,7 +881,7 @@
   ),
   'mail' => 
   array (
-    'driver' => '',
+    'driver' => 'smtp',
     'host' => '',
     'port' => '',
     'from' => 
@@ -983,8 +984,8 @@
     ),
     'stripe' => 
     array (
-      'secret' => NULL,
-      'currency' => NULL,
+      'secret' => 'sk_test_rWpNtaIWNpvINOkFyRhdkrMd00LvPs3eUK',
+      'currency' => 'EUR',
     ),
   ),
   'session' => 
