@@ -22,6 +22,7 @@ use App\PaymentApproval;
 use App\Traits\MissionTrait;
 use App\MissionRequestsIgnored;
 use Session;
+use App\Helpers\PlivoSms;
 
 class MissionController extends Controller
 {
@@ -103,6 +104,7 @@ class MissionController extends Controller
     public function processMissionRequest(Request $request){
         try{
             $action = $request->action_value;
+
             $mission_id = Helper::decrypt($request->mission_id);
             $mission = Mission::with('customer_details')->where('id',$mission_id)->first();
             $customerNumber = $mission->customer_details->phone;
@@ -125,10 +127,11 @@ class MissionController extends Controller
                     if(Session::has($sessionName)){
                         Session::forget($sessionName);
                         Session::save();
-                    }
+                    }                    
                     
+                    /*----Customer send phone notification-----*/
                     PlivoSms::sendSms(['phoneNumber' => $customerNumber, 'msg' => 'Mission id  "'.$mission_id.'" is accepted by agent, for more details please login into https://www.ontimebe.com' ]);
-                    
+                    /*--------------*/
                     
                     $response['message'] = trans('messages.mission_accepted');
                     $response['delayTime'] = 2000;
@@ -161,6 +164,12 @@ class MissionController extends Controller
                     return response($this->getErrorResponse(trans('messages.error')));
                 }
             }
+        }catch(\Plivo\Exceptions\PlivoResponseException $e){
+                $response['message'] = trans('messages.mission_accepted');
+                $response['delayTime'] = 2000;
+                $response['modelhide'] = '#mission_action';
+                $response['url'] = url('agent/mission-requests');
+                return response($this->getSuccessResponse($response));
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }

@@ -15,6 +15,7 @@ use App\Mission;
 use App\MissionRequestsIgnored;
 use Carbon\Carbon;
 use App\Traits\MissionTrait;
+use App\Helpers\PlivoSms;
 
 class AgentController extends Controller
 {
@@ -261,6 +262,11 @@ class AgentController extends Controller
             $result = Mission::insert($subMissions);
             if($result){
                 Mission::where('id',$mission_id)->update(['agent_id'=>0]);
+                
+                /*----Customer send phone notification-----*/
+                    PlivoSms::sendSms(['phoneNumber' => $customerNumber, 'msg' => 'Mission id  "'.$mission_id.'" is accepted by agent, for more details please login into https://www.ontimebe.com' ]);
+                /*--------------*/
+                    
                 $response['message'] = trans('messages.mission_accepted_12');
                 $response['delayTime'] = 2000;
                 $response['modelhide'] = '#mission_action';
@@ -269,6 +275,12 @@ class AgentController extends Controller
             }else{
                 return response($this->getErrorResponse(trans('messages.error')));
             }
+        }catch(\Plivo\Exceptions\PlivoResponseException $e){
+                $response['message'] = trans('messages.mission_accepted_12');
+                $response['delayTime'] = 2000;
+                $response['modelhide'] = '#mission_action';
+                $response['url'] = url('agent/mission-requests');
+                return response($this->getSuccessResponse($response));
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }

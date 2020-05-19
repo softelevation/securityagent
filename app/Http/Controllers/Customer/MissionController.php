@@ -435,21 +435,6 @@ class MissionController extends Controller
                 // Update Mission Data
                 Mission::where('id',$mission_id)->update(['payment_status'=>1]);
 
-                /*----Customer send phone notification-----*/
-                //$phone_no = $mission->customer_details->phone;
-
-//                $c
-//                $message_created = $client->messages->create(
-//                    '+33685151627',
-//                    [$agentNumber],
-//                    'You have received a new mission your mission id  "'.$mission_id.'" for more details please login into https://www.ontimebe.com'
-//                );lient = new RestClient("MAYZMWZDIYYMU5OGRHNJ", "NzI1YWFhMjE1NjZhY2U4YTliYzJiZjFhNjY4ODkx");
-//          
-
-                    PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => 'You have received a new mission your mission id  "'.$mission_id.'" for more details please login into https://www.ontimebe.com' ]);
-//                
-                
-
                 /*--------------*/
 
                 /*----Customer Notification-----*/
@@ -477,7 +462,12 @@ class MissionController extends Controller
                     ];
                     $mission->agent_details->user->notify(new MissionCreated($mailContent));
                 }
-                /*--------------*/ 
+                /*--------------*/
+                
+                /*----Customer send phone notification-----*/
+                PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => 'You have received a new mission your mission id  "'.$mission_id.'" for more details please login into https://www.ontimebe.com' ]);
+                /*--------------*/
+                
                 $response['message'] = trans('messages.payment_completed');
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');
@@ -489,6 +479,11 @@ class MissionController extends Controller
                 $response['data'] = $charge;
                 return $this->getErrorResponse($response);
             }
+        }catch(\Plivo\Exceptions\PlivoResponseException $e){
+                $response['message'] = trans('messages.payment_completed');
+                $response['delayTime'] = 5000;
+                $response['url'] = url('customer/missions');
+                return $this->getSuccessResponse($response);
         }catch(\Exception $e){
             return $this->getErrorResponse($e->getMessage());
         }
