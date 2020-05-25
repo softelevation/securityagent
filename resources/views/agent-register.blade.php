@@ -16,7 +16,12 @@
     <div class="row"> 
         <div class="col-md-12">
             <div class="contact_box">
-                <h3>{{__('frontend.text_94')}}</h3>
+                <h3>
+					{{__('frontend.text_94')}}
+					<span style="margin-left:30px;float:right">All Fields Are Mandatory</span>
+				</h3>
+				
+
                 <form id="general_form" method="post" action="{{url('/register_agent')}}" enctype="multipart/form-data" novalidate="novalidate">
                 	@csrf
 	                <div class="contact_form">

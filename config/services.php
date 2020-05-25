@@ -38,4 +38,5 @@ return [
         'currency' => env('STRIPE_CURRENCY'),
     ],
 
-];
+]; 
+ 

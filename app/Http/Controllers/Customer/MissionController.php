@@ -21,6 +21,7 @@ use App\Notifications\MissionCreated;
 use App\Notifications\MissionCancelled;
 use App\Notifications\PaymentDone;
 use App\Helpers\PlivoSms;
+use Redirect;
 
 class MissionController extends Controller
 {
@@ -243,27 +244,38 @@ class MissionController extends Controller
      * @method proceedToPayment
      * @purpose View Payment and Mission Details
      */
-    public function proceedToPayment($id){
-        $mission_id = Helper::decrypt($id);
-        $mission = Mission::where('id',$mission_id)->first();
-        $data['mission'] = $mission;
-        $chargeAmount = $mission->amount;
-        if($mission->quick_book==0){
-            $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
+    public function proceedToPayment($id){ 
+        try{
+            $mission_id = Helper::decrypt($id);
+            $mission = Mission::where('id',$mission_id)->first();
+            $data['mission'] = $mission;
+            $chargeAmount = $mission->amount;
+            if($mission->quick_book==0){
+                $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
+            }
+            $data['charge_amount'] = $chargeAmount;
+            if(!isset($mission->customer_details->customer_stripe_id) || $mission->customer_details->customer_stripe_id==null){
+                // Create customer on stripe
+                $user_email = $mission->customer_details->user->email;
+                $customer = $this->createCustomer($user_email);
+                $cus_stripe_id = $customer['id'];
+                Customer::where('id',$mission->customer_details->id)->update(['customer_stripe_id'=>$cus_stripe_id]);
+            }else{
+                // Get added card's of customer 
+            
+                $addedCards = $this->getCardsList($mission->customer_details->customer_stripe_id);
+                
+                $data['cards'] = $addedCards;
+            }
+            return view('customer.mission_payment_view',$data);
+        }catch(\Exception $e){
+            $res = $this->getErrorResponse($e->getMessage());
+            if($res['error']){
+                return Redirect::back()->withErrors(['Something went wrong with customer id!']);
+            }
+           // $res =  response($this->getErrorResponse($e->getMessage()));
+          
         }
-        $data['charge_amount'] = $chargeAmount;
-        if(!isset($mission->customer_details->customer_stripe_id) || $mission->customer_details->customer_stripe_id==null){
-            // Create customer on stripe
-            $user_email = $mission->customer_details->user->email;
-            $customer = $this->createCustomer($user_email);
-            $cus_stripe_id = $customer['id'];
-            Customer::where('id',$mission->customer_details->id)->update(['customer_stripe_id'=>$cus_stripe_id]);
-        }else{
-            // Get added card's of customer 
-            $addedCards = $this->getCardsList($mission->customer_details->customer_stripe_id);
-            $data['cards'] = $addedCards;
-        }
-        return view('customer.mission_payment_view',$data);
     }
 
     /**

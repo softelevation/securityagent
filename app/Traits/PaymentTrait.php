@@ -50,8 +50,10 @@ trait PaymentTrait
         // $response = \Curl::to($url)->withHeader($header)->get();
         // $response = json_decode($response,1);
         // return $response;  
-        $stripe = $this->stripe_token();     
-        return $stripe->cards()->all($customer_stripe_id);
+        $stripe = $this->stripe_token(); 
+ 
+        $res = $stripe->cards()->all($customer_stripe_id);
+      
     }
 
     // Get all card's list

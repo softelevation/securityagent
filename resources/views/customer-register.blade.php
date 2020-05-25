@@ -16,7 +16,8 @@
     <div class="row"> 
         <div class="col-md-12">
             <div class="contact_box">
-                <h3><i class="fa fa-pin"></i> {{__('frontend.text_144')}}</h3>
+                <h3><i class="fa fa-pin"></i> {{__('frontend.text_144')}}
+				<span style="margin-left:30px;float:right">All Fields Are Mandatory</span></h3>
                 <form id="general_form" method="post" action="{{url('/register_customer_form')}}" novalidate="novalidate">
                 	@csrf
 	                <div class="contact_form">

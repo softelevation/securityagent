@@ -1,8 +1,14 @@
 @extends('layouts.dashboard')
 @section('content')
 <div class="profile">
+      @if($errors->any())
+        <div class="alert alert-info" style="text-align:center">
+          <strong>{{$errors->first()}}</strong>
+        </div>
+      @endif
+
     <div class="container">
-        <div class="row">
+        <div class="row"> 
             @include('includes.customer_sidebar')
             <!-- /.col-md-4 -->
             <div class="col-md-9">
