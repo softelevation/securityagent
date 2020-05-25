@@ -130,7 +130,7 @@ class MissionController extends Controller
                     }                    
                     
                     /*----Customer send phone notification-----*/
-                    PlivoSms::sendSms(['phoneNumber' => $customerNumber, 'msg' => 'Mission id  "'.$mission_id.'" is accepted by agent, for more details please login into https://www.ontimebe.com' ]);
+                    PlivoSms::sendSms(['phoneNumber' => $customerNumber, 'msg' => trans('messages.agent_mission_accept_plivo_message', ['missionId'=> $mission_id]) ]);
                     /*--------------*/
                     
                     $response['message'] = trans('messages.mission_accepted');

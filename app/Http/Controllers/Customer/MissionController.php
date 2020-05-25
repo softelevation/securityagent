@@ -410,7 +410,7 @@ class MissionController extends Controller
      */
     public function makeCardPayment(Request $request){      
         try{
-           
+
             $card_id = $request->card_id;
             $mission_id = Helper::decrypt($request->mission_id);
 
@@ -477,7 +477,7 @@ class MissionController extends Controller
                 /*--------------*/
                 
                 /*----Customer send phone notification-----*/
-                PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => 'You have received a new mission your mission id  "'.$mission_id.'" for more details please login into https://www.ontimebe.com' ]);
+                PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => trans('messages.plivo_customer_mission_created', ['missionId'=> $mission_id])]);
                 /*--------------*/
                 
                 $response['message'] = trans('messages.payment_completed');
