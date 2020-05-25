@@ -111,6 +111,7 @@ return [
 	"text_93" => "Register",
 
 	//Agent Register Page 
+	"text_941"=> "All Fields Are Mandatory",
 	"text_94" => "BECOME AN AGENT",
 	"text_95" => "First Name",
 	"text_96" => "Enter Your First Name",

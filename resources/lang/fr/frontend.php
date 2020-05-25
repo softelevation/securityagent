@@ -112,6 +112,7 @@ return [
 	"text_93" => "S'inscrire",
 
 	//Agent Register Page 
+	"text_941"=> "TOUS LES CHAMPS SONT OBLIGATOIRES",
 	"text_94" => "DEVENIR UN AGENT",
 	"text_95" => "Prénom",
 	"text_96" => "Entrez votre prénom",

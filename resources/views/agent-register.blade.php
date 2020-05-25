@@ -18,7 +18,9 @@
             <div class="contact_box">
                 <h3>
 					{{__('frontend.text_94')}}
-					<span style="margin-left:30px;float:right">All Fields Are Mandatory</span>
+					<span style="margin-left:30px;float:right">					
+						{{__('frontend.text_941')}}
+					</span>
 				</h3>
 				
 
