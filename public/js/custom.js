@@ -319,8 +319,9 @@ $(document).ready(function () {
     //MISSION PAGE FILER
         $('#filterMissionStatus').on('change', function(){
             var selectedStatus = $(this).val(); // SELECTED STATUS
-            var pageNo = getParameterByName('all') || 1; //PAGE NO
-            var url = window.location.origin+window.location.pathname+'?all='+pageNo+'&missionStatus='+selectedStatus;
+            var pageNo = 1; //PAGE NO
+            var url = '';
+            url = (selectedStatus != 'all') ? window.location.origin+window.location.pathname+'?missionStatus='+selectedStatus+'&all='+pageNo : window.location.origin+window.location.pathname+'?all='+pageNo;
             window.location.href = url;
         });
         

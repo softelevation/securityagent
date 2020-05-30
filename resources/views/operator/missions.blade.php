@@ -17,7 +17,7 @@
                                 <option value="" disabled selected>Search by Mission status</option>
                                 <option value="all">{{__('dashboard.mission.all')}}</option>
                                 @foreach(Helper::get_mission_status_array() as $idx => $val)
-                                <option value='{{$idx}}' @if(app('request')->input('missionStatus') !== 'all' && app('request')->input('missionStatus')==$idx) selected="selected" @endif>{{$val}}</option>
+                                <option value='{{$idx}}' @if((null != app('request')->input('missionStatus')) &&  app('request')->input('missionStatus') >=0 &&  app('request')->input('missionStatus') >=0!== 'all' && app('request')->input('missionStatus')==$idx) selected="selected" @endif>{{$val}}</option>
                                 @endforeach
                             </select>
                         @endif
@@ -156,7 +156,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($mission_all) {{$mission_all->links()}} @endif
+                                            @if($mission_all && null != app('request')->input('missionStatus')) {{$mission_all->appends(['missionStatus' => app('request')->input('missionStatus')])->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
@@ -263,7 +263,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($future_mission) {{$future_mission->links()}} @endif
+                                            @if($future_mission && null != app('request')->input('missionStatus')) {{$future_mission->appends(['missionStatus' => app('request')->input('missionStatus')])->links()}} @elseif($future_mission) {{$future_mission->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
@@ -394,7 +394,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($quick_mission) {{$quick_mission->links()}} @endif
+                                            @if($quick_mission && null != app('request')->input('missionStatus')) {{$quick_mission->appends(['missionStatus' => app('request')->input('missionStatus')])->links()}} @elseif($quick_mission) {{$quick_mission->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
@@ -463,7 +463,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($finished_mission) {{$finished_mission->links()}} @endif
+                                            @if($finished_mission && null != app('request')->input('missionStatus')) {{$finished_mission->appends(['missionStatus' => app('request')->input('missionStatus')])->links()}} @elseif($finished_mission) {{$finished_mission->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
@@ -571,7 +571,7 @@
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
 
-                                            @if($archived_mission) {{$archived_mission->links()}} @endif
+                                            @if($archived_mission && null != app('request')->input('missionStatus')) {{$archived_mission->appends(['missionStatus' => app('request')->input('missionStatus')])->links()}} @elseif($archived_mission) {{$archived_mission->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
