@@ -104,7 +104,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @php 
+                              @php  
                                 $i = 0; 
                                 if($page_name=='verified'){
                                   $records = $limit*($page_no-1);
@@ -132,7 +132,7 @@
                                       @else
                                         <a id="{{Helper::encrypt($agent->id)}}" data-type="1" class="action_icons block_un_agent" href="javascript:void(0)"><i class="fas fa-toggle-on text-grey" aria-hidden="true"></i> {{__('dashboard.block')}}</a>
                                       @endif
-
+ 
                                     </td>
                                 </tr>
                               @empty

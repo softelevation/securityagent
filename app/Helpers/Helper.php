@@ -55,6 +55,7 @@ class Helper {
      * @purpose      :  to encrypt the data
      */
     public static function encrypt($id = null) {
+      //  dd($id);
         if ($id) {
             return Crypt::encrypt($id);
         }
@@ -267,7 +268,7 @@ class Helper {
             return $e->getMessage();
         }
     }
-
+ 
     /*
     * @method      : sendCommonMail
     * @purpose     : To send mail

@@ -56,9 +56,9 @@ class OperatorController extends Controller
      * @method viewAgentsList
      * @purpose View Agents List
      */
-    public function viewAgentsList(Request $request){
+    public function viewAgentsList(Request $request){  
         $pendingAgents = Agent::where('status',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'pending');
-        $verifiedAgents = Agent::where('status','!=',3)->whereIn('status',[1,3])->orderBy('id','DESC')->paginate($this->limit,['*'],'verified');
+        $verifiedAgents = Agent::where('status','!=','')->whereIn('status',[1,3])->orderBy('id','DESC')->paginate($this->limit,['*'],'verified');
         $params = [
             'pending_agents' => $pendingAgents,
             'verified_agents' => $verifiedAgents,
@@ -73,7 +73,7 @@ class OperatorController extends Controller
                 $params['page_no'] = $pageNo[0]; 
                 $params['page_name'] = $pageName[0];
             }
-        }
+        } 
         return view('operator.agents_list',$params);
     }
 
@@ -231,7 +231,7 @@ class OperatorController extends Controller
             $statusArr = Helper::getMissionStatus();
             $statusArr = array_flip($statusArr);
             
-        }
+        } 
         
         $params = [
             'archived_mission' => $missionArchived,
