@@ -4,11 +4,11 @@
 @extends('layouts.dashboard')
 @section('content')
 <div class="profile">
-    <div class="container">
+    <div class="container"> 
         <div class="row">
             @include('includes.operator_sidebar')
             <!-- /.col-md-4 -->
-            <div class="col-md-9">
+            <div class="col-md-9"> 
               <div class="float-left">
                   <h2>Agent Information</h2>
               </div>

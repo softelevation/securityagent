@@ -707,3 +707,4 @@ class OperatorController extends Controller
     }
 
 }
+  

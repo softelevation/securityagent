@@ -22,7 +22,7 @@
 </section>
 <section>
   <div class="container">
-    <div class="row">
+    <div class="row"> 
       <div class="col-md-12">
         <div class="heading text-center">
             <h2>{!!__('frontend.text_57')!!}</h2>           
@@ -42,7 +42,7 @@
         <!-- {!!__('frontend.text_59')!!} -->
         {!!html_entity_decode(isset($res_data->desc2)?$res_data->desc2:'')!!}
       </div>
-    </div>
+    </div> 
   </div>
 </section>
   

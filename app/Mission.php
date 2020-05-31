@@ -32,7 +32,7 @@ class Mission extends Model
         } catch(\Illuminate\Database\QueryException $ex){ 
             dd($ex->getMessage()); 
         }
-    }
+    } 
 
     static function get_agent_info(){
         try { 
@@ -42,4 +42,4 @@ class Mission extends Model
         }
         return $get;
     }
-}
+} 
