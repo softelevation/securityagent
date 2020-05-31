@@ -10,7 +10,7 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>{{__('dashboard.profile')}}</h2>
+                  <h2>Agent Information</h2>
               </div>
               <div class="float-right pt-3">
                   <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
@@ -70,7 +70,7 @@
                                     </textarea>
                                 </div>
                             </div>
-
+ 
                             <div class="form-group">
                                 <label for="inputDetail" class="col-sm-3 control-label">Details 3</label>
                                 <div class="col-sm-9">
