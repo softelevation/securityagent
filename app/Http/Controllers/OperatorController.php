@@ -23,7 +23,8 @@ use Carbon\Carbon;
 use App\UserPaymentHistory;
 use App\PaymentApproval;
 use App\RefundRequest;
-
+use Session;
+use Redirect;
 
 class OperatorController extends Controller
 {
@@ -671,4 +672,38 @@ class OperatorController extends Controller
 //        $response['url'] = url()->previous();
 //        return $this->getSuccessResponse($response);
     }
+
+    public function agent_information_edit(Request $request){ 
+        
+        if(isset($_REQUEST) && !empty($_REQUEST)){
+            $validatedData = $request->validate([
+                'heading' => 'required',
+                'desc' => 'required',
+                'desc1' => 'required',
+                'desc2'=>'required',
+                'type'=>'required'
+            ]);
+            $array = [
+                'heading'=>($_REQUEST['heading'])?$_REQUEST['heading']:'',
+                'desc'=>($_REQUEST['desc'])?$_REQUEST['desc']:'',
+                'desc1'=>($_REQUEST['desc1'])?$_REQUEST['desc1']:'',
+                'desc2'=>($_REQUEST['desc2'])?$_REQUEST['desc2']:'',
+                'type'=>($_REQUEST['type'])?$_REQUEST['type']:'',
+            ];
+            $mission = Mission::save_agent_info($array);
+            Session::flash ( 'Success', "Success" );
+            return Redirect::back ();
+        }
+        $res = Mission::get_agent_info();
+        $data['res_data'] = $res;
+        return view('operator.agent_information_edit',$data);
+
+    }
+
+    public function agent_information(){
+        $res = Mission::get_agent_info();
+        $data['res_data'] = $res;
+        return view('agent_information',$data);
+    }
+
 }

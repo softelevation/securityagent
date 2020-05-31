@@ -17,9 +17,12 @@ Route::get('/', function () {
 Route::get('/contact-us', function () {
     return view('contact');
 });
-Route::get('/agent_information', function () {
-    return view('agent_information');
-});
+// Route::get('/agent_information', function () {
+//     return view('agent_information');
+// });
+
+Route::any('/agent_information', 'OperatorController@agent_information');
+
 
 Route::get('/terms-conditions', function () {
     return view('terms_conditions');
@@ -84,6 +87,9 @@ Route::group(['prefix'=>'operator'], function () {
         Route::post('/refund-mission-amount', 'OperatorController@refundMissionAmount');
         Route::post('/block-unblock-agent', 'OperatorController@blockUnblockAgent');
         Route::get('/mission_chage_status/{status}/{mission_id}', 'OperatorController@missionChageStatus');
+
+        Route::any('/agent_information_edit', 'OperatorController@agent_information_edit');
+        
     });
 });
 
