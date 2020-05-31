@@ -27,7 +27,7 @@ class Mission extends Model
 
     static function save_agent_info($array){
         try {
-            DB::table('agent_info')->truncate();
+           // DB::table('agent_info')->truncate();
             $get =  DB::table('agent_info')->insert( $array );
         } catch(\Illuminate\Database\QueryException $ex){ 
             dd($ex->getMessage()); 
