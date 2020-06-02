@@ -89,6 +89,7 @@ Route::group(['prefix'=>'operator'], function () {
         Route::get('/mission_chage_status/{status}/{mission_id}', 'OperatorController@missionChageStatus');
 
         Route::any('/agent_information_edit', 'OperatorController@agent_information_edit');
+        Route::any('/agent_information_edit_fr', 'OperatorController@agent_information_edit_fr');
         
     });
 });

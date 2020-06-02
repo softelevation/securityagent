@@ -27,16 +27,28 @@ class Mission extends Model
 
     static function save_agent_info($array){
         try {
-           // DB::table('agent_info')->truncate();
-            $get =  DB::table('agent_info')->insert( $array );
+            $get_type =  DB::table('agent_info')->where('type',$array['type'])->orderByDesc('id')->first();
+           
+            if($get_type){
+                DB::table('agent_info')
+                ->where('type',$array['type'])
+                ->update($array);  
+            }else{
+                $get =  DB::table('agent_info')->insert( $array );
+            }
+           
         } catch(\Illuminate\Database\QueryException $ex){ 
             dd($ex->getMessage()); 
         }
     } 
 
-    static function get_agent_info(){
+    static function get_agent_info($type){
         try { 
-            $get =  DB::table('agent_info')->where('status',1)->orderByDesc('id')->first();
+            if($type == 3){
+                $get =  DB::table('agent_info')->where('status',1)->orderByDesc('id')->get();
+            }else{
+                $get =  DB::table('agent_info')->where('status',1)->where('type',$type)->orderByDesc('id')->get();
+            }
         } catch(\Illuminate\Database\QueryException $ex){ 
             dd($ex->getMessage()); 
         }

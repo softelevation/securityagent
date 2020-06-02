@@ -41,6 +41,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('operator/agent_information_edit')}}"><i class="fa fa-sign-out-alt"></i> {{__('dashboard.mission.agent_information_edit')}}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{url('operator/agent_information_edit_fr')}}"><i class="fa fa-sign-out-alt"></i> {{__('dashboard.mission.agent_information_edit_fr')}}</a>
+                            </li>
                         </ul>
                     </div>
                     <!-- <div class="Quick_Order_Agent">

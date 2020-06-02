@@ -137,7 +137,8 @@ return [
 		'cancelled' => 'Mission annulée',
 		'archive' => 'Archive',
 		'archive_mission'=> 'Archive Mission',
-		'agent_information_edit'=>'Agent Info Edit'
+		'agent_information_edit'=>'Agent Info Edit',
+		'agent_information_edit_fr'=>'Agent Info Edit France'
 	],
 
 	// Agents 
