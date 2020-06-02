@@ -247,7 +247,7 @@ $("input:checkbox").on('click', function() {
 });
 
 function checkValidation(){ 
-	
+	var no = 1;	
 	var empty = true;
 	$('.validation').each(function(){
 		console.log($(this).val(),'sssssss');
@@ -256,6 +256,10 @@ function checkValidation(){
 			$(this).css('border-color','red');
 			$(this).parent('.custom-file').css('border','1px solid red');
 			$(this).next().next('.select2.select2-container').css('border','1px solid red');
+			if(no == 1){
+				toastr.error('* Indicates the required fields',4000);
+			}
+			no++;
 			//return false;
 		}else{
 			empty = true;
