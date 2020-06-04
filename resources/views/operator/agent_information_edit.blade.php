@@ -4,7 +4,6 @@
 @extends('layouts.dashboard')
 @section('content')
 
-
 <div class="profile">
     <div class="container"> 
         <div class="row">
@@ -19,7 +18,7 @@
               </div>
               <div class="clearfix"></div>
               <div class="tab-pane">
-                <div class="border" id="myTabContent">
+                <div class="border" id="myTabContent"> 
                 
                 @if ($errors->any())
                     <div class="alert alert-danger">

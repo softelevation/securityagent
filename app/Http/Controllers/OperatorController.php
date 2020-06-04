@@ -694,7 +694,7 @@ class OperatorController extends Controller
             Session::flash ( 'Success', "Success" );
             return Redirect::back ();
         }
-        $res = Mission::get_agent_info(1);
+        $res = Mission::get_agent_info(1)->first();
         $data['res_data'] = $res;
         return view('operator.agent_information_edit',$data);
 
@@ -727,7 +727,7 @@ class OperatorController extends Controller
             Session::flash ( 'Success', "Success" );
             return Redirect::back ();
         }
-        $res = Mission::get_agent_info(2);
+        $res = Mission::get_agent_info(2)->first();
         $data['res_data'] = $res;
         return view('operator.agent_information_edit_fr',$data);
 
