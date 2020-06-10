@@ -297,12 +297,16 @@ class MissionController extends Controller
             $last4digit = substr($request->card_number, -4);
             // Get added card's list
             $addedCards = $this->getCardsList($customer_stripe_id);
-            foreach($addedCards['data'] as $card){
-                // If entered card is already been added
-                if($card['last4']==$last4digit){
-                    return $this->getErrorResponse(trans('messages.card_already_added'));
-                }
+           
+            if(isset($addedCards) && isset($addedCards['data'])){
+                foreach($addedCards['data'] as $card){
+                    // If entered card is already been added
+                    if($card['last4']==$last4digit){
+                        return $this->getErrorResponse(trans('messages.card_already_added'));
+                    }
+                } 
             }
+          
             // Add New Card
             $cardData = [
                 'number'    => $request->card_number,
