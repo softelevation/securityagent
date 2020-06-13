@@ -87,7 +87,27 @@ class CommonController extends Controller
             return response(trans('messages.error'));
         }
     }
-
+	
+	public function suportTicket(Request $request){
+		try{
+            $validation = $this->supportFormValidations($request);
+            if($validation['status']==false){
+                return response($this->getValidationsErrors($validation));
+            }
+            $data = $request->all();
+            $templateName = 'emails.general';
+            $toEmail = $request->email;
+            $toName = 'Be On Time';
+            $subject = $request->subject;
+            Helper::sendCommonMail($templateName,array('message'=>$data['feedback']),$toEmail,$toName,$subject);
+            $response['message'] = trans('messages.feedback_submitted');
+            $response['delayTime'] = 2000;
+            $response['url'] = url('suport-ticket');
+            return response($this->getSuccessResponse($response));
+        }catch(\Exception $e){
+            return response(trans('messages.error'));
+        }		
+	}
 
     public function refreshCaptcha(){
         return captcha_img();

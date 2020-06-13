@@ -17,6 +17,9 @@ Route::get('/', function () {
 Route::get('/contact-us', function () {
     return view('contact');
 });
+Route::get('/suport-ticket', function () {
+    return view('suportTicket');
+});
 // Route::get('/agent_information', function () {
 //     return view('agent_information');
 // });
@@ -41,6 +44,7 @@ Route::post('/reset-password', 'UserController@ResetPasswordRequest');
 Route::get('/refresh-captcha', 'CommonController@refreshCaptcha');
 Route::get('/change-language/{lang}', 'CommonController@changeLanguage');
 Route::post('/contact-form-submission', 'CommonController@submitContactForm');
+Route::post('/suport-ticket', 'CommonController@suportTicket');
 Route::get('/register-agent-view','AgentController@index');
 Route::post('/register_agent', 'AgentController@signup');
 Route::get('/customer-signup', 'CustomerController@customerSignupView');

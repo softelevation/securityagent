@@ -132,7 +132,7 @@ function checkValidation(){
 			$(this).parent('.custom-file').css('border','1px solid red');
 			$(this).next().next('.select2.select2-container').css('border','1px solid red');
 			if(no == 1){
-				toastr.error('* Indicates the required fields',4000);
+				toastr.error("{{__('frontend.text_149')}}",4000);
 			}
 			no++;
 			//return false;
