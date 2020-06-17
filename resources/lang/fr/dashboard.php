@@ -137,6 +137,7 @@ return [
 		'cancelled' => 'Mission annulée',
 		'archive' => 'Archive',
 		'archive_mission'=> 'Archive Mission',
+		'message_center'=>'Centre de messagerie',
 		'agent_information_edit'=>'Agent Info Edit',
 		'agent_information_edit_fr'=>'Agent Info Edit France'
 	],

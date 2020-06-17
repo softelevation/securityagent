@@ -171,6 +171,7 @@ return [
 	"text_147" => "Billet de soutien",
 	"text_148" => "Aidez",
 	"text_149" => "* Indique les champs obligatoires",
+	"text_150" => "À",
     "terms_conditions_text1" => "En cliquant sur <b> Devenir agent </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",
 	"terms_conditions_text2" => "En cliquant sur <b> Devenir utilisateur </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",
 	'sub_contract_title' => 'Êtes-vous un sous-traitant?',

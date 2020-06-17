@@ -10,6 +10,7 @@ use App\Traits\PaymentTrait;
 use Auth;
 use App\Agent;
 use App\Operator;
+use App\MessageCenter;
 use App\User;
 use App\Customer;
 use App\Mission;
@@ -562,6 +563,41 @@ class OperatorController extends Controller
         }
         return view('operator.refund_requests',$params);
     }
+	
+	public function messageCenter(Request $request){
+		$messageCenter = MessageCenter::select('message_centers.id','message_centers.user_id as user_id','message_centers.operator_id','message_centers.status','message_centers.created_at','customers.first_name','customers.last_name','users.email')
+						->join('customers','customers.user_id','message_centers.user_id')
+						->join('users','users.id','message_centers.user_id')->distinct()->groupBy('user_id')
+						->where('operator_id',Auth::id())->orderBy('message_centers.id','DESC')->get();
+		$params['message_center'] = $messageCenter;
+        return view('operator.message_center_list',$params);
+    }
+	
+	public function messageCenterId($id){
+		
+		$user_messages = MessageCenter::select('customers.user_id','customers.first_name','customers.last_name','message_centers.message','message_centers.message_type')->join('customers','customers.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
+		$message = MessageCenter::where('user_id',$id)->update(array('status'=>'2'));
+		$opData = Operator::select('first_name','last_name')->where('user_id',Auth::id())->first();
+		$params = array();
+		$params['user_id'] =Auth::id();
+		$params['cus_id'] = (isset($user_messages[0])) ? $user_messages[0]->user_id : '';
+		$params['profile'] = '';
+		$params['user_messages'] = $user_messages;
+		$params['opData'] = $opData;
+        return view('operator.message_center',$params);
+    }
+	
+	public function messageCenterPost(Request $request){
+		$inputData = $request->all();
+		$updateData = array('user_id'=>$request->cus_id,'operator_id'=>$request->user_id,
+							'message'=>$request->send_message,'message_type'=>'send_by_op','status'=>'1',
+							'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()
+						);
+		MessageCenter::insert($updateData);
+		$opData = Operator::where('user_id',$request->user_id)->first();
+		$name_op = $opData->first_name.' '.$opData->last_name;
+		return response()->json(array('status'=>1,'message_type'=>'send_by_op','message'=>$name_op));
+	}
 
     /**
      * @return mixed

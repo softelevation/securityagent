@@ -8,7 +8,10 @@ use App\Validators\CustomerValidator;
 use App\Traits\ResponseTrait;
 use App\CustomerNotification;
 use App\Customer;
+use App\Operator;
+use App\MessageCenter;
 use App\UserPaymentHistory;
+use Carbon\Carbon;
 use Auth;
 
 class CustomerController extends Controller
@@ -61,6 +64,30 @@ class CustomerController extends Controller
         $data['profile'] = $profile;
         return view('customer.profile',$data);
     }
+	
+	public function messageCenter(Request $request){
+		$user_messages = MessageCenter::select('operators.user_id','operators.first_name','operators.last_name','message_centers.message','message_centers.message_type')->join('operators','operators.user_id','message_centers.operator_id')->where('message_centers.user_id',Auth::id())->orderBy('message_centers.created_at','ASC')->get();
+		$customer_profile = Customer::select('first_name','last_name')->where('user_id',\Auth::id())->first();
+		$params = array();
+		$params['user_id'] =Auth::id();
+		$params['cus_id'] = '1';
+		$params['profile'] = '';
+		$params['user_messages'] = $user_messages;
+		$params['cus_profile'] = $customer_profile;
+        return view('customer.message_center',$params);
+    }
+	
+	public function messageCenterPost(Request $request){
+		$inputData = $request->all();
+		$updateData = array('user_id'=>$request->user_id,'operator_id'=>$request->cus_id,
+							'message'=>$request->send_message,'message_type'=>'send_by_cus','status'=>'1',
+							'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()
+						);
+		MessageCenter::insert($updateData);
+		$profile = Customer::select('first_name','last_name')->where('user_id',\Auth::id())->first();
+		$name_op = $profile->first_name.' '.$profile->last_name;
+		return response()->json(array('status'=>1,'message_type'=>'send_by_cus','message'=>$name_op));
+	}
 
     /**
      * @param $request

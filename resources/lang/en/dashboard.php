@@ -28,7 +28,7 @@ return [
 	'confirm_password_place' => 'Confirm Your Password',
 	'update_password' => 'Update Password', 
 	'action' => 'Action',
-	'status' => 'Statut',
+	'status' => 'Status',
 	'no_record' => 'No record found',	
 	'hours' => 'Hour(s)',
 	'now' => 'Now',
@@ -136,6 +136,7 @@ return [
 		'cancelled' => 'Mission Cancelled',
 		'archive' => 'Archive',
 		'archive_mission'=> 'Archive Mission',
+		'message_center'=>'Message center',
 		'agent_information_edit'=>'Agent Info Edit English',
 		'agent_information_edit_fr'=>'Agent Info Edit France'
 

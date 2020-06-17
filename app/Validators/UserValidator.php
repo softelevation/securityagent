@@ -95,6 +95,21 @@ trait UserValidator
         }
         return $this->response;
     }
+	
+	public function supportFormValidations(Request $request){
+        try{
+            $validations = array(
+                'email' => 'required|email',
+                'subject' => 'required',
+                'feedback' => 'required',
+            );
+            $validator = Validator::make($request->all(),$validations);
+            $this->response = $this->validateData($validator);
+        }catch(\Exception $e){
+            $this->response = $e->getMessage();
+        }
+        return $this->response;
+    }
 
     /**
      * @param   : Request $request

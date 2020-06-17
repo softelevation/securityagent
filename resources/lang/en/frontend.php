@@ -170,6 +170,7 @@ return [
 	"text_147" => "Support Ticket",
 	"text_148" => "Help",
 	"text_149" => "* Indicates the required fields",
+	"text_150" => "To",
 	"terms_conditions_text1" => "By clicking <b>Become Agent</b>, you agree to our <a href=':url' target='_blank'>Terms and Conditions Policy",
 	"terms_conditions_text2" => "By clicking <b>Become An User</b>, you agree to our <a href=':url' target='_blank'>Terms and Conditions Policy",
 	'sub_contract_title' => 'Are you a Subcontractor?',
