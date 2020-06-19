@@ -23,7 +23,7 @@ div.ex1 {background-color: lightblue; height: 210px; overflow: scroll; padding: 
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
                       <li class="nav-item w-100">
-                          <a class="nav-link active">{{__('dashboard.payment.refund_req_heading')}} </a>
+                          <a class="nav-link active">{{__('dashboard.customer_support')}} </a>
                       </li>
                   </ul>
                   <div class="tab-content" id="nav-tabContent">

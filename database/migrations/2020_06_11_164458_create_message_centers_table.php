@@ -18,7 +18,7 @@ class CreateMessageCentersTable extends Migration
             $table->integer('user_id');
             $table->integer('operator_id');
             $table->string('message');
-            $table->enum('message_type',array('sender','receiver'))->default('receiver');
+            $table->enum('message_type',array('send_by_cus','send_by_op'))->default('send_by_cus');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

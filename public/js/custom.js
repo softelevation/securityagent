@@ -332,4 +332,28 @@ $(document).ready(function () {
             }
             return false;
         });
+		
+		$('#message_center').submit(function(event){
+			var message = $('input[name="send_message"]').val();
+			var user_id = $('input[name="send_message"]').data('id');
+			var cus_id = $('input[name="send_message"]').data('cus_id');
+			var formData = new FormData(this);
+			formData.append('user_id', user_id);
+			formData.append('cus_id', cus_id);
+			$.ajax({
+				   type:this.method,
+				   url: this.action, 
+				   contentType: false, 
+				   processData:false,
+				   data: formData,
+				   success:function(response)
+				   {
+					   if(response.status == 1)
+						   $('input[name="send_message"]').val('');
+							// $(".message_last").after('<div class="message-send '+response.message_type+'"><b>'+response.message+' :</b> <p>'+message+'</p></div>');
+							$(".message_last").after('<p class="'+response.message_type+'"><b>'+response.message+' :</b>'+message+'</p>');
+				   }
+			});
+			event.preventDefault();
+		});
 });

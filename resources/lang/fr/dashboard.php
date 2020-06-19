@@ -10,6 +10,7 @@ return [
 	'back' => 'Retour',
 	'agent' => 'Agent',
 	'customer' => 'Client',
+	'customer_support' => 'Service client',
 	'operator' => 'Opérateur',
 	'change_profile' => 'Changer le profil',
 	'first_name' => 'Prénom',
