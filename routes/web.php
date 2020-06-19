@@ -86,6 +86,9 @@ Route::group(['prefix'=>'operator'], function () {
         Route::post('/payment-approval-action', 'OperatorController@paymentApprovalAction');
         Route::get('/missions-without-agents', 'OperatorController@missionsListWithoutAgents');
         Route::get('/refund-requests', 'OperatorController@refundRequestsView');
+        Route::get('/message-center', 'OperatorController@messageCenter');
+		Route::get('/message-center/{id}', 'OperatorController@messageCenterId');
+        Route::post('/message-center', 'OperatorController@messageCenterPost');
         Route::post('/process-refund-request', 'OperatorController@processRefundRequest');
         Route::get('/refund-mission-view/{mission_id}', 'OperatorController@viewMissionDetailsRefund');
         Route::post('/refund-mission-amount', 'OperatorController@refundMissionAmount');
@@ -113,6 +116,8 @@ Route::group(['prefix'=>'customer'], function () {
         Route::get('/mission-details/view/{mission_id}', 'Customer\MissionController@viewMissionDetails');
         Route::post('/make-card-payment', 'Customer\MissionController@makeCardPayment');
         Route::get('/billing-details', 'CustomerController@getPaymentHistory');
+        Route::get('/message-center', 'CustomerController@messageCenter');
+		Route::post('/message-center', 'CustomerController@messageCenterPost');
         Route::get('/cancel-mission/{mission_id}', 'Customer\MissionController@cancelMission');
         Route::get('/delete-mission/{mission_id}', 'Customer\MissionController@deleteMission');
     });
