@@ -33,9 +33,9 @@ div.ex1 {background-color: lightblue; height: 210px; overflow: scroll; padding: 
 								  @foreach($user_messages as $user_message)
 								  <?php
 									if($user_message->message_type === 'send_by_op'){
-										$fullname = ucfirst($opData->first_name).' '.ucfirst($opData->last_name);
+										$fullname = ($opData) ? ucfirst($opData->first_name).' '.ucfirst($opData->last_name) : 'Unknown';
 									}else{
-										$fullname = ucfirst($user_message->first_name).' '.ucfirst($user_message->last_name);
+										$fullname = ($user_message) ? ucfirst($user_message->first_name).' '.ucfirst($user_message->last_name) : 'Unknown';
 									}
 								  ?>
 									<p class="{{$user_message->message_type}}"><b>{{$fullname}} :</b>{{$user_message->message}}</p>
@@ -51,7 +51,7 @@ div.ex1 {background-color: lightblue; height: 210px; overflow: scroll; padding: 
 									  {{Form::text('send_message',null,['data-id'=>$user_id,'data-cus_id'=>$cus_id,'class'=>'form-control','placeholder'=>'Sand message'])}}
 									</div>
 									<div class="col-md-4 ">
-										<input type="submit" class="yellow_btn" value="{{__('frontend.text_73')}}"/>
+										<input type="submit" class="yellow_btn" value="{{__('frontend.text_151')}}"/>
 									</div>
 								  </div>
 								  {{Form::close()}}

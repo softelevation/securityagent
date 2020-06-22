@@ -85,7 +85,7 @@ class CustomerController extends Controller
 						);
 		MessageCenter::insert($updateData);
 		$profile = Customer::select('first_name','last_name')->where('user_id',\Auth::id())->first();
-		$name_op = $profile->first_name.' '.$profile->last_name;
+		$name_op = ($profile) ? $profile->first_name.' '.$profile->last_name : 'Unknown';
 		return response()->json(array('status'=>1,'message_type'=>'send_by_cus','message'=>$name_op));
 	}
 

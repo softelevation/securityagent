@@ -595,7 +595,7 @@ class OperatorController extends Controller
 						);
 		MessageCenter::insert($updateData);
 		$opData = Operator::where('user_id',$request->user_id)->first();
-		$name_op = $opData->first_name.' '.$opData->last_name;
+		$name_op = ($opData) ? $opData->first_name.' '.$opData->last_name : 'Unknown';
 		return response()->json(array('status'=>1,'message_type'=>'send_by_op','message'=>$name_op));
 	}
 

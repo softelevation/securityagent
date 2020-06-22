@@ -25,7 +25,7 @@
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
                       <li class="nav-item w-100">
-                          <a class="nav-link active">{{__('dashboard.payment.refund_req_heading')}} </a>
+                          <a class="nav-link active">{{__('dashboard.payment.message_center_heading')}} </a>
                       </li>
                   </ul>
                   <div class="tab-content" id="nav-tabContent">
