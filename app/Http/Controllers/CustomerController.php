@@ -88,6 +88,10 @@ class CustomerController extends Controller
 		$name_op = ($profile) ? $profile->first_name.' '.$profile->last_name : 'Unknown';
 		return response()->json(array('status'=>1,'message_type'=>'send_by_cus','message'=>$name_op));
 	}
+	
+	public function patrollingMission(){
+        return view('customer.patrolling_mission');
+    }
 
     /**
      * @param $request

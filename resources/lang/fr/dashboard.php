@@ -70,7 +70,7 @@ return [
 	'created_at' => 'Créé à',
 	'login_before' => 'Veuillez vous connecter ou vous inscrire avant de réserver un agent.',
 	'vat' => 'TVA',
-
+	'patrolling_mission' => 'Mission de patrouille',
 	// Mission Related
 	'mission' => [
 		'mission' => 'Mission',
@@ -121,6 +121,9 @@ return [
 		'location_place' => 'Entrez votre position',
 		'without_agents' => 'Missions sans agents',
 		'type' => 'Type de mission',
+		'time_interval' => 'Intervalle de temps',
+		'start_date' => 'Date de début',
+		'end_date' => 'Date de fin',
 		'future' => 'Future Missions',
 		'quick' => 'Missions rapides',
 		'status' => 'Statut de la mission',

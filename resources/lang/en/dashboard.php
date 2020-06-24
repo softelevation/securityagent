@@ -70,6 +70,7 @@ return [
 	'created_at' => 'Created At',
 	'login_before' => 'Please login or signup before booking an agent.',
 	'vat' => 'VAT',
+	'patrolling_mission' => 'Patrolling mission',
 
 	// Mission Related
 	'mission' => [
@@ -120,6 +121,9 @@ return [
 		'location_place' => 'Enter your location',
 		'without_agents' => 'Missions Without Agents',	
 		'type' => 'Mission Type',
+		'time_interval' => 'Time Interval',
+		'start_date' => 'Start date',
+		'end_date' => 'End date',
 		'future' => 'Future Missions',
 		'quick' => 'Quick Missions',
 		'status' => 'Mission Status',

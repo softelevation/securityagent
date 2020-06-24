@@ -118,6 +118,7 @@ Route::group(['prefix'=>'customer'], function () {
         Route::get('/billing-details', 'CustomerController@getPaymentHistory');
         Route::get('/message-center', 'CustomerController@messageCenter');
 		Route::post('/message-center', 'CustomerController@messageCenterPost');
+		Route::get('/patrolling-mission', 'CustomerController@patrollingMission');
         Route::get('/cancel-mission/{mission_id}', 'Customer\MissionController@cancelMission');
         Route::get('/delete-mission/{mission_id}', 'Customer\MissionController@deleteMission');
     });

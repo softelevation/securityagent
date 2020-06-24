@@ -48,7 +48,7 @@ div.ex1 {background-color: lightblue; height: 210px; overflow: scroll; padding: 
 								{{Form::model($profile,['url'=>url('operator/message-center'),'id'=>'message_center'])}}
 								  <div class="row">
 									<div class="col-md-8 form-group">
-									  {{Form::text('send_message',null,['data-id'=>$user_id,'data-cus_id'=>$cus_id,'class'=>'form-control','placeholder'=>'Sand message'])}}
+									  {{Form::text('send_message',null,['data-id'=>$user_id,'data-cus_id'=>$cus_id,'class'=>'form-control','placeholder'=>__('frontend.text_152')])}}
 									</div>
 									<div class="col-md-4 ">
 										<input type="submit" class="yellow_btn" value="{{__('frontend.text_151')}}"/>
