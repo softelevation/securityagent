@@ -51,7 +51,7 @@
                         <li><a class="@if(url()->current()==url('/agent_information')) active @endif" href="{{url('/agent_information')}}">{{__('frontend.text_77')}}</a></li>
                         <li><a class="" href="{{url('/blog')}}">{{__('frontend.text_78')}}</a></li>
                         <li><a class="@if(url()->current()==url('/contact-us')) active @endif" href="{{url('/contact-us')}}">{{__('frontend.text_79')}}</a></li>
-                        <li><a class="@if(url()->current()==url('/suport-ticket')) active @endif" href="{{url('/suport-ticket')}}">{{__('frontend.text_148')}}</a></li>
+                        <!-- li><a class="@if(url()->current()==url('/suport-ticket')) active @endif" href="{{url('/suport-ticket')}}">{{__('frontend.text_148')}}</a></li -->
                     </ul>
                 </div>
             </div>

@@ -229,7 +229,7 @@
 <!-- Google Place API -->
 <script>
 var locale = '@php echo Session::get("locale"); @endphp';
-
+/*
 $("input:checkbox").on('click', function() {
   // in the handler, 'this' refers to the box clicked on
   var $box = $(this);
@@ -245,6 +245,7 @@ $("input:checkbox").on('click', function() {
     $box.prop("checked", false);
   }
 });
+*/
 
 function checkValidation(){ 
 	var no = 1;	
