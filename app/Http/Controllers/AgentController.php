@@ -20,18 +20,18 @@ use App\Helpers\PlivoSms;
 class AgentController extends Controller
 {
 	use AgentValidator, AgentTrait, ResponseTrait, MissionTrait;
-    
+
     /**
      * @param $request
      * @return mixed
      * @method index
-     * @purpose Load agent signup view 
+     * @purpose Load agent signup view
      */
     public function index(){
         return view('agent-register');
     }
 
-    /** 
+    /**
      * @param $request
      * @return mixed
      * @method agentRegister
@@ -40,12 +40,13 @@ class AgentController extends Controller
     public function signup(Request $request){
     	try{
             // Check Agent Table Validation
+            unset($request['terms_conditions1']);
             $validation = $this->agentSignupValidations($request);
-        
+
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
             }
-          
+
             $agentType = json_decode($request->agent_type);
             $dog = 0;
             if(empty($agentType)){
@@ -112,7 +113,7 @@ class AgentController extends Controller
         $search['latitude'] = $latitude;
         $search['longitude'] = $longitude;
         $search['location'] = $location;
-        $search['s_val'] = $searchVal; 
+        $search['s_val'] = $searchVal;
         $search['zoom'] = $zoom;
         $agents = $this->getAvailableAgents($request);
         // $this->print($agents);
@@ -123,7 +124,7 @@ class AgentController extends Controller
      * @param $request
      * @return mixed
      * @method agentProfileView
-     * @purpose Load agent profile view 
+     * @purpose Load agent profile view
      */
     public function agentProfileView(){
         $profile = Agent::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first()->toArray();
@@ -157,7 +158,7 @@ class AgentController extends Controller
                     }
                 }
             }else{
-                return response($this->getErrorResponse(trans('messages.error')));    
+                return response($this->getErrorResponse(trans('messages.error')));
             }
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
@@ -262,11 +263,11 @@ class AgentController extends Controller
             $result = Mission::insert($subMissions);
             if($result){
                 Mission::where('id',$mission_id)->update(['agent_id'=>0]);
-                
+
                 /*----Customer send phone notification-----*/
                     PlivoSms::sendSms(['phoneNumber' => $customerNumber, 'msg' => 'Mission id  "'.$mission_id.'" is accepted by agent, for more details please login into https://www.ontimebe.com' ]);
                 /*--------------*/
-                    
+
                 $response['message'] = trans('messages.mission_accepted_12');
                 $response['delayTime'] = 2000;
                 $response['modelhide'] = '#mission_action';
@@ -315,7 +316,7 @@ class AgentController extends Controller
             $update = MissionRequestsIgnored::where('id',$id)->update(['is_deleted'=>1]);
             if($update){
                 $response['message'] = trans('messages.mission_req_deleted');
-                $response['url'] = url('agent/mission-requests'); 
+                $response['url'] = url('agent/mission-requests');
                 return $this->getSuccessResponse($response);
             }else{
                 return $this->getErrorResponse(trans('messages.error'));

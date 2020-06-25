@@ -20,12 +20,12 @@ class CustomerController extends Controller
     public function __construct(){
         $this->limit = 10;
     }
-    
+
     /**
      * @param $request
      * @return mixed
      * @method index
-     * @purpose Load customer signup view 
+     * @purpose Load customer signup view
      */
     public function customerSignupView(Request $request){
         return view('customer-register');
@@ -40,6 +40,9 @@ class CustomerController extends Controller
     public function customerSignupForm(Request $request){
     	try{
             // Check Agent Table Validation
+
+            unset($request['terms_conditions1']);
+
             $validation = $this->customerSignupValidations($request);
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
@@ -54,7 +57,7 @@ class CustomerController extends Controller
      * @param $request
      * @return mixed
      * @method index
-     * @purpose Load customer signup view 
+     * @purpose Load customer signup view
      */
     public function customerProfileView(){
         $profile = Customer::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first()->toArray();
@@ -97,7 +100,7 @@ class CustomerController extends Controller
             'page_no' => 1
         ];
         if(isset($request->page)){
-            $params['page_no'] = $request->page; 
+            $params['page_no'] = $request->page;
         }
         return view('customer.billing',$params);
     }

@@ -9,15 +9,16 @@
 	.remove-diploma-btn{
 		left: 10px;
 	}
+    .has-error{color:red}
 </style>
 
 <div class="contact_panel">
   <div class="container">
-    <div class="row"> 
+    <div class="row">
         <div class="col-md-12">
             <div class="contact_box">
                 <h3><i class="fa fa-pin"></i> {{__('frontend.text_144')}}
-					<span style="margin-left:30px;float:right">					
+					<span style="margin-left:30px;float:right">
 						{{__('frontend.text_941')}}
 					</span>
 				</h3>
@@ -76,7 +77,7 @@
 		                      </div>
 		                    </div>
 
-	                  	</div>  
+	                  	</div>
 	                  	<div class="row">
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
@@ -85,7 +86,7 @@
 			                    <input type="radio" name="customer_type" value="2"> {{__('frontend.text_143')}}
 		                      </div>
 		                    </div>
-	                  	</div> 
+	                  	</div>
 	                  	<div class="row">
 	                  		<div class="col-md-6">
 		                      <div class="form-group ">
@@ -100,9 +101,9 @@
 	                  	</div>
 	                  	<div class="text-center pt-2 text_panel">
 						  <div class="text-center pt-5 text_panel">
-							<input type="checkbox" name="terms_conditions" value="1">I do accept the <a href="javascript:;"> Privacy policy </a> </br>
+							<input required type="checkbox" name="terms_conditions" value="1">I do accept the <a href="javascript:;"> Privacy policy </a> </br>
 
-							<input type="checkbox" name="terms_conditions" value="2">I do accept <a href="javascript:;">General Terms and Conditions</a> of sale and <a href="javascript:;">General Terms of use</a>
+							<input  required type="checkbox" name="terms_conditions1" value="2">I do accept <a href="javascript:;">General Terms and Conditions</a> of sale and <a href="javascript:;">General Terms of use</a>
 	                  		<!-- <input type="checkbox" name="terms_conditions" value="1">{!!__('frontend.terms_conditions_text2',['url'=>url('terms-conditions')])!!}</a>.</div>   -->
 	                  <div class="row text-center pt-3">
 	                    <div class="col-md-12">
@@ -110,19 +111,19 @@
 				               <input type="button" onClick="checkValidation();" class="yellow_btn" value="{{__('frontend.text_144')}}"/>
 				            </div>
 	                    </div>
-	                  </div>  
+	                  </div>
 	                </div>
             	</form>
             </div>
-        </div>        
-    </div>  
+        </div>
+    </div>
     </div>
 </div>
 @endsection
 
 <script>
-function checkValidation(){ 
-	var no = 1;	
+function checkValidation(){
+	var no = 1;
 	var empty = true;
 	$('.validation').each(function(){
 		console.log($(this).val(),'sssssss');
@@ -140,10 +141,10 @@ function checkValidation(){
 			empty = true;
 		}
 	});
-	
+
 	if(empty){
 		$( "#general_form" ).submit();
 	}
-} 
+}
 
 </script>

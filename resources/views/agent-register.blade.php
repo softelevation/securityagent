@@ -9,20 +9,21 @@
 	.remove-diploma-btn{
 		left: 10px;
 	}
+   .has-error{color:red}
 </style>
 
 <div class="contact_panel">
   <div class="container">
-    <div class="row"> 
+    <div class="row">
         <div class="col-md-12">
             <div class="contact_box">
                 <h3>
 					{{__('frontend.text_94')}}
-					<span style="margin-left:30px;float:right">					
+					<span style="margin-left:30px;float:right">
 						{{__('frontend.text_941')}}
 					</span>
 				</h3>
-				
+
 
                 <form id="general_form" method="post" action="{{url('/register_agent')}}" enctype="multipart/form-data" novalidate="novalidate">
                 	@csrf
@@ -75,7 +76,7 @@
 	                     		</div>
 		                      </div>
 		                    </div>
-	                	</div> 
+	                	</div>
 	                	<div class="row">
 	                		<div class="col-md-6">
 		                      <div class="form-group">
@@ -92,7 +93,7 @@
 				                <input type="text" name="iban" class="form-control validation" placeholder="{{__('frontend.text_110')}}" />
 		                      </div>
 		                    </div>
-	                	</div> 
+	                	</div>
 
 	                   <div class="row">
 		                    <div class="col-md-6">
@@ -120,7 +121,7 @@
 				                    <input type="text" name="cnaps_number" class="form-control cnaps_number" placeholder="{{__('frontend.text_114')}}" />
 		                     	</div>
 		                    </div>
-	                  </div>   
+	                  </div>
 	                  <div class="row diploma  d-none">
 	                		<div class="col-md-6">
 		                      <div class="form-group">
@@ -163,7 +164,7 @@
 				                <input type="hidden" name="work_location[long]" />
 		                      </div>
 		                    </div>
-	                  	</div>  
+	                  	</div>
 	                  	<div class="row">
 		                    <div class="col-md-6">
 		                      <div class="form-group ">
@@ -187,7 +188,7 @@
 			                    <input type="text" name="supplier_company" class="form-control" placeholder="{{__('frontend.suplier_title_place')}}" />
 		                      </div>
 		                    </div>
-		                </div>  
+		                </div>
 		                <div class="row">
 	                  		<div class="col-md-6">
 		                      <div class="form-group ">
@@ -201,9 +202,9 @@
 		                    </div>
 	                  	</div>
 		                <div class="text-center pt-5 text_panel">
-						<input type="checkbox" name="terms_conditions" value="1">I do accept the <a href="javascript:;"> privacy policy </a> </br>
+						<input required type="checkbox" name="terms_conditions" value="1">I do accept the <a href="javascript:;"> privacy policy </a> </br>
 
-						<input type="checkbox" name="terms_conditions" value="2">I do accept <a href="javascript:;">General Terms and Conditions</a> of sale and <a href="javascript:;">General Terms of use</a>
+						<input required type="checkbox" name="terms_conditions1" value="2">I do accept <a href="javascript:;">General Terms and Conditions</a> of sale and <a href="javascript:;">General Terms of use</a>
 
 		                	<!-- <input type="checkbox" name="terms_conditions" value="1">{!!__('frontend.terms_conditions_text1',['url'=>url('terms-conditions')])!!}</a>. -->
 		                </div>
@@ -215,17 +216,17 @@
 				               <input type="button" onClick="checkValidation()" class="yellow_btn" value="{{__('frontend.text_122')}}"/>
 				            </div>
 	                    </div>
-	                  </div>  
+	                  </div>
 	                </div>
             	</form>
             </div>
-        </div>        
-    </div>  
+        </div>
+    </div>
     </div>
 </div>
 
 
-          
+
 <!-- Google Place API -->
 <script>
 var locale = '@php echo Session::get("locale"); @endphp';
@@ -246,8 +247,8 @@ $("input:checkbox").on('click', function() {
   }
 });
 
-function checkValidation(){ 
-	var no = 1;	
+function checkValidation(){
+	var no = 1;
 	var empty = true;
 	$('.validation').each(function(){
 		console.log($(this).val(),'sssssss');
@@ -265,11 +266,11 @@ function checkValidation(){
 			empty = true;
 		}
 	});
-	
+
 	if(empty){
 		$( "#general_form" ).submit();
 	}
-} 
+}
 
 $(document).on('click','.is_subc',function(){
 	if($(this).val()==1){
@@ -277,9 +278,9 @@ $(document).on('click','.is_subc',function(){
 	}else{
 		$('.suppl_comp').addClass('d-none');
 	}
-});	
+});
 
-//script for SIAP 
+//script for SIAP
 $('#select_agent_type').change(function(){
 	var values = [];
     let cnapsShow = 0;
@@ -360,8 +361,8 @@ function fillInAddress() {
   var place = autocomplete.getPlace();
   var work_location_lat = document.querySelector("input[name='work_location[lat]']");
   var work_location_long = document.querySelector("input[name='work_location[long]']");
-  work_location_lat.value = place.geometry.location.lat(); 
-  work_location_long.value = place.geometry.location.lng(); 
+  work_location_lat.value = place.geometry.location.lat();
+  work_location_long.value = place.geometry.location.lng();
 }
 
 // Bias the autocomplete object to the user's geographical location,
@@ -376,9 +377,9 @@ function geolocate() {
       // set current position
       var current_location_lat = document.querySelector("input[name='current_location[lat]']");
       var current_location_long = document.querySelector("input[name='current_location[long]']");
-      current_location_lat.value = position.coords.latitude; 
+      current_location_lat.value = position.coords.latitude;
       current_location_long.value = position.coords.longitude;
-      
+
       var circle = new google.maps.Circle(
           {center: geolocation, radius: position.coords.accuracy});
       autocomplete.setBounds(circle.getBounds());

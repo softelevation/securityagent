@@ -26,6 +26,7 @@ class Agent extends Model
 
     public function missions(){
         return $this->hasMany('App\Mission', 'agent_id');
+
     }
 
     public function upcoming_mission(){
