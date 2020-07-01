@@ -173,6 +173,7 @@ return [
 		'docs' => 'AGENT DOCUMENTS',
 		'reviews' => 'RECENT REVIEWS',
 		'total_hours_worked' => 'Total Hours Worked',
+		'intervention' => 'Pratroling & intervention',
 
 	],
 
@@ -215,5 +216,6 @@ return [
 		'refund_mission' => 'Refund Mission',
 		'refunded' => 'Refunded',
 		'refund' => 'Refund',
+		'save_card' => 'SAVE CARD DETAIL',
 	],
 ];

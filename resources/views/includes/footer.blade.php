@@ -1,4 +1,46 @@
 <!-- Footer -->
+<style>
+#landContainer{
+	background: #333;
+    color: #fff;
+    display: none;
+    font-size: 15px !important;
+    left: 0;
+	bottom: 0;
+    position: fixed;
+    box-sizing: content-box;
+    z-index: 2147483645;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    width: 100%;
+}
+#tarteaucitronPersonalize{
+	background: #fdde59;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    padding: 5px 10px;
+    text-decoration: none;
+    margin-left: 7px;
+}
+#tarteaucitronCloseAlert{
+	background: #fff;
+    color: #333;
+    font-size: 13px;
+    margin-bottom: 3px;
+    margin-left: 7px;
+    padding: 4px 10px;
+}
+</style>
+
+<div id="landContainer" style="display: none;">
+  <span id="tarteaucitronDisclaimerAlert">Hello As per RGPD regulation, we need to add a banner to accept Cookie in order to collect data if not, we can't collect user data</span>
+  <button type="button" id="tarteaucitronPersonalize">✓ OK, accept all</button>
+  <button type="button" id="tarteaucitronCloseAlert">Personalize</button>
+</div>
+
 <footer class="footer">
     <div class="container">
         <div class="row">
@@ -51,6 +93,7 @@
         <input id="notification_url" type="hidden" name="notification_url">
     </form>
 </footer>
+
 
 <script> var app_base_url = "{{url('/')}}";</script>
 <script src="{{asset('js/jquery.toast.js')}}"></script>

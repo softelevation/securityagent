@@ -483,7 +483,7 @@
                                                 <th>{{__('dashboard.mission.status')}}</th>
                                                 <th>{{__('dashboard.payment.status')}}</th>
                                                 <th>{{__('dashboard.created_at')}}</th>
-                                                <td></td>
+                                                <th>{{__('dashboard.action')}}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -517,7 +517,19 @@
                                                     @endif
                                                     @endif
                                                 </td>
-                                                
+                                                <td>
+													<div class="dropdown">
+                                                        <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
+
+                                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> {{__('dashboard.agents.assign')}}</a>
+															@if($mission->total_hours > 12)
+                                                            <a class="dropdown-item" href="{{url('operator/sub-mission')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-border-all text-grey" aria-hidden="true"></i> {{__('dashboard.mission.create_sub')}}</a>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+												</td>
                                             </tr>
                                             @forelse($mission->child_missions as $mission)
                                             <tr>

@@ -10,6 +10,7 @@ use App\Traits\PaymentTrait;
 use App\Mission;
 use App\UserPaymentHistory;
 use App\Customer;
+use App\CardDetail;
 use App\Agent;
 use Carbon\Carbon;
 use App\Helpers\Helper;
@@ -253,6 +254,7 @@ class MissionController extends Controller
             if($mission->quick_book==0){
                 $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
             }
+			$data['card_detail'] = CardDetail::where('user_id',Auth::user()->id)->first();
             $data['charge_amount'] = $chargeAmount;
             if(!isset($mission->customer_details->customer_stripe_id) || $mission->customer_details->customer_stripe_id==null){
                 // Create customer on stripe
@@ -286,6 +288,9 @@ class MissionController extends Controller
      */
     public function makeMissionPayment(Request $request){
         try{
+			if($request->save_card_deail && $request->save_card_deail == 1){
+				CardDetail::updateOrCreate(array('user_id'=>Auth::user()->id),array('user_id'=>Auth::user()->id,'name'=>$request->name,'card_number'=>$request->card_number,'expire_month'=>$request->expire_month,'expire_year'=>$request->expire_year));
+			}
             $amount = Helper::decrypt($request->amount);
             $mission_id = Helper::decrypt($request->mission_id);
             $mission = Mission::where('id',$mission_id)->first();

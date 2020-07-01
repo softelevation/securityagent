@@ -35,6 +35,13 @@
                           {{Form::hidden('latitude')}}
                           {{Form::hidden('longitude')}}
                         </div>
+						
+						<div class="col-md-12 form-group">
+                          <label>{{__('dashboard.agents.intervention')}}</label>
+                          @php $agentTypes = array('0'=>'Select','Guard_service'=>'Guard service','Intervention'=>'Intervention','Security_patrol'=>'Security patrol'); @endphp
+                          {{Form::select('intervention',$agentTypes,null,['class'=>'form-control intervention'])}}
+                        </div>
+						
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.agents.type')}}</label>
                           @php $agentTypes = Helper::get_agent_type_list(); @endphp

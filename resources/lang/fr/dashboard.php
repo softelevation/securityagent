@@ -172,6 +172,7 @@ return [
 		'docs' => "DOCUMENTS DE L'AGENT",
 		'reviews' => 'COMMENTAIRES RÉCENTS',
 		'total_hours_worked' => 'Total des heures travaillées',
+		'intervention' => 'Patrouille et intervention',
 	],
 
 	'billings' => [
@@ -213,5 +214,6 @@ return [
 		'refund_mission' => 'Mission de remboursement',
 		'refunded' => 'Remboursé',
 		'refund' => 'Rembourser',
+		'save_card' => 'ENREGISTRER LE DÉTAIL DE LA CARTE',
 	],
 ];

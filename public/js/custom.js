@@ -356,4 +356,41 @@ $(document).ready(function () {
 			});
 			event.preventDefault();
 		});
+		
+		$('select[class="form-control intervention"]').change(function(){
+			if($(this).val() == 'Intervention'){
+				$('input[name="vehicle_required"]:eq(0)').click();
+				$('select[name="total_hours"]').val('1');
+				$('select[name="agent_type"]').val('4');
+				$('input[name="vehicle_required"]').prop("disabled", true);
+				$('select[name="total_hours"]').prop("disabled", true);
+				$('select[name="agent_type"]').prop("disabled", true);
+			}else if($(this).val() == 'Security_patrol'){
+				$('input[name="vehicle_required"]:eq(0)').click();
+				$('select[name="total_hours"]').val('1');
+				$('select[name="agent_type"]').val('4');
+				$('input[name="vehicle_required"]').prop("disabled", true);
+				$('select[name="total_hours"]').prop("disabled", true);
+				$('select[name="agent_type"]').prop("disabled", false);
+			}else{
+				$('input[name="vehicle_required"]').prop("disabled", false);
+				$('select[name="total_hours"]').prop("disabled", false);
+				$('select[name="agent_type"]').prop("disabled", false);
+			}
+		});
+		
+		
+		
+		
+		if (!localStorage.getItem("pageloadcount")) {
+			$("#landContainer").show();
+		} 
+		$('#tarteaucitronPersonalize').click(function(){
+			localStorage.setItem("pageloadcount", "1");
+			$("#landContainer").hide();
+		});
+		$('#tarteaucitronCloseAlert').click(function(){
+			localStorage.setItem("pageloadcount", "1");
+			$("#landContainer").hide();
+		});
 });
