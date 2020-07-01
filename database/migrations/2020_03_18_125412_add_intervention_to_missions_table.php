@@ -18,8 +18,6 @@ class AddInterventionToMissionsTable extends Migration
 
             $table->string('intervention')->nullable();
 
-
-
         });
 
     }
