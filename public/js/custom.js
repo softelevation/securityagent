@@ -365,6 +365,7 @@ $(document).ready(function () {
 				$('input[name="vehicle_required"]').prop("disabled", true);
 				$('select[name="total_hours"]').prop("disabled", true);
 				$('select[name="agent_type"]').prop("disabled", true);
+				$('select[name="agent_type"] option[value="7"]').prop("disabled", false);
 			}else if($(this).val() == 'Security_patrol'){
 				$('input[name="vehicle_required"]:eq(0)').click();
 				$('select[name="total_hours"]').val('1');
@@ -372,10 +373,13 @@ $(document).ready(function () {
 				$('input[name="vehicle_required"]').prop("disabled", true);
 				$('select[name="total_hours"]').prop("disabled", true);
 				$('select[name="agent_type"]').prop("disabled", false);
+				$('select[name="agent_type"] option[value="7"]').prop("disabled", true);
+				
 			}else{
 				$('input[name="vehicle_required"]').prop("disabled", false);
 				$('select[name="total_hours"]').prop("disabled", false);
 				$('select[name="agent_type"]').prop("disabled", false);
+				$('select[name="agent_type"] option[value="7"]').prop("disabled", false);
 			}
 		});
 		
