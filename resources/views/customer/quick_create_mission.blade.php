@@ -1,5 +1,11 @@
 @extends('layouts.dashboard')
 @section('content')
+<style>
+.disable{
+	pointer-events:none;
+	background:#e9ecef;
+}
+</style>
 <div class="profile">
     <div class="container">
         <div class="row">

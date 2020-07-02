@@ -549,12 +549,16 @@ class MissionController extends Controller
                 'longitude'=>$data['longitude'],
                 'agent_type'=>$data['agent_type']
             ];
-            if($data['vehicle_required']==1){
-                $params['is_vehicle'] = 1;
-            }
-            if($data['vehicle_required']==2){
-                $params['is_vehicle'] = 0;
-            }
+			if(!array_key_exists("vehicle_required",$data)){
+					$params['is_vehicle'] = 1;
+			}else{
+				if($data['vehicle_required']==1){
+					$params['is_vehicle'] = 1;
+				}
+				if($data['vehicle_required']==2){
+					$params['is_vehicle'] = 0;
+				}
+			}
             $response['url'] = route('available-agents',$params);
             return $this->getSuccessResponse($response);
         }catch(\Exception $e){
