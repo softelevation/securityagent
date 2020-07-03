@@ -294,6 +294,7 @@ button.navbar-toggler i.fa.fa-bars { line-height: 35px;}
 .modal-body .form-control { border: none; border-radius: 0;    padding: 0 15px;    box-shadow: 0 0 7px #ccc inset;}
 .modal-body input.yellow_btn {height: 48px; line-height: 51px; border: 1px solid #ccc; display: block; width: 100%; max-width: 100%;    margin:10px 0 0; box-shadow: 0 0 8px #d4de18 inset;}
 body textarea.form-control { height: 100px !important; resize: none; padding-top: 10px !important;}
+textarea.form-control.message-center { height: 60px !important;}
 .yellow_btn:focus {outline: none; border: none;}
 .how_work_listing {
     max-width: 800px;

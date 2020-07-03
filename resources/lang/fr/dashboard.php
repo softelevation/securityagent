@@ -205,7 +205,7 @@ return [
 		'approvals' => 'Approbations de paiement',
 		'refund_req' => 'Demandes de remboursement',
 		'approvals_heading' => "Toutes les approbations de paiement supplémentaires de la mission",
-		'refund_req_heading' => "Toutes les demandes de remboursement de la mission",
+		'refund_req_heading' => "Toutes les echanges avec notre service client",
 		'message_center_heading' => "Toutes les demandes de mission et assistance",
 		'refund_status' => 'Statut de remboursement',
 		'refund_amount' => 'Montant du remboursement',

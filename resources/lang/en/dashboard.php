@@ -207,7 +207,7 @@ return [
 		'approvals' => 'Payment Approvals',
 		'refund_req' => 'Refund Requests',
 		'approvals_heading' => "All Mission's Extra Payment Approvals",
-		'refund_req_heading' => "All Mission's Refund Requests",
+		'refund_req_heading' => "All request with our customer service",
 		'message_center_heading' => "All mission request and help assistance",
 		'refund_status' => 'Refund Status',
 		'refund_amount' => 'Refund Amount',

@@ -171,7 +171,7 @@ return [
 	"text_148" => "Help",
 	"text_149" => "* Indicates the required fields",
 	"text_150" => "To",
-	"text_151" => "Send",
+	"text_151" => "Sand message",
 	"text_152" => "Write message",
 	"terms_conditions_text1" => "By clicking <b>Become Agent</b>, you agree to our <a href=':url' target='_blank'>Terms and Conditions Policy",
 	"terms_conditions_text2" => "By clicking <b>Become An User</b>, you agree to our <a href=':url' target='_blank'>Terms and Conditions Policy",
