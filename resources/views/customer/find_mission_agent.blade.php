@@ -84,7 +84,7 @@
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-4 form-group">
-                        <label>{{__('dashboard.agents.available_to_place')}}</label>
+                        <label>{{__('dashboard.agents.repetitive_mission')}}</label>
                         <span class="form-control">{{$mission->repetitive_mission}}</span>
                       </div>
                       <div class="col-md-4 form-group">
