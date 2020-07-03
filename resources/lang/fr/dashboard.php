@@ -173,6 +173,8 @@ return [
 		'reviews' => 'COMMENTAIRES RÉCENTS',
 		'total_hours_worked' => 'Total des heures travaillées',
 		'intervention' => 'Patrouille et intervention',
+		'finish_time' => 'Heure de fin de la mission',
+		'repetitive_mission' => 'Mission répétitive'
 	],
 
 	'billings' => [

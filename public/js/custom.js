@@ -376,6 +376,16 @@ $(document).ready(function () {
 				$('select[name="agent_type"]').removeClass("disable");
 				$('select[name="agent_type"] option[value="7"]').prop("disabled", true);
 				$('input[name="vehicle_required"]').prop("disabled", true);
+				var extra_field = '<div class="col-md-6 form-group"><label>'+$(this).find(':selected').data('repetitive_mission')+'</label><select class="form-control" name="agent_type" aria-invalid="false"><option value="same day">same day</option><option value="week">week</option></select></div>';
+					extra_field += '<div class="col-md-6 form-group"><label>'+$(this).find(':selected').data('finish_time')+'</label><input class="form-control timepicker" placeholder="'+$(this).find(':selected').data('available_to_place')+'" id="available_to" name="available_to" type="text" aria-invalid="false"></div>';
+				$(function () {
+					jQuery('.timepicker').datetimepicker({
+						datepicker: false,
+						format: 'H:i'
+					});
+				});
+				$('div[class="col-md-6 form-group create-new-mission"]').after(extra_field);
+				
 			}else{
 				$('select[class="vehicle_required"]').removeClass("disable");
 				$('select[name="total_hours"]').removeClass("disable");

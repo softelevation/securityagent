@@ -41,13 +41,15 @@
                           {{Form::hidden('latitude')}}
                           {{Form::hidden('longitude')}}
                         </div>
-						
 						<div class="col-md-12 form-group">
                           <label>{{__('dashboard.agents.intervention')}}</label>
-                          @php $agentTypes = array('0'=>'Select','Guard_service'=>'Guard service','Intervention'=>'Intervention','Security_patrol'=>'Security patrol'); @endphp
-                          {{Form::select('intervention',$agentTypes,null,['class'=>'form-control intervention'])}}
+						  <select class="form-control intervention" name="intervention" aria-invalid="false">
+							<option value="0">Select</option>
+							<option value="Guard_service">Guard service</option>
+							<option value="Intervention">Intervention</option>
+							<option value="Security_patrol" data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}">Security patrol</option>
+						  </select>
                         </div>
-						
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.agents.type')}}</label>
                           @php $agentTypes = Helper::get_agent_type_list(); @endphp
@@ -83,7 +85,7 @@
                             <label>{{__('dashboard.mission.start_time')}}</label>
                             {{Form::text('start_date_time',null,['class'=>'form-control datetimepicker','placeholder'=>__('dashboard.mission.start_time')])}}
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-6 form-group create-new-mission">
                           <label>{{__('dashboard.mission.agent_vehicle')}}</label><br>
                           <label class="rd_container form-inline">{{__('dashboard.yes')}}
                             {{Form::radio('vehicle_required',1,false)}}

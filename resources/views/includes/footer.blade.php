@@ -36,7 +36,7 @@
 </style>
 
 <div id="landContainer" style="display: none;">
-  <span id="tarteaucitronDisclaimerAlert">Hello As per RGPD regulation, we need to add a banner to accept Cookie in order to collect data if not, we can't collect user data</span>
+  <span id="tarteaucitronDisclaimerAlert">{{__('frontend.banner_contant')}}</span>
   <button type="button" id="tarteaucitronPersonalize">✓ OK, accept all</button>
   <button type="button" id="tarteaucitronCloseAlert">Personalize</button>
 </div>

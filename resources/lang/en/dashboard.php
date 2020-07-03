@@ -174,7 +174,8 @@ return [
 		'reviews' => 'RECENT REVIEWS',
 		'total_hours_worked' => 'Total Hours Worked',
 		'intervention' => 'Pratroling & intervention',
-
+		'finish_time' => 'Mission finish time',
+		'repetitive_mission' => 'Repetitive mission',
 	],
 
 	'billings' => [

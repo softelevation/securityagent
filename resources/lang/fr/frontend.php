@@ -183,4 +183,5 @@ return [
 	'captcha_place'=>'Entrez le code captcha.',
 	'hours_available_msg' => "Cet agent n'est disponible que pendant :time heures",
 	'reset_password_btn' => "réinitialiser le mot de passe",
+	'banner_contant' => 'Ce site utilise des cookies et vous donne le contrôle sur ce que vous souhaitez activer',
 ];
