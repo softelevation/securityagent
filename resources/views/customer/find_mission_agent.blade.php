@@ -78,6 +78,25 @@
                   </div>
                 </div>
                 @endif
+				@if(isset($mission->repetitive_mission) && isset($mission->mission_finish_time) && !empty($mission->repetitive_mission) && !empty($mission->mission_finish_time))
+					<h3>{{__('dashboard.agents.intervention')}}</h3>
+				<div class="pending-details">
+                  <div class="view_agent_details mt-4">
+                    <div class="row">
+                      <div class="col-md-4 form-group">
+                        <label>{{__('dashboard.agents.available_to_place')}}</label>
+                        <span class="form-control">{{$mission->repetitive_mission}}</span>
+                      </div>
+                      <div class="col-md-4 form-group">
+                        <label>{{__('dashboard.agents.finish_time')}}</label>
+                        <span class="form-control">{{$mission->mission_finish_time}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+				@endif
+				
+				
                 <h3>{{__('dashboard.payment.details')}}</h3>
                 @php 
                   $vat_amount = Helper::get_vat_amount($mission->amount,$mission->vat);
