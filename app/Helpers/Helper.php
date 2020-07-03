@@ -38,13 +38,13 @@ class Helper {
         }
         // Set rates for future missions
         if($quickBooking==1){
-            $rate[1] = 30; //Agent SSIAP 1
-            $rate[2] = 35; //Agent SSIAP 2
-            $rate[3] = 100; //Agent SSIAP 3
-            $rate[4] = 30; //ADS
-            $rate[5] = 150; //Body Guard Without Weapon
-            $rate[6] = 30; //Dog Handler
-            $rate[7] = 30; //Hostesses
+            $rate[1] = 35; //Agent SSIAP 1
+            $rate[2] = 37; //Agent SSIAP 2
+            $rate[3] = 75; //Agent SSIAP 3
+            $rate[4] = 35; //ADS
+            $rate[5] = 120; //Body Guard Without Weapon
+            $rate[6] = 37; //Dog Handler
+            $rate[7] = 35; //Hostesses
         }
         return $rate[$agentType];
     }
