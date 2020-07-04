@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+<style>
+.disable{
+	pointer-events:none;
+	background:#e9ecef;
+}
+</style>
     <div class="location_search">
         <div class="container">
             <div class="row">
@@ -186,6 +192,15 @@
                           {{Form::hidden('latitude',null,['id'=>'latitude2'])}}
                           {{Form::hidden('longitude',null,['id'=>'longitude2'])}}
                         </div>
+						<div class="col-md-12 form-group">
+                          <label>{{__('dashboard.agents.intervention')}}</label>
+						  <select class="form-control intervention" name="intervention" aria-invalid="false">
+							<option value="0">Select</option>
+							<option value="Guard_service" @if(Session::has('mission') && Session::get('mission')['intervention'] == 'Guard_service') selected @endif>Guard service</option>
+							<option value="Intervention" @if(Session::has('mission') && Session::get('mission')['intervention'] == 'Intervention') selected @endif>Intervention</option>
+							<option value="Security_patrol" @if(Session::has('mission') && Session::get('mission')['intervention'] == 'Security_patrol') selected @endif data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}">Security patrol</option>
+						  </select>
+                        </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.agents.type')}}</label>
                           @php $agentTypes = Helper::get_agent_type_list(); @endphp
@@ -221,7 +236,7 @@
                             <label>{{__('dashboard.mission.start_time')}}</label>
                             <input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time" type="text">
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-6 form-group create-new-mission">
                           <label>{{__('dashboard.mission.agent_vehicle')}}</label><br>
                           <label class="rd_container form-inline">{{__('dashboard.yes')}}
                             {{Form::radio('vehicle_required',1,false)}}
@@ -236,6 +251,19 @@
                             <span class="checkmark"></span>
                           </label>
                         </div>
+						@if(Session::has('mission') && Session::has('mission') && isset(Session::get('mission')['repetitive_mission']) && isset(Session::get('mission')['mission_finish_time']))
+						<div class="col-md-6 form-group security_patrol_field">
+							<label>{{__('dashboard.agents.repetitive_mission')}}</label>
+							<select class="form-control" name="repetitive_mission" aria-invalid="false">
+							<option value="same day" @if(Session::has('mission') && Session::get('mission')['repetitive_mission'] == 'same day') selected @endif>same day</option>
+							<option value="week" @if(Session::has('mission') && Session::get('mission')['repetitive_mission'] == 'week') selected @endif>week</option>
+							</select>
+						</div>
+						<div class="col-md-6 form-group security_patrol_field">
+							<label>{{__('dashboard.agents.finish_time')}}</label>
+							<input class="form-control timepicker" value="{{ Session::get('mission')['mission_finish_time'] }}" placeholder="{{__('dashboard.agents.available_to_place')}}" id="mission_finish_time" name="mission_finish_time" type="text" aria-invalid="false">
+						</div>
+						@endif
                         <div class="col-md-12 form-group">
                           <label>{{__('dashboard.mission.description')}}</label>
                           {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>__('dashboard.mission.description_place')])}}

@@ -366,6 +366,7 @@ $(document).ready(function () {
 				$('select[name="agent_type"]').addClass("disable");
 				$('input[name="vehicle_required"]').prop("disabled", true);
 				$('select[name="agent_type"] option[value="7"]').prop("disabled", false);
+				$('div[class="col-md-6 form-group security_patrol_field"]').remove();
 			}else if($(this).val() == 'Security_patrol'){
 				$('input[name="vehicle_required"]:eq(0)').click();
 				$('select[name="total_hours"]').val('1');
@@ -376,17 +377,47 @@ $(document).ready(function () {
 				$('select[name="agent_type"]').removeClass("disable");
 				$('select[name="agent_type"] option[value="7"]').prop("disabled", true);
 				$('input[name="vehicle_required"]').prop("disabled", true);
-				var extra_field = '<div class="col-md-6 form-group"><label>'+$(this).find(':selected').data('repetitive_mission')+'</label><select class="form-control" name="repetitive_mission" aria-invalid="false"><option value="same day">same day</option><option value="week">week</option></select></div>';
-					extra_field += '<div class="col-md-6 form-group"><label>'+$(this).find(':selected').data('finish_time')+'</label><input class="form-control timepicker" placeholder="'+$(this).find(':selected').data('available_to_place')+'" id="mission_finish_time" name="mission_finish_time" type="text" aria-invalid="false"></div>';
+				var extra_field = '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('repetitive_mission')+'</label><select class="form-control" name="repetitive_mission" aria-invalid="false"><option value="same day">same day</option><option value="week">week</option></select></div>';
+					extra_field += '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('finish_time')+'</label><input class="form-control timepicker" placeholder="'+$(this).find(':selected').data('available_to_place')+'" id="mission_finish_time" name="mission_finish_time" type="text" aria-invalid="false"></div>';
 				$(function () { jQuery('.timepicker').datetimepicker({ datepicker: false, format: 'H:i' }); });
 				$('div[class="col-md-6 form-group create-new-mission"]').after(extra_field);
-				
 			}else{
 				$('select[class="vehicle_required"]').removeClass("disable");
 				$('select[name="total_hours"]').removeClass("disable");
 				$('select[name="agent_type"]').removeClass("disable");
 				$('input[name="vehicle_required"]').prop("disabled", false);
 				$('select[name="agent_type"] option[value="7"]').prop("disabled", false);
+				$('div[class="col-md-6 form-group security_patrol_field"]').remove();
+			}
+		});
+		
+		$('button[class="btn_submit"]').click(function(){
+				if($('select[class="form-control intervention"]').val() == 'Intervention'){
+				$('input[name="vehicle_required"]:eq(0)').click();
+				$('select[name="total_hours"]').val('1');
+				$('select[name="agent_type"]').val('4');
+				$('select[name="total_hours"]').addClass("disable");
+				$('select[name="agent_type"]').addClass("disable");
+				$('input[name="vehicle_required"]').prop("disabled", true);
+				$('select[name="agent_type"] option[value="7"]').prop("disabled", false);
+				$('div[class="col-md-6 form-group security_patrol_field"]').remove();
+			}else if($('select[class="form-control intervention"]').val() == 'Security_patrol'){
+				$('input[name="vehicle_required"]:eq(0)').click();
+				$('select[name="total_hours"]').val('1');
+				$('select[name="agent_type"]').val('4');
+				$('select[name="total_hours"]').val('1');
+				$('select[name="total_hours"]').addClass('disable');
+				$('select[name="total_hours"]').addClass('disable');
+				$('select[name="agent_type"]').removeClass("disable");
+				$('select[name="agent_type"] option[value="7"]').prop("disabled", true);
+				$('input[name="vehicle_required"]').prop("disabled", true);
+			}else{
+				$('select[class="vehicle_required"]').removeClass("disable");
+				$('select[name="total_hours"]').removeClass("disable");
+				$('select[name="agent_type"]').removeClass("disable");
+				$('input[name="vehicle_required"]').prop("disabled", false);
+				$('select[name="agent_type"] option[value="7"]').prop("disabled", false);
+				$('div[class="col-md-6 form-group security_patrol_field"]').remove();
 			}
 		});
 		
