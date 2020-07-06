@@ -372,13 +372,20 @@ $(document).ready(function () {
 				$('select[name="total_hours"]').val('1');
 				$('select[name="agent_type"]').val('4');
 				$('select[name="total_hours"]').val('1');
-				$('select[name="total_hours"]').addClass('disable');
-				$('select[name="total_hours"]').addClass('disable');
+				$('select[name="total_hours"]').removeClass('disable');
 				$('select[name="agent_type"]').removeClass("disable");
 				$('select[name="agent_type"] option[value="7"]').prop("disabled", true);
 				$('input[name="vehicle_required"]').prop("disabled", true);
 				var extra_field = '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('repetitive_mission')+'</label><select class="form-control" name="repetitive_mission" aria-invalid="false"><option value="same day">same day</option><option value="week">week</option></select></div>';
 					extra_field += '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('finish_time')+'</label><input class="form-control timepicker" placeholder="'+$(this).find(':selected').data('available_to_place')+'" id="mission_finish_time" name="mission_finish_time" type="text" aria-invalid="false"></div>';
+					extra_field += '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('time_intervel')+'</label>';
+					extra_field += '<select class="form-control" name="time_intervel">';
+					extra_field += '<option value="0">Select</option>';
+					extra_field +=  $.map([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24], function(i) {
+									  return '<option value="'+i+'">'+i+' Hrs</option>';
+									});
+					extra_field += '</select>';
+					extra_field += '</div>';
 				$(function () { jQuery('.timepicker').datetimepicker({ datepicker: false, format: 'H:i' }); });
 				$('div[class="col-md-6 form-group create-new-mission"]').after(extra_field);
 			}else{
@@ -406,8 +413,8 @@ $(document).ready(function () {
 				$('select[name="total_hours"]').val('1');
 				$('select[name="agent_type"]').val('4');
 				$('select[name="total_hours"]').val('1');
-				$('select[name="total_hours"]').addClass('disable');
-				$('select[name="total_hours"]').addClass('disable');
+				$('select[name="time_intervel"]').val('4');
+				$('select[name="total_hours"]').removeClass('disable');
 				$('select[name="agent_type"]').removeClass("disable");
 				$('select[name="agent_type"] option[value="7"]').prop("disabled", true);
 				$('input[name="vehicle_required"]').prop("disabled", true);

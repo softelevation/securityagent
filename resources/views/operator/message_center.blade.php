@@ -51,7 +51,7 @@ div.ex1 {background-color: lightblue; height: 210px; overflow: scroll; padding: 
 									  {{Form::textarea('send_message',null,['data-id'=>$user_id,'data-cus_id'=>$cus_id,'class'=>'form-control message-center','placeholder'=>__('frontend.text_152')])}}
 									</div>
 									<div class="col-md-4 ">
-										<input type="submit" class="yellow_btn" value="{{__('frontend.text_151')}}"/>
+										<input type="submit" class="yellow_btn" value="{{__('frontend.text_73')}}"/>
 									</div>
 								  </div>
 								  {{Form::close()}}

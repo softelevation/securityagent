@@ -54,6 +54,24 @@
                         <span class="form-control">{{date('d/m/Y H:i:s', strtotime($mission->start_date_time))}}</span>
                       </div>
                       @endif
+					  <div class="col-md-12 form-group">
+                        <label>{{__('dashboard.agents.intervention')}}</label>
+                        <span class="form-control">{{str_replace("_"," ",$mission->intervention)}}</span>
+                      </div>
+					  @if($mission->intervention == 'Security_patrol' && isset($mission->repetitive_mission) && isset($mission->mission_finish_time) && !empty($mission->repetitive_mission) && !empty($mission->mission_finish_time))
+					  <div class="col-md-4 form-group">
+                        <label>{{__('dashboard.agents.repetitive_mission')}}</label>
+                        <span class="form-control">{{$mission->repetitive_mission}}</span>
+                      </div>
+					  <div class="col-md-4 form-group">
+                        <label>{{__('dashboard.agents.finish_time')}}</label>
+                        <span class="form-control">{{$mission->mission_finish_time}}</span>
+                      </div>
+					  <div class="col-md-4 form-group">
+                        <label>{{__('dashboard.agents.time_intervel')}}</label>
+                        <span class="form-control">{{$mission->time_intervel}}</span>
+                      </div>
+				      @endif
                       <div class="col-md-12 form-group">
                         <label>{{__('dashboard.mission.description')}}</label>
                         <span class="form-control">{{$mission->description}}</span>
@@ -78,25 +96,6 @@
                   </div>
                 </div>
                 @endif
-				@if(isset($mission->repetitive_mission) && isset($mission->mission_finish_time) && !empty($mission->repetitive_mission) && !empty($mission->mission_finish_time))
-					<h3>{{__('dashboard.agents.intervention')}}</h3>
-				<div class="pending-details">
-                  <div class="view_agent_details mt-4">
-                    <div class="row">
-                      <div class="col-md-4 form-group">
-                        <label>{{__('dashboard.agents.repetitive_mission')}}</label>
-                        <span class="form-control">{{$mission->repetitive_mission}}</span>
-                      </div>
-                      <div class="col-md-4 form-group">
-                        <label>{{__('dashboard.agents.finish_time')}}</label>
-                        <span class="form-control">{{$mission->mission_finish_time}}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-				@endif
-				
-				
                 <h3>{{__('dashboard.payment.details')}}</h3>
                 @php 
                   $vat_amount = Helper::get_vat_amount($mission->amount,$mission->vat);

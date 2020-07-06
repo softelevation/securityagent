@@ -44,10 +44,9 @@
 						<div class="col-md-12 form-group">
                           <label>{{__('dashboard.agents.intervention')}}</label>
 						  <select class="form-control intervention" name="intervention" aria-invalid="false">
-							<option value="0">Select</option>
 							<option value="Guard_service">Guard service</option>
 							<option value="Intervention">Intervention</option>
-							<option value="Security_patrol" data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}">Security patrol</option>
+							<option value="Security_patrol" data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}" data-time_intervel="{{__('dashboard.agents.time_intervel')}}">Security patrol</option>
 						  </select>
                         </div>
                         <div class="col-md-6 form-group">
@@ -68,7 +67,6 @@
                             @endphp
                           @endfor
                           {{Form::select('total_hours',$hours,null,['class'=>'form-control mission_hours'])}}
-                          <span class="mission_hours_note @if(isset($mission->total_hours)) d-none @endif">{{__('dashboard.mission.note_hours')}}</span>
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.from_when_start')}}</label><br>

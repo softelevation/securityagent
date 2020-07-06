@@ -137,8 +137,7 @@ class OperatorController extends Controller
      * @purpose Load customer list view
      */
     public function viewCustomersList(Request $request){
-        $customers = Customer::orderBy('id','DESC')->where('status','!=',3)->paginate($this->limit);
-       
+        $customers = Customer::select('customers.*','users.email')->join('users','users.id','customers.user_id')->orderBy('customers.id','DESC')->where('customers.status','!=',3)->paginate($this->limit);
         $params = [
             'data' => $customers,
             'limit' => $this->limit,

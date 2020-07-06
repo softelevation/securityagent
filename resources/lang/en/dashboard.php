@@ -173,9 +173,10 @@ return [
 		'docs' => 'AGENT DOCUMENTS',
 		'reviews' => 'RECENT REVIEWS',
 		'total_hours_worked' => 'Total Hours Worked',
-		'intervention' => 'Pratroling & intervention',
+		'intervention' => 'Mission type',
 		'finish_time' => 'Mission finish time',
 		'repetitive_mission' => 'Repetitive mission',
+		'time_intervel' => 'Time intervel',
 	],
 
 	'billings' => [

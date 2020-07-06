@@ -172,9 +172,10 @@ return [
 		'docs' => "DOCUMENTS DE L'AGENT",
 		'reviews' => 'COMMENTAIRES RÉCENTS',
 		'total_hours_worked' => 'Total des heures travaillées',
-		'intervention' => 'Patrouille et intervention',
+		'intervention' => 'Type de mission',
 		'finish_time' => 'Heure de fin de la mission',
-		'repetitive_mission' => 'Mission répétitive'
+		'repetitive_mission' => 'Mission répétitive',
+		'time_intervel' => 'Intervalle de temps',
 	],
 
 	'billings' => [

@@ -195,10 +195,9 @@
 						<div class="col-md-12 form-group">
                           <label>{{__('dashboard.agents.intervention')}}</label>
 						  <select class="form-control intervention" name="intervention" aria-invalid="false">
-							<option value="0">Select</option>
 							<option value="Guard_service" @if(Session::has('mission') && Session::get('mission')['intervention'] == 'Guard_service') selected @endif>Guard service</option>
 							<option value="Intervention" @if(Session::has('mission') && Session::get('mission')['intervention'] == 'Intervention') selected @endif>Intervention</option>
-							<option value="Security_patrol" @if(Session::has('mission') && Session::get('mission')['intervention'] == 'Security_patrol') selected @endif data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}">Security patrol</option>
+							<option value="Security_patrol" @if(Session::has('mission') && Session::get('mission')['intervention'] == 'Security_patrol') selected @endif data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}" data-time_intervel="{{__('dashboard.agents.time_intervel')}}">Security patrol</option>
 						  </select>
                         </div>
                         <div class="col-md-6 form-group">
@@ -219,7 +218,6 @@
                             @endphp
                           @endfor
                           {{Form::select('total_hours',$hours,null,['class'=>'form-control mission_hours'])}}
-                          <span class="mission_hours_note @if(isset($tempMission['total_hours'])) d-none @endif">{{__('dashboard.mission.note_hours')}}</span>
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.from_when_start')}}</label>
@@ -262,6 +260,15 @@
 						<div class="col-md-6 form-group security_patrol_field">
 							<label>{{__('dashboard.agents.finish_time')}}</label>
 							<input class="form-control timepicker" value="{{ Session::get('mission')['mission_finish_time'] }}" placeholder="{{__('dashboard.agents.available_to_place')}}" id="mission_finish_time" name="mission_finish_time" type="text" aria-invalid="false">
+						</div>
+						<div class="col-md-6 form-group security_patrol_field">
+							<label>Time intervel</label>
+							<select class="form-control" name="time_intervel" aria-invalid="false">
+								<option value="0">Select</option>
+							@for($i=1; $i<=24; $i++)
+								<option value="{{$i}}">{{$i}} Hrs</option>
+							@endfor
+							</select>
 						</div>
 						@endif
                         <div class="col-md-12 form-group">
