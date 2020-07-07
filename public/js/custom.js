@@ -367,6 +367,7 @@ $(document).ready(function () {
 				$('input[name="vehicle_required"]').prop("disabled", true);
 				$('select[name="agent_type"] option[value="7"]').prop("disabled", false);
 				$('div[class="col-md-6 form-group security_patrol_field"]').remove();
+				$('.mission_hours_note').hide();
 			}else if($(this).val() == 'Security_patrol'){
 				$('input[name="vehicle_required"]:eq(0)').click();
 				$('select[name="total_hours"]').val('1');
@@ -376,13 +377,19 @@ $(document).ready(function () {
 				$('select[name="agent_type"]').removeClass("disable");
 				$('select[name="agent_type"] option[value="7"]').prop("disabled", true);
 				$('input[name="vehicle_required"]').prop("disabled", true);
+				$('.mission_hours_note').hide();
+				var hrs = $(this).find(':selected').data('hrs');
+				var hr = $(this).find(':selected').data('hr');
 				var extra_field = '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('repetitive_mission')+'</label><select class="form-control" name="repetitive_mission" aria-invalid="false"><option value="same day">same day</option><option value="week">week</option></select></div>';
 					extra_field += '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('finish_time')+'</label><input class="form-control timepicker" placeholder="'+$(this).find(':selected').data('available_to_place')+'" id="mission_finish_time" name="mission_finish_time" type="text" aria-invalid="false"></div>';
 					extra_field += '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('time_intervel')+'</label>';
 					extra_field += '<select class="form-control" name="time_intervel">';
-					extra_field += '<option value="0">Select</option>';
+					extra_field += '<option value="0">'+$(this).find(':selected').data('select')+'</option>';
 					extra_field +=  $.map([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24], function(i) {
-									  return '<option value="'+i+'">'+i+' Hrs</option>';
+										if(i == 1)
+											return '<option value="'+i+'">'+i+' '+hr+'</option>';
+										else
+											return '<option value="'+i+'">'+i+' '+hrs+'</option>';
 									});
 					extra_field += '</select>';
 					extra_field += '</div>';
@@ -392,6 +399,7 @@ $(document).ready(function () {
 				$('select[class="vehicle_required"]').removeClass("disable");
 				$('select[name="total_hours"]').removeClass("disable");
 				$('select[name="agent_type"]').removeClass("disable");
+				$('.mission_hours_note').show();
 				$('input[name="vehicle_required"]').prop("disabled", false);
 				$('select[name="agent_type"] option[value="7"]').prop("disabled", false);
 				$('div[class="col-md-6 form-group security_patrol_field"]').remove();
@@ -409,11 +417,21 @@ $(document).ready(function () {
 				$('select[name="agent_type"] option[value="7"]').prop("disabled", false);
 				$('div[class="col-md-6 form-group security_patrol_field"]').remove();
 			}else if($('select[class="form-control intervention"]').val() == 'Security_patrol'){
+				$.ajax({
+					   url: 'available-agents-security-patrol',
+					   success:function(response)
+					   {
+						   if(response.status == 1){
+							   $('select[name="agent_type"]').val(response.data.agent_type);
+							   $('select[name="total_hours"]').val(response.data.total_hours);
+							   $('select[name="time_intervel"]').val(response.data.time_intervel);
+						   }
+					   }
+				});
 				$('input[name="vehicle_required"]:eq(0)').click();
-				$('select[name="total_hours"]').val('1');
-				$('select[name="agent_type"]').val('4');
-				$('select[name="total_hours"]').val('1');
-				$('select[name="time_intervel"]').val('4');
+				// $('select[name="agent_type"]').val('4');
+				// $('select[name="total_hours"]').val('1');
+				// $('select[name="time_intervel"]').val('4');
 				$('select[name="total_hours"]').removeClass('disable');
 				$('select[name="agent_type"]').removeClass("disable");
 				$('select[name="agent_type"] option[value="7"]').prop("disabled", true);

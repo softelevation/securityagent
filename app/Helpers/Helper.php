@@ -127,7 +127,7 @@ class Helper {
     public static function get_agent_type_list(){
         if(App::getLocale()=='fr'){
             $agentList = [
-                'Select',
+                __('frontend.select'),
                 'Agent SSIAP 1',
                 'Agent SSIAP 2',
                 'Agent SSIAP 3',
@@ -138,7 +138,7 @@ class Helper {
             ];
         }else{
             $agentList = [
-                'Select',
+                __('frontend.select'),
                 'Agent SSIAP 1',
                 'Agent SSIAP 2',
                 'Agent SSIAP 3',

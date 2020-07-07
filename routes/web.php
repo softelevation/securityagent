@@ -50,6 +50,7 @@ Route::post('/register_agent', 'AgentController@signup');
 Route::get('/customer-signup', 'CustomerController@customerSignupView');
 Route::post('/register_customer_form', 'CustomerController@customerSignupForm');
 Route::get('/available-agents', 'AgentController@showAvailableAgents')->name('available-agents');
+Route::get('/available-agents-security-patrol', 'AgentController@showAvailableAgentSecurityPatrol')->name('available-agents-security-patrol');
 Route::get('/login', 'Auth\LoginController@loginView');
 Route::post('/login', 'Auth\LoginController@allInOneLogin')->name('login');
 Route::post('/save-mission-temporary', 'Customer\MissionController@saveMissionTemp');

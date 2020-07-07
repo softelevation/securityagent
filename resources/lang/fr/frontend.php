@@ -173,6 +173,7 @@ return [
 	"text_149" => "* Indique les champs obligatoires",
 	"text_151" => "Ecrivez ici votre message",
 	"text_152" => "Écrire un message",
+	"select" => "Choisir",
     "terms_conditions_text1" => "En cliquant sur <b> Devenir agent </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",
 	"terms_conditions_text2" => "En cliquant sur <b> Devenir utilisateur </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",
 	'sub_contract_title' => 'Êtes-vous un sous-traitant?',

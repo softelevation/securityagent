@@ -32,6 +32,8 @@ return [
 	'status' => 'Status',
 	'no_record' => 'No record found',	
 	'hours' => 'Hour(s)',
+	'hrs' => 'Hrs',
+	'hr' => 'Hr',
 	'now' => 'Now',
 	'quick_booking' => 'Quick Booking',
 	'view' => 'View',

@@ -90,6 +90,16 @@ class AgentController extends Controller
      * @method showAvailableAgents
      * @purpose Show available agents on map
      */
+	
+	public function showAvailableAgentSecurityPatrol(){
+		if(Session::has('mission')){
+			$returnData = array('status'=>1,'data'=>Session::get('mission'));
+		}else{
+			$returnData = array('status'=>0,'data'=>array());
+		}
+		return response()->json($returnData);
+	}
+	
     public function showAvailableAgents(Request $request){
         $latitude = '46.2276';
         $longitude = '2.2137';

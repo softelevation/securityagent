@@ -44,9 +44,9 @@
 						<div class="col-md-12 form-group">
                           <label>{{__('dashboard.agents.intervention')}}</label>
 						  <select class="form-control intervention" name="intervention" aria-invalid="false">
-							<option value="Guard_service">Guard service</option>
-							<option value="Intervention">Intervention</option>
-							<option value="Security_patrol" data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}" data-time_intervel="{{__('dashboard.agents.time_intervel')}}">Security patrol</option>
+							<option value="Guard_service" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Guard_service') selected @endif>Guard service</option>
+							<option value="Intervention" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Intervention') selected @endif>Intervention</option>
+							<option value="Security_patrol" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Security_patrol') selected @endif data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}" data-time_intervel="{{__('dashboard.agents.time_intervel')}}" data-hrs="{{__('dashboard.hrs')}}" data-hr="{{__('dashboard.hr')}}" data-select="{{__('frontend.select')}}">Security patrol</option>
 						  </select>
                         </div>
                         <div class="col-md-6 form-group">
@@ -60,13 +60,14 @@
                           @for($i=1; $i<=72; $i++)
                             @php 
                               if($i==1){
-                                $hours[$i] = $i.' Hr';  
+                                $hours[$i] = $i.' '.__('dashboard.hr');  
                               }else{
-                                $hours[$i] = $i.' Hrs';
+                                $hours[$i] = $i.' '.__('dashboard.hrs');
                               }
                             @endphp
                           @endfor
                           {{Form::select('total_hours',$hours,null,['class'=>'form-control mission_hours'])}}
+						  <span class="mission_hours_note @if(isset($mission->total_hours)) d-none @endif">{{__('dashboard.mission.note_hours')}}</span>
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.from_when_start')}}</label><br>
@@ -98,6 +99,20 @@
                             <span class="checkmark"></span>
                           </label>
                         </div>
+						@if(isset($mission) && !empty($mission->intervention) && !empty($mission->repetitive_mission) && !empty($mission->mission_finish_time))
+						<div class="col-md-6 form-group security_patrol_field">
+							<label>{{__('dashboard.agents.repetitive_mission')}}</label>
+							{{Form::select('repetitive_mission',['same day'=>'same day','week'=>'week'],null,['class'=>'form-control'])}}
+						</div>
+						<div class="col-md-6 form-group security_patrol_field">
+							<label>{{__('dashboard.agents.finish_time')}}</label>
+							{{Form::text('mission_finish_time',null,['class'=>'form-control timepicker','placeholder'=>__('dashboard.agents.available_to_place')])}}
+						</div>
+						<div class="col-md-6 form-group security_patrol_field">
+							<label>{{__('dashboard.agents.time_intervel')}}</label>
+							{{Form::select('time_intervel',[1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10,11=>11,12=>12,13=>13,14=>14,15=>15,16=>16,17=>17,18=>18,19=>19,20=>20,21=>21,22=>22,23=>23,24=>24],null,['class'=>'form-control'])}}
+						</div>
+						@endif
                         <div class="col-md-12 form-group">
                           <label>{{__('dashboard.mission.description')}}</label>
                           {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>__('dashboard.mission.description_place')])}}
