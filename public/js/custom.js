@@ -380,7 +380,7 @@ $(document).ready(function () {
 				$('.mission_hours_note').hide();
 				var hrs = $(this).find(':selected').data('hrs');
 				var hr = $(this).find(':selected').data('hr');
-				var extra_field = '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('repetitive_mission')+'</label><select class="form-control" name="repetitive_mission" aria-invalid="false"><option value="same day">same day</option><option value="week">week</option></select></div>';
+				var extra_field = '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('repetitive_mission')+'</label><select class="form-control" name="repetitive_mission" aria-invalid="false"><option value="same day">'+$(this).find(':selected').data('same_day')+'</option><option value="week">'+$(this).find(':selected').data('week')+'</option></select></div>';
 					extra_field += '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('finish_time')+'</label><input class="form-control timepicker" placeholder="'+$(this).find(':selected').data('available_to_place')+'" id="mission_finish_time" name="mission_finish_time" type="text" aria-invalid="false"></div>';
 					extra_field += '<div class="col-md-6 form-group security_patrol_field"><label>'+$(this).find(':selected').data('time_intervel')+'</label>';
 					extra_field += '<select class="form-control" name="time_intervel">';

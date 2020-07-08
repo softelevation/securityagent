@@ -179,6 +179,8 @@ return [
 		'finish_time' => 'Mission finish time',
 		'repetitive_mission' => 'Repetitive mission',
 		'time_intervel' => 'Time intervel',
+		'same_day' => 'Same day',
+		'week' => 'Week',
 	],
 
 	'billings' => [

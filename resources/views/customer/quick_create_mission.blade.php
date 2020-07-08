@@ -46,7 +46,7 @@
 						  <select class="form-control intervention" name="intervention" aria-invalid="false">
 							<option value="Guard_service" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Guard_service') selected @endif>Guard service</option>
 							<option value="Intervention" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Intervention') selected @endif>Intervention</option>
-							<option value="Security_patrol" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Security_patrol') selected @endif data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}" data-time_intervel="{{__('dashboard.agents.time_intervel')}}" data-hrs="{{__('dashboard.hrs')}}" data-hr="{{__('dashboard.hr')}}" data-select="{{__('frontend.select')}}">Security patrol</option>
+							<option value="Security_patrol" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Security_patrol') selected @endif data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}" data-time_intervel="{{__('dashboard.agents.time_intervel')}}" data-hrs="{{__('dashboard.hrs')}}" data-hr="{{__('dashboard.hr')}}" data-select="{{__('frontend.select')}}" data-same_day="{{__('dashboard.agents.same_day')}}" data-week="{{__('dashboard.agents.week')}}">Security patrol</option>
 						  </select>
                         </div>
                         <div class="col-md-6 form-group">
@@ -102,7 +102,7 @@
 						@if(isset($mission) && !empty($mission->intervention) && !empty($mission->repetitive_mission) && !empty($mission->mission_finish_time))
 						<div class="col-md-6 form-group security_patrol_field">
 							<label>{{__('dashboard.agents.repetitive_mission')}}</label>
-							{{Form::select('repetitive_mission',['same day'=>'same day','week'=>'week'],null,['class'=>'form-control'])}}
+							{{Form::select('repetitive_mission',['same day'=>__('dashboard.agents.same_day'),'week'=>__('dashboard.agents.week')],null,['class'=>'form-control'])}}
 						</div>
 						<div class="col-md-6 form-group security_patrol_field">
 							<label>{{__('dashboard.agents.finish_time')}}</label>

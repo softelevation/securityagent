@@ -1374,3 +1374,8 @@ span.form-control i{
     line-height: 20px;
 }
 .captcha-img img{width:250px;}
+.fa-message_center{
+	background: url("../images/chat-4-24.png");
+	height: 24px;
+    width: 24px;
+}

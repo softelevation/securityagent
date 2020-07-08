@@ -214,7 +214,7 @@ class MissionController extends Controller
                 $notification = array(
                     'customer_id' => $data->customer_id,
                     'mission_id' => $mission_id,
-                    'content' => trans('messages.mission_started'),
+                    'content' => 'messages.mission_started',
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()  
                 );
@@ -346,7 +346,7 @@ class MissionController extends Controller
             $notification = array(
                 'customer_id' => $data->customer_id,
                 'mission_id' => $mission_id,
-                'content' => trans('messages.mission_finished'),
+                'content' => 'messages.mission_finished',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()  
             );

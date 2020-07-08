@@ -104,7 +104,7 @@
                       <ul class="dropdown-menu mission-requests">
                         <?php $notifications = Helper::get_customer_notifications(); ?>
                         <?php foreach($notifications as $notification){ ?>
-                        <li class="item"><a class="notification-item" href="javascript:void(0)" data-notification-url="<?php echo url('customer/mission-details/view/'); ?>/<?php echo Helper::encrypt($notification->mission_id); ?>" data-notification-id="<?php echo $notification->id; ?>"><i class="fa fa-edit"></i> <?php echo $notification->content; ?></a></li>
+                        <li class="item"><a class="notification-item" href="javascript:void(0)" data-notification-url="<?php echo url('customer/mission-details/view/'); ?>/<?php echo Helper::encrypt($notification->mission_id); ?>" data-notification-id="<?php echo $notification->id; ?>"><i class="fa fa-edit"></i> {{__($notification->content)}}</a></li>
                         <?php }?>
                       </ul>
                       <?php } ?>

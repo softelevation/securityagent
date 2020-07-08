@@ -254,8 +254,8 @@
 						<div class="col-md-6 form-group security_patrol_field">
 							<label>{{__('dashboard.agents.repetitive_mission')}}</label>
 							<select class="form-control" name="repetitive_mission" aria-invalid="false">
-							<option value="same day" @if(Session::has('mission') && Session::get('mission')['repetitive_mission'] == 'same day') selected @endif>same day</option>
-							<option value="week" @if(Session::has('mission') && Session::get('mission')['repetitive_mission'] == 'week') selected @endif>week</option>
+							<option value="same day" @if(Session::has('mission') && Session::get('mission')['repetitive_mission'] == 'same day') selected @endif>{{__('dashboard.agents.same_day')}}</option>
+							<option value="week" @if(Session::has('mission') && Session::get('mission')['repetitive_mission'] == 'week') selected @endif>{{__('dashboard.agents.week')}}</option>
 							</select>
 						</div>
 						<div class="col-md-6 form-group security_patrol_field">

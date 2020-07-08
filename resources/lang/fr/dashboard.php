@@ -178,6 +178,8 @@ return [
 		'finish_time' => 'Heure de fin de la mission',
 		'repetitive_mission' => 'Mission répétitive',
 		'time_intervel' => 'Intervalle de temps',
+		'same_day' => 'Dans la même journée',
+		'week' => 'Dans la semaine ',
 	],
 
 	'billings' => [
