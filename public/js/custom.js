@@ -461,3 +461,30 @@ $(document).ready(function () {
 			$("#landContainer").hide();
 		});
 });
+
+	function printmissionDiv()
+	{
+		  var divToPrint=document.getElementById('DivIdToPrint');
+		  var newWin=window.open('','Print-Window');
+		  newWin.document.open();
+		  newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+		  newWin.document.close();
+		  setTimeout(function(){newWin.close();},10);
+	}
+	
+	function savemissionDiv()
+	{
+		var doc = new jsPDF();
+		var divToPrint=document.getElementById('DivIdToPrint');
+		
+		// doc.fromHTML('<html><head><title>name</title></head><body>hello world</body></html>');
+		doc.fromHTML(divToPrint);
+		doc.save('div.pdf');
+ 
+		// doc.fromHTML($('#DivIdToPrint').html(), 15, 15, {
+			// 'width': 170,
+				// 'elementHandlers': specialElementHandlers
+		// });
+		// doc.save('sample-file.pdf');
+		
+	}

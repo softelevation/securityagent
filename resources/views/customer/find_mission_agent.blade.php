@@ -17,9 +17,11 @@
               </div>
               <div class="float-right pt-3">
                   <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
+				  <a href="javascript:void(0)" class="button success_btn mission_print_save" onclick='printmissionDiv()'>Print</a>
+                  <a href="javascript:void(0)" class="button success_btn mission_print_save" onclick="savemissionDiv()">Save</a>
               </div>
               <div class="clearfix"></div>
-              <div class="contact_box">
+              <div class="contact_box" id="DivIdToPrint">
                 <h3>{{__('dashboard.mission.summary')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
@@ -134,7 +136,13 @@
                     @endif
                   </div>
                   <div class="text-center">
+					<div class="text-center pt-5 text_panel">
+						<input type="checkbox" name="terms_conditions" value="1">I do accept the <a href="javascript:;"> Privacy policy </a> </br>
+						<input type="checkbox" name="terms_conditions" value="2">I do accept <a href="javascript:;">General Terms and Conditions</a> of sale and <a href="javascript:;">General Terms of use</a> </br>
+					</div>
+							
                     <a href="{{url('customer/proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn">{{__('dashboard.payment.proceed')}}</a>
+                    
                   </div>
                 </div>
               </div>
@@ -146,3 +154,4 @@
     <!-- /.container -->
 </div>
 @endsection
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>

@@ -1379,3 +1379,7 @@ span.form-control i{
 	height: 24px;
     width: 24px;
 }
+a.mission_print_save{
+	width: 75px;
+    text-align: center;
+}
