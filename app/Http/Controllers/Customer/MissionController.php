@@ -279,6 +279,21 @@ class MissionController extends Controller
           
         }
     }
+	
+	public function savePdfProceedToPayment($id){
+		try{
+			
+			$mission_id = Helper::decrypt($id);
+            $mission = Mission::where('id',$mission_id)->first();
+			$email = Auth::user()->email;
+			$data = Customer::where('user_id',Auth::user()->id)->first();
+			// return view('pdf.save_pdf_proceed',['mission'=>$mission,'data'=>$data,'email'=>$email]);
+			$pdf = \PDF::loadView('pdf.save_pdf_proceed', ['mission'=>$mission,'data'=>$data,'email'=>$email]);
+			return $pdf->download('invoice.pdf');
+		}catch(\Exception $e){
+            return $this->getErrorResponse($e->getMessage());
+        }
+	}
 
     /**
      * @param $request

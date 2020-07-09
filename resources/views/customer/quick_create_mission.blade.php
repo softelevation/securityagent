@@ -44,9 +44,9 @@
 						<div class="col-md-12 form-group">
                           <label>{{__('dashboard.agents.intervention')}}</label>
 						  <select class="form-control intervention" name="intervention" aria-invalid="false">
-							<option value="Guard_service" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Guard_service') selected @endif>Guard service</option>
-							<option value="Intervention" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Intervention') selected @endif>Intervention</option>
-							<option value="Security_patrol" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Security_patrol') selected @endif data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}" data-time_intervel="{{__('dashboard.agents.time_intervel')}}" data-hrs="{{__('dashboard.hrs')}}" data-hr="{{__('dashboard.hr')}}" data-select="{{__('frontend.select')}}" data-same_day="{{__('dashboard.agents.same_day')}}" data-week="{{__('dashboard.agents.week')}}">Security patrol</option>
+							<option value="Guard_service" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Guard_service') selected @endif>{{__('dashboard.agents.Guard_service')}}</option>
+							<option value="Intervention" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Intervention') selected @endif>{{__('dashboard.agents.Intervention')}}</option>
+							<option value="Security_patrol" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Security_patrol') selected @endif data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}" data-time_intervel="{{__('dashboard.agents.time_intervel')}}" data-hrs="{{__('dashboard.hrs')}}" data-hr="{{__('dashboard.hr')}}" data-select="{{__('frontend.select')}}" data-same_day="{{__('dashboard.agents.same_day')}}" data-week="{{__('dashboard.agents.week')}}">{{__('dashboard.agents.Security_patrol')}}</option>
 						  </select>
                         </div>
                         <div class="col-md-6 form-group">

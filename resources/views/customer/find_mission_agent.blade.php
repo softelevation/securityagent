@@ -1,5 +1,11 @@
 @extends('layouts.dashboard')
 @section('content')
+<style>
+a.disabled{
+	pointer-events:none;
+	background:#e9ecef;
+}
+</style>
 <div class="profile">
       @if($errors->any())
         <div class="alert alert-info" style="text-align:center">
@@ -17,8 +23,8 @@
               </div>
               <div class="float-right pt-3">
                   <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
-				  <a href="javascript:void(0)" class="button success_btn mission_print_save" onclick='printmissionDiv()'>Print</a>
-                  <a href="javascript:void(0)" class="button success_btn mission_print_save" onclick="savemissionDiv()">Save</a>
+				  <a href="{{url('customer/save-pdf-proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn mission_print_save">Print</a>
+                  <a href="{{url('customer/save-pdf-proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn mission_print_save">Save</a>
               </div>
               <div class="clearfix"></div>
               <div class="contact_box" id="DivIdToPrint">
@@ -58,7 +64,7 @@
                       @endif
 					  <div class="col-md-12 form-group">
                         <label>{{__('dashboard.agents.intervention')}}</label>
-                        <span class="form-control">{{str_replace("_"," ",$mission->intervention)}}</span>
+                        <span class="form-control">{{__('dashboard.agents.'.$mission->intervention.'')}}</span>
                       </div>
 					  @if($mission->intervention == 'Security_patrol' && isset($mission->repetitive_mission) && isset($mission->mission_finish_time) && !empty($mission->repetitive_mission) && !empty($mission->mission_finish_time))
 					  <div class="col-md-4 form-group">
@@ -137,11 +143,11 @@
                   </div>
                   <div class="text-center">
 					<div class="text-center pt-5 text_panel">
-						<input type="checkbox" name="terms_conditions" value="1">I do accept the <a href="javascript:;"> Privacy policy </a> </br>
-						<input type="checkbox" name="terms_conditions" value="2">I do accept <a href="javascript:;">General Terms and Conditions</a> of sale and <a href="javascript:;">General Terms of use</a> </br>
+						<input type="checkbox" class="checkbox1" name="terms_conditions_find_mission" value="1">I do accept the <a href="javascript:;"> Privacy policy </a> </br>
+						<input type="checkbox" class="checkbox2" name="terms_conditions_find_mission" value="2">I do accept <a href="javascript:;">General Terms and Conditions</a> of sale and <a href="javascript:;">General Terms of use</a> </br>
 					</div>
 							
-                    <a href="{{url('customer/proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn">{{__('dashboard.payment.proceed')}}</a>
+                    <a href="{{url('customer/proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn proceed_success_btn disabled">{{__('dashboard.payment.proceed')}}</a>
                     
                   </div>
                 </div>

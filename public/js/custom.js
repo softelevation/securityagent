@@ -460,6 +460,15 @@ $(document).ready(function () {
 			localStorage.setItem("pageloadcount", "1");
 			$("#landContainer").hide();
 		});
+		
+		$('input[name="terms_conditions_find_mission"]').click(function(){
+			if ($('input[class="checkbox1"]').prop('checked')==true && $('input[class="checkbox2"]').prop('checked')==true ){
+				$('.proceed_success_btn').removeClass('disabled');
+			}else{
+				$('.proceed_success_btn').addClass('disabled');
+			}
+		});
+		
 });
 
 	function printmissionDiv()

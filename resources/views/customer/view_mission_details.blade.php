@@ -44,7 +44,7 @@
                       </div>
                       <div class="col-md-12 form-group">
                         <label>{{__('dashboard.agents.intervention')}}</label>
-                        <span class="form-control">{{str_replace("_"," ",$mission->intervention)}}</span>
+                        <span class="form-control">{{__('dashboard.agents.'.$mission->intervention.'')}}</span>
                       </div>
 					  @if($mission->intervention == 'Security_patrol' && isset($mission->repetitive_mission) && isset($mission->mission_finish_time) && !empty($mission->repetitive_mission) && !empty($mission->mission_finish_time))
 						<div class="col-md-4 form-group">

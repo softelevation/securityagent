@@ -180,6 +180,9 @@ return [
 		'time_intervel' => 'Intervalle de temps',
 		'same_day' => 'Dans la même journée',
 		'week' => 'Dans la semaine ',
+		'Guard_service' => 'Gardiennage',
+		'Intervention' => 'Intervention sur site',
+		'Security_patrol' => 'Ronde',
 	],
 
 	'billings' => [

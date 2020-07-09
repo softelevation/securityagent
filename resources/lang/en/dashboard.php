@@ -181,6 +181,9 @@ return [
 		'time_intervel' => 'Time intervel',
 		'same_day' => 'Same day',
 		'week' => 'Week',
+		'Guard_service' => 'Guard service',
+		'Intervention' => 'Intervention',
+		'Security_patrol' => 'Security patrol',
 	],
 
 	'billings' => [
