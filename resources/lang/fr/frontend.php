@@ -85,7 +85,7 @@ return [
 	"text_68" => "Saisissez votre e-mail",
 	"text_69" => "Saisissez votre numéro de téléphone",
 	"text_70" => "Saisissez le titre de votre commentaire",
-	"text_71" => "Saisissez votre message de rétroaction",
+	"text_71" => "Saisissez votre message",
 	"text_72" => "Siège social",
 	"text_73" => "ENVOYER",    
         
