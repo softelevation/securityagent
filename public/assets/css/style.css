@@ -285,6 +285,7 @@ input.btn_submit {background: #d6fb04;border: none;padding: 6px 20px;
 input.btn_submit:hover{background: #fdda42 ;}
 .shortLink li a:hover {color: #d6fb04 ;}
 .about_info p{ line-height: 22px;}
+.about_info ul.contact-us { margin-left: 15px;}
 .testimonial_name {text-align: center;}
 button.navbar-toggler { background: #fdde59;}
 button.navbar-toggler i.fa.fa-bars { line-height: 35px;}

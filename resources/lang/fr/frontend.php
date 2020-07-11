@@ -3,7 +3,7 @@
 return [
     // Home Page Text
     'text_1' => 'Votre agent de sécurité en 3 clics',
-    'text_2' => 'Nos agents sont près de chez vous et interviennent dès que possible',
+    'text_2' => 'Les agents membres de notre réseau sont près de chez vous et interviennent dès que possible',
     'text_3' => 'Recherchez par ville, adresse, code postale',
     'text_4' => 'Saisissez votre position',
     'text_5' => 'Rechercher',
@@ -19,15 +19,17 @@ return [
 	"text_15" => "STRICT RESPECT DES LOIS ET PROCÉDURES",
 	"text_16" => "Nous assurons une prise en charge avec une prestation de qualité dans un cadre purement légale en respectant les lois, les règles et les consignes.",
 	"text_17" => "AGENTS QUALIFIÉS ET CERTIFIÉS",
-	"text_18" => "Agents de sécurité, sécurité magasin, filtrage, agents événementiels. Tous nos agents sont certifiés d’une carte professionnelle délivrée par le Conseil National des Activités Privées de Sécurité (CNAPS)",
+	"text_18" => "Agents de sécurité, sécurité magasin, filtrage, agents événementiels. Tous les agents mis à disposition par BE ON TIME sont certifiés d’une carte professionnelle délivrée par le Conseil National des Activités Privées de Sécurité (CNAPS)",
 	"text_19" => "CENTRE OPÉRATIONNEL 24H/24",
-	"text_20" => "Les agents sont disponibles 24h/24 et 7j/7 pour répondre à vos attentes et au sein de notre centre opérationnel. N’hésitez pas à nous contacter sur le numéro 000000000",
+	"text_20" => "Les agents sont disponibles 24h/24 et 7j/7 pour répondre à vos attentes et au sein de notre centre opérationnel. N’hésitez pas à nous contacter sur le numéro 01 83 62 52 14",
 	"text_21" => "Nos derniers témoignages",
 	"text_22" => "j’apprécie le sérieux des relations engagées avec notre association et la qualité de leurs équipes sur nos différents sites",
 	"text_23" => "Consciencieux, disponibles avec de grandes capacités d’adaptation, je recommande",
 	"text_24" => "Je n’ai déploré aucun problème durant les missions que j’ai planifié",
 	"text_25" => "A propos",
-	"text_26" => "Be on time est une entreprise de sécurité et de gardiennage, qui se repose sur 20 ans d’expérience. Titulaire d’un agrément CNAPS, nous agissons 24h/24 et 7j/7. Nous répondons à vos besoins dans les plus brefs délais avec la mise en place d’agents en dès que possible sous 1h sur toute le France. Nous agissons pour différents types d’événements : gardiennage, événementiel, sûreté de la personne et de locaux, Nous disposons d’agents ADS, maitre-chien, SSIAP 1,2 et 3, garde du corps, ainsi que des hôtesses d’accueil.",
+	"text_26" => "BE ON TIME est une entreprise de sécurité et de gardiennage fondée par des dirigeants forts de vingt ans d’expérience. Titulaire d’un agrément CNAPS, sous le numéro AUT-075-2119-06-05-20200741467, nous agissons 24h/24 et 7j/7. 
+					Nous répondons à vos besoins dans les plus brefs délais avec la mise en place d’agents en dès que possible sous 1h sur toute le France. Nous agissons pour différents types d’événements : gardiennage, événementiel, sûreté de la personne et de locaux, Page d’accueil. Nous disposons d’agents ADS, maitre-chien, SSIAP 1,2 et 3, garde du corps, ainsi que des hôtesses d’accueil.
+					 CNAPS AUT-075-2119-06-05-20200741467",
 	"text_27" => "Liens",
 	"text_28" => "Nous contacter",
 	"text_29" => "Agents disponibles sur la carte",
@@ -173,6 +175,7 @@ return [
 	"text_149" => "* Indique les champs obligatoires",
 	"text_151" => "Ecrivez ici votre message",
 	"text_152" => "Écrire un message",
+	"text_153" => "Notre n° de tél: 01 83 62 52 14",
 	"select" => "Choisir",
     "terms_conditions_text1" => "En cliquant sur <b> Devenir agent </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",
 	"terms_conditions_text2" => "En cliquant sur <b> Devenir utilisateur </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",

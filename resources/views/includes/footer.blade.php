@@ -47,8 +47,12 @@
             <div class="col-md-4">
                 <div class="about_info">
                     <h3>{{__('frontend.text_25')}}</h3>
-                    <p>{{__('frontend.text_26')}}</p>   
+                    <p>{{__('frontend.text_26')}}</p>  
+					<ul class='contact-us'>
+						<li>{{__('frontend.text_153')}}</li>
+					</ul>
                 </div>
+				
             </div>
             <div class="col-md-4">
                 <div class="shortLink">
