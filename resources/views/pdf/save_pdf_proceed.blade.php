@@ -407,20 +407,20 @@ input[type=submit]:hover {
                         <tbody>
                             <tr>
                                 <td class="text-center">{{__('dashboard.payment.total')}}:</td>
-                                <td class="text-right">{{$original_amount}}</td>
+                                <td class="text-right">{{$original_amount}} €</td>
                             </tr>
 							<tr>
                                 <td class="text-center">{{__('dashboard.vat')}} ({{Helper::VAT_PERCENTAGE}}%)</td>
-                                <td class="text-right">{{$vat_amount}}</td>
+                                <td class="text-right">{{$vat_amount}} €</td>
                             </tr>
 							<tr>
                                 <td class="text-center">{{__('dashboard.payment.total_mission_amount')}}</td>
-                                <td class="text-right">{{$mission->amount}}</td>
+                                <td class="text-right">{{$mission->amount}} €</td>
                             </tr>
 							@if($mission->quick_book==0)
 							<tr>
                                 <td class="text-center">{{__('dashboard.payment.total_charge_amount')}}</td>
-                                <td class="text-right">{{$charge_amount}}</td>
+                                <td class="text-right">{{$charge_amount}} €</td>
                             </tr>
 							@endif
                         </tbody>
