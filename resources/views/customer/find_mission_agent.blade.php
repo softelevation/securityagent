@@ -23,7 +23,7 @@ a.disabled{
               </div>
               <div class="float-right pt-3">
                   <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
-				  <a href="{{url('customer/save-pdf-proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn mission_print_save">Print</a>
+				  <a href="javascript:void(0)" onclick="printmissionDiv()" class="button success_btn mission_print_save">Print</a>
                   <a href="{{url('customer/save-pdf-proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn mission_print_save">Save</a>
               </div>
               <div class="clearfix"></div>
