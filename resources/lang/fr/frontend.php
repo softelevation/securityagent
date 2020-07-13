@@ -28,7 +28,7 @@ return [
 	"text_24" => "Je n’ai déploré aucun problème durant les missions que j’ai planifié",
 	"text_25" => "A propos",
 	"text_26" => "BE ON TIME est une entreprise de sécurité et de gardiennage fondée par des dirigeants forts de vingt ans d’expérience. Titulaire d’un agrément CNAPS, sous le numéro AUT-075-2119-06-05-20200741467, nous agissons 24h/24 et 7j/7. 
-					Nous répondons à vos besoins dans les plus brefs délais avec la mise en place d’agents en dès que possible sous 1h sur toute le France. Nous agissons pour différents types d’événements : gardiennage, événementiel, sûreté de la personne et de locaux, Page d’accueil. Nous disposons d’agents ADS, maitre-chien, SSIAP 1,2 et 3, garde du corps, ainsi que des hôtesses d’accueil.
+					Nous répondons à vos besoins dans les plus brefs délais avec la mise en place d’agents en dès que possible sous 1h sur toute le France. Nous agissons pour différents types d’événements : gardiennage, événementiel, sûreté de la personne et de locaux. Nous disposons d’agents ADS, maitre-chien, SSIAP 1,2 et 3, garde du corps, ainsi que des hôtesses d’accueil.
 					 CNAPS AUT-075-2119-06-05-20200741467",
 	"text_27" => "Liens",
 	"text_28" => "Nous contacter",
@@ -177,6 +177,8 @@ return [
 	"text_152" => "Écrire un message",
 	"text_153" => "Notre n° de tél: 01 83 62 52 14",
 	"select" => "Choisir",
+	"term_and_condition_1" => "J'accepte les <a href='javascript:;'>conditions générales</a> de vente et les <a href='javascript:;'>conditions générales d'utilisation</a>",
+	"term_and_condition_2" => "j’accepte que la <a href='javascript:;'>prestation soit</a> exécutée avant le terme de mon droit de rétractation et <a href='javascript:;'>renonce expressément</a> à ce droit",
     "terms_conditions_text1" => "En cliquant sur <b> Devenir agent </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",
 	"terms_conditions_text2" => "En cliquant sur <b> Devenir utilisateur </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",
 	'sub_contract_title' => 'Êtes-vous un sous-traitant?',

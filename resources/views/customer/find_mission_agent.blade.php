@@ -143,8 +143,8 @@ a.disabled{
                   </div>
                   <div class="text-center">
 					<div class="text-center pt-5 text_panel">
-						<input type="checkbox" class="checkbox1" name="terms_conditions_find_mission" value="1">I do accept the <a href="javascript:;"> Privacy policy </a> </br>
-						<input type="checkbox" class="checkbox2" name="terms_conditions_find_mission" value="2">I do accept <a href="javascript:;">General Terms and Conditions</a> of sale and <a href="javascript:;">General Terms of use</a> </br>
+						<input type="checkbox" class="checkbox1" name="terms_conditions_find_mission" value="1">{!! trans('frontend.term_and_condition_1') !!}</br>
+						<input type="checkbox" class="checkbox2" name="terms_conditions_find_mission" value="2">{!! trans('frontend.term_and_condition_2') !!}</br>
 					</div>
 							
                     <a href="{{url('customer/proceed-payment/')}}/{{Helper::encrypt($mission->id)}}" class="button success_btn proceed_success_btn disabled">{{__('dashboard.payment.proceed')}}</a>

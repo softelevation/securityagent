@@ -175,6 +175,8 @@ return [
 	"text_152" => "Write message",
 	"text_153" => "Our phone number : 01 83 62 52 14",
 	"select" => "Select",
+	"term_and_condition_1" => "I do accept <a href='javascript:;'>General Terms and Conditions</a> of sale and <a href='javascript:;'>General Terms of use</a>",
+	"term_and_condition_2" => "I do accept that the service is <a href='javascript:;'>performed before</a> the end of my right of <a href='javascript:;'>withdrawal and expressly waives</a> this right",
 	"terms_conditions_text1" => "By clicking <b>Become Agent</b>, you agree to our <a href=':url' target='_blank'>Terms and Conditions Policy",
 	"terms_conditions_text2" => "By clicking <b>Become An User</b>, you agree to our <a href=':url' target='_blank'>Terms and Conditions Policy",
 	'sub_contract_title' => 'Are you a Subcontractor?',

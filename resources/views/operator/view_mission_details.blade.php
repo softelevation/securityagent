@@ -42,10 +42,28 @@
                         <label>{{__('dashboard.mission.mission_hours')}}</label>
                         <span class="form-control">{{$mission->total_hours}} {{__('dashboard.hours')}}</span>
                       </div>
-                      <div class="col-md-6 form-group">
+					  <div class="col-md-12 form-group">
+                        <label>{{__('dashboard.agents.intervention')}}</label>
+                        <span class="form-control">{{__('dashboard.agents.'.$mission->intervention.'')}}</span>
+                      </div>
+					  @if($mission->intervention == 'Security_patrol' && isset($mission->repetitive_mission) && isset($mission->mission_finish_time) && !empty($mission->repetitive_mission) && !empty($mission->mission_finish_time))
+						<div class="col-md-4 form-group">
+                        <label>{{__('dashboard.agents.repetitive_mission')}}</label>
+                        <span class="form-control">{{$mission->repetitive_mission}}</span>
+                      </div>
+					  <div class="col-md-4 form-group">
+                        <label>{{__('dashboard.agents.finish_time')}}</label>
+                        <span class="form-control">{{$mission->mission_finish_time}}</span>
+                      </div>
+					  <div class="col-md-4 form-group">
+                        <label>{{__('dashboard.agents.time_intervel')}}</label>
+                        <span class="form-control">{{$mission->time_intervel}} {{__('dashboard.hours')}}</span>
+                      </div>
+					  @endif
+                      <!-- div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.status')}}</label>
                         <span class="form-control">{{Helper::get_mission_status($mission->status)}}</span>
-                      </div>
+                      </div -->
                       @if(isset($mission->start_date_time) && $mission->start_date_time!='')
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.start_time')}}</label>
