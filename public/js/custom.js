@@ -166,6 +166,22 @@ $(document).ready(function () {
         let url = $(this).attr('href');
         ajaxGetRequest(url);
     });
+	
+	$(document).on('click', '.delete_ajaxfun_cls', function (e) {
+		e.preventDefault();
+		var tabe_tr = $(this).parents('tr');
+		$.ajax({
+            type: 'GET',
+            url: $(this).attr('href'),
+            dataType: 'json',
+            success: function (response) {
+					if(response.status){
+						tabe_tr.remove();
+						toastr.success(response.message, response.delayTime);
+					}
+            }
+        });
+    });
 
     // function to hit get request
     function ajaxGetRequest(url) {

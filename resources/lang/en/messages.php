@@ -42,6 +42,7 @@ return [
 	'mission_cancelled' => 'Your mission has been cancelled successfully.',
 	'mission_deleted' => 'Your mission has been deleted successfully.',
 	'mission_req_deleted' => 'Mission request deleted successfully.',
+	'card_deleted' => 'Card request deleted successfully.',
 	'payment_completed' => 'Mission payment completed successfully.',
 	'payment_failed' => 'Mission payment failed!',
 	'payment_rejected' => 'Mission payment reject successfully.',

@@ -249,26 +249,25 @@ class MissionController extends Controller
         try{
             $mission_id = Helper::decrypt($id);
             $mission = Mission::where('id',$mission_id)->first();
+			$data['cards'] = array();
             $data['mission'] = $mission;
             $chargeAmount = $mission->amount;
             if($mission->quick_book==0){
                 $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
             }
-			$data['card_detail'] = CardDetail::where('user_id',Auth::user()->id)->first();
+			$data['cards'] = CardDetail::where('user_id',Auth::user()->id)->get();
             $data['charge_amount'] = $chargeAmount;
-            if(!isset($mission->customer_details->customer_stripe_id) || $mission->customer_details->customer_stripe_id==null){
+            // if(!isset($mission->customer_details->customer_stripe_id) || $mission->customer_details->customer_stripe_id==null){
                 // Create customer on stripe
                 $user_email = $mission->customer_details->user->email;
                 $customer = $this->createCustomer($user_email);
                 $cus_stripe_id = $customer['id'];
                 Customer::where('id',$mission->customer_details->id)->update(['customer_stripe_id'=>$cus_stripe_id]);
-            }else{
-                // Get added card's of customer 
-            
-                $addedCards = $this->getCardsList($mission->customer_details->customer_stripe_id);
+            // }else{
+                // $addedCards = $this->getCardsList($mission->customer_details->customer_stripe_id);
                 
-                $data['cards'] = $addedCards;
-            }
+                // $data['cards'] = $addedCards;
+            // }
             return view('customer.mission_payment_view',$data);
         }catch(\Exception $e){
             $res = $this->getErrorResponse($e->getMessage());
@@ -294,6 +293,24 @@ class MissionController extends Controller
             return $this->getErrorResponse($e->getMessage());
         }
 	}
+	
+	public function cardDelete($id){
+		try{
+			$CardDetail = CardDetail::find($id);
+			if($CardDetail){
+				$CardDetail->delete();
+				$response['status'] = true;
+				$response['delayTime'] = 2000;
+                $response['message'] = trans('messages.card_deleted');
+                return $this->getSuccessResponse($response);
+            }else{
+                return $this->getErrorResponse('Something went wrong !');
+            }
+		}catch(\Exception $e){
+            return $this->getErrorResponse($e->getMessage());
+        }
+		
+	}
 
     /**
      * @param $request
@@ -303,9 +320,6 @@ class MissionController extends Controller
      */
     public function makeMissionPayment(Request $request){
         try{
-			if($request->save_card_deail && $request->save_card_deail == 1){
-				CardDetail::updateOrCreate(array('user_id'=>Auth::user()->id),array('user_id'=>Auth::user()->id,'name'=>$request->name,'card_number'=>$request->card_number,'expire_month'=>$request->expire_month,'expire_year'=>$request->expire_year));
-			}
             $amount = Helper::decrypt($request->amount);
             $mission_id = Helper::decrypt($request->mission_id);
             $mission = Mission::where('id',$mission_id)->first();
@@ -356,6 +370,9 @@ class MissionController extends Controller
                     'updated_at'  => Carbon::now() 
                 ];
                 UserPaymentHistory::insert($paymentDetails);
+				if($request->save_card_deail && $request->save_card_deail == 1){
+					CardDetail::updateOrCreate(array('user_id'=>Auth::user()->id,'card_number'=>$request->card_number),array('user_id'=>Auth::user()->id,'name'=>$request->name,'card_number'=>$request->card_number,'expire_month'=>$request->expire_month,'expire_year'=>$request->expire_year));
+				}
                 // Update Mission Data
                 Mission::where('id',$mission_id)->update(['payment_status'=>1]);
                 /*----Customer Notification-----*/

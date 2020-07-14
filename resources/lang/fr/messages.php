@@ -42,6 +42,7 @@ return [
 	'mission_cancelled' => 'Votre mission a été annulée avec succès.',
 	'mission_deleted' => 'Votre mission a été supprimée avec succès.',
 	'mission_req_deleted' => 'La demande de mission a bien été supprimée.',
+	'card_deleted' => 'La demande de card a bien été supprimée.',
 	'payment_completed' => 'Le paiement de la mission a réussi.',
 	'payment_failed' => 'Le paiement de la mission a échoué!',
 	'payment_rejected' => 'Le paiement de la mission a été rejeté avec succès.',
