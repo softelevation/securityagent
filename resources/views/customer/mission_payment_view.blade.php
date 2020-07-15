@@ -48,7 +48,7 @@
 									  <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
 									  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 										<a class="dropdown-item add_new_card_btn_pay" data-name="{{$card->name}}" data-card_number="{{$card->card_number}}" data-expire_month="{{$card->expire_month}}" data-expire_year="{{$card->expire_year}}" href="javascript:void(0)"><i class="fas fa-edit text-grey" aria-hidden="true"></i>{{__('dashboard.payment.now')}}</a>
-										<a href="../card-delete/{{$card->id}}" class="dropdown-item delete_ajaxfun_cls"><i class="fas fa-trash-alt text-grey" aria-hidden="true"></i> {{__('dashboard.mission.delete')}}</a>
+										<a href="../card-delete/{{$card->id}}" class="dropdown-item delete_ajaxfun_cls"><i class="fas fa-trash-alt text-grey" aria-hidden="true"></i> {{__('dashboard.mission.delete_card')}}</a>
 									  </div>
 								  </div>
 								  </td>

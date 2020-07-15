@@ -105,6 +105,7 @@ return [
 		'view_details' => 'Afficher les détails',
 		'cancel' => 'Annuler la mission',
 		'delete' => 'Supprimer la mission',
+		'delete_card' => 'Supprimer la carte',
 		'sub' => 'sous mission',
 		'summary' => 'Résumé des détails de la mission',
 		'create_new' => 'Créer une nouvelle mission',

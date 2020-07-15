@@ -106,6 +106,7 @@ return [
 		'view_details' => 'View Details',
 		'cancel' => 'Cancel Mission',
 		'delete' => 'Delete Mission',
+		'delete_card' => 'Delete card',
 		'sub' => 'sub mission',
 		'summary' => 'Mission Details Summary',
 		'create_new' => 'Create New Mission',
