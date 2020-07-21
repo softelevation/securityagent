@@ -8,6 +8,7 @@
                 <div class="login_inner">
                 <div class="div_header">
                    <span class="lock-icon"><i class="fa fa-unlock"></i></span>
+					<p class="version-class">Version: {{ Helper::project_text('version') }}</p>
                     <h3>{{__('frontend.text_86')}}</h3>
                 </div>
 

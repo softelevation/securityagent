@@ -619,6 +619,17 @@ class Helper {
         }
         return $statusArray;
     }
+	
+	public static function project_text($key){
+		$name = '';
+		$project = DB::table('projects')->select('name')->where('status','1')->where('key',$key)->first();
+		if($project){
+			$name = $project->name;
+		}else{
+			$name = '';
+		}
+		return $name;
+	}
 
 }
 
