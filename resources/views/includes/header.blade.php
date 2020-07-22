@@ -113,11 +113,34 @@
                     <div class="clearfix"></div>
                   </div>
                 @endif
+				
+				<!-- if operator is logged in -->
+				@if(\Auth::user()->role_id==3)
+					<div class="availability-section">
+						<div class="float-left dropdown pl-3 position-relative">
+							<div class="notification" data-toggle="dropdown">
+								<span @if(Helper::get_operator_notification('count')==0) data-container="body" data-toggle="popover" data-placement="bottom" data-content="No new notification." data-html="true" data-trigger="hover" @endif><i class="fa fa-bell"></i></span>
+								@if(Helper::get_operator_notification('count') > 0)
+								  <span class="badge">{{Helper::get_operator_notification('count')}}</span>
+								@endif
+							</div>
+							@if(Helper::get_operator_notification('count') > 0)
+							  <ul class="dropdown-menu mission-requests">
+								@php $notifications = Helper::get_operator_notification('data'); @endphp
+								@foreach($notifications as $notification)
+								<li class="item"><a class="notification-item" href="javascript:void(0)" data-notification-url="{{url('operator/agent/view/')}}/{{Helper::encrypt($notification->id)}}" data-notification-id="{{$notification->id}}"><i class="fa fa-edit"></i> {{Helper::operator_request_message($notification->username,trans('frontend.language'))}}</a></li>
+								@endforeach
+							  </ul>
+						  @endif
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				@endif
               @else
                 <a href="{{url('/register-agent-view')}}">{{__('frontend.text_80')}}</a>
                 <a href="{{url('/customer-signup')}}">{{__('frontend.text_81')}}</a>
               @endif
-            </div>  
+            </div>
         </div>
       </div>
     </div>

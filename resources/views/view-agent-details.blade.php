@@ -58,56 +58,13 @@
 
                         </div>
                       </div>
-                      <div class="row">
+                      <!-- div class="row">
                         <div class="col-md-12">
                           <h3>{{__('dashboard.agents.reviews')}}</h3>
-                          <div class="row review-wrapper">
-                            <div class="review-img">
-                              <img class="img-circle" src="{{asset('avatars/dummy_avatar.jpg')}}">
-                            </div>
-                            <div class="review-text">
-                              <P>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </P>
-                              <p class="review-star">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                              </p>  
-                            </div>
-                          </div>
-                          <div class="row review-wrapper">
-                            <div class="review-img">
-                              <img class="img-circle" src="{{asset('avatars/dummy_avatar.jpg')}}">
-                            </div>
-                            <div class="review-text">
-                              <P>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </P>
-                              <p class="review-star">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="far fa-star"></span>
-                              </p>  
-                            </div>
-                          </div>
-                          <div class="row review-wrapper">
-                            <div class="review-img">
-                              <img class="img-circle" src="{{asset('avatars/dummy_avatar.jpg')}}">
-                            </div>
-                            <div class="review-text">
-                              <P>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </P>
-                              <p class="review-star">
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                              </p>  
-                            </div>
-                          </div>
+                         
+                          
                         </div>
-                      </div>
+                      </div -->
                     </div>
                   </div>
                 </div>

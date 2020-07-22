@@ -6,6 +6,7 @@ use Crypt;
 use Edujugon\PushNotification\PushNotification;
 use Mail;
 use App\Mission;
+use App\Agent;
 use App\CustomerNotification;
 use App\PaymentApproval;
 use App\RefundRequest;
@@ -397,6 +398,29 @@ class Helper {
      * @return integer
      * @method get_customer_notification_count
      */
+	 
+	 public static function get_operator_notification($input){
+		$data = null;
+		if(Auth::check() && Auth::user()->role_id==3){
+		if($input == 'count'){
+					$data = Agent::where('status',0)->count();
+			}else if($input == 'data'){
+				$data = Agent::where('status',0)->get();
+			}
+		}
+        return $data;
+    }
+	
+	public static function operator_request_message($id = null,$lang) {
+		$data = $id;
+		if ($lang == 'en') {
+			$data = $id.' request is pending';
+        }else{
+			$data = 'La demande '.$id.' est en attente';
+		}
+        return $data;
+    }
+	
     public static function get_customer_notification_count(){
         $count = 0;
         if(Auth::check() && Auth::user()->role_id==1){
