@@ -35,11 +35,15 @@ trait MissionTrait
             $data['total_hours'] = 8;
         }
         $baseRate = Helper::get_agent_rate($data['agent_type'],$data['quick_book']);
-        if($data['total_hours'] > 4){
-            $data['amount'] = $data['total_hours']*$baseRate;
-        }else{
-            $data['amount'] = 4*$baseRate;
-        }
+		if($data['intervention'] == 'Guard_service'){
+			if($data['total_hours'] > 4){
+				$data['amount'] = $data['total_hours']*$baseRate;
+			}else{
+				$data['amount'] = 4*$baseRate;
+			}
+		}else{
+			$data['amount'] = $data['total_hours']*$baseRate;
+		}
         // If distance is greater than 50 KM, add travel fee per km
         if(isset($data['distance'])){
             $agentDistance = round($data['distance']);
@@ -53,6 +57,7 @@ trait MissionTrait
         $vatAmount = ($data['amount']*$vat)/100;
         $data['amount'] = $data['amount']+$vatAmount;
         $data['vat'] = $vat;
+		
         if(isset($data['record_id']) && $data['record_id']!=""){
             $missionID = Helper::decrypt($data['record_id']);
             unset($data['record_id']);

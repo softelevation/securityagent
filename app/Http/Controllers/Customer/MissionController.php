@@ -143,11 +143,15 @@ class MissionController extends Controller
                     $data['total_hours'] = 8;
                 }
                 $baseRate = Helper::get_agent_rate($data['agent_type'],$data['quick_book']);
-                if($data['total_hours'] > 4){
-                    $data['amount'] = $data['total_hours']*$baseRate;
-                }else{
-                    $data['amount'] = 4*$baseRate;
-                }
+				if($data['intervention'] == 'Guard_service'){
+					if($data['total_hours'] > 4){
+						$data['amount'] = $data['total_hours']*$baseRate;
+					}else{
+						$data['amount'] = 4*$baseRate;
+					}
+				}else{
+					$data['amount'] = $data['total_hours']*$baseRate;
+				}
                 // If distance is greater than 50 KM, add travel fee per km
                 $agentDistance = round($agent->distance_in_km);
                 if($agentDistance > 50){
