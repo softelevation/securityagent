@@ -41,6 +41,8 @@ trait MissionTrait
 			}else{
 				$data['amount'] = 4*$baseRate;
 			}
+		}else if($data['intervention'] == 'Intervention'){
+			$data['amount'] = $data['total_hours'] * Helper::get_agent_rate(8,1);
 		}else{
 			$data['amount'] = $data['total_hours']*$baseRate;
 		}

@@ -149,9 +149,12 @@ class MissionController extends Controller
 					}else{
 						$data['amount'] = 4*$baseRate;
 					}
+				}else if($data['intervention'] == 'Intervention'){
+					$data['amount'] = $data['total_hours'] * Helper::get_agent_rate(8,1);
 				}else{
 					$data['amount'] = $data['total_hours']*$baseRate;
 				}
+				
                 // If distance is greater than 50 KM, add travel fee per km
                 $agentDistance = round($agent->distance_in_km);
                 if($agentDistance > 50){
