@@ -36,7 +36,8 @@ class Helper {
             $rate[5] = 100; //Body Guard Without Weapon
             $rate[6] = 28; //Dog Handler
             $rate[7] = 25; //Hostesses
-            $rate[8] = 0; //Intervention
+            $rate[8] = 60; //Intervention
+            $rate[9] = 80; //security patrol
         }
         // Set rates for future missions
         if($quickBooking==1){
@@ -48,6 +49,7 @@ class Helper {
             $rate[6] = 37; //Dog Handler
             $rate[7] = 35; //Hostesses
             $rate[8] = 60; //Intervention
+            $rate[9] = 80; //security patrol
         }
         return $rate[$agentType];
     }

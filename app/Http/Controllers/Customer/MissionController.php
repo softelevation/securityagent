@@ -151,6 +151,8 @@ class MissionController extends Controller
 					}
 				}else if($data['intervention'] == 'Intervention'){
 					$data['amount'] = $data['total_hours'] * Helper::get_agent_rate(8,1);
+				}else if($data['intervention'] == 'Security_patrol'){
+					$data['amount'] = $data['total_hours'] * Helper::get_agent_rate(9,1);
 				}else{
 					$data['amount'] = $data['total_hours']*$baseRate;
 				}
