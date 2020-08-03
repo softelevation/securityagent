@@ -462,6 +462,16 @@ $(document).ready(function () {
 			}
 		});
 		
+		$('button[class="button success_btn credit_Card_payment"]').click(function(){
+			$('div[class="view_agent_details mt-4  d-none "]').removeClass("d-none");
+			$('div[class="row payment_option_button"]').addClass("d-none");
+		});
+		
+		$('button[class="button success_btn bank_Transfer_payment"]').click(function(){
+			$('div[class="view_agent_details_bank mt-4  d-none "]').removeClass("d-none");
+			$('div[class="row payment_option_button"]').addClass("d-none");
+		});
+		
 		
 		
 		
@@ -484,6 +494,19 @@ $(document).ready(function () {
 				$('.proceed_success_btn').addClass('disabled');
 			}
 		});
+		
+		$('input[name="bank_transfer"]').click(function(){
+			var bank_transfer = 0;
+			if ($('input[name="bank_transfer"]').prop('checked')==true){
+				bank_transfer = 1;
+			}else{
+				bank_transfer = 0;
+			}
+			var id = $(this).val();
+			ajaxGetRequest('../../customer_status?id='+id+'&bank_transfer='+bank_transfer);
+			// alert(id);
+		});
+		
 		
 });
 

@@ -160,6 +160,15 @@ class OperatorController extends Controller
         $customer = Customer::where('id',$id)->first();
         return view('operator.customer_details',['data'=>$customer]);
     }
+	
+	public function customer_status(Request $request){
+		if($request->id){
+			$cus = Customer::find($request->id);
+			if($cus){
+				Customer::where('id',$request->id)->update(array('add_bank'=>$request->bank_transfer));
+			}
+		}
+    }
 
     public function deleteCustomerDetails($e_id){ 
         $id = Helper::decrypt($e_id);

@@ -1,5 +1,66 @@
 @extends('layouts.dashboard')
 @section('content')
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider_bank {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider_bank:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider_bank {
+  background-color: #2196F3;
+}
+
+input:focus + .slider_bank {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider_bank:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider_bank.round {
+  border-radius: 34px;
+}
+
+.slider_bank.round:before {
+  border-radius: 50%;
+}
+</style>
 <div class="profile">
     <div class="container">
         <div class="row">
@@ -45,6 +106,15 @@
                       <div class="col-md-6 form-group">
                         <label>{{__('frontend.text_141')}}</label>
                         <span class="form-control">{{Helper::get_customer_type_name($data->customer_type)}}</span>
+                      </div>
+                    </div>
+					<div class="row">
+                      <div class="col-md-6 form-group">
+					   <label>Bank Transfer</label><br/>
+							<label class="switch">
+							  <input type="checkbox" name="bank_transfer" value="{{$data->id}}" @if($data->add_bank == '1') checked @endIf>
+							  <span class="slider_bank round"></span>
+							</label>
                       </div>
                     </div>
 <!--                     <div class="row">

@@ -17,7 +17,17 @@
               <div class="contact_box">
                 <h3><i class="fa fa-edit"></i> {{__('dashboard.payment.mission')}}</h3>
                 <div class="pending-details">
-                  <div class="view_agent_details mt-4">
+					@if($customer_type == '2' && $customer_add_bank == '1')
+						<div class="row payment_option_button">
+							<div class="col-md-12">
+								  <button type="submit" class="button success_btn credit_Card_payment">Credit Card</button>
+							</div>
+							<div class="col-md-12">
+								  <button type="submit" class="button success_btn bank_Transfer_payment">Bank Transfer</button>
+							</div>
+						</div>
+					@endif
+                  <div class="view_agent_details mt-4 @if($customer_type == '2' && $customer_add_bank == '1') d-none @endif">
                   <h5>{{__('dashboard.payment.to_paid')}}: {{$charge_amount}} <i class="fa fa-euro-sign"></i></h5>
                     <!-- Added cards -->
                     @if(!empty($cards))
@@ -126,6 +136,7 @@
                           <hr>
                           <div class="col-md-12 text-center">
                               <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->id)}}">
+							  <input type="hidden" name="form_type" value="credit_card">
                               <button type="submit" class="button success_btn">{{__('dashboard.payment.make')}}</button>
                           </div>
                           <!-- <div class="form-group" id="pay-now">
@@ -136,6 +147,83 @@
                     </div>
                   </div>
                 </div>
+				@if($customer_type == '2' && $customer_add_bank == '1')
+				<div class="view_agent_details_bank mt-4 @if($customer_type == '2' && $customer_add_bank == '1') d-none @endif">
+                  <h5>{{__('dashboard.payment.to_paid')}}: {{$charge_amount}} <i class="fa fa-euro-sign"></i></h5>
+				  <p>IBAN below</p>
+				  <div class="creditCardForm">
+                    <div class="card_form_div">
+                      <div class="payment">
+                          <div class="row">
+                            <div class="form-group col-md-6 owner">
+                              <img class="banque_delubac" src="{{asset('assets/payment/images/download.jpg')}}" id="amex">
+                            </div>
+                            <div class="form-group col-md-6 CVV">
+                              <h4 for="cvc">RELEVE D'IDENTITE BANCARIE</h4>
+                            </div>
+                            
+                            <div class="form-group col-md-6" id="expiration-date">
+                              
+                            </div>
+                            <div class="form-group col-md-6" id="credit_cards">
+							 <div class="row">
+								<div class="form-group col-md-6" id="credit_cards">
+								<p class="bank-p">Code BANQUE 12879</p>
+								  <p class="bank-p">Compate N.  99129483001</p>
+								  <p class="bank-p">IBAN  FR76 1287900 0199 1294 8300 103</p>
+								  <p class="bank-p">Code BIC  DELUFR22XXX</p>
+								  <p class="bank-p">Domiciliation  DELUBAC</p>
+								</div>
+								
+								<div class="form-group col-md-6" id="credit_cards">
+								<p class="bank-p">Code GUICHET 00001</p>
+								  <p class="bank-p">Cie RIB 03</p>
+								</div>
+								
+							 </div>
+							 
+                              
+							  
+                            </div>
+							
+							<div class="form-group col-md-6 text-right" id="expiration-date">
+                              <p class="bank-p">Banque Delubac et Cie</p>
+                              <p class="bank-p">16 place Saleon-Terras</p>
+                              <p class="bank-p">07160 Le Cheyard</p>
+                            </div>
+							
+							<div class="form-group col-md-6" id="expiration-date">
+                              <label>Titularie de compte:</label>
+                              <p class="bank-p">SAS BE ON TIME DEPOT K</p>
+                              <p class="bank-p">EN FORMATION</p>
+                              <p class="bank-p">66 AVENUE DES CHAMPS ELYSEES</p>
+                              <p class="bank-p">675008 PARIS 8</p>
+                              <p class="bank-p">FRANCE</p>
+                            </div>
+							<form id="general_form_bank" method="post" action="{{url('customer/make-mission-payment')}}">
+							<div class="col-md-12">
+							  <input type="checkbox" name="bank_transfer_payment_detail" id="bank_transfer_payment_detail" value="1">
+							   <label>I agree to pay the total amount above by doing a manual bank transfer with mission number on subject</label>
+							</div>
+                          </div>
+                          <hr>
+                          <div class="col-md-12 text-center">
+						  
+							  <input type="hidden" name="amount" value="{{Helper::encrypt($mission->amount)}}">
+							  @csrf
+                              <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->id)}}">
+                              <input type="hidden" name="form_type" value="bank_transfer">
+							  <button type="submit" class="button success_btn">PAY</button>
+						  </form>
+                          </div>
+                          <!-- <div class="form-group" id="pay-now">
+                            <button type="submit" class="btn btn-default" id="confirm-purchase">Confirm</button>
+                          </div> -->
+                      </div>
+                    </div>
+                  </div>
+				</div>
+				@endif
               </div>
             </div>
           </div>

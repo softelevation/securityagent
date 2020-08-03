@@ -254,7 +254,7 @@ class MissionController extends Controller
      * @method proceedToPayment
      * @purpose View Payment and Mission Details
      */
-    public function proceedToPayment($id){ 
+    public function proceedToPayment($id){
         try{
             $mission_id = Helper::decrypt($id);
             $mission = Mission::where('id',$mission_id)->first();
@@ -266,6 +266,9 @@ class MissionController extends Controller
             }
 			$data['cards'] = CardDetail::where('user_id',Auth::user()->id)->get();
             $data['charge_amount'] = $chargeAmount;
+            $data['customer_type'] = $mission->customer_details->customer_type;
+            $data['customer_add_bank'] = $mission->customer_details->add_bank;
+			
             // if(!isset($mission->customer_details->customer_stripe_id) || $mission->customer_details->customer_stripe_id==null){
                 // Create customer on stripe
                 $user_email = $mission->customer_details->user->email;
@@ -329,6 +332,26 @@ class MissionController extends Controller
      */
     public function makeMissionPayment(Request $request){
         try{
+			if($request->form_type && $request->form_type == 'bank_transfer')
+			  {
+				$validation = $this->quickBankMissionValidations($request);
+				if($validation['status']==false){
+						return response($this->getValidationsErrors($validation));
+				}
+				$amount = Helper::decrypt($request->amount);
+				$mission_id = Helper::decrypt($request->mission_id);
+				$mission = Mission::where('id',$mission_id)->first();
+				$chargeAmount = $mission->amount;
+				if($mission->quick_book==0){
+					$chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
+				}
+				Mission::where('id',$mission_id)->update(['payment_status'=>1]);
+				$response['message'] = trans('messages.payment_completed');
+                $response['delayTime'] = 5000;
+                $response['url'] = url('customer/missions');
+                return $this->getSuccessResponse($response);
+				
+			  }else{
             $amount = Helper::decrypt($request->amount);
             $mission_id = Helper::decrypt($request->mission_id);
             $mission = Mission::where('id',$mission_id)->first();
@@ -421,6 +444,7 @@ class MissionController extends Controller
                 $response['data'] = $charge;
                 return $this->getErrorResponse($response);
             }
+			  }
         }catch(\Exception $e){
             return $this->getErrorResponse($e->getMessage());
         }

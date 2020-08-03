@@ -1,11 +1,5 @@
 @extends('layouts.dashboard')
 @section('content')
-<style>
-a.disabled{
-	pointer-events:none;
-	background:#e9ecef;
-}
-</style>
 <div class="profile">
       @if($errors->any())
         <div class="alert alert-info" style="text-align:center">

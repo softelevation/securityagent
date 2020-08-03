@@ -899,6 +899,11 @@ a.success_btn{
     margin-top: 14px;
     /*max-width: 250px;*/
 }
+
+button.button.bank-transfer_payment.success_btn {
+	width: 15%;
+}
+
 .pending-details .danger_btn{
     background: #d60e21;
      padding: 0 30px;
@@ -1386,4 +1391,10 @@ a.mission_print_save{
 }
 p.version-class{
 	
+}
+img.banque_delubac{
+	max-width: 50%;
+}
+p.bank-p{
+	margin-bottom: 0;
 }

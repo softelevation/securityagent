@@ -72,6 +72,7 @@ Route::group(['prefix'=>'operator'], function () {
         
         Route::post('/agent_verification', 'OperatorController@agentVerificationAction');
         Route::get('/customers', 'OperatorController@viewCustomersList');
+        Route::get('/customer_status', 'OperatorController@customer_status');
         Route::get('/customer/view/{id}', 'OperatorController@viewCustomerDetails');
         Route::get('/customer/delete/{id}', 'OperatorController@deleteCustomerDetails');
 
