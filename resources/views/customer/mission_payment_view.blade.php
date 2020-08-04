@@ -20,10 +20,10 @@
 					@if($customer_type == '2' && $customer_add_bank == '1')
 						<div class="row payment_option_button">
 							<div class="col-md-12">
-								  <button type="submit" class="button success_btn credit_Card_payment">Credit Card</button>
+								  <button type="submit" class="button success_btn credit_Card_payment">{{__('dashboard.payment.credit_card')}}</button>
 							</div>
 							<div class="col-md-12">
-								  <button type="submit" class="button success_btn bank_Transfer_payment">Bank Transfer</button>
+								  <button type="submit" class="button success_btn bank_Transfer_payment">{{__('dashboard.payment.bank_transfer')}}</button>
 							</div>
 						</div>
 					@endif

@@ -345,12 +345,18 @@ class MissionController extends Controller
 				if($mission->quick_book==0){
 					$chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
 				}
+				
+				$mailContent = [
+                    'name' => ucfirst($mission->customer_details->first_name),
+                    'message' => trans('messages.payment_done_message',['amount'=>$chargeAmount]), 
+                    'url' => url('customer/billing-details') 
+                ];
+                $mission->customer_details->user->notify(new PaymentDone($mailContent));
 				Mission::where('id',$mission_id)->update(['payment_status'=>1]);
 				$response['message'] = trans('messages.payment_completed');
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');
                 return $this->getSuccessResponse($response);
-				
 			  }else{
             $amount = Helper::decrypt($request->amount);
             $mission_id = Helper::decrypt($request->mission_id);

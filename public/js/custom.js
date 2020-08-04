@@ -422,6 +422,16 @@ $(document).ready(function () {
 			}
 		});
 		
+		$(document).on('focus', 'input[name="mission_finish_time"]', function () {
+				let datepicker_active = false;
+				let format_val = 'H:i';
+				if($('input[name="quick_book"]').is(':checked')){
+					datepicker_active = true;
+					format_val = 'd/m/Y H:i:s';
+				}
+			$(function () { jQuery('.timepicker').datetimepicker({ datepicker: datepicker_active, format: format_val }); });
+		});
+		
 		$('button[class="btn_submit"]').click(function(){
 				if($('select[class="form-control intervention"]').val() == 'Intervention'){
 				$('input[name="vehicle_required"]:eq(0)').click();

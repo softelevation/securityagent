@@ -227,5 +227,7 @@ return [
 		'refund' => 'Rembourser',
 		'save_card' => 'ENREGISTRER LE DÉTAIL DE LA CARTE',
 		'bank_transfer_i_aggree' => "J'accepte de payer le montant total ci-dessus en effectuant un virement bancaire manuel avec numéro de mission sur le sujet",
+		'credit_card' => 'Carte bancaire',
+		'bank_transfer' => 'Virement bancaire',
 	],
 ];

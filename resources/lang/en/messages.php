@@ -60,6 +60,6 @@ return [
 	'reset_pwd_text1' => 'You are receiving this email because we received a password reset request for your account.',
 	'reset_pwd_text2' => 'If you did not request a password reset, no further action is required.',
 	'reset_pwd_link_sent' => 'A link has been sent on your email to reset your password.',
-        'plivo_customer_mission_created' => 'You have received a new mission your mission id ":missionId" for more details please login into https://www.ontimebe.com',
-        'agent_mission_accept_plivo_message'=> 'Mission id  ":missionId" is accepted by agent, for more details please login into https://www.ontimebe.com'
+    'plivo_customer_mission_created' => 'You have received a new mission your mission id ":missionId" for more details please login into https://www.ontimebe.com',
+    'agent_mission_accept_plivo_message'=> 'Mission id  ":missionId" is accepted by agent, for more details please login into https://www.ontimebe.com',
 ];

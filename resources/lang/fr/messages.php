@@ -60,4 +60,6 @@ return [
 	'reset_pwd_text1' => 'Vous recevez cet e-mail, car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.',
 	'reset_pwd_text2' => "Si vous n'avez pas demandé de réinitialisation du mot de passe, aucune autre action n'est requise.",
 	'reset_pwd_link_sent' => 'Un lien a été envoyé sur votre e-mail pour réinitialiser votre mot de passe.',
+	'plivo_customer_mission_created' => 'You have received a new mission your mission id ":missionId" for more details please login into https://www.ontimebe.com',
+    'agent_mission_accept_plivo_message'=> 'Mission id  ":missionId" is accepted by agent, for more details please login into https://www.ontimebe.com',
 ];

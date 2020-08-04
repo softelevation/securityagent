@@ -228,5 +228,7 @@ return [
 		'refund' => 'Refund',
 		'save_card' => 'SAVE CARD DETAIL',
 		'bank_transfer_i_aggree' => ' I agree to pay the total amount above by doing a manual bank transfer with mission number on subject',
+		'credit_card' => 'Credit card',
+		'bank_transfer' => 'Bank transfer',
 	],
 ];
