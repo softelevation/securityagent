@@ -203,7 +203,7 @@
 							<form id="general_form_bank" method="post" action="{{url('customer/make-mission-payment')}}">
 							<div class="col-md-12">
 							  <input type="checkbox" name="bank_transfer_payment_detail" id="bank_transfer_payment_detail" value="1">
-							   <label>I agree to pay the total amount above by doing a manual bank transfer with mission number on subject</label>
+							   <label>{{__('dashboard.payment.bank_transfer_i_aggree')}}</label>
 							</div>
                           </div>
                           <hr>

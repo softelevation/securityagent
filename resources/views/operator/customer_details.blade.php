@@ -39,11 +39,11 @@
 }
 
 input:checked + .slider_bank {
-  background-color: #2196F3;
+  background-color: #d6fb04;
 }
 
 input:focus + .slider_bank {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px #d6fb04;
 }
 
 input:checked + .slider_bank:before {
@@ -108,15 +108,17 @@ input:checked + .slider_bank:before {
                         <span class="form-control">{{Helper::get_customer_type_name($data->customer_type)}}</span>
                       </div>
                     </div>
+					@if($data->customer_type == '2')
 					<div class="row">
                       <div class="col-md-6 form-group">
-					   <label>Bank Transfer</label><br/>
+					   <label>{{__('frontend.text_154')}}</label><br/>
 							<label class="switch">
 							  <input type="checkbox" name="bank_transfer" value="{{$data->id}}" @if($data->add_bank == '1') checked @endIf>
 							  <span class="slider_bank round"></span>
 							</label>
                       </div>
                     </div>
+					@endIf
 <!--                     <div class="row">
                       <div class="col-md-12 text-center">
                           <button data-toggle="modal" data-target="#customer_verification_action" class="button success_btn verificationBtn" data-action="1"><i class="fa fa-check"></i> Approve</button>
