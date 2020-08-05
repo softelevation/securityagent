@@ -188,7 +188,7 @@
             <div>
                 <div class="header">
                     <div class="pull-left">
-                        <img height="50px" src="{{asset('assets/images/logo.jpg')}}" data-holder-rendered="true" />
+                        <img height="50px" src='{{ public_path("assets/images/logo.jpg") }}' />
                     </div>
                     <div class="pull-right">
                         <h2 class="name">

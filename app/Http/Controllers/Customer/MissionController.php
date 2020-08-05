@@ -353,6 +353,16 @@ class MissionController extends Controller
                 ];
                 $mission->customer_details->user->notify(new PaymentDone($mailContent));
 				Mission::where('id',$mission_id)->update(['payment_status'=>1]);
+				$paymentDetails = [
+                    'amount'      => $amount,
+                    'status'      => 'succeeded',  
+                    'charge_id'   => 'bank transfer',
+                    'mission_id'  => $mission_id,
+                    'customer_id' => $mission->customer_details->id,
+                    'created_at'  => Carbon::now(),
+                    'updated_at'  => Carbon::now()
+                ];
+				UserPaymentHistory::insert($paymentDetails);
 				$response['message'] = trans('messages.payment_completed');
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');

@@ -422,10 +422,10 @@ $(document).ready(function () {
 			}
 		});
 		
-		$(document).on('focus', 'input[name="mission_finish_time"]', function () {
+		$(document).on('click', 'input[name="mission_finish_time"]', function () {
 				let datepicker_active = false;
 				let format_val = 'H:i';
-				if($('input[name="quick_book"]').is(':checked')){
+				if($('input[name="quick_book"]:checked').val() == '0'){
 					datepicker_active = true;
 					format_val = 'd/m/Y H:i:s';
 				}
