@@ -159,43 +159,37 @@
                               <img class="banque_delubac" src="{{asset('assets/payment/images/download.jpg')}}" id="amex">
                             </div>
                             <div class="form-group col-md-6 CVV">
-                              <h4 for="cvc">RELEVE D'IDENTITE BANCARIE</h4>
+                              <h4 for="cvc">RELEVE D'IDENTITE BANCAIRE</h4>
                             </div>
                             
                             <div class="form-group col-md-6" id="expiration-date">
-                              
+                              <div class="row">
+								<p class="bank-p" style="margin-left: 38%;"><label>IBAN FR76 1287900 0199 1294 8300 103</label></p>
+							  </div>
                             </div>
                             <div class="form-group col-md-6" id="credit_cards">
 							 <div class="row">
 								<div class="form-group col-md-6" id="credit_cards">
-								<p class="bank-p">Code BANQUE 12879</p>
-								  <p class="bank-p">Compate N.  99129483001</p>
-								  <p class="bank-p">IBAN  FR76 1287900 0199 1294 8300 103</p>
-								  <p class="bank-p">Code BIC  DELUFR22XXX</p>
-								  <p class="bank-p">Domiciliation  DELUBAC</p>
+								  <p class="bank-p">Code BANQUE 12879</p>
+								  <p class="bank-p">Numéro de COMPTE 99129483001</p>
+								  <p class="bank-p">Code BIC DELUFR22XXX</p>
+								  <p class="bank-p">Domiciliation FRANCE</p>
 								</div>
-								
 								<div class="form-group col-md-6" id="credit_cards">
-								<p class="bank-p">Code GUICHET 00001</p>
+								  <p class="bank-p">Code GUICHET 00001</p>
 								  <p class="bank-p">Cie RIB 03</p>
 								</div>
-								
 							 </div>
-							 
-                              
-							  
                             </div>
-							
 							<div class="form-group col-md-6 text-right" id="expiration-date">
-                              <p class="bank-p">Banque Delubac et Cie</p>
+							  <label></label>
+                              <p class="bank-p" style="margin-top: 8px;">Banque Delubac et Cie</p>
                               <p class="bank-p">16 place Saleon-Terras</p>
                               <p class="bank-p">07160 Le Cheyard</p>
                             </div>
-							
 							<div class="form-group col-md-6" id="expiration-date">
                               <label>Titularie de compte:</label>
-                              <p class="bank-p">SAS BE ON TIME DEPOT K</p>
-                              <p class="bank-p">EN FORMATION</p>
+                              <p class="bank-p">SAS BE ON TIME</p>
                               <p class="bank-p">66 AVENUE DES CHAMPS ELYSEES</p>
                               <p class="bank-p">675008 PARIS 8</p>
                               <p class="bank-p">FRANCE</p>

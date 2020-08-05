@@ -355,7 +355,7 @@ class MissionController extends Controller
 				Mission::where('id',$mission_id)->update(['payment_status'=>1]);
 				$paymentDetails = [
                     'amount'      => $amount,
-                    'status'      => 'succeeded',  
+                    'status'      => 'awiting payment',  
                     'charge_id'   => 'bank transfer',
                     'mission_id'  => $mission_id,
                     'customer_id' => $mission->customer_details->id,
