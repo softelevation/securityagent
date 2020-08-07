@@ -61,13 +61,16 @@
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                    <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                    <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                     <td>
                                       <div class="dropdown">
                                           <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
                                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             @if($mission->status==0 && $mission->payment_status==0)
                                               <a class="dropdown-item" href="{{url('customer/quick_mission/edit/'.Helper::encrypt($mission->id))}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> {{__('dashboard.mission.edit')}}</a>
+                                            @endif
+											@if($mission->status==0 && $mission->payment_status==2)
+                                              <a class="dropdown-item" href="{{url('customer/upload-invoice/'.Helper::encrypt($mission->id))}}"><i class="fas fa-edit text-grey" aria-hidden="true"></i> {{__('dashboard.mission.upload_invoice')}}</a>
                                             @endif
                                             <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
                                             @if($mission->payment_status==1 && ($mission->status!=5 && $mission->status!=6 && $mission->status!=7) && ($mission->child_missions->count()==0))
@@ -87,7 +90,7 @@
                                       <td>{{Helper::mission_id_str($mission->id)}}</td>
                                       <td>{{$mission->location}}</td>
                                       <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                      <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                      <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                       <td>
                                         <div class="dropdown">
                                           <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>

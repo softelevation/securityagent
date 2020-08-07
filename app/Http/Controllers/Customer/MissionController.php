@@ -11,6 +11,7 @@ use App\Mission;
 use App\UserPaymentHistory;
 use App\Customer;
 use App\CardDetail;
+use App\UploadInvoice;
 use App\Agent;
 use Carbon\Carbon;
 use App\Helpers\Helper;
@@ -330,6 +331,41 @@ class MissionController extends Controller
      * @method makeMissionPayment
      * @purpose Add new card and make payment
      */
+	 
+	public function uploadInvoice($id){
+        return view('customer.upload_invoice')->with('id',$id);
+	}
+	
+	
+	public function uploadInvoicePost(Request $request){
+		try{
+			$validation = $this->quickUploadInvoiceMissionValidations($request);
+			if($validation['status']==false){
+					return response($this->getValidationsErrors($validation));
+			}
+			$post = array();
+			$post['user_id'] = Auth::user()->id;
+			$post['mission_id'] = Helper::decrypt($request->mission_id);
+			$mission = Mission::find($post['mission_id']);
+			if(isset($request->upload_invoice) && $request->upload_invoice!=""){
+                $image = $request->file('upload_invoice');   
+                $fileName = time().$image->getClientOriginalName();
+                $filePath = public_path('upload_invoices');
+                $uploadStatus = $image->move($filePath,$fileName);
+                $post['invoice'] = $fileName;
+            }
+			UploadInvoice::updateOrCreate(array('mission_id'=>$post['mission_id']),$post);
+			
+			$response['message'] = trans('messages.upload_invoice');
+			$response['delayTime'] = 5000;
+			$response['url'] = url('customer/missions');
+			return $this->getSuccessResponse($response);
+			
+		}catch(\Exception $e){
+            return $this->getErrorResponse($e->getMessage());
+        }
+	}
+	
     public function makeMissionPayment(Request $request){
         try{
 			if($request->form_type && $request->form_type == 'bank_transfer')
@@ -352,6 +388,8 @@ class MissionController extends Controller
                     'url' => url('customer/billing-details') 
                 ];
                 $mission->customer_details->user->notify(new PaymentDone($mailContent));
+				// $agentNumber = $mission->agent_details->phone;
+				// PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => trans('messages.plivo_customer_mission_created', ['missionId'=> $mission_id])]);
 				Mission::where('id',$mission_id)->update(['payment_status'=>1]);
 				$paymentDetails = [
                     'amount'      => $amount,

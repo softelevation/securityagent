@@ -84,7 +84,7 @@
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <!-- <td>{{$mission->location}}</td> -->
                                                 <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                                <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                                <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
                                                     @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
@@ -112,7 +112,7 @@
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <!-- <td>{{$mission->location}}</td> -->
                                                 <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                                <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                                <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
                                                     @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
@@ -503,7 +503,7 @@
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <!-- <td>{{$mission->location}}</td> -->
                                                 <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                                <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                                <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
                                                     @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
