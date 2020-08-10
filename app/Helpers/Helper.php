@@ -377,7 +377,11 @@ class Helper {
             $agent_id = Auth::user()->agent_info->id;
             $count = Mission::where('agent_id',$agent_id)
                             ->where('status',0)
-                            ->where('payment_status',1)
+							->where(function ($query) {
+								$query->where('payment_status',1)
+									  ->orWhere('payment_status',2);
+							})
+                            // ->where('payment_status',1)
                             ->count();
         }
         return $count;
@@ -553,7 +557,11 @@ class Helper {
      * @method get_mission_without_agent_count
      */
     public static function get_mission_without_agent_count(){
-        return Mission::where('status',0)->where('agent_id',0)->where('payment_status',1)->count();
+        return Mission::where('status',0)->where('agent_id',0)->where(function ($query) {
+								$query->where('payment_status',1)
+									  ->orWhere('payment_status',2);
+							})->count();
+		// ->where('payment_status',1)
     }
 
     /**

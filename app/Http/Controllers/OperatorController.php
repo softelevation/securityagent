@@ -290,6 +290,9 @@ class OperatorController extends Controller
     public function viewMissionDetails($mission_id){
         $mission_id = Helper::decrypt($mission_id);
         $data['mission'] = Mission::where('id',$mission_id)->first();
+		
+		// print_r($data['mission']->upload_invoice);
+		// die();
         return view('operator.view_mission_details',$data);
     }
 

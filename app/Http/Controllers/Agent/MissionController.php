@@ -74,7 +74,12 @@ class MissionController extends Controller
      * @purpose View Mission Request's List 
      */
     public function viewMissionRequests(Request $request){
-        $awaitingRequests = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',0)->where('payment_status',1)->orderBy('id','desc')->paginate($this->limit,['*'],'awaiting');
+        $awaitingRequests = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',0)
+							// ->where('payment_status',1)
+							->where(function ($query) {
+								$query->where('payment_status',1)
+									  ->orWhere('payment_status',2);
+							})->orderBy('id','desc')->paginate($this->limit,['*'],'awaiting');
         $expiredRequests = MissionRequestsIgnored::where('agent_id',\Auth::user()->agent_info->id)->where('is_deleted',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'expired');
         $params = [
             'awaiting_requests' => $awaitingRequests,

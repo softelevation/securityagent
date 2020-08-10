@@ -147,6 +147,19 @@
                     </div>
                   </div>
                 </div>
+				
+				@if(isset($mission->upload_invoice))
+                <h3>{{__('dashboard.mission.upload_invoice')}}</h3>
+                <div class="pending-details">
+                  <div class="view_agent_details mt-4">
+                    <div class="row">
+                      <div class="col-md-12 form-group">
+                        <p><a class="back_btn" href="{{asset('upload_invoices/'.$mission->upload_invoice->invoice)}}" download>Click me </a>for download invoice file</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                @endif
               </div>
             </div>
         </div>
