@@ -162,10 +162,14 @@ class OperatorController extends Controller
     }
 	
 	public function customer_status(Request $request){
-		if($request->id){
-			$cus = Customer::find($request->id);
-			if($cus){
-				Customer::where('id',$request->id)->update(array('add_bank'=>$request->bank_transfer));
+		if($request->status == 'invouce'){
+			Mission::where('id',$request->id)->update(array('invoice_status'=>$request->bank_transfer));
+		}else{
+			if($request->id){
+				$cus = Customer::find($request->id);
+				if($cus){
+					Customer::where('id',$request->id)->update(array('add_bank'=>$request->bank_transfer));
+				}
 			}
 		}
     }

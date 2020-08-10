@@ -45,8 +45,8 @@
                                       @php $i++; @endphp
                                       <tr>
                                           <td>{{$i}}.</td>
-                                          <td>{{$data->mission_details->title}}</td>
-                                          <td>{{Helper::mission_id_str($data->mission_details->id)}}</td>
+                                          <td>{{$data->title}}</td>
+                                          <td>{{Helper::mission_id_str($data->mid)}}</td>
                                           <td>{{$data->amount}} <i class="fa fa-euro-sign"></i></td>
                                           <td>{{$data->status}}</td>
                                           <td>{{date('d/m/Y H:i:s', strtotime($data->created_at))}}</td>

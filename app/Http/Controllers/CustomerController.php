@@ -121,7 +121,7 @@ class CustomerController extends Controller
      */
     public function getPaymentHistory(Request $request){
         $customer_id = Auth::user()->customer_info->id;
-        $data = UserPaymentHistory::where('customer_id',$customer_id)->orderBy('id','DESC')->paginate($this->limit);
+        $data = UserPaymentHistory::select('user_payment_histories.id','user_payment_histories.amount','user_payment_histories.status','user_payment_histories.created_at','missions.title','missions.id as mid')->join('missions','missions.id','user_payment_histories.mission_id')->where('user_payment_histories.customer_id',$customer_id)->orderBy('user_payment_histories.id','DESC')->paginate($this->limit);
         $params = [
             'history' => $data,
             'limit' => $this->limit,

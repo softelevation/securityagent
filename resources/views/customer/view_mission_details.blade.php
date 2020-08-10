@@ -110,6 +110,43 @@
                   </div>
                 </div>
                 @endif
+				
+                <h3>{{__('dashboard.mission.upload_invoice')}}</h3>
+                <div class="pending-details">
+                  <div class="view_agent_details mt-4">
+				  @if(isset($mission->upload_invoice))
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                          <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>{{__('dashboard.payment.mission_amount')}}</th>
+                                  <th>{{__('dashboard.payment.date')}}</th>
+                                  <th>{{__('dashboard.mission.payment_status')}}</th>
+                                  <th>{{__('dashboard.action')}}</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td>{{$mission->amount}} <i class="fa fa-euro-sign"></i></td>
+                              <td>{{date('d/m/Y H:i:s', strtotime($mission->created_at))}}</td>
+                              <td>@if($mission->invoice_status == '0') Awating @else Bank transfer @endIf</td>
+                              <td><a class="download" href="{{asset('upload_invoices/'.$mission->upload_invoice->invoice)}}" download>{{__('dashboard.download')}} </a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+					@else
+                    <div class="row">
+						<div class="col-md-6 form-group">
+							<a class="download" href="{{asset('customer/upload-invoice/'.$mission_id)}}">Click here </a> for upload an invoice
+						</div>
+					</div>
+					@endif
+                  </div>
+                </div>
+				 
                 <h3>{{__('dashboard.payment.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">

@@ -358,7 +358,7 @@ class MissionController extends Controller
 			
 			$response['message'] = trans('messages.upload_invoice');
 			$response['delayTime'] = 5000;
-			$response['url'] = url('customer/missions');
+			$response['url'] = url('customer/mission-details/view/'.$request->mission_id);
 			return $this->getSuccessResponse($response);
 			
 		}catch(\Exception $e){
@@ -525,8 +525,9 @@ class MissionController extends Controller
      * @purpose View mission details
      */
     public function viewMissionDetails($mission_id){
-        $mission_id = Helper::decrypt($mission_id);
-        $data['mission'] = Mission::where('id',$mission_id)->first();
+        $dec_mission_id = Helper::decrypt($mission_id);
+        $data['mission'] = Mission::where('id',$dec_mission_id)->first();
+        $data['mission_id'] = $mission_id;
         return view('customer.view_mission_details',$data);
     }
 

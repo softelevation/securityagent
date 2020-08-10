@@ -113,7 +113,7 @@ input:checked + .slider_bank:before {
                       <div class="col-md-6 form-group">
 					   <label>{{__('frontend.text_154')}}</label><br/>
 							<label class="switch">
-							  <input type="checkbox" name="bank_transfer" value="{{$data->id}}" @if($data->add_bank == '1') checked @endIf>
+							  <input type="checkbox" name="bank_transfer" data-status="cus_detail" value="{{$data->id}}" @if($data->add_bank == '1') checked @endIf>
 							  <span class="slider_bank round"></span>
 							</label>
                       </div>

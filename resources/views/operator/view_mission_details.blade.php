@@ -1,5 +1,66 @@
 @extends('layouts.dashboard')
 @section('content')
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider_bank {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider_bank:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider_bank {
+  background-color: #d6fb04;
+}
+
+input:focus + .slider_bank {
+  box-shadow: 0 0 1px #d6fb04;
+}
+
+input:checked + .slider_bank:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider_bank.round {
+  border-radius: 34px;
+}
+
+.slider_bank.round:before {
+  border-radius: 50%;
+}
+</style>
 <div class="profile">
     <div class="container">
         <div class="row">
@@ -114,6 +175,42 @@
                   </div>
                 </div>
                 @endif
+				@if(isset($mission->upload_invoice))
+                <h3>{{__('dashboard.mission.upload_invoice')}}</h3>
+                <div class="pending-details">
+                  <div class="view_agent_details mt-4">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                          <thead>
+                              <tr>
+                                  <th>#</th>
+                                  <th>{{__('dashboard.payment.mission_amount')}}</th>
+                                  <th>{{__('dashboard.payment.date')}}</th>
+                                  <th>{{__('dashboard.mission.payment_status')}}</th>
+                                  <th>Invoice paid</th>
+                                  <th>{{__('dashboard.action')}}</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td>{{$mission->amount}} <i class="fa fa-euro-sign"></i></td>
+                              <td>{{date('d/m/Y H:i:s', strtotime($mission->created_at))}}</td>
+                              <td>Bank transfer</td>
+                              <td>
+								<label class="switch">
+								  <input type="checkbox" name="bank_transfer" data-status="invouce" value="{{$mission->id}}" @if($mission->invoice_status == '1') checked @endIf>
+								  <span class="slider_bank round"></span>
+								</label>
+							  </td>
+                              <td><a class="download" href="{{asset('upload_invoices/'.$mission->upload_invoice->invoice)}}" download>{{__('dashboard.download')}} </a></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+                @endif
                 <h3>{{__('dashboard.payment.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
@@ -147,19 +244,6 @@
                     </div>
                   </div>
                 </div>
-				
-				@if(isset($mission->upload_invoice))
-                <h3>{{__('dashboard.mission.upload_invoice')}}</h3>
-                <div class="pending-details">
-                  <div class="view_agent_details mt-4">
-                    <div class="row">
-                      <div class="col-md-12 form-group">
-                        <p><a class="back_btn" href="{{asset('upload_invoices/'.$mission->upload_invoice->invoice)}}" download>Click me </a>for download invoice file</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                @endif
               </div>
             </div>
         </div>

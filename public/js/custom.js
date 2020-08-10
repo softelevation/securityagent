@@ -506,6 +506,7 @@ $(document).ready(function () {
 		});
 		
 		$('input[name="bank_transfer"]').click(function(){
+			let statu_s = $(this).data('status');
 			var bank_transfer = 0;
 			if ($('input[name="bank_transfer"]').prop('checked')==true){
 				bank_transfer = 1;
@@ -513,7 +514,7 @@ $(document).ready(function () {
 				bank_transfer = 0;
 			}
 			var id = $(this).val();
-			ajaxGetRequest('../../customer_status?id='+id+'&bank_transfer='+bank_transfer);
+			ajaxGetRequest('../../customer_status?id='+id+'&bank_transfer='+bank_transfer+'&status='+statu_s);
 			// alert(id);
 		});
 		

@@ -699,6 +699,10 @@ nav.navigation2 .page-item:first-child a.page-link:hover, nav.navigation2 .page-
     color: #000000;
 }
 
+.table-responsive a.download {
+    color: #007bff;
+}
+
 @media(max-width:640px)
 {
 .banner_cont {padding:20px 0;}    
