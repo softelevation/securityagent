@@ -156,14 +156,14 @@
                       <div class="payment">
                           <div class="row">
                             <div class="form-group col-md-6 owner">
-                              <img class="banque_delubac" src="{{asset('assets/payment/images/download.jpg')}}" id="amex">
+                              <!-- img class="banque_delubac" src="{{asset('assets/payment/images/download.jpg')}}" id="amex" -->
                             </div>
                             <div class="form-group col-md-6 CVV">
                               <h4 for="cvc">RELEVE D'IDENTITE BANCAIRE</h4>
                             </div>
                             
                             <div class="form-group col-md-6 text-right" id="expiration-date">
-								<p class="bank-p"><label>IBAN FR76 1287900 0199 1294 8300 103</label></p>
+								<p class="bank-p"><label class="iban_20">IBAN FR76 1287900 0199 1294 8300 103</label></p>
                             </div>
                             <div class="form-group col-md-6" id="credit_cards">
 							 <div class="row">
@@ -177,17 +177,13 @@
 							 </div>
                             </div>
 							<div class="form-group col-md-6 text-right" id="expiration-date">
-							  <label>&nbsp;</label>
-                              <p class="bank-p">Banque Delubac et Cie</p>
-                              <p class="bank-p">16 place Saleon-Terras</p>
-                              <p class="bank-p">07160 Le Cheyard</p>
+							  
                             </div>
 							<div class="form-group col-md-6" id="expiration-date">
                               <label>Titularie de compte:</label>
-                              <p class="bank-p">SAS BE ON TIME</p>
-                              <p class="bank-p">66 AVENUE DES CHAMPS ELYSEES</p>
-                              <p class="bank-p">675008 PARIS 8</p>
-                              <p class="bank-p">FRANCE</p>
+                              <p class="bank-p">13 rue Washington</p>
+                              <p class="bank-p">75008 Paris</p>
+                              <p class="bank-p">France </p>
                             </div>
 							<form id="general_form_bank" method="post" action="{{url('customer/make-mission-payment')}}">
 							<div class="col-md-12">

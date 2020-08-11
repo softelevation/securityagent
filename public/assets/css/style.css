@@ -1402,3 +1402,6 @@ img.banque_delubac{
 p.bank-p{
 	margin-bottom: 0;
 }
+.pending-details label.iban_20 {
+	font-size: 20px;
+}
