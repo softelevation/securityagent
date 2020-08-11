@@ -388,8 +388,8 @@ class MissionController extends Controller
                     'url' => url('customer/billing-details') 
                 ];
                 $mission->customer_details->user->notify(new PaymentDone($mailContent));
-				// $agentNumber = $mission->agent_details->phone;
-				// PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => trans('messages.plivo_customer_mission_created', ['missionId'=> $mission_id])]);
+				$agentNumber = $mission->agent_details->phone;
+				PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => trans('messages.plivo_customer_mission_created', ['missionId'=> $mission_id])]);
 				Mission::where('id',$mission_id)->update(['payment_status'=>2]);
 				$paymentDetails = [
                     'amount'      => $amount,
