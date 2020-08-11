@@ -150,7 +150,6 @@
 				@if($customer_type == '2' && $customer_add_bank == '1')
 				<div class="view_agent_details_bank mt-4 @if($customer_type == '2' && $customer_add_bank == '1') d-none @endif">
                   <h5>{{__('dashboard.payment.to_paid')}}: {{$charge_amount}} <i class="fa fa-euro-sign"></i></h5>
-				  <p>IBAN below</p>
 				  <div class="creditCardForm">
                     <div class="card_form_div">
                       <div class="payment">
