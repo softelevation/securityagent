@@ -22,11 +22,14 @@ class PlivoSms
      * @purpose : Response while validation errors occurs
      */
     public static function sendSms($params){
-
+			$phone_Number = $params['phoneNumber'];
+			if($phone_Number[0] != '+'){
+				$phone_Number = '+31'.$params['phoneNumber'];
+			}
             $plivoClient = self::getClient();
             $message_created = $plivoClient->messages->create(
                 self::PLIVO_PHONE,
-                [$params['phoneNumber']],
+                [$phone_Number],
                     $params['msg']
             );
         
