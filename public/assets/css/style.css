@@ -890,6 +890,10 @@ a.success_btn{
     font-weight: 600;
 }
 
+.pending-details label.i_aggree{
+    display: unset;
+}
+
 .pending-details .button {
     font-size: 14px;
     width: auto;
@@ -1404,4 +1408,8 @@ p.bank-p{
 }
 .pending-details label.iban_20 {
 	font-size: 20px;
+}
+.row .yellow_btn {
+	text-align: center;
+	width: 50%;
 }

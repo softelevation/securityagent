@@ -180,6 +180,7 @@
                             </div>
 							<div class="form-group col-md-6" id="expiration-date">
                               <label>Titularie de compte:</label>
+                              <p class="bank-p">BE ON TIME SAS</p>
                               <p class="bank-p">13 rue Washington</p>
                               <p class="bank-p">75008 Paris</p>
                               <p class="bank-p">France </p>
@@ -187,7 +188,7 @@
 							<form id="general_form_bank" method="post" action="{{url('customer/make-mission-payment')}}">
 							<div class="col-md-12">
 							  <input type="checkbox" name="bank_transfer_payment_detail" id="bank_transfer_payment_detail" value="1">
-							   <label>{{__('dashboard.payment.bank_transfer_i_aggree')}}</label>
+							   <label class="i_aggree">{{__('dashboard.payment.bank_transfer_i_aggree')}}</label>
 							</div>
                           </div>
                           <hr>
@@ -197,7 +198,7 @@
 							  @csrf
                               <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->id)}}">
                               <input type="hidden" name="form_type" value="bank_transfer">
-							  <button type="submit" class="button success_btn">PAY</button>
+							  <button type="submit" class="button success_btn">{{__('dashboard.payment.pay')}}</button>
 						  </form>
                           </div>
                           <!-- <div class="form-group" id="pay-now">

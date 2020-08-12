@@ -138,11 +138,22 @@
                         </table>
                     </div>
 					@else
+						{{Form::open(['url'=>url('customer/upload-invoice'),'id'=>'upload_invoice_mission','enctype'=>'multipart/form-data'])}}
                     <div class="row">
-						<div class="col-md-6 form-group">
-							<a class="download" href="{{asset('customer/upload-invoice/'.$mission_id)}}">Click here </a> for upload an invoice
-						</div>
-					</div>
+						<input type="hidden" name="mission_id" value="{{$mission->id}}" />
+                      <div class="col-md-6 form-group">
+								<label>{{__('dashboard.mission.upload_invoice')}}</label>
+                                <div class="custom-file">
+                                  <input type="file" name="upload_invoice" class="custom-file-input" id="profilePicImage"/>
+                                  <label class="custom-file-label" for="profilePicImage">{{__('dashboard.upload_documents')}}</label>
+                                </div>
+                      </div>
+                      <div class="col-md-6 form-group">
+						<label></label>
+                        <button type="submit" class="button success_btn">{{__('dashboard.mission.save_invoice')}}</button>
+                      </div>
+                    </div>
+					{{Form::close()}}
 					@endif
                   </div>
                 </div>

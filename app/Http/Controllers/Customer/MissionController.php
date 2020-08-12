@@ -345,7 +345,7 @@ class MissionController extends Controller
 			}
 			$post = array();
 			$post['user_id'] = Auth::user()->id;
-			$post['mission_id'] = Helper::decrypt($request->mission_id);
+			$post['mission_id'] = $request->mission_id;
 			$mission = Mission::find($post['mission_id']);
 			if(isset($request->upload_invoice) && $request->upload_invoice!=""){
                 $image = $request->file('upload_invoice');   
@@ -358,7 +358,7 @@ class MissionController extends Controller
 			
 			$response['message'] = trans('messages.upload_invoice');
 			$response['delayTime'] = 5000;
-			$response['url'] = url('customer/mission-details/view/'.$request->mission_id);
+			$response['url'] = url('customer/mission-details/view/'.Helper::encrypt($request->mission_id));
 			return $this->getSuccessResponse($response);
 			
 		}catch(\Exception $e){

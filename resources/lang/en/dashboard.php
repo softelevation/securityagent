@@ -209,6 +209,7 @@ return [
 		'card_type' => 'Card Type',
 		'card_no' => 'Card Number',
 		'exp_date' => 'Expire Date',
+		'pay' => 'Pay',
 		'now' => 'Pay Now',
 		'new_card' => 'Add New Card',
 		'holder_name' => "Card Holder's Name",
