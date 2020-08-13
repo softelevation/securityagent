@@ -110,7 +110,7 @@
                   </div>
                 </div>
                 @endif
-				
+				@if($mission->payment_status == '2')
                 <h3>{{__('dashboard.mission.upload_invoice')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
@@ -157,7 +157,7 @@
 					@endif
                   </div>
                 </div>
-				 
+				@endif
                 <h3>{{__('dashboard.payment.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">

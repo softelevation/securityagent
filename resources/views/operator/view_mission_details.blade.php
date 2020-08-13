@@ -175,7 +175,7 @@ input:checked + .slider_bank:before {
                   </div>
                 </div>
                 @endif
-				@if(isset($mission->upload_invoice))
+				@if(isset($mission->upload_invoice) && $mission->payment_status == '2')
                 <h3>{{__('dashboard.mission.upload_invoice')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
