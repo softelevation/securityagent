@@ -63,6 +63,7 @@ return [
 	'customer_details' => 'Détails du client',
 	'customer_heading' => 'Toutes les vues de la liste des clients',
 	'customer_name' => 'Nom du client',
+	'from' => 'de',
 	'customer_type' => 'Type de client',
 	'invoice_date' => 'Date de facture',
 	'amount' => 'Montant',

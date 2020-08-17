@@ -25,6 +25,9 @@
                 <li class="nav-item">
                     <a href="{{url('agent/schedule')}}/{{Helper::encrypt(Auth::user()->agent_info->id)}}" class="nav-link"><i class="fa fa-calendar-alt"></i> {{__('dashboard.schedule')}}</a>
                 </li>
+				<li class="nav-item">
+                    <a class="nav-link" href="{{url('agent/message-center')}}"><i class="fa fa-message_center"></i> {{__('dashboard.mission.message_center')}}</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('logout')}}"><i class="fa fa-sign-out-alt"></i> {{__('dashboard.logout')}}</a>
                 </li>

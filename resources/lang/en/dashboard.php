@@ -63,6 +63,7 @@ return [
 	'customer_details' => 'Customer Details',
 	'customer_heading' => 'All Customer List View',
 	'customer_name' => 'Customer Name',
+	'from' => 'From',
 	'customer_type' => 'Customer Type',
 	'invoice_date' => 'Date of Invoice',
 	'amount' => 'Amount',

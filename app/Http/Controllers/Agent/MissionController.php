@@ -11,6 +11,7 @@ use App\Mission;
 use App\UserPaymentHistory;
 use App\FailedPayment;
 use App\Customer;
+use App\MessageCenter;
 use App\Agent;
 use App\RejectedMission;
 use Carbon\Carbon;
@@ -23,6 +24,7 @@ use App\Traits\MissionTrait;
 use App\MissionRequestsIgnored;
 use Session;
 use App\Helpers\PlivoSms;
+use Auth;
 
 class MissionController extends Controller
 {
@@ -98,7 +100,30 @@ class MissionController extends Controller
         }
         return view('agent.mission_requests',$params);
     }
-
+	
+	public function messageCenter(Request $request){
+		$user_messages = MessageCenter::select('operators.user_id','operators.first_name','operators.last_name','message_centers.message','message_centers.message_type')->join('operators','operators.user_id','message_centers.operator_id')->where('message_centers.user_id',Auth::id())->orderBy('message_centers.created_at','ASC')->get();
+		$customer_profile = Agent::select('first_name','last_name')->where('user_id',\Auth::id())->first();
+		$params = array();
+		$params['user_id'] =Auth::id();
+		$params['cus_id'] = '1';
+		$params['profile'] = '';
+		$params['user_messages'] = $user_messages;
+		$params['cus_profile'] = $customer_profile;
+        return view('agent.message_center',$params);
+    }
+	
+	public function messageCenterPost(Request $request){
+		$inputData = $request->all();
+		$updateData = array('user_id'=>$request->user_id,'operator_id'=>$request->cus_id,
+							'message'=>$request->send_message,'message_type'=>'send_by_agent','status'=>'1',
+							'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()
+						);
+		MessageCenter::insert($updateData);
+		$profile = Agent::select('first_name','last_name')->where('user_id',\Auth::id())->first();
+		$name_op = ($profile) ? $profile->first_name.' '.$profile->last_name : 'Unknown';
+		return response()->json(array('status'=>1,'message_type'=>'send_by_agent','message'=>$name_op));
+    }
 
     /**
      * @param $request
