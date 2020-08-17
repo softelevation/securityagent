@@ -131,7 +131,7 @@
                               <td>1</td>
                               <td>{{$mission->amount}} <i class="fa fa-euro-sign"></i></td>
                               <td>{{date('d/m/Y H:i:s', strtotime($mission->created_at))}}</td>
-                              <td>@if($mission->invoice_status == '0') Awaiting payment @else Paid @endIf</td>
+                              <td>@if($mission->invoice_status == '0') Awaiting payment @else Bank transfer @endIf</td>
                               <td><a class="download" href="{{asset('upload_invoices/'.$mission->upload_invoice->invoice)}}" download>{{__('dashboard.download')}} </a></td>
                             </tr>
                           </tbody>

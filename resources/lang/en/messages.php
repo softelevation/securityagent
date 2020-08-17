@@ -63,4 +63,6 @@ return [
 	'reset_pwd_link_sent' => 'A link has been sent on your email to reset your password.',
     'plivo_customer_mission_created' => 'You have received a new mission your mission id ":missionId" for more details please login into https://www.ontimebe.com',
     'agent_mission_accept_plivo_message'=> 'Mission id  ":missionId" is accepted by agent, for more details please login into https://www.ontimebe.com',
+    'agent_mission_start'=> 'Mission id  ":missionId" is started by agent, for more details please login into https://www.ontimebe.com',
+    'agent_mission_finish'=> 'Mission id  ":missionId" is finished by agent, for more details please login into https://www.ontimebe.com',
 ];
