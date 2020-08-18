@@ -8,12 +8,13 @@
             <div class="col-md-9">
                 <!--<div class="float-left">-->
                 <div class="col-md-12 ">
-                    <div class="col-md-3 float-left">
+                    <div class="col-md-2 float-left">
                         <h2>{{__('dashboard.missions')}}</h2>
                     </div>
-                    <div class="col-md-4  float-left form-group">
+					<form>
+                    <div class="col-md-3  float-left form-group">
                         @if(!app('request')->input('archived'))
-                            <select class="form-control" id="filterMissionStatus"> 
+                            <select class="form-control" name="missionStatus" id="filterMissionStatus"> 
                                 <option value="" disabled selected>Search by Mission status</option>
                                 <option value="all">{{__('dashboard.mission.all')}}</option>
                                 @foreach(Helper::get_mission_status_array() as $idx => $val)
@@ -22,7 +23,14 @@
                             </select>
                         @endif
                     </div>
-                    <div class="col-md-3 float-right pt-3">
+					<div class="col-md-3  float-left form-group">
+                            <input type="text" name="search" value="{{app('request')->input('search')}}" class="form-control" placeholder="{{__('dashboard.customer_name')}}"></input>
+                    </div>
+					<div class="col-md-2  float-left form-group">
+                            <input type="submit" class="form-control" id="filterMissionStatus" value="{{__('dashboard.search')}}"></input>
+                    </div>
+					</form>
+                    <div class="col-md-2 float-right pt-3">
                         <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
                     </div>
                 </div>

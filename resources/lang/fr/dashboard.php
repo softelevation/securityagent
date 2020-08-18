@@ -7,6 +7,7 @@ return [
 	'missions' => 'Missions',
 	'schedule' => 'Planning',
 	'logout' => 'Déconnexion',
+	'search' => 'Rechercher',
 	'back' => 'Retour',
 	'agent' => 'Agent',
 	'customer' => 'Client',

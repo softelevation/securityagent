@@ -333,13 +333,13 @@ $(document).ready(function () {
     }
     
     //MISSION PAGE FILER
-        $('#filterMissionStatus').on('change', function(){
-            var selectedStatus = $(this).val(); // SELECTED STATUS
-            var pageNo = 1; //PAGE NO
-            var url = '';
-            url = (selectedStatus != 'all') ? window.location.origin+window.location.pathname+'?missionStatus='+selectedStatus+'&all='+pageNo : window.location.origin+window.location.pathname+'?all='+pageNo;
-            window.location.href = url;
-        });
+        // $('#filterMissionStatus').on('change', function(){
+            // var selectedStatus = $(this).val(); // SELECTED STATUS
+            // var pageNo = 1; //PAGE NO
+            // var url = '';
+            // url = (selectedStatus != 'all') ? window.location.origin+window.location.pathname+'?missionStatus='+selectedStatus+'&all='+pageNo : window.location.origin+window.location.pathname+'?all='+pageNo;
+            // window.location.href = url;
+        // });
         
         $('.archiveMission').on('click', function(e){
             var doConfirm = confirm('Are you sure, you want to archive this mission?');

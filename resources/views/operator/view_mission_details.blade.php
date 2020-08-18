@@ -103,7 +103,11 @@ input:checked + .slider_bank:before {
                         <label>{{__('dashboard.mission.mission_hours')}}</label>
                         <span class="form-control">{{$mission->total_hours}} {{__('dashboard.hours')}}</span>
                       </div>
-					  <div class="col-md-12 form-group">
+					  <div class="col-md-6 form-group">
+                        <label>{{__('dashboard.customer_name')}}</label>
+                        <span class="form-control">{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</span>
+                      </div>
+					  <div class="col-md-6 form-group">
                         <label>{{__('dashboard.agents.intervention')}}</label>
                         <span class="form-control">{{__('dashboard.agents.'.$mission->intervention.'')}}</span>
                       </div>

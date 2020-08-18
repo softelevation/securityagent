@@ -237,11 +237,20 @@ class OperatorController extends Controller
             if($missionStatus !== null && $missionStatus !== 'all'){
                 $statusCond = ['status'=>$missionStatus];
             }
+			
+			$mission = Mission::with(['child_missions','customer_details']);
+			
+			if($request->get('search') && !empty($request->get('search'))){
+				$searchString = $request->get('search');
+				$search = $mission->whereHas('customer_details',function ($query) use ($searchString){
+					$query->where(DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'like', '%'.$searchString.'%');
+				});
+			}
 
-            $missionAll = Mission::with('child_missions')->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
-            $missionFuture = Mission::with('child_missions')->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
-            $missionQuick = Mission::with('child_missions')->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
-            $missionCompleted = Mission::with('child_missions')->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
+            $missionAll = $mission->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
+            $missionFuture = $mission->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
+            $missionQuick = $mission->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
+            $missionCompleted = $mission->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
             $statusArr = Helper::getMissionStatus();
             $statusArr = array_flip($statusArr);
             
