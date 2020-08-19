@@ -70,6 +70,7 @@
                                                 <th>{{__('dashboard.mission.ref')}}</th>
                                                 <!-- <th>{{__('dashboard.mission.location')}}</th> -->
                                                 <th>{{__('dashboard.mission.status')}}</th>
+                                                <th>{{__('dashboard.customer_name')}}</th>
                                                 <th>{{__('dashboard.payment.status')}}</th>
                                                 <th>{{__('dashboard.created_at')}}</th>
                                                 <td></td>
@@ -92,7 +93,8 @@
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <!-- <td>{{$mission->location}}</td> -->
                                                 <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                                <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                                <td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
+												<td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
                                                     @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
@@ -120,7 +122,8 @@
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <!-- <td>{{$mission->location}}</td> -->
                                                 <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                                <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                                <td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
+												<td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
                                                     @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
@@ -155,7 +158,7 @@
                                             @endforelse
                                             @empty
                                             <tr>
-                                                <td colspan="7">{{__('dashboard.no_record')}}</td>
+                                                <td colspan="8">{{__('dashboard.no_record')}}</td>
                                             </tr>
                                             @endforelse
                                         </tbody>
@@ -180,6 +183,7 @@
                                                 <th>{{__('dashboard.mission.ref')}}</th>
                                                 <th>{{__('dashboard.mission.duration')}}</th>
                                                 <th>{{__('dashboard.mission.start_time')}}</th>
+												<th>{{__('dashboard.customer_name')}}</th>
                                                 <th>{{__('dashboard.mission.status')}}</th>
                                                 <th>{{__('dashboard.created_at')}}</th>
                                                 <th>Action</th>
@@ -201,6 +205,7 @@
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <td>{{$mission->total_hours}} Hour(s)</td>
                                                 <td>{{date('d/m/Y H:i:s', strtotime($mission->start_date_time))}}</td>
+												<td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
                                                 <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
@@ -240,6 +245,7 @@
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <td>{{$mission->total_hours}} {{__('dashboard.hours')}}</td>
                                                 <td>{{date('d/m/Y H:i:s', strtotime($mission->start_date_time))}}</td>
+												<td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
                                                 <td>{{Helper::get_mission_status($mission->status)}}</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
@@ -262,7 +268,7 @@
                                             @endforelse
                                             @empty
                                             <tr>
-                                                <td colspan="7">{{__('dashboard.no_record')}}</td>
+                                                <td colspan="9">{{__('dashboard.no_record')}}</td>
                                             </tr>
                                             @endforelse
                                         </tbody>
@@ -287,6 +293,7 @@
                                                 <th>{{__('dashboard.mission.ref')}}</th>
                                                 <!-- <th>{{__('dashboard.mission.location')}}</th> -->
                                                 <th>{{__('dashboard.mission.duration')}}</th>
+												<th>{{__('dashboard.customer_name')}}</th>
                                                 <th>{{__('dashboard.mission.status')}}</th>
                                                 <th>{{__('dashboard.created_at')}}</th>
                                                 <th></th>
@@ -309,6 +316,7 @@
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <!-- <td>{{$mission->location}}</td> -->
                                                 <td>{{$mission->total_hours}} Hour(s)</td>
+												<td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
                                                 <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
@@ -358,6 +366,7 @@
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <!-- <td>{{$mission->location}}</td> -->
                                                 <td>{{$mission->total_hours}} Hour(s)</td>
+												<td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
                                                 <td>{{Helper::get_mission_status($mission->status)}}</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
@@ -393,7 +402,7 @@
                                             @endforelse
                                             @empty
                                             <tr>
-                                                <td colspan="6">{{__('dashboard.no_record')}}</td>
+                                                <td colspan="9">{{__('dashboard.no_record')}}</td>
                                             </tr>
                                             @endforelse
                                         </tbody>
@@ -417,6 +426,7 @@
                                                 <th>{{__('dashboard.mission.title')}}</th>
                                                 <th>{{__('dashboard.mission.ref')}}</th>
                                                 <th>{{__('dashboard.mission.location')}}</th>
+												<th>{{__('dashboard.customer_name')}}</th>
                                                 <th>{{__('dashboard.mission.started_at')}}</th>
                                                 <th>{{__('dashboard.mission.ended_at')}}</th>
                                                 <th>Action</th>
@@ -437,6 +447,7 @@
                                                 <td>{{$mission->title}}</td>
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <td>{{$mission->location}}</td>
+												<td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
                                                 <td>@if(isset($mission->started_at)){{date('d/m/Y H:i:s', strtotime($mission->started_at))}}@endif</td>
                                                 <td>@if(isset($mission->started_at)){{date('d/m/Y H:i:s', strtotime($mission->ended_at))}}@endif</td>
                                                 <td>
@@ -449,6 +460,7 @@
                                                 <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <td>{{$mission->location}}</td>
+												<td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
                                                 <td>{{date('d/m/Y H:i:s', strtotime($mission->started_at))}}</td>
                                                 <td>{{date('d/m/Y H:i:s', strtotime($mission->ended_at))}}</td>
                                                 <td>
@@ -462,7 +474,7 @@
                                             @endforelse
                                             @empty
                                             <tr>
-                                                <td colspan="7">No record found</td>
+                                                <td colspan="8">No record found</td>
                                             </tr>
                                             @endforelse
                                         </tbody>
@@ -489,6 +501,7 @@
                                                 <th>{{__('dashboard.mission.ref')}}</th>
                                                 <!-- <th>{{__('dashboard.mission.location')}}</th> -->
                                                 <th>{{__('dashboard.mission.status')}}</th>
+												<th>{{__('dashboard.customer_name')}}</th>
                                                 <th>{{__('dashboard.payment.status')}}</th>
                                                 <th>{{__('dashboard.created_at')}}</th>
                                                 <th>{{__('dashboard.action')}}</th>
@@ -511,7 +524,8 @@
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <!-- <td>{{$mission->location}}</td> -->
                                                 <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                                <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                                <td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
+												<td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
                                                     @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
@@ -546,7 +560,8 @@
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <!-- <td>{{$mission->location}}</td> -->
                                                 <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                                <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                                <td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
+												<td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
                                                     @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
@@ -581,7 +596,7 @@
                                             @endforelse
                                             @empty
                                             <tr>
-                                                <td colspan="7">{{__('dashboard.no_record')}}</td>
+                                                <td colspan="8">{{__('dashboard.no_record')}}</td>
                                             </tr>
                                             @endforelse
                                         </tbody>
