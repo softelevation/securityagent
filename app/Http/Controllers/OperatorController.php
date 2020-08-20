@@ -265,6 +265,7 @@ class OperatorController extends Controller
             'status_list'=>$statusArr,
             'limit' => $this->limit,
             'page_no' => 1,
+			'paginate_array' => array(),
             'page_name' => 'all'
         ];
         
@@ -289,6 +290,12 @@ class OperatorController extends Controller
                 $params['page_no'] = $request->archived; 
                 $params['page_name'] = 'archived';
             }
+			if($request->missionStatus){
+				$params['paginate_array'] = array('missionStatus'=>$request->missionStatus);
+			}
+			if($request->search){
+				$params['paginate_array'] = array_merge($params['paginate_array'],array('search'=>$request->search));
+			}
         }
         return view('operator.missions',$params);
     }

@@ -76,7 +76,12 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="agent_img">
-                                            <img src="{{$agent->avatar_icon}}"/>
+											@if($agent->image && !empty($agent->image))
+												<img src="{{asset('profile_images/'.$agent->image)}}"/>
+											@else
+												<img src="{{$agent->avatar_icon}}"/>
+											@endIf
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-5">

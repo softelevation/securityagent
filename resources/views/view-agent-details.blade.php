@@ -10,7 +10,11 @@
                   <div class="row p-4">
                     <div class="col-md-3 text-center">
                       <div>
-                        <img class="rounded-circle avatar-image" src="{{asset('avatars/'.$agent->avatar_icon)}}">
+						@if($agent->image && !empty($agent->image))
+							<img class="rounded-circle avatar-image" src="{{asset('profile_images/'.$agent->image)}}">
+						@else
+							<img class="rounded-circle avatar-image" src="{{asset('avatars/'.$agent->avatar_icon)}}">
+						@endIf
                       </div>
                       <div class="pt-3">
                         <img src="{{asset('assets/images/star.jpg')}}">

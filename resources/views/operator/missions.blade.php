@@ -167,7 +167,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($mission_all && null != app('request')->input('missionStatus')) {{$mission_all->appends(['missionStatus' => app('request')->input('missionStatus')])->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
+                                            @if($mission_all && !empty($paginate_array)) {{$mission_all->appends($paginate_array)->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
@@ -277,7 +277,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($future_mission && null != app('request')->input('missionStatus')) {{$future_mission->appends(['missionStatus' => app('request')->input('missionStatus')])->links()}} @elseif($future_mission) {{$future_mission->links()}} @endif
+                                            @if($mission_all && !empty($paginate_array)) {{$mission_all->appends($paginate_array)->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
@@ -411,7 +411,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($quick_mission && null != app('request')->input('missionStatus')) {{$quick_mission->appends(['missionStatus' => app('request')->input('missionStatus')])->links()}} @elseif($quick_mission) {{$quick_mission->links()}} @endif
+                                            @if($mission_all && !empty($paginate_array)) {{$mission_all->appends($paginate_array)->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
@@ -483,7 +483,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($finished_mission && null != app('request')->input('missionStatus')) {{$finished_mission->appends(['missionStatus' => app('request')->input('missionStatus')])->links()}} @elseif($finished_mission) {{$finished_mission->links()}} @endif
+                                            @if($mission_all && !empty($paginate_array)) {{$mission_all->appends($paginate_array)->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
@@ -605,8 +605,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-
-                                            @if($archived_mission && null != app('request')->input('missionStatus')) {{$archived_mission->appends(['missionStatus' => app('request')->input('missionStatus')])->links()}} @elseif($archived_mission) {{$archived_mission->links()}} @endif
+                                           @if($mission_all && !empty($paginate_array)) {{$mission_all->appends($paginate_array)->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>

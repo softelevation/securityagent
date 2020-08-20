@@ -99,6 +99,7 @@ trait CustomerTrait
             $strArr   = [];
             $strArr['username'] = $agent->username;
             $strArr['avatar_icon'] = asset('avatars/'.$agent->avatar_icon);
+            $strArr['image'] = $agent->image;
             $strArr['agent_type'] = $agent->agent_type;
             $strArr['lat'] = trim($agent->work_location_latitude);
             $strArr['long'] = trim($agent->work_location_longitude);

@@ -194,9 +194,9 @@
                         <h2 class="name">
                             {{config('app.name')}}
                         </h2>
-                        <div>66 Avenue des Champs-Elysées 75008 Paris </div>
-                        <div>ID: 882276694 RCS Paris</div>
-                        <!-- <div>company@example.com</div> -->
+                        <div>Be On Time SAS 66 Avenue des Champs-Elysées</div>
+                        <div>75008 Paris 01 83 62 52 14</div>
+                        <div>contact@ontimebe.com</div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
