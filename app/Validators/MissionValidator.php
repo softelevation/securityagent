@@ -78,6 +78,20 @@ trait MissionValidator
         return $this->response;
     }
 	
+	public function feedbackValidations(Request $request){
+        try{
+            $validations = [
+                'rating' => 'required',
+                'message' => 'required',
+            ];
+            $validator = Validator::make($request->all(),$validations);
+            $this->response = $this->validateData($validator);
+        }catch(\Exception $e){
+            $this->response = $e->getMessage();
+        }
+        return $this->response;
+    }
+	
 	public function quickUploadInvoiceMissionValidations(Request $request){
         try{
             $validations = [

@@ -106,6 +106,7 @@ return [
 		'not_paid' => 'Not Paid Yet',
 		'completed' => 'Completed',
 		'bank_transfer' => 'Bank transfer',
+		'invoice_paid' => 'Invoice paid',
 		'upload_invoice' => 'Upload invoice',
 		'save_invoice' => 'Save invoice',
 		'edit' => 'Edit Mission',

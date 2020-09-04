@@ -17,7 +17,13 @@
 						@endIf
                       </div>
                       <div class="pt-3">
-                        <img src="{{asset('assets/images/star.jpg')}}">
+                        <p class="review-star">
+                                <span class="fa fa-star @if($rating >= 1) checked @endIf"></span>
+                                <span class="fa fa-star @if($rating >= 2) checked @endIf"></span>
+                                <span class="fa fa-star @if($rating >= 3) checked @endIf"></span>
+                                <span class="fa fa-star @if($rating >= 4) checked @endIf"></span>
+                                <span class="fa fa-star @if($rating >= 5) checked @endIf"></span>
+                        </p>
                       </div>
                       <div>
                         <ul class="details-list">
@@ -62,13 +68,32 @@
 
                         </div>
                       </div>
-                      <!-- div class="row">
+                      <div class="row">
                         <div class="col-md-12">
                           <h3>{{__('dashboard.agents.reviews')}}</h3>
-                         
-                          
+						  @foreach($feedbacks as $feedback)
+                          <div class="row review-wrapper">
+                            <div class="review-img">
+							@if($feedback->customer_details->image)
+								<img class="img-circle" src="{{asset('profile_images/'.$feedback->customer_details->image)}}">
+							@else
+								<img class="img-circle" src="{{asset('avatars/dummy_avatar.jpg')}}">
+							@endIf
+                            </div>
+                            <div class="review-text">
+                              <P>{{$feedback->message}}</P>
+                              <p class="review-star">
+                                <span class="fa fa-star @if($feedback->rating >= 1) checked @endIf"></span>
+                                <span class="fa fa-star @if($feedback->rating >= 2) checked @endIf"></span>
+                                <span class="fa fa-star @if($feedback->rating >= 3) checked @endIf"></span>
+                                <span class="fa fa-star @if($feedback->rating >= 4) checked @endIf"></span>
+                                <span class="fa fa-star @if($feedback->rating >= 5) checked @endIf"></span>
+                              </p>  
+                            </div>
+                          </div>
+						  @endforeach
                         </div>
-                      </div -->
+                      </div>
                     </div>
                   </div>
                 </div>

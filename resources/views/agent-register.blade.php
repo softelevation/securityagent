@@ -385,7 +385,7 @@ function geolocate() {
   }
 }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA&libraries=places&callback=initAutocomplete"
+<script src="https://maps.googleapis.com/maps/api/js?key={{ Helper::google_api_key() }}&libraries=places&callback=initAutocomplete"
     async defer></script>
 <!-- Bootstrap core JavaScript -->
 @endsection

@@ -422,7 +422,7 @@
     }
     window.onload = function(){ initMap(zoomVal); };
     </script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key={{ Helper::google_api_key() }}"></script>
 
     <!-- Google Places API -->
     <script>
@@ -470,6 +470,6 @@
         }
     }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA&libraries=places&callback=initAutocomplete"
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ Helper::google_api_key() }}&libraries=places&callback=initAutocomplete"
         async defer></script>
 @endsection

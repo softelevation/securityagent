@@ -666,6 +666,10 @@ class Helper {
 		}
 		return $name;
 	}
+	
+	public static function google_api_key(){
+		return 'AIzaSyB1erXOJ7-_yyd3jYyRYrMh7THiUxpAevU';
+	}
 
 }
 

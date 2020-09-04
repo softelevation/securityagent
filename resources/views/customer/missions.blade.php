@@ -61,7 +61,7 @@
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                    <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                    <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) @if($mission->invoice_status) {{__('dashboard.mission.invoice_paid')}} @else {{__('dashboard.mission.bank_transfer')}} @endif @else {{__('dashboard.mission.completed')}} @endif</td>
                                     <td>
                                       <div class="dropdown">
                                           <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
@@ -76,6 +76,9 @@
                                             @if($mission->status==0 && $mission->payment_status==0)
                                               <a href="{{url('customer/delete-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item delete_mission_cls"><i class="fas fa-trash-alt text-grey" aria-hidden="true"></i> {{__('dashboard.mission.delete')}}</a>
                                             @endif
+											@if($mission->status==5)
+												<a href="{{url('customer/feedback')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-rss-square" aria-hidden="true"></i> {{__('frontend.text_61')}}</a>
+											@endif
                                           </div>
                                       </div>
                                     </td>

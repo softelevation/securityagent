@@ -111,4 +111,4 @@ p {
     }
     window.onload = function(){ initMap(10000); };
     </script>
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyCqV_RbB8pVKnMhqiIYYuwuz_25qazoILA"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?key={{ Helper::google_api_key() }}"></script>

@@ -108,6 +108,8 @@ Route::group(['prefix'=>'customer'], function () {
     Route::group(['middleware'=>['auth','roles']], function () {
         Route::get('/profile', 'CustomerController@customerProfileView');
         Route::get('/missions', 'Customer\MissionController@index');
+		Route::get('/feedback/{id}', 'Customer\MissionController@viewAgentDetails');
+		Route::post('/feedback/{id}', 'Customer\MissionController@feedback');
         Route::get('/upload-invoice/{mission_id}', 'Customer\MissionController@uploadInvoice');
         Route::post('/upload-invoice', 'Customer\MissionController@uploadInvoicePost');
         Route::get('/create-mission', 'Customer\MissionController@createMission');

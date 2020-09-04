@@ -13,6 +13,7 @@ use App\Customer;
 use App\CardDetail;
 use App\UploadInvoice;
 use App\Agent;
+use App\Feedback;
 use Carbon\Carbon;
 use App\Helpers\Helper;
 use Illuminate\Support\Facades\Session;
@@ -79,6 +80,45 @@ class MissionController extends Controller
         }
         return view('customer.missions',$params);
     }
+	
+	public function viewAgentDetails(Request $request, $id){
+        $mission_id = Helper::decrypt($id);
+		$agent = Mission::find($mission_id)->agent_details;
+		$feedback_agent = Feedback::where('agent_id',$agent->id)->pluck('rating')->toArray();
+		if($feedback_agent){
+			$feedback_agent = ceil(array_sum($feedback_agent)/count($feedback_agent));
+		}else{
+			$feedback_agent = 5;
+		}
+		
+        $feedback = Feedback::where('mission_id',$mission_id)->first();
+		if(!$feedback){
+			$feedback = (object)array('rating'=>0,'message'=>'');
+		}
+        return view('customer.feedback')->with('agent',$agent)->with('feedback',$feedback)->with('feedback_agent',$feedback_agent)->with('id',$id);
+    }
+	
+	/**
+     * @param $request
+     * @return mixed
+     * @method post
+     * @purpose add  submitFeedback
+     */
+	 
+	public function feedback(Request $request, $id){
+		
+		$validation = $this->feedbackValidations($request);
+		if($validation['status']==false){
+				return response($this->getValidationsErrors($validation));
+		}
+		$inputData = array('rating'=>$request->rating,'message'=>$request->message,'mission_id'=>Helper::decrypt($id),'customer_id'=>Auth::user()->id);
+		$inputData['agent_id'] = Mission::find(Helper::decrypt($id))->agent_details->id;
+		Feedback::updateOrCreate(array('mission_id'=>Helper::decrypt($id)),$inputData);
+		$response['message'] = trans('messages.payment_completed');
+		$response['delayTime'] = 5000;
+		$response['url'] = url('customer/feedback/'.$id);
+		return $this->getSuccessResponse($response);
+	}
 
     /**
      * @param $request
