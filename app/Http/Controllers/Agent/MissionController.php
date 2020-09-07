@@ -160,7 +160,10 @@ class MissionController extends Controller
                     }                    
                     
                     /*----Customer send phone notification-----*/
-                    PlivoSms::sendSms(['phoneNumber' => $customerNumber, 'msg' => trans('messages.agent_mission_accept_plivo_message', ['missionId'=> $mission_id]) ]);
+					try {
+						PlivoSms::sendSms(['phoneNumber' => $customerNumber, 'msg' => trans('messages.agent_mission_accept_plivo_message', ['missionId'=> $mission_id]) ]);
+					}catch(\Exception $e){
+					}
                     /*--------------*/
                     
                     $response['message'] = trans('messages.mission_accepted');
@@ -239,8 +242,11 @@ class MissionController extends Controller
                 Mission::where('id',$data->parent_id)->update(['status'=>4]);
             }
             $result = Mission::where('id',$mission_id)->update(['started_at'=>$timeNow,'status'=>4]);
-			PlivoSms::sendSms(['phoneNumber' => $data->customer_details->phone, 'msg' => trans('messages.agent_mission_start', ['missionId'=> $mission_id]) ]);
-            if($result){
+			try {
+				PlivoSms::sendSms(['phoneNumber' => $data->customer_details->phone, 'msg' => trans('messages.agent_mission_start', ['missionId'=> $mission_id]) ]);
+            }catch(\Exception $e){
+			}
+			if($result){
                 Agent::where('id',$data->agent_id)->update(['available'=>2]);
                 $notification = array(
                     'customer_id' => $data->customer_id,
@@ -389,8 +395,11 @@ class MissionController extends Controller
                 'url' => url('customer/mission-details/view').'/'.$request->mission_id 
             ];
             $data->customer_details->user->notify(new MissionCreated($mailContent));
-			PlivoSms::sendSms(['phoneNumber' => $data->customer_details->phone, 'msg' => trans('messages.agent_mission_finish', ['missionId'=> $mission_id]) ]);
-            /*------------*/
+			try {
+				PlivoSms::sendSms(['phoneNumber' => $data->customer_details->phone, 'msg' => trans('messages.agent_mission_finish', ['missionId'=> $mission_id]) ]);
+            }catch(\Exception $e){
+			}
+			/*------------*/
             // check if this is a sub mission
             if($data->parent_id!=0){
                 $parentMissionId = $data->parent_id;

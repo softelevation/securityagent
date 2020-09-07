@@ -44,6 +44,7 @@ return [
 	'mission_req_deleted' => 'La demande de mission a bien été supprimée.',
 	'card_deleted' => 'La demande de card a bien été supprimée.',
 	'payment_completed' => 'Le paiement de la mission a réussi.',
+	'feedback_completed' => 'Commentaires reçus avec succès.',
 	'upload_invoice' => 'Nous examinerons la facture et changerons le statut dans les 24 heures.',
 	'payment_failed' => 'Le paiement de la mission a échoué!',
 	'payment_rejected' => 'Le paiement de la mission a été rejeté avec succès.',

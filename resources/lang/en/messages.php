@@ -44,6 +44,7 @@ return [
 	'mission_req_deleted' => 'Mission request deleted successfully.',
 	'card_deleted' => 'Card request deleted successfully.',
 	'payment_completed' => 'Mission payment completed successfully.',
+	'feedback_completed' => 'Feedback sumitted successfully.',
 	'upload_invoice' => 'We will review the invoice and change the status within 24 hours.',
 	'payment_failed' => 'Mission payment failed!',
 	'payment_rejected' => 'Mission payment reject successfully.',

@@ -114,9 +114,9 @@ class MissionController extends Controller
 		$inputData = array('rating'=>$request->rating,'message'=>$request->message,'mission_id'=>Helper::decrypt($id),'customer_id'=>Auth::user()->id);
 		$inputData['agent_id'] = Mission::find(Helper::decrypt($id))->agent_details->id;
 		Feedback::updateOrCreate(array('mission_id'=>Helper::decrypt($id)),$inputData);
-		$response['message'] = trans('messages.payment_completed');
+		$response['message'] = trans('messages.feedback_completed');
 		$response['delayTime'] = 5000;
-		$response['url'] = url('customer/feedback/'.$id);
+		$response['url'] = url('customer/missions');
 		return $this->getSuccessResponse($response);
 	}
 
@@ -429,7 +429,10 @@ class MissionController extends Controller
                 ];
                 $mission->customer_details->user->notify(new PaymentDone($mailContent));
 				$agentNumber = $mission->agent_details->phone;
-				PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => trans('messages.plivo_customer_mission_created', ['missionId'=> $mission_id])]);
+				try {
+					PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => trans('messages.plivo_customer_mission_created', ['missionId'=> $mission_id])]);
+				}catch(\Exception $e){
+				}
 				Mission::where('id',$mission_id)->update(['payment_status'=>2]);
 				$paymentDetails = [
                     'amount'      => $amount,
@@ -646,7 +649,10 @@ class MissionController extends Controller
                 /*--------------*/
                 
                 /*----Customer send phone notification-----*/
-                PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => trans('messages.plivo_customer_mission_created', ['missionId'=> $mission_id])]);
+				try {
+					PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => trans('messages.plivo_customer_mission_created', ['missionId'=> $mission_id])]);
+				}catch(\Exception $e){
+				}
                 /*--------------*/
                 
                 $response['message'] = trans('messages.payment_completed');
