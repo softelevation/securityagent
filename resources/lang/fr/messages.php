@@ -62,8 +62,8 @@ return [
 	'reset_pwd_text1' => 'Vous recevez cet e-mail, car nous avons reçu une demande de réinitialisation de mot de passe pour votre compte.',
 	'reset_pwd_text2' => "Si vous n'avez pas demandé de réinitialisation du mot de passe, aucune autre action n'est requise.",
 	'reset_pwd_link_sent' => 'Un lien a été envoyé sur votre e-mail pour réinitialiser votre mot de passe.',
-	'plivo_customer_mission_created' => 'You have received a new mission your mission id ":missionId" for more details please login into https://www.ontimebe.com',
-    'agent_mission_accept_plivo_message'=> 'Mission id  ":missionId" is accepted by agent, for more details please login into https://www.ontimebe.com',
-    'agent_mission_start'=> 'Mission id  ":missionId" is started by agent, for more details please login into https://www.ontimebe.com',
-    'agent_mission_finish'=> 'Mission id  ":missionId" is finished by agent, for more details please login into https://www.ontimebe.com',
+	'plivo_customer_mission_created' => 'Vous avez reçu une nouvelle mission, votre identifiant de mission ":missionId" pour plus de détails, veuillez vous connecter à https://www.ontimebe.com',
+    'agent_mission_accept_plivo_message'=> "L'identifiant de mission ':missionId' est accepté par l'agent, pour plus de détails, veuillez vous connecter à https://www.ontimebe.com",
+    'agent_mission_start'=> "L'identifiant de mission ':missionId' est démarré par l'agent, pour plus de détails, veuillez vous connecter à https://www.ontimebe.com",
+    'agent_mission_finish'=> "L'identifiant de mission ':missionId' est terminé par l'agent, pour plus de détails, veuillez vous connecter à https://www.ontimebe.com",
 ];
