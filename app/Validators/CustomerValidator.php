@@ -28,7 +28,6 @@ trait CustomerValidator
                 'home_address'  => 'required',
                 'customer_type' => 'required',
                 'password'      => 'required|confirmed|min:8',
-                'captcha'       => 'required|captcha',
                 'terms_conditions' => 'required',
             );
             $validator = Validator::make($request->all(),$validations);
