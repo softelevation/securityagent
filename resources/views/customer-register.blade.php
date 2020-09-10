@@ -91,10 +91,8 @@
 		                      <div class="form-group ">
 				                <label>Captcha</label><br>
 				                <div class="captcha">
-				                	<span class="captcha-img">{!! captcha_img() !!}</span>
-				                	<button data-url="{{url('refresh-captcha')}}" type="button" class="btn btn-warning captcha_refresh">Refresh</button>
+				                	<div class="g-recaptcha" data-sitekey="6LfQbMoZAAAAALnhk3XZO2-1ZaJ4P-j7gRb51cBZ"></div>
 				                </div>
-			                    <input type="text" name="captcha" class="form-control mt-2 validation" placeholder="{{__('frontend.captcha_place')}}" />
 		                      </div>
 		                    </div>
 	                  	</div>
@@ -118,7 +116,7 @@
     </div>
 </div>
 @endsection
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script>
 function checkValidation(){ 
 	var no = 1;	
