@@ -184,12 +184,7 @@ class AgentController extends Controller
     public function viewAgentDetails($agent_id,$distance){
         $agent_id = Helper::decrypt($agent_id);
 		$feedback = Feedback::where('agent_id',$agent_id);
-		if($feedback->count()){
-			$rating = $feedback->pluck('rating')->toArray();
-			$rating = round(array_sum($rating) / count($rating));
-		}else{
-			$rating = 5;
-		}
+		$rating = Helper::agent_rating($feedback->get()->toArray());
         $agent = Agent::where('id',$agent_id)->first();
         return view('view-agent-details',['agent'=>$agent,'distance'=>$distance,'rating'=>$rating,'feedbacks'=>$feedback->get()]);
     }

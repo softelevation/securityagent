@@ -35,4 +35,9 @@ class Agent extends Model
     public function agent_ignored(){
         return $this->hasMany('App\MissionRequestsIgnored', 'agent_id');
     }
+	
+	public function feedback(){
+		$feedback = $this->hasMany('App\Feedback', 'agent_id');
+        return $feedback;
+    }
 }

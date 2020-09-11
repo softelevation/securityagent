@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Agent;
 use App\User;
 use App\AgentType;
+use App\Helpers\Helper;
 use App\Traits\HelperTrait;
 use App\Traits\ResponseTrait;
 use App\AgentDiplomaCertificate;
@@ -181,6 +182,7 @@ trait AgentTrait
         $agentArr = [];
         foreach($agents as $agent){
             // Set marker icon
+			
             $markerIcon = asset('avatars/marker-male.png');
             $typeArr = $agent->types->pluck('agent_type')->toArray();
             if(in_array(7, $typeArr)){
@@ -199,6 +201,7 @@ trait AgentTrait
             $strArr['marker'] = $markerIcon;
             $strArr['distance'] = round($agent->distance_in_km);
             $strArr['work_location_address'] = $agent->work_location_address;     
+            $strArr['agent_rating'] = Helper::agent_rating($agent->feedback->toArray());  
 
             if(Session::has('mission')){
                 $time1 = Carbon::parse($mission_start_date_time);

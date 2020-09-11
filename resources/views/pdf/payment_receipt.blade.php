@@ -194,7 +194,7 @@
                         <h2 class="name">
                             {{config('app.name')}}
                         </h2>
-                        <div>Be On Time SAS 66 Avenue des Champs-Elysées</div>
+                        <div>Be On Time SAS 13 rue Washington</div>
                         <div>75008 Paris 01 83 62 52 14</div>
                         <div>contact@ontimebe.com</div>
                     </div>

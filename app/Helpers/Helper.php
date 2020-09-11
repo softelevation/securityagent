@@ -667,6 +667,15 @@ class Helper {
 		return $name;
 	}
 	
+	public static function agent_rating($input){
+		$rating = 5;
+		if($input && count($input)){
+			$rating = array_column($input, 'rating');
+			$rating = round(array_sum($rating) / count($rating));
+		}
+		return $rating;
+	}
+	
 	public static function google_api_key(){
 		return 'AIzaSyB1erXOJ7-_yyd3jYyRYrMh7THiUxpAevU';
 	}
