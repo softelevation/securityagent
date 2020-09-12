@@ -777,6 +777,18 @@ class OperatorController extends Controller
         $data['res_data'] = $res;
         return view('agent_information',$data);
     }
+	
+	public function privacyPolicy(){
+        return view('privacyPolicy');
+    }
+	
+	public function generalTermsAndConditions(){
+        return view('generalTermsAndConditions');
+    }
+	
+	public function generalTermsOfUse(){
+        return view('generalTermsOfUse');
+    }
 
     public function agent_information_edit_fr(Request $request){ 
         

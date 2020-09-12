@@ -25,6 +25,9 @@ Route::get('/suport-ticket', function () {
 // });
 
 Route::any('/agent_information', 'OperatorController@agent_information');
+Route::any('/privacy-policy', 'OperatorController@privacyPolicy');
+Route::any('/general-terms-and-conditions', 'OperatorController@generalTermsAndConditions');
+Route::any('/general-terms-of-use', 'OperatorController@generalTermsOfUse');
 
 
 Route::get('/terms-conditions', function () {
