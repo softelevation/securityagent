@@ -563,6 +563,11 @@ class Helper {
 							})->count();
 		// ->where('payment_status',1)
     }
+	
+	
+	public static function get_agent_count(){
+		return Agent::where('status',0)->count();
+    }
 
     /**
      * @return integer

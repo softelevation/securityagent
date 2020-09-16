@@ -63,28 +63,28 @@
 									<tr>
 										<td>Circulation</td>
 										<td>
-											{{Form::checkbox('mauvaise',1,($feature->mauvaise) ? true:false)}} 06. Mauvaise (motif)…………
+											{{Form::checkbox('mauvaise',1,($feature->mauvaise) ? true:false)}} 06. Mauvaise (motif) : {{$feature->mauvaise_text}}
 										</td>
 									</tr>
 									<tr>
 										<td>Circuit de Vérification</td>
 										<td>
 											{{Form::checkbox('interieur',1,($feature->interieur) ? true:false)}} 07 Intérieur
-											{{Form::checkbox('exterieur',1,($feature->exterieur) ? true:false)}} 08 Extérieur : ……………………………………………………
+											{{Form::checkbox('exterieur',1,($feature->exterieur) ? true:false)}} 08 Extérieur : {{$feature->exterieur_text}}
 										</td>
 									</tr>
 									<tr>
 										<td>Lumière allumée</td>
 										<td>
 											{{Form::checkbox('non_09',1,($feature->non_09) ? true:false)}} 09 Non
-											{{Form::checkbox('oui_pièce',1,($feature->oui_pièce) ? true:false)}} 10 Oui Pièce : ……………………………………………………
+											{{Form::checkbox('oui_pièce',1,($feature->oui_pièce) ? true:false)}} 10 Oui Pièce : {{$feature->oui_pièce_text}}
 										</td>
 									</tr>
 									<tr>
 										<td>Issues(s) ouvertes(s)</td>
 										<td>
 											{{Form::checkbox('non_11',1,($feature->non_11) ? true:false)}} 11 Non
-											{{Form::checkbox('oui_lesquelles_12',1,($feature->oui_lesquelles_12) ? true:false)}} 12 Oui Lesquelles : ……………………………………………………
+											{{Form::checkbox('oui_lesquelles_12',1,($feature->oui_lesquelles_12) ? true:false)}} 12 Oui Lesquelles : {{$feature->oui_lesquelles_text}}
 										</td>
 									</tr>
 									<tr>
@@ -111,7 +111,7 @@
 									<tr>
 										<td>{{Form::checkbox('zone_19',1,($feature->zone_19) ? true:false)}} 19 Zone(s) en anomalies</td>
 										<td>
-											{{Form::checkbox('zones_isolees',1,($feature->zones_isolees) ? true:false)}} 20 Zones isolées …………………………………
+											{{Form::checkbox('zones_isolees',1,($feature->zones_isolees) ? true:false)}} 20 Zones isolées : {{$feature->zones_isolees_text}}
 										</td>
 									</tr>
 									<tr>
@@ -134,22 +134,22 @@
 										<td>Présence</td>
 										<td>
 											{{Form::checkbox('ads_27',1,($feature->ads_27) ? true:false)}} 27 ADS
-											{{Form::checkbox('demande_par',1,($feature->demande_par) ? true:false)}} Demandé par : …………………
-											{{Form::checkbox('maitre_chien',1,($feature->maitre_chien) ? true:false)}} 28 Maitre Chien …………………
+											{{Form::checkbox('demande_par',1,($feature->demande_par) ? true:false)}} Demandé par : {{$feature->demande_par_text}}
+											{{Form::checkbox('maitre_chien',1,($feature->maitre_chien) ? true:false)}} 28 Maitre Chien : {{$feature->maitre_chien_text}}
 										</td>
 									</tr>
 									<tr>
 										<td>Personnel sur place</td>
 										<td>
 											{{Form::checkbox('non_29',1,($feature->non_29) ? true:false)}} 29 Non
-											{{Form::checkbox('oui_30',1,($feature->oui_30) ? true:false)}} 30 Oui Nom :………………………
+											{{Form::checkbox('oui_30',1,($feature->oui_30) ? true:false)}} 30 Oui Nom : {{$feature->oui_30_text}}
 										</td>
 									</tr>
 									<tr>
 										<td>Véhicule sur place</td>
 										<td>
 											{{Form::checkbox('non_31',1,($feature->non_31) ? true:false)}} 31 Non
-											{{Form::checkbox('oui_32',1,($feature->oui_32) ? true:false)}} 32 Oui   Marque  :………………………
+											{{Form::checkbox('oui_32',1,($feature->oui_32) ? true:false)}} 32 Oui Marque  : {{$feature->oui_32_text}}
 											N - {{Form::text('n_0',$feature->n_0,['class'=>'col-md-2'])}}
 										</td>
 									</tr>
@@ -157,7 +157,7 @@
 										<td>Présence d’animaux</td>
 										<td>
 											{{Form::checkbox('non_33',1,($feature->non_33) ? true:false)}} 33 Non
-											{{Form::checkbox('oui_34',1, ($feature->oui_34) ? true:false)}} 34 Oui  Espèce : ………………………………… 
+											{{Form::checkbox('oui_34',1, ($feature->oui_34) ? true:false)}} 34 Oui  Espèce : {{$feature->oui_34_text}} 
 										</td>
 									</tr>
 								</tbody>

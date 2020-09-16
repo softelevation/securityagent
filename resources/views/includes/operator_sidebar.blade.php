@@ -20,7 +20,7 @@
                                 <a href="{{url('operator/missions-without-agents')}}" class="nav-link"><i class="fa fa-user-slash"></i> {{__('dashboard.mission.without_agents')}} @if(Helper::get_mission_without_agent_count() > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_mission_without_agent_count()}}</span>@endif</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{url('operator/agents')}}" class="nav-link"><i class="fa fa-user-secret"></i> &nbsp; {{__('dashboard.agents.agents')}}</a>
+                                <a href="{{url('operator/agents')}}" class="nav-link"><i class="fa fa-user-secret"></i> &nbsp; {{__('dashboard.agents.agents')}} @if(Helper::get_agent_count() > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_agent_count()}}</span>@endif</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{url('operator/customers')}}" class="nav-link"><i class="fa fa-user-tie"></i> &nbsp;{{__('dashboard.customers')}}</a>

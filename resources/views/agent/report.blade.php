@@ -47,7 +47,7 @@
 									<tr>
 										<td><label>HEURE APPEL :</label> {{Form::text('heure_appel',null,['class'=>'form-control'])}}</td>
 										<td><label>HEURE ARRIVEE :</label> {{Form::text('heure_arrivee',null,['class'=>'form-control'])}}</td>
-										<td><label>HEURE DE DEPART :</label> {{Form::text('heure_de_depart',null,['class'=>'form-control'])}}</td>
+										<td><label>HEURE DE DEPART :</label> {{Form::text('heure_de_depart',null,['class'=>'form-control timepicker'])}}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -65,28 +65,28 @@
 									<tr>
 										<td>Circulation</td>
 										<td>
-											{{Form::checkbox('mauvaise',1,false)}} 06. Mauvaise (motif)…………
+											{{Form::checkbox('mauvaise',1,false)}} 06. Mauvaise (motif) : {{Form::text('mauvaise_text',null,['class'=>'col-md-2'])}}
 										</td>
 									</tr>
 									<tr>
 										<td>Circuit de Vérification</td>
 										<td>
 											{{Form::checkbox('interieur',1,false)}} 07 Intérieur
-											{{Form::checkbox('exterieur',1,false)}} 08 Extérieur : ……………………………………………………
+											{{Form::checkbox('exterieur',1,false)}} 08 Extérieur : {{Form::text('exterieur_text',null,['class'=>'col-md-2'])}}
 										</td>
 									</tr>
 									<tr>
 										<td>Lumière allumée</td>
 										<td>
 											{{Form::checkbox('non_09',1,false)}} 09 Non
-											{{Form::checkbox('oui_pièce',1,false)}} 10 Oui Pièce : ……………………………………………………
+											{{Form::checkbox('oui_pièce',1,false)}} 10 Oui Pièce : {{Form::text('oui_pièce_text',null,['class'=>'col-md-2'])}}
 										</td>
 									</tr>
 									<tr>
 										<td>Issues(s) ouvertes(s)</td>
 										<td>
 											{{Form::checkbox('non_11',1,false)}} 11 Non
-											{{Form::checkbox('oui_lesquelles_12',1,false)}} 12 Oui Lesquelles : ……………………………………………………
+											{{Form::checkbox('oui_lesquelles_12',1,false)}} 12 Oui Lesquelles : {{Form::text('oui_lesquelles_text',null,['class'=>'col-md-2'])}}
 										</td>
 									</tr>
 									<tr>
@@ -113,7 +113,7 @@
 									<tr>
 										<td>{{Form::checkbox('zone_19',1,false)}} 19 Zone(s) en anomalies</td>
 										<td>
-											{{Form::checkbox('zones_isolees',1,false)}} 20 Zones isolées …………………………………
+											{{Form::checkbox('zones_isolees',1,false)}} 20 Zones isolées : {{Form::text('zones_isolees_text',null,['class'=>'col-md-2'])}}
 										</td>
 									</tr>
 									<tr>
@@ -136,22 +136,22 @@
 										<td>Présence</td>
 										<td>
 											{{Form::checkbox('ads_27',1,false)}} 27 ADS
-											{{Form::checkbox('demande_par',1,false)}} Demandé par : …………………
-											{{Form::checkbox('maitre_chien',1,false)}} 28 Maitre Chien …………………
+											{{Form::checkbox('demande_par',1,false)}} Demandé par : {{Form::text('demande_par_text',null,['class'=>'col-md-2'])}}
+											{{Form::checkbox('maitre_chien',1,false)}} 28 Maitre Chien : {{Form::text('maitre_chien_text',null,['class'=>'col-md-2'])}}
 										</td>
 									</tr>
 									<tr>
 										<td>Personnel sur place</td>
 										<td>
 											{{Form::checkbox('non_29',1,false)}} 29 Non
-											{{Form::checkbox('oui_30',1,false)}} 30 Oui Nom :………………………
+											{{Form::checkbox('oui_30',1,false)}} 30 Oui Nom : {{Form::text('oui_30_text',null,['class'=>'col-md-2'])}}
 										</td>
 									</tr>
 									<tr>
 										<td>Véhicule sur place</td>
 										<td>
 											{{Form::checkbox('non_31',1,false)}} 31 Non
-											{{Form::checkbox('oui_32',1,false)}} 32 Oui   Marque  :………………………
+											{{Form::checkbox('oui_32',1,false)}} 32 Oui   Marque  : {{Form::text('oui_32_text',null,['class'=>'col-md-2'])}}
 											N - {{Form::text('n_0',null,['class'=>'col-md-2'])}}
 										</td>
 									</tr>
@@ -159,7 +159,7 @@
 										<td>Présence d’animaux</td>
 										<td>
 											{{Form::checkbox('non_33',1,false)}} 33 Non
-											{{Form::checkbox('oui_34',1, false)}} 34 Oui  Espèce : ………………………………… 
+											{{Form::checkbox('oui_34',1, false)}} 34 Oui  Espèce : {{Form::text('oui_34_text',null,['class'=>'col-md-2'])}} 
 										</td>
 									</tr>
 									<tr>
