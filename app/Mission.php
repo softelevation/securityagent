@@ -20,6 +20,10 @@ class Mission extends Model
     public function agent_details(){
     	return $this->hasOne('App\Agent', 'id', 'agent_id');
     }
+	
+	public function report(){
+    	return $this->hasOne('App\Report', 'mission_id', 'id');
+    }
 
     public function payments(){
     	return $this->hasMany('App\UserPaymentHistory', 'mission_id');

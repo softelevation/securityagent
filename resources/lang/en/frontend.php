@@ -175,6 +175,7 @@ return [
 	"text_152" => "Write message",
 	"text_153" => "Our phone number : 01 83 62 52 14",
 	"text_154" => "Bank Transfer",
+	"text_155" => "Report view",
 	"language" => "en",
 	"select" => "Select",
 	"term_and_condition_1" => "I do accept <a href='javascript:;'>General Terms and Conditions</a> of sale and <a href='javascript:;'>General Terms of use</a>",

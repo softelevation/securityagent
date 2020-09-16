@@ -38,6 +38,7 @@ return [
 	'mission_finished' => 'Your mission has finished now.',
 	'mission_finished_at' => 'Your mission has been finished now at ',
 	'mission_saved' => 'Mission details saved successfully.',
+	'new_feature_save' => 'New feature details saved successfully.',
 	'mission_created' => 'Your mission has been created successfully.',
 	'mission_cancelled' => 'Your mission has been cancelled successfully.',
 	'mission_deleted' => 'Your mission has been deleted successfully.',

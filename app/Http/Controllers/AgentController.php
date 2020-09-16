@@ -13,6 +13,7 @@ use App\Helpers\Helper;
 use Session;
 use App\Mission;
 use App\Feedback;
+use App\Report;
 use App\MissionRequestsIgnored;
 use Carbon\Carbon;
 use App\Traits\MissionTrait;
@@ -141,6 +142,52 @@ class AgentController extends Controller
         $data['profile'] = $profile;
         return view('agent.profile',$data);
     }
+	
+	/**
+     * @param $request
+     * @return new feature page
+     * @method new-feature
+     * @purpose after complete ride
+     */
+	public function report($mission_id){
+		$newFeature = array();
+		$newFeatureData = Report::where('mission_id',Helper::decrypt($mission_id))->first();
+		if($newFeatureData){
+			$newFeature = $newFeatureData->toArray();
+		}
+        return view('agent.report')->with('mission_id',$mission_id)->with('newFeature',$newFeature);
+    }
+	
+	public function reportView($mission_id){
+		try{
+			$feature = Report::where('mission_id',Helper::decrypt($mission_id))->first();
+			return view('agent.report-view')->with('feature',$feature);
+		}catch(\Exception $e){
+			return redirect('agent/missions');
+        }
+    }
+	
+	public function reportUpdate($mission_id, Request $request) {
+		
+		// NewFeature
+		$inputDate = $request->all();
+		
+		$validation = $this->agentNewFeatureValidations($request);
+        
+		if($validation['status']==false){
+			return response($this->getValidationsErrors($validation));
+		}
+			
+		unset($inputDate['_token']);
+		$inputDate['mission_id'] = Helper::decrypt($mission_id);
+		$inputDate['status'] = 1;
+		Report::updateOrCreate(array('mission_id'=>$inputDate['mission_id']),$inputDate);
+		$response['message'] = trans('messages.new_feature_save');
+		$response['delayTime'] = 2000;
+		$response['modelhide'] = '#mission_action';
+		$response['url'] = url('agent/missions');
+		return response($this->getSuccessResponse($response));
+	}
 
 
     /**

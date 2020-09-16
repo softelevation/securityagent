@@ -14,6 +14,7 @@ use App\CardDetail;
 use App\UploadInvoice;
 use App\Agent;
 use App\Feedback;
+use App\Report;
 use Carbon\Carbon;
 use App\Helpers\Helper;
 use Illuminate\Support\Facades\Session;
@@ -79,6 +80,11 @@ class MissionController extends Controller
                 $params['page_name'] = 'finished'; }
         }
         return view('customer.missions',$params);
+    }
+	
+	public function reportView($mission_id){
+		$feature = Report::where('mission_id',Helper::decrypt($mission_id))->first();
+        return view('customer.report-view')->with('feature',$feature);
     }
 	
 	public function viewAgentDetails(Request $request, $id){

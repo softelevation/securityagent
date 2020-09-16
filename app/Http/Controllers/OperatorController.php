@@ -782,6 +782,10 @@ class OperatorController extends Controller
         return view('privacyPolicy');
     }
 	
+	public function legalNotice(){
+        return view('legal-notice');
+    }
+	
 	public function generalTermsAndConditions(){
         return view('generalTermsAndConditions');
     }

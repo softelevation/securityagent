@@ -177,6 +177,7 @@ return [
 	"text_152" => "Écrire un message",
 	"text_153" => "Notre n° de tél: 01 83 62 52 14",
 	"text_154" => "Virement",
+	"text_155" => "COMPTE RENDU",
 	"language" => "fr",
 	"select" => "Choisir",
 	"term_and_condition_1" => "J'accepte les <a href='javascript:;'>conditions générales</a> de vente et les <a href='javascript:;'>conditions générales d'utilisation</a>",

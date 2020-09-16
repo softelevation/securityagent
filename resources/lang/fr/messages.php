@@ -38,6 +38,7 @@ return [
 	'mission_finished' => 'Votre mission est maintenant terminée.',
 	'mission_finished_at' => 'Votre mission est maintenant terminée à',
 	'mission_saved' => 'Les détails de la mission ont bien été enregistrés.',
+	'new_feature_save' => 'Les détails de la nouvelle fonctionnalité ont été enregistrés avec succès.',
 	'mission_created' => 'Votre mission a été créée avec succès.',
 	'mission_cancelled' => 'Votre mission a été annulée avec succès.',
 	'mission_deleted' => 'Votre mission a été supprimée avec succès.',

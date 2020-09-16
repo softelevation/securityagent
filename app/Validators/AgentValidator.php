@@ -18,6 +18,23 @@ trait AgentValidator
      * @method  : addMusicFileValidations
      * @purpose : Validation rule for add page
      */
+	 
+	public function agentNewFeatureValidations(Request $request){
+		try{
+            $validations = array(
+                'date' => 'required',
+                'heure_appel' => 'required',
+                'heure_arrivee'    => 'required',
+                'heure_de_depart'     => 'required',
+            );
+            $validator = Validator::make($request->all(),$validations);
+            $this->response = $this->validateData($validator);
+        }catch(\Exception $e){
+            $this->response = $e->getMessage();
+        }
+        return $this->response;
+	}
+	
     public function agentSignupValidations(Request $request){
         try{
             $validations = array(

@@ -463,7 +463,7 @@ class MissionController extends Controller
             $response['message'] = trans('messages.mission_finished');
             $response['delayTime'] = 2000;
             $response['modelhide'] = '#mission_action';
-            $response['url'] = url('agent/missions');
+            $response['url'] = url('agent/report/'.Helper::encrypt($mission_id));
             return response($this->getSuccessResponse($response));
         }else{
             $response['message'] = trans('messages.error');

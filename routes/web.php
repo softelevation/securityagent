@@ -26,6 +26,7 @@ Route::get('/suport-ticket', function () {
 
 Route::any('/agent_information', 'OperatorController@agent_information');
 Route::any('/privacy-policy', 'OperatorController@privacyPolicy');
+Route::any('/legal-notice', 'OperatorController@legalNotice');
 Route::any('/general-terms-and-conditions', 'OperatorController@generalTermsAndConditions');
 Route::any('/general-terms-of-use', 'OperatorController@generalTermsOfUse');
 
@@ -111,6 +112,7 @@ Route::group(['prefix'=>'customer'], function () {
     Route::group(['middleware'=>['auth','roles']], function () {
         Route::get('/profile', 'CustomerController@customerProfileView');
         Route::get('/missions', 'Customer\MissionController@index');
+		Route::get('/report-view/{mission_id}', 'Customer\MissionController@reportView');
 		Route::get('/feedback/{id}', 'Customer\MissionController@viewAgentDetails');
 		Route::post('/feedback/{id}', 'Customer\MissionController@feedback');
         Route::get('/upload-invoice/{mission_id}', 'Customer\MissionController@uploadInvoice');
@@ -138,6 +140,9 @@ Route::group(['prefix'=>'customer'], function () {
 // Agent Routes
 Route::group(['prefix'=>'agent'], function () {
     Route::group(['middleware'=>['auth','roles']], function () {
+        Route::get('/report/{mission_id}', 'AgentController@report');
+        Route::get('/report-view/{mission_id}', 'AgentController@reportView');
+        Route::post('/report/{mission_id}', 'AgentController@reportUpdate');
         Route::get('/profile', 'AgentController@agentProfileView');
         Route::get('/missions', 'Agent\MissionController@index');
         Route::get('/mission-details/view/{mission_id}', 'Agent\MissionController@viewMissionDetails');
