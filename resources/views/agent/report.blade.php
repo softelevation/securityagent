@@ -163,7 +163,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2" align="center"><button type="submit" class="button success_btn">{{__('dashboard.update_profile')}}</button></td>
+										<td colspan="2" align="center"><button type="submit" class="button success_btn">rapport soumis</button></td>
 									</tr>
 								</tbody>
 							</table>
