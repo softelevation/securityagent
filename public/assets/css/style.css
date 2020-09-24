@@ -179,7 +179,7 @@ a:hover{text-decoration: none;}
     color: #ffffff;
     height: 42px;
     line-height: 42px;
-    width:200px;
+    width:280px;
 }
 
 .comment_panel {
@@ -1412,4 +1412,9 @@ p.bank-p{
 .row .yellow_btn {
 	text-align: center;
 	width: 50%;
+}
+a.disabled{
+	cursor: default;
+	pointer-events: none;        
+	text-decoration: none;
 }

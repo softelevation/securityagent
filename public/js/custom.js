@@ -518,6 +518,23 @@ $(document).ready(function () {
 			// alert(id);
 		});
 		
+		$( ".numeric-val" ).on('keypress blur', function (evt) {
+		let message = 'Please add a numeric value.';
+		if($('meta[name="csrf-token"]').data('lang') && $('meta[name="csrf-token"]').data('lang') == 'fr'){
+			message = 'Veuillez ajouter une valeur numérique.';
+		}
+		var iKeyCode = (evt.which) ? evt.which : evt.keyCode;
+			if (iKeyCode != 46 && iKeyCode > 31 && (iKeyCode < 48 || iKeyCode > 57))
+			{
+					$( "em" ).remove();
+					$(this).after('<em class="text-danger">'+message+'</em>');
+				return false;
+			}else{
+					$( "em" ).remove();
+				return true;
+			}
+		});
+		
 		
 });
 

@@ -42,7 +42,7 @@
                           <div class="row">
                             <div class="col-md-6 form-group">
                               <label>{{__('dashboard.phone_number')}}</label>
-                              {{Form::text('phone',null,['class'=>'form-control'])}}
+                              {{Form::text('phone',null,['class'=>'form-control numeric-val'])}}
                             </div>
                             <div class="col-md-6 form-group">
                               <label>{{__('dashboard.home_address')}}</label>
