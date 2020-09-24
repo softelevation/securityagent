@@ -256,6 +256,12 @@ class AgentController extends Controller
      * @purpose Save Schedule
      */
     public function saveSchedule(Request $request){
+		
+		$validation = $this->agentScheduleValidations($request);
+		if($validation['status']==false){
+			return response($this->getValidationsErrors($validation));
+		}
+		
         $post = array_except($request->all(),'_token');
         $agent_id = Auth::user()->agent_info->id;
         $schedule_date = date('Y-m-d', strtotime($request->schedule_date));

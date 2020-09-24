@@ -35,6 +35,20 @@ trait AgentValidator
         return $this->response;
 	}
 	
+	public function agentScheduleValidations(Request $request){
+		try{
+            $validations = array(
+                'available_from' => 'required',
+                'available_to' => 'required',
+            );
+            $validator = Validator::make($request->all(),$validations);
+            $this->response = $this->validateData($validator);
+        }catch(\Exception $e){
+            $this->response = $e->getMessage();
+        }
+        return $this->response;
+	}
+	
     public function agentSignupValidations(Request $request){
         try{
             $validations = array(
