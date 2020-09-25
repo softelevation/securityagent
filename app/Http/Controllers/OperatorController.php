@@ -335,7 +335,8 @@ class OperatorController extends Controller
      */
     public function assignMissionAgent($mission_id){
         $mission_id = Helper::decrypt($mission_id);
-        $data['mission'] = $mission = Mission::where('id',$mission_id)->first();
+		$mission = Mission::where('id',$mission_id)->first();
+        $data['mission'] = $mission;
         //Calculate mission start and end times 
         $add_mission_hours = '+'.$mission->total_hours.' hours';
         $mission_start_date_time = $mission->start_date_time;
