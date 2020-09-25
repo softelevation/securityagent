@@ -199,7 +199,12 @@ return [
 		'amount_charged' => 'Amount Charged',
 		'date_time' => 'Date Time',
 	],
-
+	'report' => [
+		'signature' => "Signature",
+		'clear_signature' => "Clear Signature",
+		'save' => "Save",
+		'close' => "Close",
+	],
 	'payment' => [
 		'details' => 'Payment Details',
 		'total' => 'Total Amount',

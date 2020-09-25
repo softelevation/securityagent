@@ -198,6 +198,13 @@ return [
 		'amount_charged' => 'Montant facturé',
 		'date_time' => 'Date Time',
 	],
+	
+	'report' => [
+		'signature' => "Signature",
+		'clear_signature' => "Signature claire",
+		'save' => "enregistrer",
+		'close' => "Fermer",
+	],
 
 	'payment' => [
 		'details' => 'Détails du paiement',

@@ -222,7 +222,15 @@ function formSubmit(form)
                         $("select[name='"+index+"']").after('<label id="'+index+'-error" class="has-error" for="'+index+'">'+value+'</label>');
                     });
                 }
-
+				
+				if(response.modelShow){
+					$('#myModal').addClass("fade");
+					// $('input[name="report_id"]').val(response.report_id.id);
+					setTimeout(function(){
+						$('#myModal').modal("show");
+					  }, 1);
+				}
+				
                 if (response.modelhide) {
                     
                     if (response.delay)

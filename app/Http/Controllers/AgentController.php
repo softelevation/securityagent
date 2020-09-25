@@ -181,14 +181,41 @@ class AgentController extends Controller
 		unset($inputDate['_token']);
 		$inputDate['mission_id'] = Helper::decrypt($mission_id);
 		$inputDate['status'] = 1;
-		Report::updateOrCreate(array('mission_id'=>$inputDate['mission_id']),$inputDate);
+		$report_id = Report::updateOrCreate(array('mission_id'=>$inputDate['mission_id']),$inputDate);
 		$response['message'] = trans('messages.new_feature_save');
 		$response['delayTime'] = 2000;
-		$response['modelhide'] = '#mission_action';
-		$response['url'] = url('agent/missions');
+		$response['modelShow'] = true;
+		$response['report_id'] = $report_id;
+		// $response['url'] = url('agent/missions');
 		return response($this->getSuccessResponse($response));
 	}
-
+	
+	
+	public function signatureUpdate($mission_id, Request $request) {
+		
+		$validation = $this->agentSignatureValidations($request);
+        
+		if($validation['status']==false){
+			return response($this->getValidationsErrors($validation));
+		}
+		$folderPath = public_path('agent/signature/');
+		$image_parts = explode(";base64,", $request->signature);
+		$image_type_aux = explode("image/", $image_parts[0]);
+		$image_type = $image_type_aux[1];
+		$image_name = uniqid() . '.'.$image_type;
+		$image_base64 = base64_decode($image_parts[1]);
+		$file = $folderPath . $image_name;
+		file_put_contents($file, $image_base64);
+		$mission_id = Helper::decrypt($mission_id);
+		Report::where('mission_id',$mission_id)->update(array('signature'=>$image_name));
+		$response['message'] = trans('messages.new_feature_save');
+		$response['delayTime'] = 2000;
+		$response['success']  = true;
+        $response['error']    = false;
+		$response['modelShow'] = true;
+		$response['url'] = url('agent/missions');		
+		return response($response);
+	}
 
     /**
      * @param $request

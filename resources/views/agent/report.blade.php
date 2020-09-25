@@ -1,5 +1,13 @@
 @extends('layouts.dashboard')
 @section('content')
+<link rel="stylesheet" type="text/css" href="./../../assets/signature/css/jquery.signature.css">
+<style>
+	.kbw-signature { width: 400px; height: 200px;}
+	#sig canvas{
+		width: 100% !important;
+		height: auto;
+	}
+</style>
 <div class="profile">
     <div class="container">
         <div class="row">
@@ -163,7 +171,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2" align="center"><button type="submit" class="button success_btn">rapport soumis</button></td>
+										<td colspan="2" align="center"><button type="submit" class="button success_btn" data-toggle="modal" data-target="#myModal">rapport soumis</button></td>
 									</tr>
 								</tbody>
 							</table>
@@ -179,5 +187,54 @@
 
     </div>
     <!-- /.container -->
+	
+	
+	<!-- Modal -->
+	<div id="myModal" class="modal" role="dialog">
+	  <div class="modal-dialog modal-md">
+		<!-- Modal content-->
+		<div class="modal-content">
+		  <div class="modal-header">        
+			<h4 class="modal-title">{{__('dashboard.report.signature')}}</h4>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+		  </div>
+		  {{Form::model(null,['url'=>'agent/signature/'.$mission_id,'id'=>'general_form_2'])}}
+			@csrf
+			  <div class="modal-body">
+				<div class="container">
+						<div class="col-md-12">
+							<label class="" for="">{{__('dashboard.report.signature')}}:</label>
+							<br/>
+							<div id="sig" ></div>
+							<br/>
+							<button class="btn btn-success" id="clear">{{__('dashboard.report.clear_signature')}}</button>
+							<textarea id="signature64" name="signature" style="display: none"></textarea>
+						</div>
+				</div>
+			  </div>
+			  <div class="modal-footer">
+				<button type="submit" class="btn btn-primary success_btn">{{__('dashboard.report.save')}}</button>
+				<button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">{{__('dashboard.report.close')}}</button>
+			  </div>
+		  {{Form::close()}}
+		</div>
+	  </div>
+	</div>
+
 </div>
+
+@endsection
+
+
+@section('script')
+
+<script type="text/javascript" src="./../../assets/signature/js/jquery.signature.js"></script>
+<script>
+	var sig = $('#sig').signature({syncField: '#signature64', syncFormat: 'PNG'});
+		$('#clear').click(function(e) {
+			e.preventDefault();
+			sig.signature('clear');
+			$("#signature64").val('');
+		});
+</script>
 @endsection

@@ -143,6 +143,7 @@ Route::group(['prefix'=>'agent'], function () {
         Route::get('/report/{mission_id}', 'AgentController@report');
         Route::get('/report-view/{mission_id}', 'AgentController@reportView');
         Route::post('/report/{mission_id}', 'AgentController@reportUpdate');
+        Route::post('/signature/{mission_id}', 'AgentController@signatureUpdate');
         Route::get('/profile', 'AgentController@agentProfileView');
         Route::get('/missions', 'Agent\MissionController@index');
         Route::get('/mission-details/view/{mission_id}', 'Agent\MissionController@viewMissionDetails');
