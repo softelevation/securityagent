@@ -22,7 +22,7 @@ class PlivoSms
      * @purpose : Response while validation errors occurs
      */
     public static function sendSms($params){
-			$phone_Number = $params['phoneNumber'];
+			$phone_Number = ltrim($params['phoneNumber']);
 			if($phone_Number[0] != '+'){
 				$phone_Number = '+33'.$params['phoneNumber'];
 			}

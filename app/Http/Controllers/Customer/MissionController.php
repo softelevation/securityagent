@@ -791,6 +791,15 @@ class MissionController extends Controller
                 Session::put('mission',$mission);
                 if(Auth::check() && Auth::user()->role_id==1){
                     $mission_id = $this->saveQuickMissionDetails($mission);
+					
+					$agent = Agent::select('phone')->where('id',$agent_id)->first();
+					$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
+					$message = "You have received a new mission. please check the details \n";
+					$message .= "Customer Name : ".$cus_name."\n";
+					$message .= "Mission type: ".str_replace("_"," ",$mission['intervention'])."\n";
+					$message .= "Location : ".$mission['location'];
+					PlivoSms::sendSms(['phoneNumber' => $agent->phone, 'msg' => trans($message) ]);
+				
                     if($mission_id){
                         Session::forget('mission');
                         $mission_id = Helper::encrypt($mission_id);
