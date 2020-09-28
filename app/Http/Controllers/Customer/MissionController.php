@@ -436,7 +436,12 @@ class MissionController extends Controller
                 $mission->customer_details->user->notify(new PaymentDone($mailContent));
 				$agentNumber = $mission->agent_details->phone;
 				try {
-					PlivoSms::sendSms(['phoneNumber' => $agentNumber, 'msg' => trans('messages.plivo_customer_mission_created', ['missionId'=> $mission_id])]);
+					$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
+					$message = "You have received a new mission. please check the details \n";
+					$message .= "Customer Name : ".$cus_name."\n";
+					$message .= "Mission type: ".str_replace("_"," ",$mission->intervention)."\n";
+					$message .= "Location : ".$mission->location;
+					PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
 				}catch(\Exception $e){
 				}
 				Mission::where('id',$mission_id)->update(['payment_status'=>2]);
@@ -535,6 +540,15 @@ class MissionController extends Controller
                     ];
                     $mission->agent_details->user->notify(new MissionCreated($mailContent));
                 }
+				
+				// $agent = Agent::select('phone')->where('id',$agent_id)->first();
+				$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
+				$message = "You have received a new mission. please check the details \n";
+				$message .= "Customer Name : ".$cus_name."\n";
+				$message .= "Mission type: ".str_replace("_"," ",$mission->intervention)."\n";
+				$message .= "Location : ".$mission->location;
+				PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
+					
                 /*--------------*/
                 $response['message'] = trans('messages.payment_completed');
                 $response['delayTime'] = 5000;
@@ -791,15 +805,6 @@ class MissionController extends Controller
                 Session::put('mission',$mission);
                 if(Auth::check() && Auth::user()->role_id==1){
                     $mission_id = $this->saveQuickMissionDetails($mission);
-					
-					$agent = Agent::select('phone')->where('id',$agent_id)->first();
-					$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
-					$message = "You have received a new mission. please check the details \n";
-					$message .= "Customer Name : ".$cus_name."\n";
-					$message .= "Mission type: ".str_replace("_"," ",$mission['intervention'])."\n";
-					$message .= "Location : ".$mission['location'];
-					PlivoSms::sendSms(['phoneNumber' => $agent->phone, 'msg' => trans($message) ]);
-				
                     if($mission_id){
                         Session::forget('mission');
                         $mission_id = Helper::encrypt($mission_id);

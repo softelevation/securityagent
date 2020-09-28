@@ -106,7 +106,7 @@
                       </div>
                     </div>
                     <!-- Misison finished tab -->
-                    <div class="tab-pane fade" id="nav-mission-finished" role="tabpanel" aria-labelledby="nav-finished-tab">
+                    <div class="tab-pane fade agent-mission-table" id="nav-mission-finished" role="tabpanel" aria-labelledby="nav-finished-tab">
                       <div class="table-responsive">
                         <table class="table table-hover table-striped">
                             <thead>
@@ -132,8 +132,18 @@
                                     <td>{{date('d/m/Y H:i:s', strtotime($mission->started_at))}}</td>
                                     <td>{{date('d/m/Y H:i:s', strtotime($mission->ended_at))}}</td>
                                     <td>
-                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
-                                        <!-- <div class="dropdown ac-cstm">
+									@if($mission->status==5 && $mission->report)
+										<div class="dropdown">
+											<a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
+											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
+												<a href="{{url('agent/report-view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-rss-square" aria-hidden="true"></i> {{__('frontend.text_155')}}</a>
+											</div>
+										</div>
+                                    @else
+										<a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
+									@endif
+										<!-- <div class="dropdown ac-cstm">
                                             <a class="dropdown-toggle" data-toggle="dropdown">
                                                 <img src="{{asset('assets/images/dots.png')}}">
                                             </a>

@@ -9,6 +9,7 @@ use App\Traits\HelperTrait;
 use App\Traits\PaymentTrait;
 use Auth;
 use App\Agent;
+use App\Report;
 use App\Operator;
 use App\MessageCenter;
 use App\User;
@@ -405,6 +406,11 @@ class OperatorController extends Controller
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }
+    }
+	
+	public function reportView($mission_id){
+		$feature = Report::where('mission_id',Helper::decrypt($mission_id))->first();
+        return view('customer.report-view')->with('feature',$feature);
     }
 
     public function createSubMissions($mission_id){

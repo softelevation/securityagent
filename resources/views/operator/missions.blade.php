@@ -109,10 +109,13 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a><br/>
+														<p><a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a></p>
                                                     @if($mission->status == 5)
-                                                    <a href="{{url('operator/mission_chage_status/archive')}}/{{Helper::encrypt($mission->id)}}" class="action_icons archiveMission"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.mission.archive')}}</a>
+														<p><a href="{{url('operator/mission_chage_status/archive')}}/{{Helper::encrypt($mission->id)}}" class="action_icons archiveMission"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.mission.archive')}}</a></p>
                                                     @endif
+													@if($mission->status==5 && $mission->report)
+														<p><a href="{{url('operator/report-view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-rss-square" aria-hidden="true"></i> {{__('frontend.text_155')}}</a></p>
+													@endif
                                                 </td>
                                             </tr>
                                             @forelse($mission->child_missions as $mission)

@@ -1418,3 +1418,7 @@ a.disabled{
 	pointer-events: none;        
 	text-decoration: none;
 }
+
+.agent-mission-table i.fas.fa-eye.text-grey {
+	margin-left: 8px;
+}

@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Auth;
 use App\Traits\ResponseTrait;
 use App\Helpers\Helper;
 use App\Agent;
+use App\Customer;
 use App\User;
 use App\Mission;
 use App\RefundRequest;
 use App\MissionRequestsIgnored;
+use App\Helpers\PlivoSms;
 use Session;
 use DB;
 use Log;
@@ -101,6 +103,14 @@ trait MissionTrait
                 // assign new agent if found
                 if($agent){
                     $res = Mission::where('id',$mission_id)->update(['agent_id'=>$agent->id,'assigned_at'=>Carbon::now()]);
+					$cus_all = Customer::select('first_name','last_name')->where('id',$mission->customer_id)->first();
+					$cus_name = $cus_all->first_name.' '.$cus_all->last_name;
+					$message = "You have received a new mission. please check the details \n";
+					$message .= "Customer Name : ".$cus_name."\n";
+					$message .= "Mission type: ".str_replace("_"," ",$mission->intervention)."\n";
+					$message .= "Location : ".$mission->location;
+					PlivoSms::sendSms(['phoneNumber' => $agent->phone, 'msg' => trans($message) ]);
+					
                     if($res){
                         $mission = Mission::where('id',$mission_id)->first();
                         /*----Agent Notification-----*/
