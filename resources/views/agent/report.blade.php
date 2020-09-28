@@ -53,8 +53,8 @@
 							<table class="table table-hover table-striped">
 								<tbody>
 									<tr>
-										<td><label>HEURE APPEL :</label> {{Form::text('heure_appel',null,['class'=>'form-control'])}}</td>
-										<td><label>HEURE ARRIVEE :</label> {{Form::text('heure_arrivee',null,['class'=>'form-control'])}}</td>
+										<td><label>HEURE APPEL :</label> {{Form::text('heure_appel',null,['class'=>'form-control timepicker'])}}</td>
+										<td><label>HEURE ARRIVEE :</label> {{Form::text('heure_arrivee',null,['class'=>'form-control timepicker'])}}</td>
 										<td><label>HEURE DE DEPART :</label> {{Form::text('heure_de_depart',null,['class'=>'form-control timepicker'])}}</td>
 									</tr>
 								</tbody>
@@ -171,7 +171,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2" align="center"><button type="submit" class="button success_btn" data-toggle="modal" data-target="#myModal">rapport soumis</button></td>
+										<td colspan="2" align="center"><button type="submit" class="button success_btn" data-toggle="modal" data-target="#myModal">valider le rapport</button></td>
 									</tr>
 								</tbody>
 							</table>
