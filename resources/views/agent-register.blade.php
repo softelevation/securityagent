@@ -52,7 +52,7 @@
 	                      	<div class="col-md-6">
 		                      <div class="form-group">
 				                <label>{{__('frontend.text_101')}}</label>
-				                <input type="text" name="phone" class="form-control numeric-val validation" placeholder="{{__('frontend.text_102')}}" />
+				                <input type="text" name="phone" class="form-control validation" placeholder="{{__('frontend.text_102')}}" />
 		                      </div>
 	                    	</div>
 	               		</div>
