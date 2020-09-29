@@ -49,6 +49,11 @@
 								<div class="col-md-4 form-group">
 								  Date {{Form::date('date',null,['class'=>'form-control'])}}
 								</div>
+								<div class="col-md-2 form-group">
+								</div>
+								<div class="col-md-4 form-group">
+								  Identifiant du rapport {{Form::text('report_id',$report_id,['class'=>'form-control'])}}
+								</div>
 							</div>
 							<table class="table table-hover table-striped">
 								<tbody>
