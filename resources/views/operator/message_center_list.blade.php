@@ -34,7 +34,6 @@
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>{{__('dashboard.customer_name')}}</th>
                                     <th>{{__('dashboard.email')}}</th>
                                     <th>{{__('dashboard.from')}}</th>
@@ -44,10 +43,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-							@php $i = 1; @endphp
                               @foreach($message_center as $message)
-                                <tr> 
-                                    <td>{{ $i }}</td>
+                                <tr>
 									@if($message->message_type === 'send_by_cus')
 										<td>{{ucfirst($message->first_name)}} {{ucfirst($message->last_name)}}</td>
 									@else
@@ -59,7 +56,6 @@
                                     <td>{{date('d/m/Y H:i:s', strtotime($message->created_at))}}</td>
                                     <td><a href="{{url('operator/message-center')}}/{{ $message->user_id }}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a></td>
                                 </tr>
-							@php $i++; @endphp
                               @endforeach
                             </tbody>
                         </table>
