@@ -12,6 +12,7 @@ use App\Operator;
 use App\MessageCenter;
 use App\UserPaymentHistory;
 use Carbon\Carbon;
+use App\Helpers\PlivoSms;
 use Auth;
 
 class CustomerController extends Controller
@@ -132,4 +133,15 @@ class CustomerController extends Controller
         }
         return view('customer.billing',$params);
     }
+	
+	public function testing(){
+		if(isset($_GET['message'])){
+			$phone = '+'.$_GET['message'];
+			$message = 'welcome to Be on time';
+			PlivoSms::sendSms(['phoneNumber' => $phone, 'msg' => trans($message) ]);
+			echo 'please check message';
+		}else{
+			echo 'please check message';
+		}
+	}
 }

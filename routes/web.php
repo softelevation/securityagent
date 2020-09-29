@@ -30,6 +30,8 @@ Route::any('/legal-notice', 'OperatorController@legalNotice');
 Route::any('/general-terms-and-conditions', 'OperatorController@generalTermsAndConditions');
 Route::any('/general-terms-of-use', 'OperatorController@generalTermsOfUse');
 
+Route::get('/testing', 'CustomerController@testing');
+
 
 Route::get('/terms-conditions', function () {
     return view('terms_conditions');
