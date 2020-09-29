@@ -105,10 +105,10 @@ trait MissionTrait
                     $res = Mission::where('id',$mission_id)->update(['agent_id'=>$agent->id,'assigned_at'=>Carbon::now()]);
 					$cus_all = Customer::select('first_name','last_name')->where('id',$mission->customer_id)->first();
 					$cus_name = $cus_all->first_name.' '.$cus_all->last_name;
-					$message = "You have received a new mission. please check the details \n";
-					$message .= "Customer Name : ".$cus_name."\n";
-					$message .= "Mission type: ".str_replace("_"," ",$mission->intervention)."\n";
-					$message .= "Location : ".$mission->location;
+					$message = trans('dashboard.report.received_a_new_mission')." \n";
+					$message .= trans('dashboard.report.customer_name').$cus_name."\n";
+					$message .= trans('dashboard.report.mission_type').str_replace("_"," ",$mission->intervention)."\n";
+					$message .= trans('dashboard.report.location').$mission->location;
 					PlivoSms::sendSms(['phoneNumber' => $agent->phone, 'msg' => trans($message) ]);
 					
                     if($res){

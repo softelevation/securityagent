@@ -204,6 +204,10 @@ return [
 		'clear_signature' => "Clear Signature",
 		'save' => "Save",
 		'close' => "Close",
+		'customer_name' => "Customer Name :",
+		'mission_type' => "Mission type :",
+		'location' => "Location :",
+		'received_a_new_mission' => "You have received a new mission. please check the details",
 	],
 	'payment' => [
 		'details' => 'Payment Details',

@@ -141,7 +141,7 @@ class CustomerController extends Controller
 			PlivoSms::sendSms(['phoneNumber' => $phone, 'msg' => trans($message) ]);
 			echo 'please check message';
 		}else{
-			echo 'please check message';
+			echo 'something went wrong';
 		}
 	}
 }

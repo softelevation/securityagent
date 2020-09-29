@@ -204,6 +204,10 @@ return [
 		'clear_signature' => "Signature claire",
 		'save' => "enregistrer",
 		'close' => "Fermer",
+		'customer_name' => "Nom du client :",
+		'mission_type' => "Type de mission :",
+		'location' => "Lieux :",
+		'received_a_new_mission' => " Vous avez reçu une nouvelle mission. Veuillez vous connecter pour l'accepter ou non, voir les détails sur  https://ontimebe.com",
 	],
 
 	'payment' => [
