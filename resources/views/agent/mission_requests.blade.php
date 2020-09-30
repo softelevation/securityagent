@@ -101,6 +101,7 @@
                               @endphp
                               @forelse($expired_requests as $data)
                                 @php $i++; @endphp
+								@if($data->mission_details)
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{$data->mission_details->title}}</td>
@@ -112,6 +113,7 @@
                                       <a href="{{url('agent/remove-expired-mission/')}}/{{Helper::encrypt($data->id)}}" class="action_icons remove_mission_request"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.delete')}} </a>
                                     </td>
                                 </tr>
+								@endIf
                               @empty
                                 <tr>
                                     <td colspan="7">{{__('dashboard.no_record')}}</td>

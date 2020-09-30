@@ -570,7 +570,9 @@ class OperatorController extends Controller
      * @purpose To get all missions list without agents
      */
     public function missionsListWithoutAgents(Request $request){
-        $missions = Mission::whereDoesntHave('child_missions')->where('status',0)->where('agent_id',0)->where('payment_status',1)->orderBy('id','DESC')->paginate($this->limit); 
+        $missions = Mission::whereDoesntHave('child_missions')->where('status',0)->where('agent_id',0)->where(function ($query) {
+					$query->where('payment_status',1)->orWhere('payment_status',2);
+				})->orderBy('id','DESC')->paginate($this->limit); 
         $statusArr = Helper::getMissionStatus();
         $params = [
             'data' => $missions,

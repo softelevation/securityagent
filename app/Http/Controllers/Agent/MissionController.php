@@ -224,6 +224,7 @@ class MissionController extends Controller
             $timeNow = Carbon::now();
             $data = Mission::where('id',$mission_id)->first();
             // Check if mission cant be started before start time
+			/*
             if(isset($data->start_date_time) && $data->start_date_time!=""){
                 $start_time = Carbon::parse($data->start_date_time);
                 $diff_in_minutes = $start_time->diffInMinutes($timeNow,false);
@@ -237,6 +238,7 @@ class MissionController extends Controller
                     }
                 }
             }
+			*/
             $count = Mission::where('parent_id',$data->parent_id)->where('status', 4)->count();
             if($count==0){
                 Mission::where('id',$data->parent_id)->update(['status'=>4]);
