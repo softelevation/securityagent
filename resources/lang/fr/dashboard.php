@@ -201,8 +201,8 @@ return [
 	
 	'report' => [
 		'signature' => "Signature",
-		'clear_signature' => "Signature claire",
-		'save' => "enregistrer",
+		'clear_signature' => "Effacer la signature",
+		'save' => "Enregistrer",
 		'close' => "Fermer",
 		'customer_name' => "Nom du client :",
 		'mission_type' => "Type de mission :",
