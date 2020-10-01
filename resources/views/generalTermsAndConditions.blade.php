@@ -20,7 +20,7 @@
         </div>
 		
 		<p style="box-sizing: border-box; margin: 0px 0px 1rem; padding: 0px; font-size: 18px; font-family: SignikaRegular;">
-			<b>Plateforme :</b> service de mise en relation entre les Clients et des Agents de sécurité privée disponible sur le site Internet hébergé à l'adresse <a style="box-sizing: border-box; margin: 0px; padding: 0px; color: #ffc107; text-decoration-line: none; background-color: transparent;" href="#" rel="noopener">www.ontimebe.com</a> et sur l'application mobile ontimebe.
+			<b>Plateforme :</b> service de mise en relation entre les Clients et des Agents de sécurité privée disponible sur le site Internet hébergé à l'adresse <a style="box-sizing: border-box; margin: 0px; padding: 0px; color: #ffc107; text-decoration-line: none; background-color: transparent;" href="https://ontimebe.com" target="_blank" rel="noopener">www.ontimebe.com</a> et sur l'application mobile ontimebe.
 		</p>
 		
 		<p style="box-sizing: border-box; margin: 0px 0px 1rem; padding: 0px; font-size: 18px; font-family: SignikaRegular;">
