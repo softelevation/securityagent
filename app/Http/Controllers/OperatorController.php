@@ -612,7 +612,7 @@ class OperatorController extends Controller
 						->where('operator_id',Auth::id())->orderBy('message_centers.id','DESC')->get();
 		echo '<pre>';
 		print_r($messageCenter->toArray());
-		die;
+		die('wwwwwwww');
 		$params['message_center'] = $messageCenter;
         return view('operator.message_center_list',$params);
     }
