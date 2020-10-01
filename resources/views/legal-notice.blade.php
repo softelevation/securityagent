@@ -16,7 +16,7 @@
       <div class="text_panel col-xl-12 col-lg-12">
         <!-- {!!__('frontend.text_56',['url'=>url('register-agent-view')])!!} -->
         <p style="box-sizing: border-box; margin: 0px 0px 1rem; padding: 0px; font-size: 18px; font-family: SignikaRegular;">
-		<b>La société BE ON TIME,</b> société par actions simplifiée immatriculée au RCS de PARIS sous le n°882.276.694 titulaire d'un agrément CNAPS Sécurité Privée n°AUT-075-2119-06-05-20200741467 détient et exploite une plateforme électronique à l'adresse <a style="box-sizing: border-box; margin: 0px; padding: 0px; color: #ffc107; text-decoration-line: none; background-color: transparent;" href="#" rel="noopener">www.ontimebe.com</a> permettant la mise en relation d'agent de sécurité avec des clients.
+		<b>La société BE ON TIME,</b> société par actions simplifiée immatriculée au RCS de PARIS sous le n°882.276.694 titulaire d'un agrément CNAPS Sécurité Privée n°AUT-075-2119-06-05-20200741467 détient et exploite une plateforme électronique à l'adresse <a style="box-sizing: border-box; margin: 0px; padding: 0px; color: #ffc107; text-decoration-line: none; background-color: transparent;" href="https://ontimebe.com" target="_blank" rel="noopener">www.ontimebe.com</a> permettant la mise en relation d'agent de sécurité avec des clients.
 		</p>
 		
 		<p style="box-sizing: border-box; margin: 0px 0px 1rem; padding: 0px; font-size: 18px; font-family: SignikaRegular;">
@@ -73,7 +73,7 @@
 		</p>
 		
 		<p style="box-sizing: border-box; margin: 0px 0px 1rem; padding: 0px; font-size: 18px; font-family: SignikaRegular;">
-		Le Site accessible à l’adresse <a style="box-sizing: border-box; margin: 0px; padding: 0px; color: #ffc107; text-decoration-line: none; background-color: transparent;" href="#" rel="noopener">www.ontimebe.com</a> est hébergé par la société OVH, société par actions simplifiée au capital de 10 069 020 € immatriculée au RCS Lille Métropole sous le n°424 761 419  dont le siège social est 2 rue Kellermann - 59100 Roubaix - France
+		Le Site accessible à l’adresse <a style="box-sizing: border-box; margin: 0px; padding: 0px; color: #ffc107; text-decoration-line: none; background-color: transparent;" href="https://ontimebe.com" target="_blank" rel="noopener">www.ontimebe.com</a> est hébergé par la société OVH, société par actions simplifiée au capital de 10 069 020 € immatriculée au RCS Lille Métropole sous le n°424 761 419  dont le siège social est 2 rue Kellermann - 59100 Roubaix - France
 		</p>
 		
 		<div class="heading">
