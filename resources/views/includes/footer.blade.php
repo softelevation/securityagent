@@ -61,6 +61,10 @@
                         <li><a href="{{url('/contact-us')}}"><i class="fa fa-share" aria-hidden="true"></i> {{__('frontend.text_28')}}</a></li>
                         <li><a href="{{url('/available-agents')}}"><i class="fa fa-share" aria-hidden="true"></i> {{__('frontend.text_29')}}</a></li>
                         <li><a href="{{url('/legal-notice')}}"><i class="fa fa-share" aria-hidden="true"></i>legal notice</a></li>
+                        <li><a href="{{url('/privacy-policy')}}"><i class="fa fa-share" aria-hidden="true"></i>Politique de confidentialite</a></li>
+                        <li><a href="{{url('/general-terms-and-conditions')}}"><i class="fa fa-share" aria-hidden="true"></i>Conditions de vente</a></li>
+                        <li><a href="{{url('/general-terms-of-use')}}"><i class="fa fa-share" aria-hidden="true"></i>Mentions legales</a></li>
+                        <li><a href="{{url('/available-agents')}}"><i class="fa fa-share" aria-hidden="true"></i>Plan du Site</a></li>
                     </ul> 
                     <div class="social_sprite">
                         <a class="facebook" href="#"></a>

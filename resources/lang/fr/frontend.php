@@ -180,6 +180,8 @@ return [
 	"text_155" => "COMPTE RENDU",
 	"language" => "fr",
 	"select" => "Choisir",
+	"succeeded" => "réussi",
+	"new_mission_request" => "Une nouvelle demande de mission en attente",
 	"term_and_condition_1" => "J'accepte les <a href='./../../general-terms-and-conditions' target='_blank'>conditions générales</a> de vente et les <a href='./../../general-terms-of-use' target='_blank'>conditions générales d'utilisation</a>",
 	"term_and_condition_2" => "j’accepte que la <a href='javascript:;'>prestation soit</a> exécutée avant le terme de mon droit de rétractation et <a href='javascript:;'>renonce expressément</a> à ce droit",
     "terms_conditions_text1" => "En cliquant sur <b> Devenir agent </b>, vous acceptez nos <a href=':url' target='_blank'> Conditions générales",

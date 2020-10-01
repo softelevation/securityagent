@@ -237,6 +237,7 @@ $(document).ready(function () {
 
     $(".agent_schedule").datepicker({
         minDate: 0,
+		dateFormat: 'mm/dd/yy',
         onSelect: function (dateText, inst) {
             var show_date = [];
             let new_date = dateText.split("/");

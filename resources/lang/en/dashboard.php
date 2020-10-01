@@ -202,6 +202,7 @@ return [
 	'report' => [
 		'signature' => "Signature",
 		'clear_signature' => "Clear Signature",
+		'signature_mandatory' => "Signature is mandatory",
 		'save' => "Save",
 		'close' => "Close",
 		'customer_name' => "Customer Name :",

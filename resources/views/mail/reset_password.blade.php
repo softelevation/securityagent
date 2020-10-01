@@ -1,5 +1,5 @@
 @component('mail::message')
-Hello {{$name}},
+{{__('messages.hello')}} {{$name}},
 
 {{__('messages.reset_pwd_text1')}}
 
@@ -10,6 +10,6 @@ Hello {{$name}},
 
 {{__('messages.reset_pwd_text2')}}
 
-Thanks,<br>
+{{__('messages.thanks')}},<br>
 {{ config('app.name') }}
 @endcomponent

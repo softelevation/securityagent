@@ -179,7 +179,7 @@
                               <td>{{$i}}.</td>
                               <td>{{$payment->amount}} <i class="fa fa-euro-sign"></i></td>
                               <td>{{date('d/m/Y H:i:s', strtotime($payment->created_at))}}</td>
-                              <td>{{ucfirst($payment->status)}}</td>
+                              <td>@if($payment->status == 'succeeded') {{__("frontend.$payment->status")}} @else {{$payment->status}}  @endif</td>
                             </tr>
                             @empty
                             <tr>

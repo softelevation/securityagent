@@ -48,7 +48,7 @@
                                           <td>{{$data->title}}</td>
                                           <td>{{Helper::mission_id_str($data->mid)}}</td>
                                           <td>{{$data->amount}} <i class="fa fa-euro-sign"></i></td>
-                                          <td>{{$data->status}}</td>
+                                          <td>@if($data->status == 'succeeded') {{__("frontend.$data->status")}} @else {{$data->status}}  @endif</td>
                                           <td>{{date('d/m/Y H:i:s', strtotime($data->created_at))}}</td>
                                           <td><a target="_blank" class="action_icons" href="{{url('download-payment-receipt/'.Helper::encrypt($data->id))}}"><i class="fa fa-download"></i> {{__('dashboard.download')}}</a></td>
                                       </tr>

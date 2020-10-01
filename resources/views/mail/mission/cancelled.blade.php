@@ -1,5 +1,5 @@
 @component('mail::message')
-Hello {{$name}},
+{{__('messages.hello')}} {{$name}},
 
 {{$message}}
 
@@ -7,6 +7,6 @@ Hello {{$name}},
 View Mission Details
 @endcomponent
 
-Thanks,<br>
+{{__('messages.thanks')}},<br>
 {{ config('app.name') }}
 @endcomponent

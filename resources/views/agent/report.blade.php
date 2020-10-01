@@ -195,7 +195,7 @@
 	
 	
 	<!-- Modal -->
-	<div id="myModal" class="modal" role="dialog">
+	<div id="myModal" class="modal" role="dialog" data-backdrop="false">
 	  <div class="modal-dialog modal-md">
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -211,7 +211,7 @@
 							<label class="" for="">{{__('dashboard.report.signature')}}:</label>
 							<br/>
 							<div id="sig" ></div>
-							<br/>
+							<p class="text-danger">* {{__('dashboard.report.signature_mandatory')}}.</p>
 							<button class="btn btn-success" id="clear">{{__('dashboard.report.clear_signature')}}</button>
 							<textarea id="signature64" name="signature" style="display: none"></textarea>
 						</div>
@@ -219,7 +219,6 @@
 			  </div>
 			  <div class="modal-footer">
 				<button type="submit" class="btn btn-primary success_btn">{{__('dashboard.report.save')}}</button>
-				<button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">{{__('dashboard.report.close')}}</button>
 			  </div>
 		  {{Form::close()}}
 		</div>

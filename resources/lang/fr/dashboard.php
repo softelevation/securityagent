@@ -202,6 +202,7 @@ return [
 	'report' => [
 		'signature' => "Signature",
 		'clear_signature' => "Effacer la signature",
+		'signature_mandatory' => "La signature est obligatoire",
 		'save' => "Enregistrer",
 		'close' => "Fermer",
 		'customer_name' => "Nom du client :",

@@ -70,7 +70,7 @@
                       </div>
                       @if(Helper::get_misison_request_count() > 0)
                       <ul class="dropdown-menu mission-requests">
-                        <li class="item"><a href="{{url('agent/mission-requests')}}"><i class="fa fa-edit"></i> {{Helper::get_misison_request_count()}} New mission request</a></li>
+                        <li class="item"><a href="{{url('agent/mission-requests')}}"><i class="fa fa-edit"></i> {{Helper::get_misison_request_count()}} {{__('frontend.new_mission_request')}}</a></li>
                       </ul>
                       @endif
                     </div>

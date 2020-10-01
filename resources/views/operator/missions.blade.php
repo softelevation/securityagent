@@ -280,7 +280,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($mission_all && !empty($paginate_array)) {{$mission_all->appends($paginate_array)->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
+                                            @if($future_mission && !empty($paginate_array)) {{$future_mission->appends($paginate_array)->links()}} @elseif($future_mission) {{$future_mission->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
@@ -414,7 +414,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($mission_all && !empty($paginate_array)) {{$mission_all->appends($paginate_array)->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
+                                            @if($quick_mission && !empty($paginate_array)) {{$quick_mission->appends($paginate_array)->links()}} @elseif($quick_mission) {{$quick_mission->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
@@ -486,7 +486,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($mission_all && !empty($paginate_array)) {{$mission_all->appends($paginate_array)->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
+                                            @if($finished_mission && !empty($paginate_array)) {{$finished_mission->appends($paginate_array)->links()}} @elseif($finished_mission) {{$finished_mission->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>
@@ -608,7 +608,7 @@
                                 <div class="row">
                                     <div class="ml-auto mr-auto">
                                         <nav class="navigation2 text-center" aria-label="Page navigation">
-                                           @if($mission_all && !empty($paginate_array)) {{$mission_all->appends($paginate_array)->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
+                                           @if($archived_mission && !empty($paginate_array)) {{$archived_mission->appends($paginate_array)->links()}} @elseif($archived_mission) {{$archived_mission->links()}} @endif
                                         </nav>
                                     </div>
                                 </div>

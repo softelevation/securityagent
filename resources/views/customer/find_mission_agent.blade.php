@@ -48,7 +48,7 @@
                       </div>
                       <div class="col-md-4 form-group">
                         <label>{{__('dashboard.mission.mission_hours')}}</label>
-                        <span class="form-control">{{$mission->total_hours}} Hour(s)</span>
+                        <span class="form-control">{{$mission->total_hours}} {{__('dashboard.hours')}}</span>
                       </div>
                       @if($mission->quick_book==0)
                       <div class="col-md-4 form-group">

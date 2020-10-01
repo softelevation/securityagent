@@ -178,6 +178,8 @@ return [
 	"text_155" => "Report view",
 	"language" => "en",
 	"select" => "Select",
+	"succeeded" => "succeeded",
+	"new_mission_request" => "New mission request",
 	"term_and_condition_1" => "I do accept <a href='./../../general-terms-and-conditions' target='_blank'>General Terms and Conditions</a> of sale and <a href='./../../general-terms-of-use' target='_blank'>General Terms of use</a>",
 	"term_and_condition_2" => "I do accept that the service is <a href='javascript:;'>performed before</a> the end of my right of <a href='javascript:;'>withdrawal and expressly waives</a> this right",
 	"terms_conditions_text1" => "By clicking <b>Become Agent</b>, you agree to our <a href=':url' target='_blank'>Terms and Conditions Policy",

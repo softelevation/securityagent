@@ -588,10 +588,12 @@ class Helper {
             if($vehicle_required==1){ return 'Oui'; }
             if($vehicle_required==2){ return 'Non'; }
             if($vehicle_required==3){ return "peu importe"; }
+			if(!$vehicle_required){ return 'Non'; }
         }else{
             if($vehicle_required==1){ return 'Yes'; }
             if($vehicle_required==2){ return 'No'; }
             if($vehicle_required==3){ return "Doesn't Matter"; }
+			if(!$vehicle_required){ return 'No'; }
         }
     }
 
