@@ -67,7 +67,8 @@ class CustomerController extends Controller
     }
 	
 	public function messageCenter(Request $request){
-		$user_messages = MessageCenter::select('operators.user_id','operators.first_name','operators.last_name','message_centers.message','message_centers.message_type')->join('operators','operators.user_id','message_centers.operator_id')->where('message_centers.user_id',Auth::id())->orderBy('message_centers.created_at','ASC')->get();
+		// operator_id
+		$user_messages = MessageCenter::select('operators.user_id','operators.first_name','operators.last_name','message_centers.message','message_centers.message_type')->where('message_centers.user_id',Auth::id())->orderBy('message_centers.created_at','ASC')->get();
 		$customer_profile = Customer::select('first_name','last_name')->where('user_id',\Auth::id())->first();
 		$params = array();
 		$params['user_id'] =Auth::id();
