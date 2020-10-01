@@ -610,6 +610,9 @@ class OperatorController extends Controller
 						->leftJoin('agents','agents.user_id','message_centers.user_id')
 						->join('users','users.id','message_centers.user_id')->distinct()->groupBy('user_id')
 						->where('operator_id',Auth::id())->orderBy('message_centers.id','DESC')->get();
+		echo '<pre>';
+		print_r($messageCenter->toArray());
+		die;
 		$params['message_center'] = $messageCenter;
         return view('operator.message_center_list',$params);
     }
