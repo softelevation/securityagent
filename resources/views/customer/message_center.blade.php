@@ -36,7 +36,7 @@ div.ex1 {background-color: lightblue; height: 210px; overflow: scroll; padding: 
 									if($user_message->message_type === 'send_by_cus'){
 										$fullname = ($cus_profile) ? ucfirst($cus_profile->first_name).' '.ucfirst($cus_profile->last_name) : 'Unknown';
 									}else{
-										$fullname = ($user_message) ? ucfirst($user_message->first_name).' '.ucfirst($user_message->last_name) : 'Unknown';
+										$fullname = ($operator_profile) ? ucfirst($operator_profile->first_name).' '.ucfirst($operator_profile->last_name) : 'Unknown';
 									}
 								  ?>
 									<p class="{{$user_message->message_type}}"><b>{{$fullname}} :</b>{{$user_message->message}}</p>
