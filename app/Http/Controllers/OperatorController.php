@@ -605,14 +605,11 @@ class OperatorController extends Controller
     }
 	
 	public function messageCenter(Request $request){
-		$messageCenter = MessageCenter::select('message_centers.id','message_centers.user_id as user_id','message_centers.operator_id','message_centers.message_type','message_centers.status','message_centers.created_at','customers.first_name','customers.last_name','agents.first_name as a_first_name','agents.last_name as a_last_name','users.email')
+		$messageCenter = MessageCenter::select('message_centers.id','message_centers.user_id as user_id','message_centers.message_type','message_centers.status','message_centers.created_at','customers.first_name','customers.last_name','agents.first_name as a_first_name','agents.last_name as a_last_name','users.email')
 						->leftJoin('customers','customers.user_id','message_centers.user_id')
 						->leftJoin('agents','agents.user_id','message_centers.user_id')
 						->join('users','users.id','message_centers.user_id')->distinct()->groupBy('user_id')
-						->where('operator_id',Auth::id())->orderBy('message_centers.id','DESC')->get();
-		echo '<pre>';
-		print_r($messageCenter->toArray());
-		die('wwwwwwww');
+						->orderBy('message_centers.id','DESC')->get();
 		$params['message_center'] = $messageCenter;
         return view('operator.message_center_list',$params);
     }
