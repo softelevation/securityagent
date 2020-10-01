@@ -12,6 +12,7 @@ return [
 	'agent' => 'Agent',
 	'customer' => 'Customer',
 	'customer_support' => 'Customer Support',
+	'agent_support' => 'Agent Support',
 	'operator' => 'Operator',
 	'change_profile' => 'Change Profile',
 	'first_name' => 'First Name',
