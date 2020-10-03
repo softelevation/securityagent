@@ -36,20 +36,22 @@
 							</table>
 							<div class="row">
 								<div class="col-md-4 form-group">
-								  Date {{Form::date('date',$feature->date,['class'=>'form-control'])}}
+								  <label>Date</label>
+								<span class="form-control">{{$feature->date}}</span>
 								</div>
 								<div class="col-md-2 form-group">
 								</div>
 								<div class="col-md-4 form-group">
-								  Identifiant du rapport {{Form::text('report_id',$feature->report_id,['class'=>'form-control'])}}
+									<label>Identifiant du rapport</label>
+									<span class="form-control">{{$feature->report_id}}</span>
 								</div>
 							</div>
 							<table class="table table-hover table-striped">
 								<tbody>
 									<tr>
-										<td><label>HEURE APPEL :</label> {{Form::text('heure_appel',$feature->heure_appel,['class'=>'form-control'])}}</td>
-										<td><label>HEURE ARRIVEE :</label> {{Form::text('heure_arrivee',$feature->heure_arrivee,['class'=>'form-control'])}}</td>
-										<td><label>HEURE DE DEPART :</label> {{Form::text('heure_de_depart',$feature->heure_de_depart,['class'=>'form-control'])}}</td>
+										<td><label>HEURE APPEL :</label> <span class="form-control">{{$feature->heure_appel}}</span></td>
+										<td><label>HEURE ARRIVEE :</label> <span class="form-control">{{$feature->heure_arrivee}}</span></td>
+										<td><label>HEURE DE DEPART :</label> <span class="form-control">{{$feature->heure_de_depart}}</span></td>
 									</tr>
 								</tbody>
 							</table>

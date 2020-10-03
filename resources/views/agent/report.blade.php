@@ -47,7 +47,7 @@
 							</table>
 							<div class="row">
 								<div class="col-md-4 form-group">
-								  Date {{Form::date('date',null,['class'=>'form-control'])}}
+								  Date {{Form::text('date',null,['class'=>'form-control mindatepicker'])}}
 								</div>
 								<div class="col-md-2 form-group">
 								</div>

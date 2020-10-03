@@ -59,6 +59,12 @@ $(document).ready(function () {
             format: 'H:i',
             // minTime:''11:00''
         });
+		$(".mindatepicker").datepicker({
+			changeMonth: true,
+			changeYear: true,
+			dateFormat: 'yy-mm-dd',
+			minDate: 0
+		});
     });
 
     $(document).on('click', '.mission_start_radio', function () {
