@@ -132,6 +132,7 @@
                                       @else
                                         <a id="{{Helper::encrypt($agent->id)}}" data-type="1" class="action_icons block_un_agent" href="javascript:void(0)"><i class="fas fa-toggle-on text-grey" aria-hidden="true"></i> {{__('dashboard.block')}}</a>
                                       @endif
+									  <p><a href="{{url('operator/report')}}/{{Helper::encrypt($agent->id)}}" class="action_icons"><i class="fas fa-rss-square" aria-hidden="true"></i>Report</a></p>
  
                                     </td>
                                 </tr>

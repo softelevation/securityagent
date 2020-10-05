@@ -79,6 +79,17 @@ class OperatorController extends Controller
         } 
         return view('operator.agents_list',$params);
     }
+	
+	public function reportPdf($agent_id){
+		$agent_id = Helper::decrypt($agent_id);
+		$agent = Agent::whereId($agent_id)->first();
+		$result = Mission::where('agent_id',$agent_id)->where(function ($query) {
+								$query->where('payment_status',1)
+									  ->orWhere('payment_status',2);
+							})->get();
+        $pdf = \PDF::loadView('pdf.agent_report', ['results'=>$result,'agent'=>$agent]);
+        return $pdf->download('invoice.pdf');
+    }
 
     /**
      * @return mixed
