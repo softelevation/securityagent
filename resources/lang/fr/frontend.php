@@ -181,6 +181,7 @@ return [
 	"language" => "fr",
 	"select" => "Choisir",
 	"succeeded" => "réussi",
+	"awiting payment" => "En attente de paiement",
 	"new_mission_request" => "Une nouvelle demande de mission en attente",
 	"term_and_condition_1" => "J'accepte les <a href='./../../general-terms-and-conditions' target='_blank'>conditions générales</a> de vente et les <a href='./../../general-terms-of-use' target='_blank'>conditions générales d'utilisation</a>",
 	"term_and_condition_2" => "j’accepte que la <a href='javascript:;'>prestation soit</a> exécutée avant le terme de mon droit de rétractation et <a href='javascript:;'>renonce expressément</a> à ce droit",
