@@ -88,7 +88,7 @@ class OperatorController extends Controller
 									  ->orWhere('payment_status',2);
 							})->get();
         $pdf = \PDF::loadView('pdf.agent_report', ['results'=>$result,'agent'=>$agent]);
-        return $pdf->download('invoice.pdf');
+        return $pdf->download('report.pdf');
     }
 
     /**

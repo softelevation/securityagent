@@ -81,6 +81,7 @@ return [
 	// Mission Related
 	'mission' => [
 		'mission' => 'Mission',
+		'mission_id' => 'Mission id',
 		'title' => 'Mission Title',
 		'ref' => 'Mission Ref.',
 		'location' => 'Mission Location',

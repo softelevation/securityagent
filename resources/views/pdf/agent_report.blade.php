@@ -210,7 +210,7 @@
                             <div class="email"><a href="">{{$agent->user->email}}</a></div>
                         </div>
                         <div class="pull-right">
-                            <h2 class="invoice-id">{{__('dashboard.phone_number')}}-{{$agent->phone}}</h2>
+                            <h2 class="invoice-id">{{__('dashboard.phone_number')}}= {{$agent->phone}}</h2>
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -219,33 +219,36 @@
                     <table border="0" cellspacing="0" cellpadding="0">
                         <thead>
                             <tr>
+                                <th class="text-center">{{__('dashboard.mission.mission_id')}}</th>
                                 <th class="text-center">{{__('dashboard.mission.title')}}</th>
-                                <th class="text-center">{{__('dashboard.agents.intervention')}}</th>
-                                <th class="text-center">Report</th>
+                                <th class="text-center">{{__('frontend.text_156')}}</th>
                                 <th class="text-center">{{__('dashboard.customer_name')}}</th>
+                                <th class="text-right">{{__('dashboard.agents.time_intervel')}}</th>
                                 <th class="text-right">{{__('dashboard.amount')}}</th>
                             </tr>
                         </thead>
                         <tbody>
-						@php $original_amount= 0; @endphp
+						@php $original_amount= 0; $total_hours_sum = 0; @endphp
 							@foreach($results as $result)
                             <tr>
+                                <td class="text-center">{{Helper::mission_id_str($result->id)}}</td>
                                 <td class="text-center">{{ $result->title }}</td>
-                                <td class="text-center">{{ $result->intervention }}</td>
                                 <td class="text-center">{{ ($result->report) ? $result->report->report_id : '' }}</td>
                                 <td class="text-center">{{ucfirst($result->customer_details->first_name.' '.$result->customer_details->last_name)}}</td>
-                                <td class="text-right">{{ $result->amount }}</td>
+                                <td class="text-right">{{ $result->total_hours }} {{__('dashboard.hours')}}</td>
+                                <td class="text-right">${{ $result->amount }}</td>
                             </tr>
 							@php 
 							  $original_amount+= $result->amount;
+							  $total_hours_sum+= $result->total_hours;
 							@endphp
 				
 							@endforeach
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td class="text-right" colspan="4">{{__('dashboard.grand_total')}}</td>
-                                <td class="text-right">{{$original_amount}}</td>
+                                <td class="text-right" colspan="5">{{__('dashboard.agents.total_hours_worked')}} {{$total_hours_sum}} {{__('dashboard.hours')}}</td>
+                                <td class="text-right">{{__('dashboard.grand_total')}} ${{$original_amount}}</td>
                             </tr>
                         </tfoot>
                     </table>

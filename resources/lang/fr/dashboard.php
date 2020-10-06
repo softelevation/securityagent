@@ -80,6 +80,7 @@ return [
 	// Mission Related
 	'mission' => [
 		'mission' => 'Mission',
+		'mission_id' => 'Identifiant de mission',
 		'title' => 'Titre Mission',
 		'ref' => 'Réf Mission.',
 		'location' => 'Lieu de la mission',

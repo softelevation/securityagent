@@ -176,6 +176,7 @@ return [
 	"text_153" => "Our phone number : 01 83 62 52 14",
 	"text_154" => "Bank Transfer",
 	"text_155" => "Report view",
+	"text_156" => "Report id",
 	"language" => "en",
 	"select" => "Select",
 	"succeeded" => "succeeded",

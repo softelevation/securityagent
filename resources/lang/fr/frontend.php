@@ -178,6 +178,7 @@ return [
 	"text_153" => "Notre n° de tél: 01 83 62 52 14",
 	"text_154" => "Virement",
 	"text_155" => "COMPTE RENDU",
+	"text_156" => "Identifiant du rapport",
 	"language" => "fr",
 	"select" => "Choisir",
 	"succeeded" => "réussi",
