@@ -202,6 +202,7 @@ return [
 		'date_time' => 'Date Time',
 	],
 	'report' => [
+		'report' => "Report",
 		'signature' => "Signature",
 		'clear_signature' => "Clear Signature",
 		'signature_mandatory' => "Signature is mandatory",

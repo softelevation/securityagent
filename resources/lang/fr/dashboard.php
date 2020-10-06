@@ -202,6 +202,7 @@ return [
 	],
 	
 	'report' => [
+		'report' => "Rapport",
 		'signature' => "Signature",
 		'clear_signature' => "Effacer la signature",
 		'signature_mandatory' => "La signature est obligatoire",

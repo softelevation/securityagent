@@ -38,6 +38,9 @@
 							<li class="nav-item">
                                 <a class="nav-link" href="{{url('operator/message-center')}}"><i class="fa fa-message_center"></i> {{__('dashboard.mission.message_center')}}</a>
                             </li>
+							<li class="nav-item">
+                                <a class="nav-link" href="{{url('operator/report')}}"><i class="fa fa-database"></i> {{__('dashboard.report.report')}}</a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{url('logout')}}"><i class="fa fa-sign-out-alt"></i> {{__('dashboard.logout')}}</a>
                             </li>

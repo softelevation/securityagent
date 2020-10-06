@@ -73,6 +73,9 @@ Route::group(['prefix'=>'operator'], function () {
     Route::group(['middleware'=>['auth','roles']], function () {
 	    Route::get('/profile', 'OperatorController@loadProfileView');
         Route::get('/agents', 'OperatorController@viewAgentsList');
+        Route::get('/report', 'OperatorController@reportFilter');
+        Route::post('/report', 'OperatorController@reportFilterPost');
+		
 		Route::get('/report/{mission_id}', 'OperatorController@reportPdf');
 		Route::get('/report-view/{mission_id}', 'OperatorController@reportView');
         Route::get('/agent/view/{id}', 'OperatorController@viewAgentDetails');

@@ -625,6 +625,22 @@ class OperatorController extends Controller
         return view('operator.message_center_list',$params);
     }
 	
+	public function reportFilter(){
+		$agent = array();
+		$agentDatas = Agent::select('id','first_name','last_name')->where('status','1')->get();
+		foreach($agentDatas as $agentData){
+			$agent[$agentData->id] = $agentData->first_name.' '.$agentData->last_name;
+		}
+    	return view('operator.report')->with('agent',$agent);
+    }
+	
+	public function reportFilterPost(Request $request){
+		$inputData = $request->all();
+		echo '<pre>';
+		print_r($inputData);
+		die;
+	}
+	
 	public function messageCenterId($id){
 		
 		if(Customer::where('user_id',$id)->first()){
