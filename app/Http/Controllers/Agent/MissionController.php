@@ -106,6 +106,7 @@ class MissionController extends Controller
 		$user_messages = MessageCenter::select('message_centers.message','message_centers.message_type')->where('message_centers.user_id',Auth::id())->orderBy('message_centers.created_at','ASC')->get();
 		$customer_profile = Agent::select('first_name','last_name')->where('user_id',\Auth::id())->first();
 		$operator_profile = Operator::select('first_name','last_name')->first();
+		MessageCenter::where('user_id',Auth::user()->id)->where('message_type','send_by_op')->where('status','1')->update(array('status'=>'2'));
 		$params = array();
 		$params['user_id'] =Auth::id();
 		$params['cus_id'] = '1';

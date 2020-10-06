@@ -179,6 +179,7 @@ return [
 	"text_154" => "Virement",
 	"text_155" => "COMPTE RENDU",
 	"text_156" => "Identifiant du rapport",
+	"text_157" => "Nom de la compagnie",
 	"language" => "fr",
 	"select" => "Choisir",
 	"succeeded" => "réussi",

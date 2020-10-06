@@ -13,7 +13,7 @@
 
 <div class="contact_panel">
   <div class="container">
-    <div class="row"> 
+    <div class="row customer-signup"> 
         <div class="col-md-12">
             <div class="contact_box">
                 <h3><i class="fa fa-pin"></i> {{__('frontend.text_144')}}
@@ -85,6 +85,15 @@
 			                    <input type="radio" name="customer_type" value="2"> {{__('frontend.text_143')}}
 		                      </div>
 		                    </div>
+	                  	</div> 
+						<div class="row">
+		                    <div class="col-md-12">
+		                      <div class="form-group company_name" style="display:none">
+				                <label>{{__('frontend.text_157')}}</label>
+			                    <input type="text" name="company_name" class="form-control validation" placeholder="{{__('frontend.text_157')}}" />
+		                      </div>
+		                    </div>
+
 	                  	</div> 
 	                  	<div class="row">
 	                  		<div class="col-md-6">

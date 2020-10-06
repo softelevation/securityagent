@@ -262,11 +262,11 @@ class OperatorController extends Controller
             $missionAll = $mission->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
             $missionFuture = $mission->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
             $missionQuick = $mission->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
-            $missionCompleted = $mission->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
+            $missionCompleted = Mission::with(['child_missions','customer_details'])->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
             $statusArr = Helper::getMissionStatus();
             $statusArr = array_flip($statusArr);
             
-        } 
+        }
         
         $params = [
             'archived_mission' => $missionArchived,
@@ -632,7 +632,7 @@ class OperatorController extends Controller
 		}else{
 			$user_messages = MessageCenter::select('agents.user_id','agents.first_name','agents.last_name','message_centers.message','message_centers.message_type')->join('agents','agents.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
 		}
-		$message = MessageCenter::where('user_id',$id)->update(array('status'=>'2'));
+		$message = MessageCenter::where('user_id',$id)->where('message_type','!=','send_by_op')->update(array('status'=>'2'));
 		$opData = Operator::select('first_name','last_name')->where('user_id',Auth::id())->first();
 		$params = array();
 		$params['user_id'] =Auth::id();

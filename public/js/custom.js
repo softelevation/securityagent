@@ -380,6 +380,15 @@ $(document).ready(function () {
 			event.preventDefault();
 		});
 		
+		$('input[name="customer_type"]').click(function(){
+			let company_name = $(this).val();
+			if(company_name == '2'){
+				$('div[class="form-group company_name"]').show();
+			}else{
+				$('div[class="form-group company_name"]').hide();
+			}
+		});
+		
 		$('select[class="form-control intervention"]').change(function(){
 			if($(this).val() == 'Intervention'){
 				$('input[name="vehicle_required"]:eq(0)').click();

@@ -543,6 +543,20 @@ class Helper {
     public static function get_refund_request_count(){
         return RefundRequest::where('status',0)->count();
     }
+	
+	public static function get_message_center_count($input){
+		if($input = 'cus'){
+			$message_center = DB::table('message_centers')->select('id')->where('user_id',Auth::user()->id)->where('message_type','send_by_op')->where('status','1')->count();
+		}else if($input = 'agent'){
+			$message_center = DB::table('message_centers')->select('id')->where('user_id',Auth::user()->id)->where('message_type','send_by_op')->where('status','1')->count();
+		}else{
+			$message_center = 0;
+		}
+		// Auth::user()->agent_info->id
+		// customer_info
+		
+        return $message_center;
+    }
 
     /**
      * @return integer

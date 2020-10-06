@@ -177,6 +177,7 @@ return [
 	"text_154" => "Bank Transfer",
 	"text_155" => "Report view",
 	"text_156" => "Report id",
+	"text_157" => "Company name",
 	"language" => "en",
 	"select" => "Select",
 	"succeeded" => "succeeded",
