@@ -236,7 +236,7 @@
                                 <td class="text-center">{{ ($result->report) ? $result->report->report_id : '' }}</td>
                                 <td class="text-center">{{ucfirst($result->customer_details->first_name.' '.$result->customer_details->last_name)}}</td>
                                 <td class="text-right">{{ $result->total_hours }} {{__('dashboard.hours')}}</td>
-                                <td class="text-right">${{ $result->amount }}</td>
+                                <td class="text-right">{{ $result->amount }} €</td>
                             </tr>
 							@php 
 							  $original_amount+= $result->amount;
@@ -248,7 +248,7 @@
                         <tfoot>
                             <tr>
                                 <td class="text-right" colspan="5">{{__('dashboard.agents.total_hours_worked')}} {{$total_hours_sum}} {{__('dashboard.hours')}}</td>
-                                <td class="text-right">{{__('dashboard.grand_total')}} ${{$original_amount}}</td>
+                                <td class="text-right">{{__('dashboard.grand_total')}} {{$original_amount}} €</td>
                             </tr>
                         </tfoot>
                     </table>

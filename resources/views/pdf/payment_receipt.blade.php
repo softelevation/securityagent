@@ -236,7 +236,7 @@
                                 <td class="text-center">{{Helper::mission_id_str($data->mission_details->id)}}</td>
                                 <td class="text-center">{{strtoupper($data->mission_details->title)}}</td>
                                 <td class="text-center">@if($data->mission_details->quick_book==1) {{__('dashboard.quick_booking')}} @else {{__('dashboard.future_booking')}} @endif</td>
-                                <td class="text-center">{{strtoupper($data->status)}}</td>
+                                <td class="text-center">@if($data->status == 'succeeded') {{__("frontend.$data->status")}} @else {{__("frontend.$data->status")}}  @endif</td>
                                 <td class="text-right">{{$original_amount}} &euro;</td>
                             </tr>
                         </tbody>

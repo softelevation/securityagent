@@ -25,8 +25,8 @@
                       <button type="submit" class="yellow_btn"> {{__('frontend.text_89')}}</button>
                     </div>
                     <div class="help">
-                      Forgot Your Password ? 
-                      <a href="{{ url('reset-password') }}">Get Help</a>
+                      {{__('frontend.Forgot_Your_Password')}} ? 
+                      <a href="{{ url('reset-password') }}">{{__('frontend.Get_Help')}}</a>
                     </div>
                   </form>
                 </div>

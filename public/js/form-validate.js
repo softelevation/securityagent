@@ -1,7 +1,7 @@
 var toastr = {
   success : function(success_message,delayTime = 3000) {
     $.toast({
-          heading             : 'Success',
+          heading             : ($('meta[name="csrf-token"]').data('lang') == 'en') ? 'Success':'Validé',
           text                : success_message,
           loader              : true,
           loaderBg            : '#fff',
@@ -13,7 +13,7 @@ var toastr = {
   },
   error : function(error_message,delayTime = 3000) {
     $.toast({
-          heading             : 'Error',
+          heading             : ($('meta[name="csrf-token"]').data('lang') == 'en') ? 'Error':'Erreur',
           text                : error_message,
           loader              : true,
           loaderBg            : '#fff',

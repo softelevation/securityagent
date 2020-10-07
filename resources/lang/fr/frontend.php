@@ -183,6 +183,8 @@ return [
 	"language" => "fr",
 	"select" => "Choisir",
 	"succeeded" => "réussi",
+	'Forgot_Your_Password' => 'Mot de passe oublié',
+	'Get_Help' => "Obtenir de l'aide",
 	"awiting payment" => "En attente de paiement",
 	"new_mission_request" => "Une nouvelle demande de mission en attente",
 	"term_and_condition_1" => "J'accepte les <a href='./../../general-terms-and-conditions' target='_blank'>conditions générales</a> de vente et les <a href='./../../general-terms-of-use' target='_blank'>conditions générales d'utilisation</a>",

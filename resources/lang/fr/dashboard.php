@@ -48,6 +48,7 @@ return [
 	'specify_reason' => 'Spécifiez une raison',
 	'book_12_hours' => 'Non, réservez pour 12 heures',
 	'yes' => 'Oui',
+	'on' => 'Sur',
 	'close' => 'Fermer',
 	'no_notification' => 'Pas nouveau notification.',
 	'billing' => 'Facturation',

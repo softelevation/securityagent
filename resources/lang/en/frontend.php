@@ -181,6 +181,8 @@ return [
 	"language" => "en",
 	"select" => "Select",
 	"succeeded" => "succeeded",
+	'Forgot_Your_Password' => 'Forgot Your Password',
+	'Get_Help' => 'Get Help',
 	"awiting payment" => "Awiting payment",
 	"new_mission_request" => "New mission request",
 	"term_and_condition_1" => "I do accept <a href='./../../general-terms-and-conditions' target='_blank'>General Terms and Conditions</a> of sale and <a href='./../../general-terms-of-use' target='_blank'>General Terms of use</a>",

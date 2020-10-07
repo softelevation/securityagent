@@ -48,6 +48,7 @@ return [
 	'specify_reason' => 'Specify a reason',
 	'book_12_hours' => 'No, Book For 12 Hours',
 	'yes' => 'Yes',
+	'on' => 'On',
 	'close' => 'Close',
 	'no_notification' => 'No new notification',
 	'billing' => 'Billing',

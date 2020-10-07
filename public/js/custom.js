@@ -244,6 +244,7 @@ $(document).ready(function () {
     $(".agent_schedule").datepicker({
         minDate: 0,
 		dateFormat: 'mm/dd/yy',
+		monthNames: [ "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" ],
         onSelect: function (dateText, inst) {
             var show_date = [];
             let new_date = dateText.split("/");
