@@ -636,11 +636,18 @@ class OperatorController extends Controller
 	
 	public function reportFilterPost(Request $request){
 		$inputData = $request->all();
-		$result = Mission::where('agent_id','!=','0')->whereIn('agent_id',array_filter($request->agent_name))->whereBetween('created_at',[$request->from_date, $request->to_date])
-						->where(function ($query) {
+		$mission = Mission::where('agent_id','!=','0')->where(function ($query) {
 								$query->where('payment_status',1)
 									  ->orWhere('payment_status',2);
-							})->get();
+							});
+		if($request->agent_name){
+			$mission = $mission->whereIn('agent_id',array_filter($request->agent_name));
+		}
+		if($request->from_date && $request->to_date){
+			$mission = $mission->whereBetween('created_at',[$request->from_date, $request->to_date]);
+		}
+		$result = $mission->get();
+		
 		if($request->formet == 1){
 			$pdf = \PDF::loadView('pdf.all_agent_report', ['results'=>$result]);
 			return $pdf->download('report.pdf');
