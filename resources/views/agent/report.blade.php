@@ -176,6 +176,12 @@
 										</td>
 									</tr>
 									<tr>
+										<td>{{__('dashboard.comments')}}</td>
+										<td>
+											{{Form::text('comments',null,['class'=>'form-control'])}} 
+										</td>
+									</tr>
+									<tr>
 										<td colspan="2" align="center"><button type="submit" class="button success_btn" data-toggle="modal" data-target="#myModal">valider le rapport</button></td>
 									</tr>
 								</tbody>

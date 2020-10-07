@@ -9,6 +9,7 @@ return [
     'logout' => 'Log Out',
 	'search' => 'Search',
 	'back' => 'Back',
+	'submit' => 'Submit',
 	'agent' => 'Agent',
 	'customer' => 'Customer',
 	'customer_support' => 'Customer Support',
@@ -78,6 +79,7 @@ return [
 	'login_before' => 'Please login or signup before booking an agent.',
 	'vat' => 'VAT',
 	'patrolling_mission' => 'Patrolling mission',
+	'comments' => 'Comments',
 
 	// Mission Related
 	'mission' => [
@@ -213,6 +215,10 @@ return [
 		'mission_type' => "Mission type :",
 		'location' => "Location :",
 		'received_a_new_mission' => "You have received a new mission. please check the details",
+		'from_date' => "From date",
+		'to_date' => "To date",
+		'select_agent' => "Select agent",
+		'excel' => "Excel",
 	],
 	'payment' => [
 		'details' => 'Payment Details',

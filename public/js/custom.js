@@ -59,9 +59,15 @@ $(document).ready(function () {
             format: 'H:i',
             // minTime:''11:00''
         });
+		
+		$(".reportdatepicker").datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+
 		$(".mindatepicker").datepicker({
-			changeMonth: true,
+			// changeMonth: true,
 			changeYear: true,
+			monthNames: ($('meta[name="csrf-token"]').data('lang') === 'fr') ? [ "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" ] : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
 			dateFormat: 'yy-mm-dd',
 			minDate: 0
 		});
@@ -244,7 +250,7 @@ $(document).ready(function () {
     $(".agent_schedule").datepicker({
         minDate: 0,
 		dateFormat: 'mm/dd/yy',
-		monthNames: [ "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" ],
+		monthNames: ($('meta[name="csrf-token"]').data('lang') == 'fr') ? [ "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" ] : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
         onSelect: function (dateText, inst) {
             var show_date = [];
             let new_date = dateText.split("/");

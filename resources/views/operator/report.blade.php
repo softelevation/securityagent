@@ -25,13 +25,13 @@
                     <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                       <div class="pending-details">
                         <div class="view_agent_details mt-4">
-                          {{Form::open(['id'=>'general_form','url'=>url('operator/report')])}}
+                          {{Form::open(['url'=>url('operator/report')])}}
                           <div class="row">							
 							<div class="col-md-2 form-group">
-                              <label>Select Agent : </label>
+                              <label>{{__('dashboard.report.select_agent')}} : </label>
                             </div>
                             <div class="col-md-6 form-group">
-                              {{Form::select('first_name',$agent,null,['class'=>'form-control','placeholder'=>'Select agent'])}}
+                              {{Form::select('agent_name',$agent,null,['multiple'=>'multiple','name'=>'agent_name[]','class'=>'form-control','placeholder'=>__('dashboard.report.select_agent')])}}
                             </div>
 							
                           </div>
@@ -39,8 +39,11 @@
                             <div class="col-md-2 form-group">
                               <label>Period : </label>
                             </div>
-                            <div class="col-md-6 form-group">
-                              {{Form::text('home_address',null,['class'=>'form-control','placeholder'=>'Your home address'])}}
+                            <div class="col-md-4 form-group">
+                              {{Form::text('from_date',null,['class'=>'form-control reportdatepicker','placeholder'=>__('dashboard.report.from_date')])}}
+                            </div>
+							<div class="col-md-4 form-group">
+                              {{Form::text('to_date',null,['class'=>'form-control reportdatepicker','placeholder'=>__('dashboard.report.to_date')])}}
                             </div>
                           </div>
 						  
@@ -52,13 +55,13 @@
                               {{Form::radio('formet',1,true)}} PDF
                             </div>
 							<div class="col-md-2 form-group">
-                              {{Form::radio('formet',3,false)}} EXCEL
+                              {{Form::radio('formet',3,false)}} {{__('dashboard.report.excel')}}
                             </div>
                           </div>
 						  
                           <div class="row">
                             <div class="col-md-6 text-center">
-                                  <button type="submit" class="button success_btn">Submit</button>
+                                  <button type="submit" class="button success_btn">{{__('dashboard.submit')}}</button>
                             </div>
                         </div>
                           {{Form::close()}}

@@ -9,6 +9,7 @@ return [
 	'logout' => 'Déconnexion',
 	'search' => 'Rechercher',
 	'back' => 'Retour',
+	'submit' => 'Soumettre',
 	'agent' => 'Agent',
 	'customer' => 'Client',
 	'customer_support' => 'Service client',
@@ -78,6 +79,7 @@ return [
 	'login_before' => 'Veuillez vous connecter ou vous inscrire avant de réserver un agent.',
 	'vat' => 'TVA',
 	'patrolling_mission' => 'Mission de patrouille',
+	'comments' => 'Commentaires',
 	// Mission Related
 	'mission' => [
 		'mission' => 'Mission',
@@ -213,6 +215,10 @@ return [
 		'mission_type' => "Type de mission :",
 		'location' => "Lieux :",
 		'received_a_new_mission' => " Vous avez reçu une nouvelle mission. Veuillez vous connecter pour l'accepter ou non, voir les détails sur  https://ontimebe.com",
+		'from_date' => "Partir de la date",
+		'to_date' => "À ce jour",
+		'select_agent' => "Sélectionnez un agent",
+		'excel' => "EXCELLER",
 	],
 
 	'payment' => [

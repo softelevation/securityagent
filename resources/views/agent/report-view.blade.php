@@ -165,6 +165,12 @@
 											{{Form::checkbox('oui_34',1, ($feature->oui_34) ? true:false)}} 34 Oui  Espèce : {{$feature->oui_34_text}} 
 										</td>
 									</tr>
+									<tr>
+										<td>{{__('dashboard.comments')}}</td>
+										<td>
+											<span>{{ $feature->comments }}</span>
+										</td>
+									</tr>
 									@if($feature->signature)
 									<tr>
 										<td>{{__('dashboard.report.signature')}}</td>
