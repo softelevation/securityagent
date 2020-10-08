@@ -649,7 +649,8 @@ class OperatorController extends Controller
 		$result = $mission->get();
 		
 		if($request->formet == 1){
-			$pdf = \PDF::loadView('pdf.all_agent_report', ['results'=>$result]);
+			$customPaper = array(0,0,1500.00,650.80);
+			$pdf = \PDF::loadView('pdf.all_agent_report', ['results'=>$result])->setPaper($customPaper, 'landscape');
 			return $pdf->download('report.pdf');
 		}else{
 			return view('pdf.all_agent_report', ['results'=>$result]);
