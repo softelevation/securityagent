@@ -87,7 +87,8 @@ class OperatorController extends Controller
 								$query->where('payment_status',1)
 									  ->orWhere('payment_status',2);
 							})->get();
-        $pdf = \PDF::loadView('pdf.agent_report', ['results'=>$result,'agent'=>$agent]);
+		$customPaper = array(0,0,1500.00,650.80);
+        $pdf = \PDF::loadView('pdf.agent_report', ['results'=>$result,'agent'=>$agent])->setPaper($customPaper, 'landscape');
         return $pdf->download('report.pdf');
     }
 
