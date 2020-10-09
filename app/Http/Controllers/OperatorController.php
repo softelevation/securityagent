@@ -87,7 +87,7 @@ class OperatorController extends Controller
 								$query->where('payment_status',1)
 									  ->orWhere('payment_status',2);
 							})->get();
-		$customPaper = array(0,0,1500.00,650.80);
+		$customPaper = array(0,0,500.00,850.80);
         $pdf = \PDF::loadView('pdf.agent_report', ['results'=>$result,'agent'=>$agent])->setPaper($customPaper, 'landscape');
         return $pdf->download('report.pdf');
     }
@@ -650,7 +650,7 @@ class OperatorController extends Controller
 		$result = $mission->get();
 		
 		if($request->formet == 1){
-			$customPaper = array(0,0,1500.00,650.80);
+			$customPaper = array(0,0,500.00,850.80);
 			$pdf = \PDF::loadView('pdf.all_agent_report', ['results'=>$result])->setPaper($customPaper, 'landscape');
 			return $pdf->download('report.pdf');
 		}else{

@@ -117,7 +117,8 @@ class UserController extends Controller
     public function downloadPaymentReceipt($id){
         $id = Helper::decrypt($id);
         $data = UserPaymentHistory::whereId($id)->first();
-        $pdf = \PDF::loadView('pdf.payment_receipt', ['data'=>$data]);
+		$customPaper = array(0,0,500.00,850.80);
+        $pdf = \PDF::loadView('pdf.payment_receipt', ['data'=>$data])->setPaper($customPaper, 'landscape');
         return $pdf->download('invoice.pdf');
         // return view('pdf.payment_receipt',['data'=>$data]);
     }
