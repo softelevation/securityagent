@@ -26,9 +26,14 @@
               <div class="shortLink">
                   <h3>Liens</h3>
                   <ul>
-                      <li><a href="<?php echo APP_URL; ?>/contact-us"><i class="fa fa-share" aria-hidden="true"></i> Nous contacter</a></li>
-                      <li><a href="<?php echo APP_URL; ?>/available-agents"><i class="fa fa-share" aria-hidden="true"></i> Agents disponibles sur la carte</a></li>
-                  </ul> 
+                    <li><a href="./../contact-us"><i class="fa fa-share" aria-hidden="true"></i> Nous contacter</a></li>
+                    <li><a href="./../available-agents"><i class="fa fa-share" aria-hidden="true"></i> Agents disponibles sur la carte</a></li>
+					<li><a href="./../legal-notice"><i class="fa fa-share" aria-hidden="true"></i>mentions legales</a></li>
+					<li><a href="./../privacy-policy"><i class="fa fa-share" aria-hidden="true"></i>Politique de confidentialite</a></li>
+					<li><a href="./../general-terms-and-conditions"><i class="fa fa-share" aria-hidden="true"></i>CONDITIONS GENERALES DE VENTE</a></li>
+					<li><a href="./../legal-notice"><i class="fa fa-share" aria-hidden="true"></i>Mentions legales</a></li>
+					<li><a href="#"><i class="fa fa-share" aria-hidden="true"></i>Plan du Site</a></li>
+				  </ul> 
                   <div class="social_sprite">
                       <a class="facebook" href="#"></a>
                       <a class="google" href="#"></a>
