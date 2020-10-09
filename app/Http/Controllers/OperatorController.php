@@ -422,7 +422,7 @@ class OperatorController extends Controller
 	
 	public function reportView($mission_id){
 		$feature = Report::where('mission_id',Helper::decrypt($mission_id))->first();
-        return view('customer.report-view')->with('feature',$feature);
+        return view('operator.report-view')->with('feature',$feature);
     }
 
     public function createSubMissions($mission_id){
