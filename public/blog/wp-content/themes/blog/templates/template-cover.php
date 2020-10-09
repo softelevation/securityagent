@@ -16,7 +16,7 @@ get_header();
         <div class="row">
           <div class="col-lg-12">
             <div class="text-center">
-              <h3>Our Blogs</h3>
+              <h3>Notre blog</h3>
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@ get_header();
 	                    <div class="blog-content">
 	                        <h4><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
 	                        <p><?php echo wp_trim_words( get_the_content(), 20, '...' ); ?></p>
-	                        <a href="<?php the_permalink(); ?>" class="more-btn">View More</a>
+	                        <a href="<?php the_permalink(); ?>" class="more-btn">Voir plus</a>
 	                    </div>
 	                    <span class="blog-date"><?php echo get_the_date( 'F j, Y' ); ?></span>
 	                </div>
@@ -50,8 +50,8 @@ get_header();
         		wp_reset_postdata();
     		} ?>
     		<div class="col-md-12">
-    			<a href="#" id="seeMore">Show More</a>
-    			<a id="seeMoreNo" style="display: none;">No More Posts to show</a>
+    			<a href="#" id="seeMore">voir plus</a>
+    			<a id="seeMoreNo" style="display: none;">Plus d'autres articles à afficher </a>
     		</div>
     	</div>
     </div>    

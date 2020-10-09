@@ -74,11 +74,11 @@
                             </div>
                             <div class="primary">
                                 <ul>
-                                    <li><a href="<?php echo APP_URL; ?>">Accueil</a></li>
-                                    <li><a href="<?php echo APP_URL; ?>/available-agents">Agent disponible sur la carte</a></li>
-                                    <li><a href="<?php echo APP_URL; ?>/agent_information">Agent</a></li>
-                                    <li><a class="active" href="<?php echo APP_URL; ?>/blog">Blogs</a></li>
-                                    <li><a href="<?php echo APP_URL; ?>/contact-us">Contactez-nous</a></li>
+                                    <li><a href="./../">Accueil</a></li>
+                                    <li><a href="./../available-agents">Agent disponible sur la carte</a></li>
+                                    <li><a href="./../agent_information">Agent</a></li>
+                                    <li><a class="active" href="./../blog">Blogs</a></li>
+                                    <li><a href="./../contact-us">Contactez-nous</a></li>
                                 </ul>
                             </div>
                         </div>
