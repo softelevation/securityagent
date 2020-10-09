@@ -645,7 +645,7 @@ class OperatorController extends Controller
 			$mission = $mission->whereIn('agent_id',array_filter($request->agent_name));
 		}
 		if($request->from_date && $request->to_date){
-			$mission = $mission->whereBetween('created_at',[$request->from_date, $request->to_date]);
+			$mission = $mission->whereBetween('created_at',[Carbon::parse($request->from_date)->format('yy-m-d'), Carbon::parse($request->to_date)->format('yy-m-d')]);
 		}
 		$result = $mission->get();
 		
@@ -654,10 +654,39 @@ class OperatorController extends Controller
 			$pdf = \PDF::loadView('pdf.all_agent_report', ['results'=>$result])->setPaper($customPaper, 'landscape');
 			return $pdf->download('report.pdf');
 		}else{
-			return view('pdf.all_agent_report', ['results'=>$result]);
+			$excelResult = array();
+			$original_amount= 0;
+			$total_hours_sum = 0;
+			foreach($result as $results){
+				
+				$excelResult[] = array(
+									trans('dashboard.mission.mission_id') => Helper::mission_id_str($results->id),
+									trans('dashboard.mission.title') => $results->title,
+									trans('dashboard.agent') => ucfirst($results->agent_details->first_name.' '.$results->agent_details->last_name),
+									trans('dashboard.customer_name') => ucfirst($results->customer_details->first_name.' '.$results->customer_details->last_name),
+									trans('dashboard.agents.time_intervel') => $results->total_hours.' '.trans('dashboard.hours'),
+									trans('dashboard.amount') => $results->amount.' €'
+									);
+					$original_amount+= $results->amount;
+					$total_hours_sum+= $results->total_hours;
+			}
+			if(!empty($excelResult)){
+				$excelResult[count($excelResult)] = array(
+										trans('dashboard.mission.mission_id')=>'',
+										trans('dashboard.mission.title')=>'',
+										trans('dashboard.agent')=>'',
+										trans('dashboard.customer_name')=>trans('dashboard.agents.total_hours_worked'),
+										trans('dashboard.agents.time_intervel')=>$total_hours_sum.' '.trans('dashboard.hours'),
+										trans('dashboard.amount')=>trans('dashboard.grand_total').' '.$original_amount.' €'
+										);
+			}
+			
+			return \Excel::create('report', function($excel) use($excelResult) {
+				$excel->sheet('Sheetname', function($sheet) use($excelResult) {
+					$sheet->fromArray($excelResult);
+				});
+			})->export('xls');
 		}
-		
-		
 	}
 	
 	public function messageCenterId($id){

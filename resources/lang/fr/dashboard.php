@@ -218,7 +218,8 @@ return [
 		'from_date' => "Partir de la date",
 		'to_date' => "À ce jour",
 		'select_agent' => "Sélectionnez un agent",
-		'excel' => "EXCELLER",
+		'excel' => "Exceller",
+		'period' => "Période",
 	],
 
 	'payment' => [

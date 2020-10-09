@@ -61,7 +61,7 @@ $(document).ready(function () {
         });
 		
 		$(".reportdatepicker").datepicker({
-			dateFormat: 'yy-mm-dd'
+			dateFormat: 'dd-mm-yy'
 		});
 
 		$(".mindatepicker").datepicker({

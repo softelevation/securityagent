@@ -219,6 +219,7 @@ return [
 		'to_date' => "To date",
 		'select_agent' => "Select agent",
 		'excel' => "Excel",
+		'period' => "Period",
 	],
 	'payment' => [
 		'details' => 'Payment Details',

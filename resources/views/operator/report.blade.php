@@ -37,7 +37,7 @@
                           </div>
                           <div class="row">
                             <div class="col-md-2 form-group">
-                              <label>Period : </label>
+                              <label>{{__('dashboard.report.period')}} : </label>
                             </div>
                             <div class="col-md-4 form-group">
                               {{Form::text('from_date',null,['class'=>'form-control reportdatepicker','placeholder'=>__('dashboard.report.from_date')])}}
@@ -49,10 +49,10 @@
 						  
 						  <div class="row">
                             <div class="col-md-2 form-group">
-                              <label>Formet : </label>
+                              <label>Format : </label>
                             </div>
                             <div class="col-md-2 form-group">
-                              {{Form::radio('formet',1,true)}} PDF
+                              {{Form::radio('formet',1,true)}} Pdf
                             </div>
 							<div class="col-md-2 form-group">
                               {{Form::radio('formet',3,false)}} {{__('dashboard.report.excel')}}
