@@ -55,7 +55,7 @@
                               {{Form::radio('formet',1,true)}} Pdf
                             </div>
 							<div class="col-md-2 form-group">
-                              {{Form::radio('formet',3,false)}} {{__('dashboard.report.excel')}}
+                              {{Form::radio('formet',3,false)}} Excel
                             </div>
                           </div>
 						  

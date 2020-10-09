@@ -654,18 +654,22 @@ class OperatorController extends Controller
 			$pdf = \PDF::loadView('pdf.all_agent_report', ['results'=>$result])->setPaper($customPaper, 'landscape');
 			return $pdf->download('report.pdf');
 		}else{
+			
 			$excelResult = array();
 			$original_amount= 0;
 			$total_hours_sum = 0;
 			foreach($result as $results){
 				
 				$excelResult[] = array(
-									trans('dashboard.mission.mission_id') => Helper::mission_id_str($results->id),
-									trans('dashboard.mission.title') => $results->title,
-									trans('dashboard.agent') => ucfirst($results->agent_details->first_name.' '.$results->agent_details->last_name),
-									trans('dashboard.customer_name') => ucfirst($results->customer_details->first_name.' '.$results->customer_details->last_name),
-									trans('dashboard.agents.time_intervel') => $results->total_hours.' '.trans('dashboard.hours'),
-									trans('dashboard.amount') => $results->amount.' €'
+										trans('dashboard.mission.start_time')=>Carbon::parse($results->created_at)->format('d-m-yy'),
+										trans('dashboard.mission.mission_id') => Helper::mission_id_str($results->id),
+										trans('dashboard.mission.title') => $results->title,
+										trans('dashboard.agent') => ucfirst($results->agent_details->first_name.' '.$results->agent_details->last_name),
+										trans('dashboard.customer_name') => ucfirst($results->customer_details->first_name.' '.$results->customer_details->last_name),
+										trans('dashboard.agents.time_intervel') => $results->total_hours.' '.trans('dashboard.hours'),
+										trans('dashboard.amount') => $results->amount.' €',
+										trans('dashboard.mission.started_at') => ($results->started_at) ? Carbon::parse($results->started_at)->format('d-m-yy H:i:s') : '',
+										trans('dashboard.mission.ended_at') => ($results->ended_at) ? Carbon::parse($results->ended_at)->format('d-m-yy H:i:s') : ''
 									);
 					$original_amount+= $results->amount;
 					$total_hours_sum+= $results->total_hours;
