@@ -72,6 +72,7 @@ $(document).ready(function () {
 			dateFormat: 'yy-mm-dd',
 			minDate: 0
 		});
+		
     });
 
     $(document).on('click', '.mission_start_radio', function () {
