@@ -660,6 +660,13 @@ class OperatorController extends Controller
 			$total_hours_sum = 0;
 			foreach($result as $results){
 				
+					if($results->intervention == 'Guard_service'){
+						$intervention = trans('dashboard.agents.Guard_service');
+					}else if($results->intervention == 'Intervention'){
+						$intervention = trans('dashboard.agents.Intervention');
+					}else{
+						$intervention = trans('dashboard.agents.Security_patrol');
+					}
 				$excelResult[] = array(
 										trans('dashboard.mission.start_time')=>Carbon::parse($results->created_at)->format('d-m-yy'),
 										trans('dashboard.mission.mission_id') => Helper::mission_id_str($results->id),
@@ -668,6 +675,7 @@ class OperatorController extends Controller
 										trans('dashboard.customer_name') => ucfirst($results->customer_details->first_name.' '.$results->customer_details->last_name),
 										trans('dashboard.agents.time_intervel') => $results->total_hours.' '.trans('dashboard.hours'),
 										trans('dashboard.amount') => $results->amount.' €',
+										trans('dashboard.agents.intervention') => $intervention,
 										trans('dashboard.mission.started_at') => ($results->started_at) ? Carbon::parse($results->started_at)->format('d-m-yy H:i:s') : '',
 										trans('dashboard.mission.ended_at') => ($results->ended_at) ? Carbon::parse($results->ended_at)->format('d-m-yy H:i:s') : ''
 									);
