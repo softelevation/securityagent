@@ -31,7 +31,6 @@
 					<li><a href="./../legal-notice"><i class="fa fa-share" aria-hidden="true"></i>mentions legales</a></li>
 					<li><a href="./../privacy-policy"><i class="fa fa-share" aria-hidden="true"></i>Politique de confidentialite</a></li>
 					<li><a href="./../general-terms-and-conditions"><i class="fa fa-share" aria-hidden="true"></i>CONDITIONS GENERALES DE VENTE</a></li>
-					<li><a href="./../legal-notice"><i class="fa fa-share" aria-hidden="true"></i>Mentions legales</a></li>
 					<li><a href="#"><i class="fa fa-share" aria-hidden="true"></i>Plan du Site</a></li>
 				  </ul> 
                   <div class="social_sprite">
