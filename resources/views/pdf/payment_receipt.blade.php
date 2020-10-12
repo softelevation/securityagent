@@ -242,7 +242,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td class="text-right" colspan="4">VAT ({{$data->mission_details->vat}}%)</td>
+                                <td class="text-right" colspan="4">{{__('dashboard.vat')}} ({{$data->mission_details->vat}}%)</td>
                                 <td class="text-right">{{$vat_amount}} &euro;</td>
                             </tr>
                             <tr>
