@@ -684,6 +684,7 @@ class OperatorController extends Controller
 			}
 			if(!empty($excelResult)){
 				$excelResult[count($excelResult)] = array(
+										trans('dashboard.mission.start_time')=>'',
 										trans('dashboard.mission.mission_id')=>'',
 										trans('dashboard.mission.title')=>'',
 										trans('dashboard.agent')=>'',
