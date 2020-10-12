@@ -107,7 +107,7 @@ trait MissionTrait
 					$cus_name = $cus_all->first_name.' '.$cus_all->last_name;
 					$message = trans('dashboard.report.received_a_new_mission')." \n";
 					$message .= trans('dashboard.report.customer_name').$cus_name."\n";
-					$message .= trans('dashboard.report.mission_type').str_replace("_"," ",$mission->intervention)."\n";
+					$message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
 					$message .= trans('dashboard.report.location').$mission->location;
 					PlivoSms::sendSms(['phoneNumber' => $agent->phone, 'msg' => trans($message) ]);
 					
