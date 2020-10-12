@@ -42,7 +42,7 @@ get_header();
 	                        <p><?php echo wp_trim_words( get_the_content(), 20, '...' ); ?></p>
 	                        <a href="<?php the_permalink(); ?>" class="more-btn">Voir plus</a>
 	                    </div>
-	                    <span class="blog-date"><?php echo get_the_date( 'F j, Y' ); ?></span>
+	                    <span class="blog-date"><?php echo get_the_date( 'd-m-Y' ); ?></span>
 	                </div>
 		        </div>
           	<?php

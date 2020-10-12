@@ -12,69 +12,48 @@
  */
 
 ?>
-			<!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-             <div class="col-md-4">
-              <div class="about_info">
-                  <h3>A propos</h3>
-                  <p>Beontime est une entreprise familiale de sécurité et gardiennage, qui se repose sur 20 ans expérience, titulaire d’un agrément CNAPS.&nbsp;Nous agissons 24h/24h et 7j/7j. Nous répondons à vos besoins dans les plus brefs délais et la mise en place d’agents en 1h sur toute le France, agissons pour différents types d’événements : gardiennage, événementiel, sûreté de la personne et de locaux, Nous disposons d’agents ADS, maitre-chien, SSIAP 1,2 et 3, garde du corps, ainsi que des hôtesses d’accueil.</p>   
-              </div>
-             </div>
-             <div class="col-md-4">
-              <div class="shortLink">
-                  <h3>Liens</h3>
-                  <ul>
-                    <li><a href="./../contact-us"><i class="fa fa-share" aria-hidden="true"></i> Nous contacter</a></li>
-                    <li><a href="./../available-agents"><i class="fa fa-share" aria-hidden="true"></i> Agents disponibles sur la carte</a></li>
-					<li><a href="./../legal-notice"><i class="fa fa-share" aria-hidden="true"></i>mentions legales</a></li>
-					<li><a href="./../privacy-policy"><i class="fa fa-share" aria-hidden="true"></i>Politique de confidentialite</a></li>
-					<li><a href="./../general-terms-and-conditions"><i class="fa fa-share" aria-hidden="true"></i>CONDITIONS GENERALES DE VENTE</a></li>
-					<li><a href="./../legal-notice"><i class="fa fa-share" aria-hidden="true"></i>Mentions legales</a></li>
-					<li><a href="#"><i class="fa fa-share" aria-hidden="true"></i>Plan du Site</a></li>
-				  </ul> 
-                  <div class="social_sprite">
-                      <a class="facebook" href="#"></a>
-                      <a class="google" href="#"></a>
-                      <a class="twitter" href="#"></a>
-                      <a class="instagram" href="#"></a>
-                  </div>
-              </div>
-             </div>
-             <div class="col-md-4">
-              <div class="newsletter">
-                  <h3>Newsletter</h3>
-                  <p>Laissez nous votre email afin de recevoir notre newsletter et être informés des nouveautés</p>   
-                  <div class="newsletter_box">
-                      <input type="text" class="form-control" placeholder="Votre email">
-                      <span><i class="fa fa-envelope"></i></span>
-                      <input type="button" class="btn_submit" value="Submit">
-                  </div>
-              </div>
-             </div>
-            </div>
-            <div class="copyright text-center">
-                <p>Copyright © 2020 - Alright reserved by <b>Be On Time</b>. Design &amp; Develop By <b><a class="" href="https://www.cmo-agency.com/">CMO Agency</a></b></p>
-            </div>
-        </div>
+			<footer id="site-footer" role="contentinfo" class="header-footer-group">
 
-    </footer>
+				<div class="section-inner">
 
-    <script type="text/javascript">
-       $(document).ready(function(){
-        $(".content").slice(0,3).show();
-        $("#seeMore").click(function(e){
-          e.preventDefault();
-          $(".content:hidden").slice(0,3).fadeIn("slow");
-          
-          if($(".content:hidden").length == 0){
-             $("#seeMore").fadeOut("slow");
-             $("#seeMoreNo").fadeIn("slow");
-            }
-        });
-      });
-    </script>
+					<div class="footer-credits">
+
+						<p class="footer-copyright">&copy;
+							<?php
+							echo date_i18n(
+								/* translators: Copyright date format, see https://www.php.net/date */
+								_x( 'Y', 'copyright date format', 'twentytwenty' )
+							);
+							?>
+							<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a>
+						</p><!-- .footer-copyright -->
+
+						<p class="powered-by-wordpress">
+							<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'twentytwenty' ) ); ?>">
+								<?php _e( 'Powered by WordPress', 'twentytwenty' ); ?>
+							</a>
+						</p><!-- .powered-by-wordpress -->
+
+					</div><!-- .footer-credits -->
+
+					<a class="to-the-top" href="#site-header">
+						<span class="to-the-top-long">
+							<?php
+							/* translators: %s: HTML character for up arrow. */
+							printf( __( 'To the top %s', 'twentytwenty' ), '<span class="arrow" aria-hidden="true">&uarr;</span>' );
+							?>
+						</span><!-- .to-the-top-long -->
+						<span class="to-the-top-short">
+							<?php
+							/* translators: %s: HTML character for up arrow. */
+							printf( __( 'Up %s', 'twentytwenty' ), '<span class="arrow" aria-hidden="true">&uarr;</span>' );
+							?>
+						</span><!-- .to-the-top-short -->
+					</a><!-- .to-the-top -->
+
+				</div><!-- .section-inner -->
+
+			</footer><!-- #site-footer -->
 
 		<?php wp_footer(); ?>
 
