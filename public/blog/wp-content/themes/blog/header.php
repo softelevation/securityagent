@@ -83,8 +83,8 @@
                             </div>
                         </div>
                         <div class="menu_right">
-                            <a href="<?php echo APP_URL; ?>/register-agent-view">Devenez un agent</a>
-                            <a href="<?php echo APP_URL; ?>/customer-signup">Devenez un utilisateur</a>
+                            <a href="./../register-agent-view">Devenez un agent</a>
+                            <a href="./../customer-signup">Devenez un utilisateur</a>
                         </div>
                     </div>
                 </div>
