@@ -385,7 +385,8 @@ $(document).ready(function () {
 						   $('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
 						   $('textarea[name="send_message"]').val('');
 							// $(".message_last").after('<div class="message-send '+response.message_type+'"><b>'+response.message+' :</b> <p>'+message+'</p></div>');
-							$(".message_last").after('<p class="'+response.message_type+'"><b>'+response.message+' :</b>'+message+'</p>');
+						   $(".message_last").after('<p class="'+response.message_type+'"><b>'+response.message+' :</b>'+message+'</p>');
+						   location.reload();
 				   }
 			});
 			event.preventDefault();

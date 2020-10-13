@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('content')
 <style>
-div.ex1 {background-color: lightblue; height: 375px; overflow: scroll; padding: 10px;}
+div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 10px;}
 .yellow_btn{box-shadow: none; height: 40px; line-height: 40px}
 .send_by_agent{float: right;position: relative;margin-left: 50%;}
 .send_by_op{float: left; width: 100%;}
