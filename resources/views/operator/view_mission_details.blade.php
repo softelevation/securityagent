@@ -200,7 +200,7 @@ input:checked + .slider_bank:before {
                               <td>1</td>
                               <td>{{$mission->amount}} <i class="fa fa-euro-sign"></i></td>
                               <td>{{date('d/m/Y H:i:s', strtotime($mission->created_at))}}</td>
-                              <td>Bank transfer</td>
+                              <td>{{__('dashboard.payment.bank_transfer')}}</td>
                               <td>
 								<label class="switch">
 								  <input type="checkbox" name="bank_transfer" data-status="invouce" value="{{$mission->id}}" @if($mission->invoice_status == '1') checked @endIf>
