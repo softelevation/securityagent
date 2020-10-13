@@ -223,6 +223,8 @@ return [
 	],
 
 	'payment' => [
+		'awaiting_payment' => 'En attente de paiement',
+		'bank_transfer' => 'Virement bancaire',
 		'details' => 'Détails du paiement',
 		'total' => 'Montant total',
 		'total_mission_amount' => 'Montant total de la mission',

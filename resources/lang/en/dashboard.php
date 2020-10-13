@@ -222,6 +222,8 @@ return [
 		'period' => "Period",
 	],
 	'payment' => [
+		'awaiting_payment' => 'Awaiting payment',
+		'bank_transfer' => 'Bank transfer',
 		'details' => 'Payment Details',
 		'total' => 'Total Amount',
 		'total_mission_amount' => 'Total Mission Amount',
