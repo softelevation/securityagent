@@ -30,7 +30,7 @@ div.ex1 {background-color: lightblue; height: 375px; overflow: scroll; padding: 
                     <!-- All Missions -->
                     <div class="message-center-cont">
                           <div class="table-responsive">
-                              <div class="ex1">
+                              <div class="ex1 message-center-child">
 								@foreach($user_messages as $user_message)
 								  <?php
 									if($user_message->message_type === 'send_by_cus'){
