@@ -55,7 +55,7 @@
                         <div class="menu_left">
                             <div class="top_menu">
                                 <ul>
-                                    <li><a href="<?php echo APP_URL; ?>/login">Connexion</a></li>
+                                    <li><a href="./../login">Connexion</a></li>
                                     <em>|</em>
                                     <!-- <li><a href="">Registration</a></li> -->
                                     <li>
