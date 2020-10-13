@@ -73,3 +73,9 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
     <!-- /.container -->
 </div>
 @endsection
+
+@section('script')
+<script>
+	$('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
+</script>
+@endsection
