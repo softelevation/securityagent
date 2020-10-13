@@ -46,7 +46,7 @@
         <!-- Navigation -->
         <nav class="navbar navbar-expand-lg">
             <div class="container">
-                <a class="navbar-brand" href="<?php echo APP_URL; ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/custom/img/logo.jpg"></a>
+                <a class="navbar-brand" href="./../"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/custom/img/logo.jpg"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
                 </button>
@@ -61,7 +61,7 @@
                                     <li>
                                         <div class="dropdown">
                                             <a class="dropdown-toggle" data-toggle="dropdown"> 
-                                                <img height="18" src="<?php echo APP_URL; ?>/assets/images/france_flag.png">
+                                                <img height="18" src="./../assets/images/france_flag.png">
                                                 French
                                                 <span class="caret"></span></a>
                                             <ul class="dropdown-menu">
