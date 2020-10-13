@@ -439,10 +439,10 @@ class MissionController extends Controller
 				$agentNumber = $mission->agent_details->phone;
 				try {
 					$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
-					$message = "You have received a new mission. please check the details \n";
-					$message .= "Customer Name : ".$cus_name."\n";
-					$message .= "Mission type: ".str_replace("_"," ",$mission->intervention)."\n";
-					$message .= "Location : ".$mission->location;
+					$message = trans('dashboard.report.received_a_new_mission')." \n";
+					$message .= trans('dashboard.report.customer_name').$cus_name."\n";
+					$message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
+					$message .= trans('dashboard.report.location').$mission->location;
 					PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
 				}catch(\Exception $e){
 				}
