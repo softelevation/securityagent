@@ -10,6 +10,7 @@ use App\Traits\MissionTrait;
 use Log;
 use Session;
 use App\Traits\ResponseTrait;
+use App\Helpers\PlivoSms;
 use App\Validators\UserValidator;
 
 class CommonController extends Controller
@@ -27,10 +28,8 @@ class CommonController extends Controller
             $timeNow = date('Y-m-d H:i:s');
             $duration = Helper::REQUEST_TIMEOUT_MINUTES;
             $data = Mission::whereRaw("DATE_ADD(assigned_at, INTERVAL ".$duration." MINUTE) < '".$timeNow."'")->where('agent_id','!=',0)->where('status',0)->whereNotNull('assigned_at')->get();
-			echo '<pre>';
-			print_r($data->toArray());
-			die;
-            if($data->count() > 0){
+            PlivoSms::sendSms(['phoneNumber' => '+916239463839', 'msg' => 'cronjob is working' ]);
+			if($data->count() > 0){
                 foreach($data as $mission){
                     $message = '';
                     $mission_expired = $this->missionExpired($mission->id);
