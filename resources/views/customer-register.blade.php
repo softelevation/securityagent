@@ -90,7 +90,7 @@
 		                    <div class="col-md-12">
 		                      <div class="form-group company_name" style="display:none">
 				                <label>{{__('frontend.text_157')}}</label>
-			                    <input type="text" name="company_name" class="form-control validation" placeholder="{{__('frontend.text_157')}}" />
+			                    <input type="text" name="company_name" class="form-control" placeholder="{{__('frontend.text_157')}}" />
 		                      </div>
 		                    </div>
 
