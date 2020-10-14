@@ -73,6 +73,18 @@
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
+					  <div class="col-md-6 form-group">
+						<select class="form-control" name="selectmission">
+								<option value="">{{__('dashboard.report.select_agent')}}</option>
+								@foreach($verifiedAgents as $verifiedAgent)
+									<option value="{{Helper::encrypt($verifiedAgent->id)}}">{{$verifiedAgent->first_name.' '.$verifiedAgent->last_name}}</option>
+								@endforeach
+						</select>
+                      </div>
+                      <div class="col-md-6 form-group">
+                        <a href="javascript:void(0)" id="" class="action_icons selectmission-link"><i class="fa fa-user-plus"></i> {{__('dashboard.assign')}}</a>
+                      </div>
+					  
                       <div class="col-md-12 form-group">
                         <div class="table-responsive">
                           <table class="table table-hover table-striped">

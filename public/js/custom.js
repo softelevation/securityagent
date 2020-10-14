@@ -12,6 +12,15 @@ $(document).ready(function () {
         placeholder: "Select Options",
     });
     // Display note of 8 hours
+	
+	$('select[name="selectmission"]').on('change', function () {
+        let selected = $(this).val();
+		console.log(selected);
+		$('.selectmission-link').attr('id', selected);
+		$('.selectmission-link').addClass('book_agent_later');
+    });
+	
+	
     $('.mission_hours').on('change', function () {
         let selected = $(this).children(':selected').val();
         if (selected == 0) {

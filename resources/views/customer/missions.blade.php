@@ -61,7 +61,7 @@
                                     <td>{{Helper::mission_id_str($mission->id)}}</td>
                                     <td>{{$mission->location}}</td>
                                     <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                    <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) @if($mission->invoice_status) {{__('dashboard.mission.invoice_paid')}} @else {{__('dashboard.mission.bank_transfer')}} @endif @else {{__('dashboard.mission.completed')}} @endif</td>
+                                    <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) @if($mission->invoice_status) {{__('dashboard.mission.invoice_paid')}} @else {{__('dashboard.payment.bank_transfer')}} @endif @else {{__('dashboard.mission.completed')}} @endif</td>
                                     <td>
                                       <div class="dropdown">
                                           <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
@@ -93,7 +93,7 @@
                                       <td>{{Helper::mission_id_str($mission->id)}}</td>
                                       <td>{{$mission->location}}</td>
                                       <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                      <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
+                                      <td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.payment.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                       <td>
                                         <div class="dropdown">
                                           <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>

@@ -385,13 +385,16 @@ class OperatorController extends Controller
                 $q->whereBetween('start_date_time',[$mission_start_date_time,$mission_end_date_time])->where('status',0);
             });
         }
+		
+		$verifiedAgents = Agent::select('id','first_name','last_name')->where('status','!=','')->whereIn('status',[1,3])->orderBy('id','DESC')->get();
         $agents = $a->where('status',1)->where('available',1)->select(DB::raw("*, 111.111 *
                 DEGREES(ACOS(LEAST(1.0, COS(RADIANS(".$mission->latitude."))
                 * COS(RADIANS(work_location_latitude))
                 * COS(RADIANS(".$mission->longitude." - work_location_longitude))
                 + SIN(RADIANS(".$mission->latitude."))
                 * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->orderBy('distance_in_km','ASC')->get();  
-        $data['agents'] = $agents;
+        $data['verifiedAgents'] = $verifiedAgents;
+		$data['agents'] = $agents;
         return view('operator.assign_agent',$data);
     }
 
