@@ -261,6 +261,5 @@ return [
 		'save_card' => 'ENREGISTRER LE DÉTAIL DE LA CARTE',
 		'bank_transfer_i_aggree' => "J'accepte de payer le montant total ci-dessus en effectuant directement un virement bancaire manuellement via ma banque en rajoutant en référence le numéro de mission.",
 		'credit_card' => 'Carte bancaire',
-		'bank_transfer' => 'Virement bancaire',
 	],
 ];
