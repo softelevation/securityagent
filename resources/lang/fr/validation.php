@@ -147,4 +147,6 @@ return [
 
     'attributes' => [],
     'captcha' => 'La validation du captcha a échoué.',
+	'i_agree' => "je suis d'accord est nécessaire lors de la création de la mission pour les dates futures",
+	'start_date_time' => "L'heure de début est requise lors de la création de la mission pour les dates futures.",
 ];

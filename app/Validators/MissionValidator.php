@@ -52,7 +52,7 @@ trait MissionValidator
                 'description'   => 'required',
             ];
             $messages = [
-                'start_date_time.required_if' => 'Start datetime is required while creating mission for future dates.'
+                'start_date_time.required_if' => trans('validation.start_date_time')
             ];
             $validator = Validator::make($request->all(),$validations,$messages);
             $this->response = $this->validateData($validator);
@@ -68,7 +68,7 @@ trait MissionValidator
                 'bank_transfer_payment_detail' => 'required',
             ];
 			$messages = [
-                'bank_transfer_payment_detail.required' => 'i agree is required while creating mission for future dates.'
+                'bank_transfer_payment_detail.required' => trans('validation.i_agree')
             ];
             $validator = Validator::make($request->all(),$validations,$messages);
             $this->response = $this->validateData($validator);

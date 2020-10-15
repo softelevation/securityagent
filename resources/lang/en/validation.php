@@ -147,5 +147,6 @@ return [
 
     'attributes' => [],
     'captcha' => 'Captcha validation failed.',
-
+    'i_agree' => 'i agree is required while creating mission for future dates.',
+    'start_date_time' => 'Start datetime is required while creating mission for future dates.',
 ];
