@@ -9,7 +9,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 <div class="profile">
     <div class="container">
         <div class="row">
-            @include('includes.customer_sidebar')
+            @include('includes.agent_sidebar')
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">

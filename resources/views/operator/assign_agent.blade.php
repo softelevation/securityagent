@@ -77,7 +77,7 @@
 						<select class="form-control" name="selectmission">
 								<option value="">{{__('dashboard.report.select_agent')}}</option>
 								@foreach($verifiedAgents as $verifiedAgent)
-									<option value="{{Helper::encrypt($verifiedAgent->id)}}">{{$verifiedAgent->first_name.' '.$verifiedAgent->last_name}}</option>
+									<option value="{{Helper::encrypt($verifiedAgent->id)}}">{{ ucfirst($verifiedAgent->username) }}</option>
 								@endforeach
 						</select>
                       </div>

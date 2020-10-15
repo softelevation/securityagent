@@ -128,6 +128,13 @@ trait MissionTrait
             }
         }else{
 			$result = Mission::where('id',$mission_id)->update(['agent_id'=>0,'assigned_at'=>Null]);
+			$ignoredMissionData = array(
+                    'mission_id' => $mission_id,
+                    'agent_id' => $mission->agent_id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                );
+            MissionRequestsIgnored::insert($ignoredMissionData);
 			$response = 0;
 		}
         return $response;

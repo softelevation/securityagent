@@ -32,7 +32,7 @@ class PlivoSms
                 [$phone_Number],
                     $params['msg']
             );
-        
+        return true;
     }
 
 }
