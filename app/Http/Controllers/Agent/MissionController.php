@@ -299,7 +299,7 @@ class MissionController extends Controller
         $data = Mission::where('id',$mission_id)->first();
         $timeNow = Carbon::now();
         // check if extra hours spent on mission
-        $missionStartTime = Carbon::create($data->started_at);
+        $missionStartTime = Carbon::parse($data->started_at);
         $missionEndTime = $timeNow;
         $totalMissionMinutes = $missionStartTime->diffInMinutes($missionEndTime);
         $bookedMinutes = $data->total_hours*60;
