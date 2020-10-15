@@ -92,6 +92,19 @@ trait MissionValidator
         return $this->response;
     }
 	
+	public function rejectMissionValidations(Request $request){
+        try{
+            $validations = [
+                'reason' => 'required',
+            ];
+            $validator = Validator::make($request->all(),$validations);
+            $this->response = $this->validateData($validator);
+        }catch(\Exception $e){
+            $this->response = $e->getMessage();
+        }
+        return $this->response;
+    }
+	
 	public function quickUploadInvoiceMissionValidations(Request $request){
         try{
             $validations = [

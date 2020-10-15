@@ -137,6 +137,11 @@ class MissionController extends Controller
      */
     public function processMissionRequest(Request $request){
         try{
+			
+			$validation = $this->rejectMissionValidations($request);
+			if($validation['status']==false){
+					return response($this->getValidationsErrors($validation));
+			}
             $action = $request->action_value;
 
             $mission_id = Helper::decrypt($request->mission_id);
@@ -188,15 +193,15 @@ class MissionController extends Controller
                 $result = RejectedMission::insert($data);
                 if($result){
                     $result = Mission::where('id',$mission_id)->update(['agent_id'=>0]);
-                    if($result){
+                    // if($result){
                         $response['message'] = trans('messages.mission_rejected');
                         $response['delayTime'] = 2000;
                         $response['modelhide'] = '#mission_action';
                         $response['url'] = url('agent/mission-requests');
                         return response($this->getSuccessResponse($response));
-                    }else{
-                        return response($this->getErrorResponse(trans('messages.error')));    
-                    }
+                    // }else{
+                        // return response($this->getErrorResponse(trans('messages.error')));    
+                    // }
                 }else{
                     return response($this->getErrorResponse(trans('messages.error')));
                 }

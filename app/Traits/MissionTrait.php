@@ -87,8 +87,7 @@ trait MissionTrait
         $timeOutMin = Helper::REQUEST_TIMEOUT_MINUTES;
 		$timeOutMin_limit = Helper::VAT_PERCENTAGE;
         // Check if mission has expired or not
-		 // && $diffMinutes <= $timeOutMin_limit
-        if($diffMinutes >= $timeOutMin){
+        if($diffMinutes >= $timeOutMin && $diffMinutes <= $timeOutMin_limit){
             // Remove agent id from mission
             $result = Mission::where('id',$mission_id)->update(['agent_id'=>0,'assigned_at'=>Null]);
             if($result){
@@ -127,18 +126,10 @@ trait MissionTrait
                 }
                 $response = 1;
             }
-        }
-		// else{
-			// $result = Mission::where('id',$mission_id)->update(['agent_id'=>0,'assigned_at'=>Null]);
-			// $ignoredMissionData = array(
-                    // 'mission_id' => $mission_id,
-                    // 'agent_id' => $mission->agent_id,
-                    // 'created_at' => Carbon::now(),
-                    // 'updated_at' => Carbon::now()
-                // );
-            // MissionRequestsIgnored::insert($ignoredMissionData);
-			// $response = 0;
-		// }
+        }else{
+			$result = Mission::where('id',$mission_id)->update(['agent_id'=>0,'assigned_at'=>Null]);
+			$response = 0;
+		}
         return $response;
     }
 

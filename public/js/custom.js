@@ -260,7 +260,8 @@ $(document).ready(function () {
 
     $(".agent_schedule").datepicker({
         minDate: 0,
-		dateFormat: 'mm/dd/yy',
+		dateFormat: 'dd/mm/yy',
+		dayNamesMin: ($('meta[name="csrf-token"]').data('lang') == 'fr') ? ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'] : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
 		monthNames: ($('meta[name="csrf-token"]').data('lang') == 'fr') ? [ "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" ] : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
         onSelect: function (dateText, inst) {
             var show_date = [];

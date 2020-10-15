@@ -346,9 +346,13 @@ class MissionController extends Controller
             $mission = Mission::where('id',$mission_id)->first();
 			$email = Auth::user()->email;
 			$data = Customer::where('user_id',Auth::user()->id)->first();
+			$chargeAmount = $mission->amount;
+            if($mission->quick_book==0){
+                $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
+            }
 			// return view('pdf.save_pdf_proceed',['mission'=>$mission,'data'=>$data,'email'=>$email]);
 			$customPaper = array(0,0,500.00,850.80);
-			$pdf = \PDF::loadView('pdf.save_pdf_proceed', ['mission'=>$mission,'data'=>$data,'email'=>$email])->setPaper($customPaper, 'landscape');
+			$pdf = \PDF::loadView('pdf.save_pdf_proceed', ['mission'=>$mission,'data'=>$data,'email'=>$email,'charge_amount'=>$chargeAmount])->setPaper($customPaper, 'landscape');
 			return $pdf->download('invoice.pdf');
 		}catch(\Exception $e){
             return $this->getErrorResponse($e->getMessage());
