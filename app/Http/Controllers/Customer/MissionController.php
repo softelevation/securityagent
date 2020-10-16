@@ -440,15 +440,17 @@ class MissionController extends Controller
                     'url' => url('customer/billing-details') 
                 ];
                 $mission->customer_details->user->notify(new PaymentDone($mailContent));
-				$agentNumber = $mission->agent_details->phone;
-				try {
-					$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
-					$message = trans('dashboard.report.received_a_new_mission')." \n";
-					$message .= trans('dashboard.report.customer_name').$cus_name."\n";
-					$message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
-					$message .= trans('dashboard.report.location').$mission->location;
-					PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
-				}catch(\Exception $e){
+				if($mission->agent_details && $mission->agent_details->phone){
+					$agentNumber = $mission->agent_details->phone;
+					try {
+						$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
+						$message = trans('dashboard.report.received_a_new_mission')." \n";
+						$message .= trans('dashboard.report.customer_name').$cus_name."\n";
+						$message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
+						$message .= trans('dashboard.report.location').$mission->location;
+						PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
+					}catch(\Exception $e){
+					}
 				}
 				Mission::where('id',$mission_id)->update(['payment_status'=>2]);
 				$paymentDetails = [
@@ -548,14 +550,16 @@ class MissionController extends Controller
                 }
 				
 				// $agent = Agent::select('phone')->where('id',$agent_id)->first();
-				try {
-					$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
-					$message = trans('dashboard.report.received_a_new_mission')." \n";
-					$message .= trans('dashboard.report.customer_name').$cus_name."\n";
-					$message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
-					$message .= trans('dashboard.report.location').$mission->location;
-					PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
-				}catch(\Exception $e){
+				if($mission->agent_details && $mission->agent_details->phone){
+					try {
+						$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
+						$message = trans('dashboard.report.received_a_new_mission')." \n";
+						$message .= trans('dashboard.report.customer_name').$cus_name."\n";
+						$message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
+						$message .= trans('dashboard.report.location').$mission->location;
+						PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
+					}catch(\Exception $e){
+					}
 				}
                 /*--------------*/
                 $response['message'] = trans('messages.payment_completed');
