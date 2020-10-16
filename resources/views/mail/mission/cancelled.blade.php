@@ -4,7 +4,7 @@
 {{$message}}
 
 @component('mail::button', ['url' => $url])
-View Mission Details
+{{__('messages.view_mission_details')}}
 @endcomponent
 
 {{__('messages.thanks')}},<br>

@@ -55,6 +55,7 @@ return [
 	'payment_done_message' => 'Un paiement de :amount EUR a été fait avec succès. Pour vérifier plus de détails sur ce paiement ou pour télécharger la facture de ce paiement, cliquez sur le bouton ci-dessous.',
 	'hello' => 'Bonjour',
 	'thanks' => 'Merci',
+	'view_mission_details' => 'Voir le détail de la mission',
 	'user_registered' => "L'utilisateur a été enregistré avec succès.",
 	'start_before_time_error' => "La mission ne peut pas commencer avant son heure de début.",
 	'start_error_in_progress' => "La mission ne peut pas être lancée tant qu'aucune autre soumission n'est en cours.",
