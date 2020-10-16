@@ -158,7 +158,15 @@ return [
 		'archive_mission'=> 'Archive Mission',
 		'message_center'=>'Centre de messagerie',
 		'agent_information_edit'=>'Agent Info Edit',
-		'agent_information_edit_fr'=>'Agent Info Edit France'
+		'agent_information_edit_fr'=>'Agent Info Edit France',
+		'Cancelled By Customer'=>'Annulé par le client',
+		'cancelled_by_Agent'=>"Annulé par l'agent",
+		'cancelled_by_Operator'=>"Annulé par l'opérateur",
+		'cancelled_by_Admin'=>"Annulé par l'administrateur",
+		'active'=>'Active',
+		'rejected'=>'Rejetée',
+		'verified'=>'Vérifié',
+		'unverified'=>'Non vérifié',
 	],
 
 	// Agents 

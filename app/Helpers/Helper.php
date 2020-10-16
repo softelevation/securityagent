@@ -303,16 +303,16 @@ class Helper {
      */
     public static function getMissionStatus($param=null){
         $statusArr =  [
-            'Unverified'            => 0,
-            'Verified'              => 1,
-            'Rejected'              => 2,
-            'Active'                => 3,
-            'In Progress'           => 4,
-            'Completed'             => 5,
-            'Cancelled By Customer' => 6,
-            'Cancelled By Agent'    => 7,
-            'Cancelled By Operator' => 8,
-            'Cancelled By Admin' => 9
+            trans('dashboard.mission.unverified')           => 0,
+            trans('dashboard.mission.verified')              => 1,
+            trans('dashboard.mission.rejected')              => 2,
+            trans('dashboard.mission.active')               => 3,
+            trans('dashboard.mission.in_progress')          => 4,
+            trans('dashboard.mission.completed') => 5,
+            trans('dashboard.mission.cancelled_by_customer') => 6,
+            trans('dashboard.mission.cancelled_by_Agent')    => 7,
+            trans('dashboard.mission.cancelled_by_Operator') => 8,
+            trans('dashboard.mission.cancelled_by_Admin') => 9
         ];
         if($param==null){
             return $statusArr;

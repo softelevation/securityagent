@@ -78,7 +78,7 @@ $(document).ready(function () {
 			// changeMonth: true,
 			changeYear: true,
 			monthNames: ($('meta[name="csrf-token"]').data('lang') === 'fr') ? [ "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" ] : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
-			dateFormat: 'yy-mm-dd',
+			dateFormat: 'dd-mm-yy',
 			minDate: 0
 		});
 		

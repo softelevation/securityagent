@@ -137,12 +137,14 @@ class MissionController extends Controller
      */
     public function processMissionRequest(Request $request){
         try{
-			
-			$validation = $this->rejectMissionValidations($request);
-			if($validation['status']==false){
-					return response($this->getValidationsErrors($validation));
+			$action = $request->action_value;
+			if($action == 2) {
+				$validation = $this->rejectMissionValidations($request);
+				if($validation['status']==false){
+						return response($this->getValidationsErrors($validation));
+				}
 			}
-            $action = $request->action_value;
+            
 
             $mission_id = Helper::decrypt($request->mission_id);
             $mission = Mission::with('customer_details')->where('id',$mission_id)->first();

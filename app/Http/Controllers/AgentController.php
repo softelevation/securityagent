@@ -183,6 +183,7 @@ class AgentController extends Controller
 			
 		unset($inputDate['_token']);
 		$inputDate['mission_id'] = Helper::decrypt($mission_id);
+		$inputDate['date'] = Carbon::parse($request->date)->format('yy-m-d');
 		$inputDate['status'] = 1;
 		$report_id = Report::updateOrCreate(array('mission_id'=>$inputDate['mission_id']),$inputDate);
 		$response['message'] = trans('messages.new_feature_save');
