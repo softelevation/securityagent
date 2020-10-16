@@ -114,7 +114,7 @@ input:checked + .slider_bank:before {
 					  @if($mission->intervention == 'Security_patrol' && isset($mission->repetitive_mission) && isset($mission->mission_finish_time) && !empty($mission->repetitive_mission) && !empty($mission->mission_finish_time))
 						<div class="col-md-4 form-group">
                         <label>{{__('dashboard.agents.repetitive_mission')}}</label>
-                        <span class="form-control">{{$mission->repetitive_mission}}</span>
+                        <span class="form-control">{{__('dashboard.agents.'.str_replace(" ","_",$mission->repetitive_mission).'')}}</span>
                       </div>
 					  <div class="col-md-4 form-group">
                         <label>{{__('dashboard.agents.finish_time')}}</label>
