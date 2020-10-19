@@ -70,6 +70,7 @@ $(document).ready(function () {
         });
 		
 		$(".reportdatepicker").datepicker({
+			dayNamesMin: ($('meta[name="csrf-token"]').data('lang') == 'fr') ? ['di', 'lu', 'ma', 'me', 'je', 've', 'sa'] : ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 			monthNames: ($('meta[name="csrf-token"]').data('lang') === 'fr') ? [ "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" ] : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
 			dateFormat: 'dd-mm-yy'
 		});
@@ -77,6 +78,7 @@ $(document).ready(function () {
 		$(".mindatepicker").datepicker({
 			// changeMonth: true,
 			changeYear: true,
+			dayNamesMin: ($('meta[name="csrf-token"]').data('lang') == 'fr') ? ['di', 'lu', 'ma', 'me', 'je', 've', 'sa'] : ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
 			monthNames: ($('meta[name="csrf-token"]').data('lang') === 'fr') ? [ "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre" ] : [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ],
 			dateFormat: 'dd-mm-yy',
 			minDate: 0
