@@ -87,10 +87,10 @@ trait MissionTrait
         $timeOutMin = Helper::REQUEST_TIMEOUT_MINUTES;
 		$timeOutMin_limit = Helper::VAT_PERCENTAGE;
         // Check if mission has expired or not
-        if($diffMinutes >= $timeOutMin && $diffMinutes <= $timeOutMin_limit){
+        if($diffMinutes >= $timeOutMin){
             // Remove agent id from mission
             $result = Mission::where('id',$mission_id)->update(['agent_id'=>0,'assigned_at'=>Null]);
-            if($result){
+            if($result && $diffMinutes <= $timeOutMin_limit){
                 // Set agent_id to ignored missions
                 $ignoredMissionData = array(
                     'mission_id' => $mission_id,
@@ -104,14 +104,6 @@ trait MissionTrait
                 // assign new agent if found
                 if($agent){
                     $res = Mission::where('id',$mission_id)->update(['agent_id'=>$agent->id,'assigned_at'=>Carbon::now()]);
-					$cus_all = Customer::select('first_name','last_name')->where('id',$mission->customer_id)->first();
-					$cus_name = $cus_all->first_name.' '.$cus_all->last_name;
-					$message = trans('dashboard.report.received_a_new_mission')." \n";
-					$message .= trans('dashboard.report.customer_name').$cus_name."\n";
-					$message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
-					$message .= trans('dashboard.report.location').$mission->location;
-					PlivoSms::sendSms(['phoneNumber' => $agent->phone, 'msg' => trans($message) ]);
-					
                     if($res){
                         $mission = Mission::where('id',$mission_id)->first();
                         /*----Agent Notification-----*/
@@ -120,16 +112,13 @@ trait MissionTrait
                             'message' => trans('messages.agent_new_mission_notification'), 
                             'url' => url('agent/mission-details/view').'/'.Helper::encrypt($mission_id)
                         ];
-                        $mail = $mission->agent_details->user->notify(new MissionCreated($mailContent));
+                        // $mail = $mission->agent_details->user->notify(new MissionCreated($mailContent));
                         /*--------------*/
                     }
                 }
                 $response = 1;
             }
-        }else{
-			$result = Mission::where('id',$mission_id)->update(['agent_id'=>0,'assigned_at'=>Null]);
-			$response = 0;
-		}
+        }
         return $response;
     }
 

@@ -439,7 +439,10 @@ class MissionController extends Controller
                     'message' => trans('messages.payment_done_message',['amount'=>$chargeAmount]), 
                     'url' => url('customer/billing-details') 
                 ];
-                $mission->customer_details->user->notify(new PaymentDone($mailContent));
+				try {
+					$mission->customer_details->user->notify(new PaymentDone($mailContent));
+				}catch(\Exception $e){
+				}
 				if($mission->agent_details && $mission->agent_details->phone){
 					$agentNumber = $mission->agent_details->phone;
 					try {
