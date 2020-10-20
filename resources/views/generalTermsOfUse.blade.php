@@ -144,13 +144,14 @@
 	  
 	  <div class="text_panel col-xl-12 col-lg-12">
 		<div class="heading">
-			<h2>Il appartient à l'Utilisateur d’assurer la confidentialité de son identifiant et de son mot de passe. 
+			<p style="box-sizing: border-box; margin: 0px 0px 1rem; padding: 0px; font-size: 18px; font-family: SignikaRegular;">
+				Il appartient à l'Utilisateur d’assurer la confidentialité de son identifiant et de son mot de passe. 
 				Il s’engage à ce titre à modifier ses identifiant et mot de passe régulièrement et à ne pas les révéler à des tiers. 
 				Toute connexion au profil à partir de l'identifiant sera présumée avoir été faite par l'Utilisateur lui-même. 
 				L'Utilisateur est seul responsable de l'utilisation de son identifiant par des tiers ou des actions ou déclarations faites par l'intermédiaire de son profil qu'elles soient frauduleuses ou non et garantit la SAS BE ON TIME contre toute demande faite à ce titre. 
 				Par conséquent, en cas d’usurpation d’identité d’un Utilisateur, la SAS BE ON TIME ne saurait être tenue pour responsable. 
 				En tout état de cause, si un Utilisateur suspecte une utilisation frauduleuse de son profil, il devra immédiatement en avertir la SAS BE ON TIME.
-			</h2>
+			</p>
         </div>
 	  </div>
 	  

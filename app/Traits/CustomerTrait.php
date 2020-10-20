@@ -10,6 +10,7 @@ use App\Traits\HelperTrait;
 use App\Traits\ResponseTrait;
 use App\Traits\MissionTrait;
 use Illuminate\Support\Facades\Session;
+use App\Notifications\AgentCreated;
 use App\Helpers\Helper;
 use App\Customer;
 use App\User;
@@ -47,6 +48,12 @@ trait CustomerTrait
                 $post['created_at'] = Carbon::now();
                 $post['updated_at'] = Carbon::now();
                 $result = Customer::insert($post);
+				$user = User::where('id',$userID)->first();
+				$mailContent = [
+                    'name' => ucfirst($user->customer_info->first_name),
+                    'message' => trans('frontend.customer_register_message'), 
+                ];
+				$user->notify(new AgentCreated($mailContent));
                 if($result){
                     DB::commit();
                     $response['url'] = url('/');
