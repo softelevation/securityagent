@@ -891,7 +891,7 @@ class OperatorController extends Controller
     }
 	
 	public function generalTermsOfUse(){
-        return view('generalTermsOfUse');
+        return view('general_terms_of_use');
     }
 
     public function agent_information_edit_fr(Request $request){ 
