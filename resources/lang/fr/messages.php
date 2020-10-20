@@ -56,6 +56,7 @@ return [
 	'hello' => 'Bonjour',
 	'thanks' => 'Merci',
 	'view_mission_details' => 'Voir le détail de la mission',
+	'view_payment_details' => 'voir les détails du paiement',
 	'user_registered' => "L'utilisateur a été enregistré avec succès.",
 	'start_before_time_error' => "La mission ne peut pas commencer avant son heure de début.",
 	'start_error_in_progress' => "La mission ne peut pas être lancée tant qu'aucune autre soumission n'est en cours.",

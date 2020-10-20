@@ -4,7 +4,7 @@
 {{$message}}
 
 @component('mail::button', ['url' => $url])
-View Payment Details
+{{__('messages.view_payment_details')}}
 @endcomponent
 
 {{__('messages.thanks')}},<br>

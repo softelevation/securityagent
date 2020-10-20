@@ -56,6 +56,7 @@ return [
 	'hello' => 'Hello',
 	'thanks' => 'Thanks',
 	'view_mission_details' => 'View Mission Details',
+	'view_payment_details' => 'View Payment Details',
 	'user_registered' => 'User has been registered successfully.',
 	'start_before_time_error' => "Mission can't be started before its start time.",
 	'start_error_in_progress' => "Mission can't be started while any other submission is in progress.",
