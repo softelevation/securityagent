@@ -110,19 +110,21 @@
 							<input type="checkbox" name="terms_conditions" value="1">{!! trans('frontend.reg_term_and_condition_1') !!}</br>
 							<input type="checkbox" name="terms_conditions" value="2">{!! trans('frontend.reg_term_and_condition_2') !!}
 	                  		<!-- <input type="checkbox" name="terms_conditions" value="1">{!!__('frontend.terms_conditions_text2',['url'=>url('terms-conditions')])!!}</a>.</div>   -->
-	                  <div class="row text-center pt-3">
-	                    <div class="col-md-12">
-				            <div class="form-group">
-				               <input type="button" onClick="checkValidation();" class="yellow_btn" value="{{__('frontend.text_144')}}"/>
-				            </div>
-	                    </div>
-	                  </div>  
-	                </div>
-            	</form>
-            </div>
-        </div>
-    </div>
-    </div>
+						  <div class="row text-center pt-3">
+							<div class="col-md-12">
+								<div class="form-group">
+								   <input type="button" onClick="checkValidation();" class="yellow_btn" value="{{__('frontend.text_144')}}"/>
+								</div>
+							</div>
+						  </div>  
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+ </div>
 </div>
 @endsection
 <script src='https://www.google.com/recaptcha/api.js'></script>
