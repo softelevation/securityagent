@@ -92,7 +92,7 @@ return [
 		'start_time' => 'Heure de début Mission',
 		'location' => 'Lieu de la mission',
 		'in_progress' => 'Mission en cours',
-		'pending' => 'Mission en attente',
+		'pending' => 'Début de la mission',
 		'finished' => 'Mission terminée',
 		'started_at' => 'Mission commencée à',
 		'ended_at' => 'Mission terminée à',

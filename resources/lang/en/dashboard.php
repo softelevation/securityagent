@@ -93,7 +93,7 @@ return [
 		'start_time' => 'Mission Start Time',
 		'location' => 'Mission Location',
 		'in_progress' => 'Mission In Progress',
-		'pending' => 'Mission Pending',
+		'pending' => 'Mission Start',
 		'finished' => 'Mission Finished',
 		'started_at' => 'Mission Started At',
 		'ended_at' => 'Mission Ended At',
