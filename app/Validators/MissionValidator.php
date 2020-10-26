@@ -43,14 +43,22 @@ trait MissionValidator
      */
     public function quickMissionValidations(Request $request){
         try{
-            $validations = [
-                'title'         => 'required',
-                'location'      => 'required',
-                'total_hours'   => 'required',
-                'agent_type'    => 'required|not_in:0',
-                'start_date_time' => 'required_if:quick_book,0',
-                'description'   => 'required',
-            ];
+			if($request->quick_book){
+				$validations = [
+					'title'         => 'required',
+					'location'      => 'required',
+					'total_hours'   => 'required',
+					'agent_type'    => 'required|not_in:0',
+					'start_date_time' => 'required_if:quick_book,0',
+					'description'   => 'required',
+				];
+			}else{
+				$validations = [
+					'title'         => 'required',
+					'location'      => 'required',
+					'agent_type'    => 'required|not_in:0',
+				];
+			}
             $messages = [
                 'start_date_time.required_if' => trans('validation.start_date_time')
             ];

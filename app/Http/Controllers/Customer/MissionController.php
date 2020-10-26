@@ -275,6 +275,16 @@ class MissionController extends Controller
     public function quickCreateMission(){
         return view('customer.quick_create_mission');
     }
+	
+	/**
+     * @param $request
+     * @return mixed
+     * @method createMission latter option
+     * @purpose Create New Mission View 
+     */
+	public function iHaveAcustomRequest(){
+        return view('customer.i_have_a_custom_request');
+    }
 
     /**
      * @param $request
@@ -732,7 +742,6 @@ class MissionController extends Controller
                 $date = str_replace('/', '-', $data['start_date_time']);
                 $startDateTime = date('Y-m-d H:i:s', strtotime($date));
                 $data['start_date_time'] = $startDateTime;
-                
                 $mission_id = $this->saveQuickMissionDetails($data);
                 if($mission_id){
                     $mission_id = Helper::encrypt($mission_id);
@@ -742,6 +751,7 @@ class MissionController extends Controller
                     return $this->getSuccessResponse($response);
                 }
             }
+			
             Session::put('mission',$data);
             $response['message'] = trans('messages.finding_agents');
             $response['delayTime'] = 2000;

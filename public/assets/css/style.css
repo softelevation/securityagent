@@ -1174,6 +1174,11 @@ ul.details-list li span {
   cursor: pointer;
 }
 
+.dashboard-customer {
+	margin-left: 30px;
+    margin-top: -30px;
+}
+
 .notification .badge {
   position: absolute;
   top: -4px;
@@ -1411,7 +1416,6 @@ p.bank-p{
 }
 .row .yellow_btn {
 	text-align: center;
-	width: 50%;
 }
 a.disabled{
 	cursor: default;

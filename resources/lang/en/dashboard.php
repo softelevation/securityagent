@@ -54,6 +54,7 @@ return [
 	'no_notification' => 'No new notification',
 	'billing' => 'Billing',
 	'quick_order_agent' => 'Quick Order My Agent',
+	'i_have_a_custom_request' => 'I have a custom request',
 	'action' => 'Actions',
 	'download' => 'Download',
 	'no' => 'No',

@@ -126,6 +126,7 @@ Route::group(['prefix'=>'customer'], function () {
         Route::post('/upload-invoice', 'Customer\MissionController@uploadInvoicePost');
         Route::get('/create-mission', 'Customer\MissionController@createMission');
         Route::post('/save-mission', 'Customer\MissionController@saveMission');
+        Route::get('/i-have-a-custom-request', 'Customer\MissionController@iHaveAcustomRequest');
         Route::get('/quick-create-mission', 'Customer\MissionController@quickCreateMission');
         Route::get('/quick_mission/edit/{mission_id}', 'Customer\MissionController@editQuickMission');
         Route::get('/find-mission-agent/{mission_id}', 'Customer\MissionController@findMissionAgent');
