@@ -1347,7 +1347,7 @@ span.form-control i{
 /*Agent Page*/
 #top-banner {
     width: 100%;
-    height: 30vh;
+    /* height: 30vh;*/
     background: url(../images/banner_bg.jpg) center center;
     background-size: cover;
     position: relative;
@@ -1425,4 +1425,15 @@ a.disabled{
 
 .agent-mission-table i.fas.fa-eye.text-grey {
 	margin-left: 8px;
+}
+
+@media(max-width:770px)
+{
+	.contact_box h3 {height: 71px;}
+	#myTabContent .nav-tabs a.nav-link.active {width: 110%;}
+}
+
+@media(max-width:400px)
+{
+	.form-control .pac-target-input {width: 60%;}
 }
