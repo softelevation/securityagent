@@ -81,32 +81,32 @@
                           <div class="row">
                             <div class="form-group col-md-8 owner">
                               <label for="owner">{{__('dashboard.payment.holder_name')}}</label>
-                              <input type="text" name="name" class="form-control" id="owner" value="" placeholder="Enter card holder's name">
+                              <input type="text" name="name" class="form-control" id="owner" value="" placeholder="{{__('dashboard.payment.card_holder_name')}}">
                             </div>
                             <div class="form-group col-md-4 CVV">
                               <label for="cvc">CVC</label>
-                              <input type="text" name="cvc" class="form-control" id="cvv" placeholder="Enter CVV number">
+                              <input type="text" name="cvc" class="form-control" id="cvv" placeholder="{{__('dashboard.payment.card_cvv_num')}}">
                             </div>
                             <div class="form-group col-md-12" id="card-number-field">
                               <label for="cardNumber">{{__('dashboard.payment.card_no')}}</label>
-                              <input type="text" maxlength="16" name="card_number" class="form-control" id="cardNumber" value="" placeholder="Enter 16 digits card number">
+                              <input type="text" maxlength="16" name="card_number" class="form-control" id="cardNumber" value="" placeholder="{{__('dashboard.payment.card_digits_num')}}">
                             </div>
                             <div class="form-group col-md-3" id="expiration-date">
                               <label>{{__('dashboard.payment.exp_month')}}</label>
                               <div>
                                 <select class="form-control" name="expire_month">
-                                    <option value="01">January</option>
-                                    <option value="02">February </option>
-                                    <option value="03">March</option>
-                                    <option value="04">April</option>
-                                    <option value="05">May</option>
-                                    <option value="06">June</option>
-                                    <option value="07">July</option>
-                                    <option value="08">August</option>
-                                    <option value="09">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
+                                    <option value="01">{{__('dashboard.months.january')}}</option>
+                                    <option value="02">{{__('dashboard.months.february')}} </option>
+                                    <option value="03">{{__('dashboard.months.march')}}</option>
+                                    <option value="04">{{__('dashboard.months.april')}}</option>
+                                    <option value="05">{{__('dashboard.months.may')}}</option>
+                                    <option value="06">{{__('dashboard.months.june')}}</option>
+                                    <option value="07">{{__('dashboard.months.july')}}</option>
+                                    <option value="08">{{__('dashboard.months.august')}}</option>
+                                    <option value="09">{{__('dashboard.months.september')}}</option>
+                                    <option value="10">{{__('dashboard.months.october')}}</option>
+                                    <option value="11">{{__('dashboard.months.november')}}</option>
+                                    <option value="12">{{__('dashboard.months.december')}}</option>
                                 </select>
                               </div>
                             </div>
