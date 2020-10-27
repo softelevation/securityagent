@@ -299,7 +299,7 @@ class MissionController extends Controller
 			CustomRequest::insert($input);
 			$response['message'] = trans('messages.custom_request');
 			$response['delayTime'] = 5000;
-			$response['url'] = url('customer/custom-request');
+			$response['url'] = url('customer/mission-request');
 			return $this->getSuccessResponse($response);
 		}catch(\Exception $e){
             return $this->getErrorResponse($e->getMessage());
