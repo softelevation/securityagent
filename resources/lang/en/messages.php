@@ -4,6 +4,7 @@ return [
 	'error' => 'Something went wrong! Please try again later.',
 	'login_success' => 'Login Success.',
 	'invalid_login' => 'Invalid login credentials !',
+	'custom_request' => 'Request has been submitted successfully.',
 	'invalid_lat_long' => 'The lat/long values of the entered location are invalid. Please clear the current location and try again!',
 	'agent_not_available' => 'No agent available at the moment. Please try again later!',
 	'card_already_added' => 'This card has already been added.',

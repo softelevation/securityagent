@@ -24,10 +24,10 @@
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     @if(isset($mission))
-                      {{Form::model($mission,['id'=>'general_form','url'=>url('save-mission-temporary')])}}
+                      {{Form::model($mission,['id'=>'general_form','url'=>url('customer/mission-request')])}}
                       {{Form::hidden('record_id',Helper::encrypt($mission->id))}}
                     @else
-                      {{Form::open(['id'=>'general_form','url'=>url('save-mission-temporary')])}}
+                      {{Form::open(['id'=>'general_form','url'=>url('customer/mission-request')])}}
                     @endif
                       <div class="row">
                         <div class="col-md-6 form-group">
@@ -146,7 +146,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
-              <p class="confirm_text">{{__('dashboard.mission.confirm_create')}}</p>
+              <p class="confirm_text">{{__('dashboard.mission.confirm_create_mission_request')}}</p>
             </div>
           </div>
         </div>

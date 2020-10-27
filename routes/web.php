@@ -89,6 +89,7 @@ Route::group(['prefix'=>'operator'], function () {
 
         Route::post('/customer_verification', 'OperatorController@customerVerificationAction');
         Route::get('/missions', 'OperatorController@missionsList');
+		Route::get('/mission-requests', 'OperatorController@missionRequest');
         Route::get('/mission-details/view/{mission_id}', 'OperatorController@viewMissionDetails');
         Route::get('/assign-agent/{mission_id}', 'OperatorController@assignMissionAgent');
         Route::get('/sub-mission/{mission_id}', 'OperatorController@createSubMissions');
@@ -126,7 +127,8 @@ Route::group(['prefix'=>'customer'], function () {
         Route::post('/upload-invoice', 'Customer\MissionController@uploadInvoicePost');
         Route::get('/create-mission', 'Customer\MissionController@createMission');
         Route::post('/save-mission', 'Customer\MissionController@saveMission');
-        Route::get('/i-have-a-custom-request', 'Customer\MissionController@iHaveAcustomRequest');
+        Route::get('/mission-request', 'Customer\MissionController@iHaveAcustomRequest');
+        Route::post('/mission-request', 'Customer\MissionController@iHaveAcustomRequestPost');
         Route::get('/quick-create-mission', 'Customer\MissionController@quickCreateMission');
         Route::get('/quick_mission/edit/{mission_id}', 'Customer\MissionController@editQuickMission');
         Route::get('/find-mission-agent/{mission_id}', 'Customer\MissionController@findMissionAgent');

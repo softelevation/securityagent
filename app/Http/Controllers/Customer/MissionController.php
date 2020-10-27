@@ -15,6 +15,7 @@ use App\UploadInvoice;
 use App\Agent;
 use App\Feedback;
 use App\Report;
+use App\CustomRequest;
 use Carbon\Carbon;
 use App\Helpers\Helper;
 use Illuminate\Support\Facades\Session;
@@ -285,6 +286,27 @@ class MissionController extends Controller
 	public function iHaveAcustomRequest(){
         return view('customer.i_have_a_custom_request');
     }
+	
+	
+	public function iHaveAcustomRequestPost(Request $request){
+		try {
+			$validation = $this->customMissionRequest($request);
+			if($validation['status']==false){
+					return response($this->getValidationsErrors($validation));
+			}
+			$input = array_except($request->all(),['_token']);
+			$input['customer_id'] = $customer_id = Auth::user()->customer_info->id;
+			CustomRequest::insert($input);
+			$response['message'] = trans('messages.custom_request');
+			$response['delayTime'] = 5000;
+			$response['url'] = url('customer/custom-request');
+			return $this->getSuccessResponse($response);
+		}catch(\Exception $e){
+            return $this->getErrorResponse($e->getMessage());
+        }
+		// CustomRequest
+		// custom_requests
+	}
 
     /**
      * @param $request
@@ -454,6 +476,14 @@ class MissionController extends Controller
 				}catch(\Exception $e){
 				}
 				if($mission->agent_details && $mission->agent_details->phone){
+					
+					$mailContent = [
+                        'name' => ucfirst($mission->agent_details->first_name),
+                        'message' => trans('messages.agent_new_mission_notification'), 
+                        'url' => url('agent/mission-details/view').'/'.$request->mission_id 
+                    ];
+                    $mission->agent_details->user->notify(new MissionCreated($mailContent));
+					
 					$agentNumber = $mission->agent_details->phone;
 					try {
 						$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;

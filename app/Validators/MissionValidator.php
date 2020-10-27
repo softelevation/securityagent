@@ -113,6 +113,23 @@ trait MissionValidator
         return $this->response;
     }
 	
+	public function customMissionRequest(Request $request){
+        try{
+            $validations = [
+                'title' => 'required',
+                'location' => 'required',
+            ];
+			// $messages = [
+                // 'bank_transfer_payment_detail.required' => 'i agree is required while creating mission for future dates.'
+            // ];
+            $validator = Validator::make($request->all(),$validations);
+            $this->response = $this->validateData($validator);
+        }catch(\Exception $e){
+            $this->response = $e->getMessage();
+        }
+        return $this->response;
+    }
+	
 	public function quickUploadInvoiceMissionValidations(Request $request){
         try{
             $validations = [

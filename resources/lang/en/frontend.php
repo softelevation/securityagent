@@ -178,6 +178,7 @@ return [
 	"text_155" => "Report view",
 	"text_156" => "Report id",
 	"text_157" => "Company name",
+	"text_158" => "Choose Agent Type",
 	"language" => "en",
 	"select" => "Select",
 	"succeeded" => "succeeded",

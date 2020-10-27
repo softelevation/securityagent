@@ -100,7 +100,7 @@
 					                @php $agentTypes = Helper::get_agent_type_list(); @endphp
 					                <label>{{__('frontend.text_111')}}</label>
 					                <input type="hidden" name="agent_type" id="agent_type_hidden">
-					                <select class="form-control multi_select validation" multiple="multiple" id="select_agent_type" placeholder="Choose Agent Type">
+					                <select class="form-control multi_select validation" multiple="multiple" id="select_agent_type" placeholder="{{__('frontend.text_158')}}">
 					                    @foreach($agentTypes as $key => $agent_types)
 					                    	<option value="{{$key}}">{{$agent_types}}</option>
 					                    @endforeach

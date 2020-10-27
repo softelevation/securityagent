@@ -14,6 +14,7 @@ use App\Operator;
 use App\MessageCenter;
 use App\User;
 use App\Customer;
+use App\CustomRequest;
 use App\Mission;
 use App\Helpers\Helper;
 use Hash;
@@ -161,6 +162,26 @@ class OperatorController extends Controller
         }
    
         return view('operator.customers_list',$params);
+    }
+	
+	
+	/**
+     * @return mixed
+     * @method missionRequest
+     * @purpose Load customer list view
+     */
+    public function missionRequest(Request $request){
+        $custom_req = CustomRequest::select('customers.first_name','customers.last_name','custom_requests.title','custom_requests.location')
+					->join('customers','customers.id','custom_requests.customer_id')->orderBy('custom_requests.id','DESC')->paginate($this->limit);
+        $params = [
+            'data' => $custom_req,
+            'limit' => $this->limit,
+            'page_no' => 1
+        ];
+        if(isset($request->page)){
+            $params['page_no'] = $request->page; 
+        }
+        return view('operator.mission_request',$params);
     }
 
     /**

@@ -36,9 +36,8 @@
                                       <tr>
                                           <th>#</th>
                                           <th>{{__('dashboard.customer_name')}}</th>
-                                          <th>{{__('dashboard.customer_type')}}</th>
-                                          <th>{{__('dashboard.email')}}</th>
-                                          <th>Action</th>
+                                          <th>{{__('dashboard.mission.title')}}</th>
+                                          <th>{{__('dashboard.mission.location')}}</th>
                                       </tr>
                                   </thead>
                                   <tbody>
@@ -47,22 +46,13 @@
                                       $records = $limit*($page_no-1);
                                       $i = $i+$records;
                                     @endphp
-                                    @forelse($data as $customer)
+                                    @forelse($data as $custom_req)
                                       @php $i++; @endphp
-                                      @php $en_id = Helper::encrypt($customer->id); @endphp
                                       <tr>
                                           <td>{{$i}}.</td>
-                                          <td>{{$customer->first_name}} {{$customer->last_name}}</td>
-                                          <td>{{Helper::get_customer_type_name($customer->customer_type)}}</td>
-                                          <td>{{$customer->user->email}}</td>
-                                          <td>
-                                            <a class="action_icons" href="{{url('operator/customer/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a></br>
-
-                                            @if(Auth::user()->role_id == 3)
-                                             <a class="action_icons" onclick="return confirm('<?php echo __('dashboard.confirm_delete'); ?>');" href="{{url('operator/customer/delete/'.$en_id)}}"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </a>
-                                            @endif
-
-                                          </td>
+                                          <td>{{$custom_req->first_name}} {{$custom_req->last_name}}</td>
+                                          <td>{{$custom_req->title}}</td>
+                                          <td>{{$custom_req->location}}</td>
                                       </tr>
                                     @empty
                                       <tr>

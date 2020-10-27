@@ -180,6 +180,7 @@ return [
 	"text_155" => "COMPTE RENDU",
 	"text_156" => "Identifiant du rapport",
 	"text_157" => "Nom de la compagnie",
+	"text_158" => "Choisissez le type d'agent",
 	"language" => "fr",
 	"select" => "Choisir",
 	"succeeded" => "réussi",

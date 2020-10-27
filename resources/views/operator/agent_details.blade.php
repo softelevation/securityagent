@@ -188,9 +188,9 @@
   $(document).on('click','.verificationBtn', function(){
     let action = $(this).attr('data-action');
     if(action==1){
-      $(document).find('.confirm_text').text('Are you sure you want to approve this agent?');
+      $(document).find('.confirm_text').text("{{__('dashboard.agent_approve_confirm')}}");
     }else{
-      $(document).find('.confirm_text').text('Are you sure you want to decline this agent?');
+      $(document).find('.confirm_text').text("{{__('dashboard.agent_decline_confirm')}}");
     }
     $(document).find('#model_action_value').val(action);
   });

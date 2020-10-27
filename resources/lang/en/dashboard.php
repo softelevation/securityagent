@@ -81,7 +81,12 @@ return [
 	'vat' => 'TVA',
 	'patrolling_mission' => 'Patrolling mission',
 	'comments' => 'Comments',
-
+	'confirm_delete' => 'Are you sure you want to delete ?',
+	'agent_approve_confirm' => 'Are you sure you want to approve this agent?',
+	'agent_decline_confirm' => 'Are you sure you want to decline this agent?',
+	'customer_approve_confirm' => 'Are you sure you want to approve this customer?',
+	'customer_decline_confirm' => 'Are you sure you want to decline this customer?',
+	
 	// Mission Related
 	'mission' => [
 		'mission' => 'Mission',
@@ -133,6 +138,7 @@ return [
 		'book_agent_now' => 'Book An Agent Now',
 		'description_place' => 'Enter mission description',
 		'confirm_create' => 'Are you sure, you want to create a new mission ?',
+		'confirm_create_mission_request' => 'Are you sure, you want to create a mission request ?',
 		'title_place' => 'Enter mission title',
 		'location_place' => 'Enter your location',
 		'without_agents' => 'Missions Without Agents',	

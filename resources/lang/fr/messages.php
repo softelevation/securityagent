@@ -4,6 +4,7 @@ return [
 	'error' => "Quelque chose s'est mal passé! Veuillez réessayer plus tard.",
 	'login_success' => 'Connexion réussie.',
 	'invalid_login' => 'Identifiants de connexion invalides!',
+	'custom_request' => "La demande a été soumise avec succès.",
 	'invalid_lat_long' => "Les valeurs lat / long de l'emplacement entré ne sont pas valides. Veuillez effacer l'emplacement actuel et réessayer! ",
 	'agent_not_available' => 'Aucun agent disponible pour le moment. Veuillez réessayer plus tard!',
 	'card_already_added' => 'Cette carte a déjà été ajoutée.',

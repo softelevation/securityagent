@@ -81,6 +81,12 @@ return [
 	'vat' => 'TVA',
 	'patrolling_mission' => 'Mission de patrouille',
 	'comments' => 'Commentaires',
+	'confirm_delete' => 'Etes-vous sûr que vous voulez supprimer ?',
+	'agent_approve_confirm' => 'Voulez-vous vraiment approuver cet agent?',
+	'agent_decline_confirm' => 'Voulez-vous vraiment refuser cet agent?',
+	'customer_approve_confirm' => 'Voulez-vous vraiment approuver ce client?',
+	'customer_decline_confirm' => 'Voulez-vous vraiment refuser ce client?',
+	
 	// Mission Related
 	'mission' => [
 		'mission' => 'Mission',
@@ -133,6 +139,7 @@ return [
 		'book_agent_now' => 'Réserver un agent maintenant',
 		'description_place' => 'Entrer la description de la mission',
 		'confirm_create' => 'Êtes-vous sûr de vouloir créer une nouvelle mission?',
+		'confirm_create_mission_request' => 'Êtes-vous sûr de vouloir créer une demande de mission ?',
 		'title_place' => 'Entrer le titre de la mission',
 		'location_place' => 'Entrez votre position',
 		'without_agents' => 'Missions sans agents',
