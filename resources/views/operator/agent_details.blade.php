@@ -177,9 +177,9 @@
           @csrf
           <input id="model_action_value" type="hidden" name="verify_status">
           <input type="hidden" name="user_id" value="{{Helper::encrypt($data->user_id)}}">
-          <button type="submit" class="btn btn-primary success_btn" >Yes</button>
+          <button type="submit" class="btn btn-primary success_btn" >{{__('dashboard.yes')}}</button>
         </form>
-        <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">{{__('dashboard.close')}}</button>
       </div>
     </div>
   </div>
