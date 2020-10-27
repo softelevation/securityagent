@@ -618,6 +618,15 @@ class MissionController extends Controller
             }
 			  }
         }catch(\Exception $e){
+			if($e->getMessage() == 'Your card was declined. Your request was in live mode, but used a known test card.'){
+				return $this->getErrorResponse(trans("dashboard.payment.YourcardwasdeclinedYourrequestwasinlivemodebutusedaknowntestcard"));
+			}else if($e->getMessage() == "Your card's security code is invalid."){
+				return $this->getErrorResponse(trans("dashboard.payment.Yourcardssecuritycodeisinvalid"));
+			}else if($e->getMessage() == "Your card number is incorrect."){
+				return $this->getErrorResponse(trans("dashboard.payment.Yourcardnumberisincorrect"));
+			}else if($e->getMessage() == "Your card's expiration month is invalid."){
+				return $this->getErrorResponse(trans("dashboard.payment.YourCardsYourmonthinvalid"));
+			}
             return $this->getErrorResponse($e->getMessage());
         }
     }

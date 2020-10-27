@@ -278,6 +278,10 @@ return [
 		'card_holder_name'=> "Enter card holder's name",
 		'card_cvv_num'=> "Enter CVV number",
 		'card_digits_num'=> "Enter 16 digits card number",
+		"Yourcardssecuritycodeisinvalid"=> "Your card's security code is invalid.",
+		"Yourcardnumberisincorrect"=> "Your card number is incorrect.",
+		"YourCardsYourmonthinvalid"=> "Your card's expiration month is invalid.",
+		"YourcardwasdeclinedYourrequestwasinlivemodebutusedaknowntestcard"=> "Your card was declined. Your request was in live mode, but used a known test card.",
 	],
 	'months' => [
 		'january' => "January",

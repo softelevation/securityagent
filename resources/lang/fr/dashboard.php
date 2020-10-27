@@ -280,6 +280,10 @@ return [
 		'card_holder_name'=> "Entrez le nom du titulaire de la carte",
 		'card_cvv_num'=> "Entrez le numéro CVV",
 		'card_digits_num'=> "Entrez le numéro de carte à 16 chiffres",
+		"Yourcardssecuritycodeisinvalid"=> "Le code de sécurité de votre carte n'est pas valide.",
+		"Yourcardnumberisincorrect"=> "Votre numéro de carte est incorrect.",
+		"YourCardsYourmonthinvalid"=> "Le mois d'expiration de votre carte n'est pas valide.",
+		"YourcardwasdeclinedYourrequestwasinlivemodebutusedaknowntestcard"=> "Votre carte a été refusée. Votre demande était en mode direct, mais utilisait une carte de test connue.",
 	],
 	'months' => [
 		'january' => "janvier",
