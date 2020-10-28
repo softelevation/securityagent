@@ -42,15 +42,6 @@ trait HelperTrait
     * @purpose     : To send mail
     */
 	
-	public function sendMissionRequestMail($templateName,$data,$fromEmail,$fromName,$subject){
-        $response = Mail::send($templateName, ['data' => $data], function($message) use ($fromEmail,$fromName,$subject) {
-            $message->from($fromEmail, $fromName);
-            $message->to(config('mail.to.address'), config('mail.to.name'))->subject($subject);
-        });
-        return $response;
-    }
-	
-	
     public function sendCommonMail($templateName,$data,$fromEmail,$fromName,$subject){
         $response = Mail::send($templateName, ['data' => $data], function($message) use ($fromEmail,$fromName,$subject) {
             $message->from($fromEmail, $fromName);
