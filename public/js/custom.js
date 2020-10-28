@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     // Multi select
     $(document).find('.multi_select').select2({
-        placeholder: "Select Options",
+        placeholder: ($('meta[name="csrf-token"]').data('lang') == 'fr') ? "Sélectionnez les options" : "Select Options",
     });
     // Display note of 8 hours
 	

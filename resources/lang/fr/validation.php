@@ -113,7 +113,7 @@ return [
     'string' => 'Le :attribute doit être une chaîne.',
     'timezone' => 'Le :attribute doit être une zone valide.',
     'unique' => 'Le :attribute a déjà été pris.',
-    'uploaded' => "Le :attribute n'a pas pu être téléchargé.",
+    'uploaded' => "Le carte d'identité n'a pas pu être téléchargé.",
     'url' => "Le format :attribute n'est pas valide.",
     'uuid' => 'Le :attribute doit être un UUID valide.',
 
