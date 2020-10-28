@@ -32,7 +32,9 @@
         </div>
         <div class="Quick_Order_Agent">
             <a href="{{url('customer/quick-create-mission')}}">{{__('dashboard.quick_order_agent')}}</a>
-            <a href="{{url('customer/mission-request')}}">{{__('dashboard.i_have_a_custom_request')}}</a>
         </div>
+		<div class="Quick_Order_Agent mission-request">
+			<a href="{{url('customer/mission-request')}}">{{__('dashboard.i_have_a_custom_request')}}</a>
+		</div>
     </div>
 </div>

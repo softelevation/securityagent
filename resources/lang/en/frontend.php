@@ -204,4 +204,12 @@ return [
 	'hours_available_msg' => 'This agent is only available for :time Hours',
 	'reset_password_btn' => 'Reset Password',
 	'banner_contant' => 'This site uses cookies and gives you control over what you want to activate',
+	'mission_request' => [
+		'mission_request' => "Mission request",
+		'general_info' => "General info",
+		'request_location' => "Request Location",
+		'mission_date' => "Mission Date",
+		'request_description' => "Request description",
+		'how_many_agents' => "How many agents ?",
+	],
 ];

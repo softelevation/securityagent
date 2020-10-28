@@ -31,23 +31,19 @@
                     @endif
                       <div class="row">
                         <div class="col-md-6 form-group">
-                          <label>{{__('dashboard.mission.title')}}</label> 
-                          {{Form::text('title',null,['class'=>'form-control','placeholder'=>__('dashboard.mission.title_place')])}}
+                          <label>{{__('frontend.mission_request.general_info')}}</label> 
+                          {{Form::text('general_info',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.general_info')])}}
                         </div>
                         <div class="col-md-6 form-group">
-                          <label>{{__('dashboard.mission.location')}}</label>
-                          {{Form::text('location',null,['id'=>'autocomplete', 'placeholder'=>__('dashboard.mission.location_place'), 'class'=>'form-control',  'onFocus'=>'geolocate()'])}}
+                          <label>{{__('frontend.mission_request.request_location')}}</label>
+                          {{Form::text('request_location',null,['id'=>'autocomplete', 'placeholder'=>__('frontend.mission_request.request_location'), 'class'=>'form-control',  'onFocus'=>'geolocate()'])}}
                           <!--Work Location Lat Longs  -->
                           {{Form::hidden('latitude')}}
                           {{Form::hidden('longitude')}}
                         </div>
 						<div class="col-md-12 form-group">
-                          <label>{{__('dashboard.agents.intervention')}}</label>
-						  <select class="form-control intervention" name="intervention" aria-invalid="false">
-							<option value="Guard_service" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Guard_service') selected @endif>{{__('dashboard.agents.Guard_service')}}</option>
-							<option value="Intervention" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Intervention') selected @endif>{{__('dashboard.agents.Intervention')}}</option>
-							<option value="Security_patrol" @if(isset($mission) && !empty($mission->intervention) && $mission->intervention == 'Security_patrol') selected @endif data-available_to_place="{{__('dashboard.agents.available_to_place')}}" data-finish_time="{{__('dashboard.agents.finish_time')}}" data-repetitive_mission="{{__('dashboard.agents.repetitive_mission')}}" data-time_intervel="{{__('dashboard.agents.time_intervel')}}" data-hrs="{{__('dashboard.hrs')}}" data-hr="{{__('dashboard.hr')}}" data-select="{{__('frontend.select')}}" data-same_day="{{__('dashboard.agents.same_day')}}" data-week="{{__('dashboard.agents.week')}}">{{__('dashboard.agents.Security_patrol')}}</option>
-						  </select>
+                          <label>{{__('frontend.mission_request.request_description')}}</label>
+                          {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.request_description')])}}
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.agents.type')}}</label>
@@ -67,9 +63,16 @@
                             @endphp
                           @endfor
                           {{Form::select('total_hours',$hours,null,['class'=>'form-control mission_hours'])}}
-						  <span class="mission_hours_note @if(isset($mission->total_hours)) d-none @endif">{{__('dashboard.mission.note_hours')}}</span>
                         </div>
-                        <div class="col-md-6 form-group">
+						<div class="col-md-6 form-group">
+                            <label>{{__('frontend.mission_request.how_many_agents')}}</label>
+                            {{Form::text('agent_count',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.how_many_agents')])}}
+                        </div>
+                        <div id="misionStartEndDiv" class="col-md-6 form-group">
+                            <label>{{__('frontend.mission_request.mission_date')}}</label>
+                            {{Form::text('start_date_time',null,['class'=>'form-control datetimepicker','placeholder'=>__('frontend.mission_request.mission_date')])}}
+                        </div>
+						<div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.from_when_start')}}</label><br>
                           <label class="rd_container form-inline">{{__('dashboard.now')}}
                             {{Form::radio('quick_book',1,false,['class'=>'mission_start_radio'])}}
@@ -79,10 +82,6 @@
                             {{Form::radio('quick_book',0,true,['class'=>'mission_start_radio'])}}
                             <span class="checkmark"></span>
                           </label>
-                        </div>
-                        <div id="misionStartEndDiv" class="col-md-6 form-group">
-                            <label>{{__('dashboard.mission.start_time')}}</label>
-                            {{Form::text('start_date_time',null,['class'=>'form-control datetimepicker','placeholder'=>__('dashboard.mission.start_time')])}}
                         </div>
                         <div class="col-md-6 form-group create-new-mission">
                           <label>{{__('dashboard.mission.agent_vehicle')}}</label><br>
@@ -98,24 +97,6 @@
                             {{Form::radio('vehicle_required',3,true)}}
                             <span class="checkmark"></span>
                           </label>
-                        </div>
-						@if(isset($mission) && !empty($mission->intervention) && !empty($mission->repetitive_mission) && !empty($mission->mission_finish_time))
-						<div class="col-md-6 form-group security_patrol_field">
-							<label>{{__('dashboard.agents.repetitive_mission')}}</label>
-							{{Form::select('repetitive_mission',['same day'=>__('dashboard.agents.same_day'),'week'=>__('dashboard.agents.week')],null,['class'=>'form-control'])}}
-						</div>
-						<div class="col-md-6 form-group security_patrol_field">
-							<label>{{__('dashboard.agents.finish_time')}}</label>
-							{{Form::text('mission_finish_time',null,['class'=>'form-control timepicker','placeholder'=>__('dashboard.agents.available_to_place')])}}
-						</div>
-						<div class="col-md-6 form-group security_patrol_field">
-							<label>{{__('dashboard.agents.time_intervel')}}</label>
-							{{Form::select('time_intervel',[1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9,10=>10,11=>11,12=>12,13=>13,14=>14,15=>15,16=>16,17=>17,18=>18,19=>19,20=>20,21=>21,22=>22,23=>23,24=>24],null,['class'=>'form-control'])}}
-						</div>
-						@endif
-                        <div class="col-md-12 form-group">
-                          <label>{{__('dashboard.mission.description')}}</label>
-                          {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>__('dashboard.mission.description_place')])}}
                         </div>
                       </div>
                       <div class="row">

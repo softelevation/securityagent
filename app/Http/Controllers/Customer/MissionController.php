@@ -294,8 +294,17 @@ class MissionController extends Controller
 			if($validation['status']==false){
 					return response($this->getValidationsErrors($validation));
 			}
-			$input = array_except($request->all(),['_token']);
-			$input['customer_id'] = $customer_id = Auth::user()->customer_info->id;
+			$input = array(
+				'title'=>$request->general_info,'location'=>$request->request_location,'latitude'=>$request->latitude,
+				'longitude'=>$request->longitude,'description'=>$request->description,'agent_type'=>$request->agent_type,
+				'total_hours'=>$request->total_hours,'agent_count'=>$request->agent_count,'start_date_time'=>$request->start_date_time,
+				'quick_book'=>$request->quick_book,'vehicle_required'=>$request->vehicle_required,'customer_id'=>$customer_id = Auth::user()->customer_info->id
+			);
+			$templateName = 'emails.mission_request';
+            $toEmail = 'contact@ontimebe.com';
+            $toName = 'Be On Time';
+            $subject = trans('messages.mission_request.mission_request');
+            Helper::sendMissionRequestMail($templateName,$input,$toEmail,$toName,$subject);
 			CustomRequest::insert($input);
 			$response['message'] = trans('messages.custom_request');
 			$response['delayTime'] = 5000;

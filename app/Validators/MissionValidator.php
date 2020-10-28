@@ -116,8 +116,8 @@ trait MissionValidator
 	public function customMissionRequest(Request $request){
         try{
             $validations = [
-                'title' => 'required',
-                'location' => 'required',
+                'general_info' => 'required',
+                'request_location' => 'required',
             ];
 			// $messages = [
                 // 'bank_transfer_payment_detail.required' => 'i agree is required while creating mission for future dates.'

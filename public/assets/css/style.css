@@ -585,6 +585,7 @@ border-radius: 50%;}
     font-weight: 600;
 }
 .Quick_Order_Agent a:hover{background:#fdda42;}
+.Quick_Order_Agent.mission-request a{background: #d9f3de;}
 .profile_img{ position: relative;}
 .profile_img h3{word-break:break-all;margin:10px;font-size:15px;position:absolute;bottom: 0;color:#fff;z-index:9;font-weight: 600;}
 .profile_img h3 span{font-size:14px;font-weight:normal; display: block;}
