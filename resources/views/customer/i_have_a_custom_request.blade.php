@@ -5,6 +5,7 @@
 	pointer-events:none;
 	background:#e9ecef;
 }
+.custom-mission-request{background-color: #fbda51;}
 </style>
 <div class="profile">
     <div class="container">
@@ -29,7 +30,7 @@
                     @else
                       {{Form::open(['id'=>'general_form','url'=>url('customer/mission-request')])}}
                     @endif
-                      <div class="row">
+                      <div class="row custom-mission-request">
                         <div class="col-md-6 form-group">
                           <label>{{__('frontend.mission_request.request_title_object')}}</label> 
                           {{Form::text('general_info',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.request_title_object')])}}
@@ -45,6 +46,8 @@
                           <label>{{__('frontend.mission_request.request_description')}}</label>
                           {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.request_description_place')])}}
                         </div>
+					</div>	
+					<div class="row">
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.agents.type')}}</label>
                           @php $agentTypes = Helper::get_agent_type_list(); @endphp

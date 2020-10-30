@@ -87,6 +87,9 @@
                         data-container="body" data-toggle="popover" data-placement="bottom" data-content="During ongoing mission, availability status can't be changed." data-html="true" data-trigger="hover" @endif class="slider round"></span>
                       </label>
                     </div>
+					<div class="float-left dropdown position-relative dashboard-agents">
+							<a href="{{url('login')}}"><span>{{__('frontend.text_83')}}</span></a>
+					</div>
                     <div class="clearfix"></div>
                   </div>
                 @endif
