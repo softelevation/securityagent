@@ -31,8 +31,8 @@
                     @endif
                       <div class="row">
                         <div class="col-md-6 form-group">
-                          <label>{{__('frontend.mission_request.general_info')}}</label> 
-                          {{Form::text('general_info',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.general_info')])}}
+                          <label>{{__('frontend.mission_request.request_title_object')}}</label> 
+                          {{Form::text('general_info',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.request_title_object')])}}
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('frontend.mission_request.request_location')}}</label>

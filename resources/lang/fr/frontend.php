@@ -208,6 +208,7 @@ return [
 	'banner_contant' => 'Ce site utilise des cookies et vous donne le contrôle sur ce que vous souhaitez activer',
 	'mission_request' => [
 		'mission_request' => "Demande de mission",
+		'request_title_object' => "Objet de la demande",
 		'general_info' => "Informations générales",
 		'request_location' => "Demande de localisation",
 		'mission_date' => "Date de la mission",

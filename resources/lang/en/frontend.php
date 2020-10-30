@@ -206,6 +206,7 @@ return [
 	'banner_contant' => 'This site uses cookies and gives you control over what you want to activate',
 	'mission_request' => [
 		'mission_request' => "Mission request",
+		'request_title_object' => "Request title/Object",
 		'general_info' => "General info",
 		'request_location' => "Request Location",
 		'mission_date' => "Mission Date",
