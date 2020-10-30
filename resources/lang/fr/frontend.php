@@ -207,7 +207,10 @@ return [
 	'reset_password_btn' => "réinitialiser le mot de passe",
 	'banner_contant' => 'Ce site utilise des cookies et vous donne le contrôle sur ce que vous souhaitez activer',
 	'mission_request' => [
-		'mission_request' => "Demande de mission",
+		'detail_info_maindatory' => "Information détaillée - non obligatoire",
+		'if_you_can_specify' => "Si vous connaissez les informations ci-dessous, svp renseigner les",
+		'general_infos' => "Information Générale",
+		'mission_request' => "Demande de mission particulière",
 		'request_title_object' => "Objet de la demande",
 		'general_info' => "Informations générales",
 		'request_location' => "Demande de localisation",

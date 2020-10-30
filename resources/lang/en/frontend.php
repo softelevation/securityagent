@@ -205,6 +205,9 @@ return [
 	'reset_password_btn' => 'Reset Password',
 	'banner_contant' => 'This site uses cookies and gives you control over what you want to activate',
 	'mission_request' => [
+		'detail_info_maindatory' => "Details info - not mandatory",
+		'if_you_can_specify' => "If you can specify your request, please fill in details below",
+		'general_infos' => "General info",
 		'mission_request' => "Mission request",
 		'request_title_object' => "Request title/Object",
 		'general_info' => "General info",

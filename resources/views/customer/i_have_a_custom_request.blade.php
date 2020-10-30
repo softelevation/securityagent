@@ -30,7 +30,11 @@
                     @else
                       {{Form::open(['id'=>'general_form','url'=>url('customer/mission-request')])}}
                     @endif
+					  
                       <div class="row custom-mission-request">
+						  <div class="col-md-12">
+						  <label class="custom-mission-request">{{__('frontend.mission_request.general_infos')}}</label>
+						  </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('frontend.mission_request.request_title_object')}}</label> 
                           {{Form::text('general_info',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.request_title_object')])}}
@@ -46,7 +50,9 @@
                           <label>{{__('frontend.mission_request.request_description')}}</label>
                           {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.request_description_place')])}}
                         </div>
-					</div>	
+					</div>	<br/>
+					<label>{{__('frontend.mission_request.detail_info_maindatory')}}</label><br/>
+					<label>{{__('frontend.mission_request.if_you_can_specify')}}</label>
 					<div class="row">
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.agents.type')}}</label>
