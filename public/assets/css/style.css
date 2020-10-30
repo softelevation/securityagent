@@ -1180,7 +1180,12 @@ ul.details-list li span {
     margin-top: -30px;
 }
 
-.dashboard-agents {
+.dashboard-agents-en {
+	    margin-left: 50px;
+		margin-top: -30px;
+}
+
+.dashboard-agents-fr {
 	    margin-left: 50px;
 		margin-top: -55px;
 }
