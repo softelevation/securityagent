@@ -727,7 +727,7 @@ class OperatorController extends Controller
 	}
 	
 	public function messageCenterId($id){
-		
+		$id = Helper::decrypt($id);
 		if(Customer::where('user_id',$id)->first()){
 			$user_messages = MessageCenter::select('customers.user_id','customers.first_name','customers.last_name','message_centers.message','message_centers.message_type')->join('customers','customers.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
 		}else{
