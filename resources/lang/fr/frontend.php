@@ -212,6 +212,7 @@ return [
 		'request_location' => "Demande de localisation",
 		'mission_date' => "Date de la mission",
 		'request_description' => "Description de la demande",
-		'how_many_agents' => "combien d'agents ?",
+		'request_description_place' => "Veuillez saisir ici le maximum d'informations sur votre demande",
+		'how_many_agents' => "combien d'agents sont nécessaires ?",
 	],
 ];

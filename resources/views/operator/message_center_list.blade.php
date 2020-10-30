@@ -37,7 +37,6 @@
                                     <th>{{__('dashboard.customer_name')}}</th>
                                     <th>{{__('dashboard.email')}}</th>
                                     <th>{{__('dashboard.from')}}</th>
-                                    <th>{{__('dashboard.status')}}</th>
                                     <th>{{__('dashboard.billings.date_time')}}</th>
                                     <th>Action</th>
                                 </tr>
@@ -52,9 +51,8 @@
 									@endif
                                     <td>{{$message->email}}</td>
                                     <td>@if($message->message_type=='send_by_cus') {{__('dashboard.customer')}} @else {{__('dashboard.agent')}} @endif</td>
-                                    <td>{{($message->status == '1') ? __('dashboard.on'):__('dashboard.close') }}</td>
                                     <td>{{date('d/m/Y H:i:s', strtotime($message->created_at))}}</td>
-                                    <td><a href="{{url('operator/message-center')}}/{{ $message->user_id }}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a></td>
+                                    <td><a href="{{url('operator/message-center')}}/{{ $message->user_id }}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a> @if(Helper::get_message_center_from_user($message->user_id) > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_message_center_from_user($message->user_id)}}</span>@endif</td>
                                 </tr>
                               @endforeach
                             </tbody>

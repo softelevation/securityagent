@@ -39,7 +39,7 @@
                                 <a href="{{url('operator/missions?archived=1')}}" class="nav-link"><i class="fa fa-edit"></i> {{__('dashboard.mission.archive_mission')}}</a>  
                             </li>
 							<li class="nav-item">
-                                <a class="nav-link" href="{{url('operator/message-center')}}"><i class="fa fa-message_center"></i> {{__('dashboard.mission.message_center')}}</a>
+                                <a class="nav-link" href="{{url('operator/message-center')}}"><i class="fa fa-message_center"></i> {{__('dashboard.mission.message_center')}}  @if(Helper::get_message_center_count('operator') > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_message_center_count('operator')}}</span>@endif</a>
                             </li>
 							<li class="nav-item">
                                 <a class="nav-link" href="{{url('operator/report')}}"><i class="fa fa-database"></i> {{__('dashboard.report.report')}}</a>

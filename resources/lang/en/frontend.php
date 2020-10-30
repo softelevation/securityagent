@@ -210,6 +210,7 @@ return [
 		'request_location' => "Request Location",
 		'mission_date' => "Mission Date",
 		'request_description' => "Request description",
+		'request_description_place' => "Please enter maximum information of your request here",
 		'how_many_agents' => "How many agents ?",
 	],
 ];

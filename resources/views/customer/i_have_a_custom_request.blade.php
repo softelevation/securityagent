@@ -13,14 +13,14 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>{{__('dashboard.missions')}}</h2>
+                  <h2>{{__('dashboard.mission_requests')}}</h2>
               </div>
               <div class="float-right pt-3">
                   <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="contact_box">
-                <h3><i class="fa fa-edit"></i> {{__('dashboard.mission.create_new')}}</h3>
+                <h3><i class="fa fa-edit"></i> {{__('dashboard.mission.create_new_mission_req')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     @if(isset($mission))
@@ -43,7 +43,7 @@
                         </div>
 						<div class="col-md-12 form-group">
                           <label>{{__('frontend.mission_request.request_description')}}</label>
-                          {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.request_description')])}}
+                          {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.request_description_place')])}}
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.agents.type')}}</label>
@@ -101,7 +101,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-center">
-                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">{{__('dashboard.mission.book_agent_now')}}</button>
+                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">{{__('dashboard.mission.book_mission_request')}}</button>
                         </div>
                       </div>
                     {{Form::close()}}

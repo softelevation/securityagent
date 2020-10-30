@@ -545,18 +545,21 @@ class Helper {
     }
 	
 	public static function get_message_center_count($input){
-		if($input = 'cus'){
+		$message_center = 0;
+		if($input == 'cus'){
 			$message_center = DB::table('message_centers')->select('id')->where('user_id',Auth::user()->id)->where('message_type','send_by_op')->where('status','1')->count();
-		}else if($input = 'agent'){
+		}else if($input == 'agent'){
 			$message_center = DB::table('message_centers')->select('id')->where('user_id',Auth::user()->id)->where('message_type','send_by_op')->where('status','1')->count();
-		}else{
-			$message_center = 0;
+		}else if($input == 'operator'){
+			$message_center = DB::table('message_centers')->select('id')->where('message_type','!=','send_by_op')->where('status','1')->count();
 		}
-		// Auth::user()->agent_info->id
-		// customer_info
-		
         return $message_center;
     }
+	
+	public static function get_message_center_from_user($input){
+		$message_center = DB::table('message_centers')->select('id')->where('user_id',$input)->where('message_type','!=','send_by_op')->where('status','1')->count();
+		return $message_center;
+	}
 
     /**
      * @return integer
