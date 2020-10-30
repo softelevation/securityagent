@@ -105,11 +105,25 @@
                                 </div>
                             </div>
                             <div class="text-center no_avail_agent_message pt-3 d-none">
-                                <i>{{__('frontend.text_47')}} </i>
+                                <p><i>{{__('frontend.text_47')}} </i></p>
+                                <p><i>{{__('frontend.text_159')}} </i></p>
+                                <p><i>{{__('frontend.text_160')}} </i></p>
+                                <p><i>{{__('frontend.text_161')}} </i></p>
+								<div class="Quick_Order_Agent mission-request">
+									<a href="{{url('customer/mission-request')}}">{{__('dashboard.i_have_a_custom_request')}}</a>
+								</div>
                             </div>
                         @empty
                             <div class="text-center no_avail_agent_message pt-3 d-none">
-                                <i>{{__('frontend.text_47')}} </i>
+                                <p><i>{{__('frontend.text_47')}} </i></p>
+                                <p><i>{{__('frontend.text_159')}} </i></p>
+                                <p><i>{{__('frontend.text_160')}} </i></p>
+                                <p><i>{{__('frontend.text_161')}} </i></p>
+								<center>
+								<div class="Quick_Order_Agent mission-request" style="width: 300px;">
+									<a href="{{url('customer/mission-request')}}">{{__('dashboard.i_have_a_custom_request')}}</a>
+								</div>
+								</center>
                             </div>
                         @endforelse
                     @else

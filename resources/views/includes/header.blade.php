@@ -76,7 +76,7 @@
                     </div>
                     <!-- Availability -->
                     <div class="float-right">
-                      <span class="pr-3">{{__('frontend.text_85')}}</span> 
+                      <div>{{__('frontend.text_85')}}</div> 
                       <label class="switch">
                         <input 
                         @if(\Auth::user()->agent_info->available==2) disabled="disabled" @endif 
