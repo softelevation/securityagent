@@ -142,6 +142,10 @@
 							  </ul>
 						  @endif
 						</div>
+						
+						<div class="float-left dropdown position-relative dashboard-customer">
+							<a href="{{url('login')}}"><span>{{__('frontend.text_83')}}</span></a>
+						</div>
 						<div class="clearfix"></div>
 					</div>
 				@endif
