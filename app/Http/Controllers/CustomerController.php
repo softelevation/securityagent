@@ -139,13 +139,15 @@ class CustomerController extends Controller
     }
 	
 	public function testing(){
-		if(isset($_GET['message'])){
-			$phone = '+'.$_GET['message'];
-			$message = 'welcome to Be on time';
-			PlivoSms::sendSms(['phoneNumber' => $phone, 'msg' => trans($message) ]);
-			echo 'please check message';
-		}else{
-			echo 'something went wrong';
-		}
+		
+		echo phpinfo();
+		// if(isset($_GET['message'])){
+			// $phone = '+'.$_GET['message'];
+			// $message = 'welcome to Be on time';
+			// PlivoSms::sendSms(['phoneNumber' => $phone, 'msg' => trans($message) ]);
+			// echo 'please check message';
+		// }else{
+			// echo 'something went wrong';
+		// }
 	}
 }
