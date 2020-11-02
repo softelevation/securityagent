@@ -77,7 +77,7 @@
                       @endif
                     @endforeach
                       <div class="row">
-                        @if($diploma==1)
+                        @if($diploma==1 && $data->diploma_certificates->toArray())
                           <div class="col-md-6 form-group">
                             <label>{{__('frontend.text_123')}}</label>
                             @foreach($data->diploma_certificates as $certificate)
