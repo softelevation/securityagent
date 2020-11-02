@@ -5,7 +5,7 @@ return [
 	'profile' => 'Profil',
 	'mission_requests' => 'Demande de Mission',
 	'missions' => 'Missions',
-	'mission_to_start' => 'Mission pour commencer',
+	'mission_to_start' => 'Démarrer une mission',
 	'schedule' => 'Planning',
 	'logout' => 'Déconnexion',
 	'search' => 'Rechercher',
