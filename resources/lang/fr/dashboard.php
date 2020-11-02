@@ -138,7 +138,7 @@ return [
 		'agent_vehicle' => "Préférez-vous qu'un agent ait un véhicule?",
 		'not_matter' => "peu importe",
 		'book_agent_now' => 'Réserver un agent maintenant',
-		'book_mission_request' => 'Réserver une demande de mission',
+		'book_mission_request' => 'Envoyer ma demande',
 		'description_place' => 'Entrer la description de la mission',
 		'confirm_create' => 'Êtes-vous sûr de vouloir créer une nouvelle mission?',
 		'confirm_create_mission_request' => 'Êtes-vous sûr de vouloir créer une demande de mission ?',

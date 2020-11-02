@@ -74,7 +74,7 @@ return [
         <p>Avec + de 20 ans d’expérience dans le domaine de la sécurité, notre style de gestion est basée surl’accessibilité et permet d’offrir à tous nos partenaires agents des possibilités de développement.</p>",
 
     // Contact Us Page      
-    "text_60" => "LOCATION",
+    "text_60" => "Emplacement",
 	"text_61" => "ENVOYEZ VOTRE COMMENTAIRE",
 	"text_62" => "Nom",
 	"text_63" => "E-mail",
@@ -218,7 +218,7 @@ return [
 		'general_info' => "Informations générales",
 		'request_location' => "Demande de localisation",
 		'mission_date' => "Date de la mission",
-		'request_description' => "Description de la demande",
+		'request_description' => "Localisation de la demande",
 		'request_description_place' => "Veuillez saisir ici le maximum d'informations sur votre demande",
 		'how_many_agents' => "combien d'agents sont nécessaires ?",
 	],
