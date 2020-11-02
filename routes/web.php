@@ -156,6 +156,7 @@ Route::group(['prefix'=>'agent'], function () {
         Route::post('/signature/{mission_id}', 'AgentController@signatureUpdate');
         Route::get('/profile', 'AgentController@agentProfileView');
         Route::get('/missions', 'Agent\MissionController@index');
+		Route::get('/mission-to-start', 'Agent\MissionController@missiontoStart');
         Route::get('/mission-details/view/{mission_id}', 'Agent\MissionController@viewMissionDetails');
         Route::post('/start-mission', 'Agent\MissionController@startMission');
         Route::post('/finish-mission', 'Agent\MissionController@finishMission');

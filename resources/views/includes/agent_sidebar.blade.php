@@ -20,6 +20,9 @@
                     <a href="{{url('agent/mission-requests')}}" class="nav-link"><i class="fa fa-tasks"></i> {{__('dashboard.mission_requests')}}</a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{url('agent/mission-to-start')}}" class="nav-link"><i class="fa fa-edit"></i> {{__('dashboard.mission_to_start')}}</a>
+                </li>
+				<li class="nav-item">
                     <a href="{{url('agent/missions')}}" class="nav-link"><i class="fa fa-edit"></i> {{__('dashboard.missions')}}</a>
                 </li>
                 <li class="nav-item">
