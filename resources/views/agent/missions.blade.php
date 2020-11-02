@@ -16,13 +16,10 @@
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
-                      <li class="nav-item w-33">
+                      <li class="nav-item w-50">
                           <a id="nav-in-progress-tab" data-toggle="tab" href="#nav-mission-in-progress" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link active">{{__('dashboard.mission.in_progress')}}</a>
                       </li>
-                      <li class="nav-item w-33">
-                          <a id="nav-pending-tab" data-toggle="tab" href="#nav-mission-pending" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link ">{{__('dashboard.mission.pending')}}</a>
-                      </li>
-                      <li class="nav-item w-33">
+                      <li class="nav-item w-50">
                           <a id="nav-finished-tab" data-toggle="tab" href="#nav-mission-finished" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link">{{__('dashboard.mission.finished')}}</a>
                       </li>
                   </ul>
@@ -60,45 +57,6 @@
                               @empty
                                 <tr>
                                     <td colspan="7">{{__('dashboard.no_record')}}</td>
-                                </tr>
-                              @endforelse
-                            </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <!-- Missions pending tab -->
-                    <div class="tab-pane fade" id="nav-mission-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
-                      <div class="table-responsive">
-                        <table class="table table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>{{__('dashboard.mission.title')}}</th>
-                                    <th>{{__('dashboard.mission.ref')}}</th>
-                                    <th>{{__('dashboard.mission.location')}}</th>
-                                    <th>{{__('dashboard.mission.duration')}}</th>
-                                    <th>{{__('dashboard.mission.start_time')}}</th>
-                                    <th>{{__('dashboard.action')}}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                              @php $i = 0; @endphp
-                              @forelse($pending_mission as $mission)
-                                @php $i++; @endphp
-                                <tr>
-                                    <td>{{$i}}.</td>
-                                    <td>{{$mission->title}}</td>
-                                    <td>{{Helper::mission_id_str($mission->id)}}</td>
-                                    <td>{{$mission->location}}</td>
-                                    <td>{{$mission->total_hours}} {{__('dashboard.hours')}}</td>
-                                    <td>@if($mission->quick_book==1) {{__('dashboard.now')}} ({{__('dashboard.quick_booking')}}) @else {{Helper::date_format_show('d/m/Y H:i:s',$mission->start_date_time)}} @endif</td>
-                                    <td>
-                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
-                                    </td>
-                                </tr>
-                              @empty
-                                <tr>
-                                    <td colspan="6">{{__('dashboard.no_record')}}</td>
                                 </tr>
                               @endforelse
                             </tbody>

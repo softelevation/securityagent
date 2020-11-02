@@ -7,7 +7,7 @@
             <!-- /.col-md-4 -->
             <div class="col-md-9">
               <div class="float-left">
-                  <h2>{{__('dashboard.missions')}}</h2>
+                  <h2>{{__('dashboard.mission.mission_start')}}</h2>
               </div>
               <div class="float-right pt-3">
                   <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
