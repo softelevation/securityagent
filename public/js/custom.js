@@ -61,7 +61,8 @@ $(document).ready(function () {
         $(".datepicker").datepicker();
         // Datetimepicker
         jQuery('.datetimepicker').datetimepicker({
-            format: 'd/m/Y H:i:s'
+            format: 'd/m/Y H:i:s',
+			minDate: 0
         });
         jQuery('.timepicker').datetimepicker({
             datepicker: false,
