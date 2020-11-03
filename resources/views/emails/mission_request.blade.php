@@ -21,6 +21,9 @@
 				<h4 style="font-family: sans-serif; background: #ffc107; margin: 0; text-transform: uppercase; padding: 11px; font-weight: 600;">Contact Form Details</h4>
 				<table style="width: 100%; border: solid 1px #ccc; border-collapse: collapse; font-family: sans-serif;" border="1">
 					<tr>
+						<td style="padding: 8px 15px;">{{__('dashboard.customer_name')}}</td><td style="padding: 8px 15px;">{{$data['customer_name']}}</td>
+					</tr>
+					<tr>
 						<td style="padding: 8px 15px;" width="50%">{{__('frontend.mission_request.request_title_object')}}</td><td style="padding: 8px 15px;">{{$data['title']}}</td>
 					</tr>
 					<tr>

@@ -298,7 +298,8 @@ class MissionController extends Controller
 				'title'=>$request->general_info,'location'=>$request->request_location,'latitude'=>$request->latitude,
 				'longitude'=>$request->longitude,'description'=>$request->description,'agent_type'=>$request->agent_type,
 				'total_hours'=>$request->total_hours,'agent_count'=>$request->agent_count,'start_date_time'=>$request->start_date_time,
-				'quick_book'=>$request->quick_book,'vehicle_required'=>$request->vehicle_required,'customer_id'=>$customer_id = Auth::user()->customer_info->id
+				'quick_book'=>$request->quick_book,'vehicle_required'=>$request->vehicle_required,'customer_id'=>$customer_id = Auth::user()->customer_info->id,
+				'customer_name'=>Auth::user()->customer_info->first_name.' '.Auth::user()->customer_info->last_name
 			);
 			$templateName = 'emails.mission_request';
             $toEmail = 'contact@ontimebe.com';
