@@ -3,7 +3,7 @@
 return [
 	// Profile Tab
 	'profile' => 'Profil',
-	'mission_requests' => 'Demande de Mission',
+	'mission_requests' => 'Etude de faisabilité',
 	'missions' => 'Missions',
 	'mission_to_start' => 'Démarrer une mission',
 	'schedule' => 'Planning',

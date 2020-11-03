@@ -5,7 +5,7 @@
 	pointer-events:none;
 	background:#e9ecef;
 }
-.custom-mission-request{background-color: #fbda51;}
+.custom-mission-request{background-color: #fbda51 !important;}
 </style>
 <div class="profile">
     <div class="container">
@@ -21,7 +21,7 @@
               </div>
               <div class="clearfix"></div>
               <div class="contact_box">
-                <h3><i class="fa fa-edit"></i> {{__('dashboard.mission.create_new_mission_req')}}</h3>
+                <h3 class="custom-mission-request"><i class="fa fa-edit"></i> {{__('dashboard.mission.create_new_mission_req')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     @if(isset($mission))
@@ -33,7 +33,7 @@
 					  
                       <div class="row custom-mission-request">
 						  <div class="col-md-12">
-						  <label class="custom-mission-request">{{__('frontend.mission_request.general_infos')}}</label>
+						  <label class="custom-mission-request text-uppercase">{{__('frontend.mission_request.general_infos')}}</label>
 						  </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('frontend.mission_request.request_title_object')}}</label> 
@@ -51,7 +51,7 @@
                           {{Form::textarea('description',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.request_description_place')])}}
                         </div>
 					</div>	<br/>
-					<label>{{__('frontend.mission_request.detail_info_maindatory')}}</label><br/>
+					<label class="text-uppercase">{{__('frontend.mission_request.detail_info_maindatory')}}</label><br/>
 					<label>{{__('frontend.mission_request.if_you_can_specify')}}</label>
 					<div class="row">
                         <div class="col-md-6 form-group">
@@ -110,7 +110,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-12 text-center">
-                            <button type="button" data-toggle="modal" data-target="#conform_action" class="button success_btn">{{__('dashboard.mission.book_mission_request')}}</button>
+                            <button type="submit" class="button success_btn">{{__('dashboard.mission.book_mission_request')}}</button>
                         </div>
                       </div>
                     {{Form::close()}}
@@ -123,31 +123,7 @@
     </div>
     <!-- /.container -->
 </div>
-<!-- Modal -->
-<div id="conform_action" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-md">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">        
-        <h4 class="modal-title">{{__('dashboard.confirm')}}</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group">
-              <p class="confirm_text">{{__('dashboard.mission.confirm_create_mission_request')}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary success_btn confirmBtn">{{__('dashboard.yes')}}</button>
-        <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">{{__('dashboard.no')}}</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 <script>
   $(document).ready(function(){
     $(document).on('click','.confirmBtn',function(){
