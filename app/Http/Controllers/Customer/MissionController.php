@@ -303,7 +303,7 @@ class MissionController extends Controller
 			$templateName = 'emails.mission_request';
             $toEmail = 'contact@ontimebe.com';
             $toName = 'Be On Time';
-            $subject = trans('messages.mission_request.mission_request');
+            $subject = trans('frontend.mission_request.mission_request');
             Helper::sendCommonMail($templateName,$input,$toEmail,$toName,$subject);
 			CustomRequest::insert($input);
 			$response['message'] = trans('messages.custom_request');
