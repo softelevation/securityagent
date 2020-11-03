@@ -100,7 +100,7 @@ return [
 		'location' => 'Lieu de la mission',
 		'in_progress' => 'Mission en cours',
 		'pending' => 'Mission en attente',
-		'mission_start' => 'Début de la mission',
+		'mission_start' => 'Démarrer une mission',
 		'finished' => 'Mission terminée',
 		'started_at' => 'Mission commencée à',
 		'ended_at' => 'Mission terminée à',
