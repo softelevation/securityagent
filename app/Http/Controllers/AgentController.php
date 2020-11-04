@@ -103,10 +103,10 @@ class AgentController extends Controller
 	}
 	
     public function showAvailableAgents(Request $request){
-        $latitude = '46.2276';
-        $longitude = '2.2137';
+        $latitude = '48.7993';
+        $longitude = '1.7153';
         $location = 'France';
-        $zoom = 6;
+        $zoom = 7;
         $searchVal = false;
         if(isset($request->latitude) && isset($request->longitude)){
             $latitude = $request->latitude;
