@@ -142,7 +142,7 @@
             </div>
             <div class="col-md-8 padding_0">
                 <div class="map_Agent">
-                    <div id="agentMap" class="map_div" style="height: 500px;"></div>
+                    <div id="agentMap" class="map_div" style="height: 650px;"></div>
                     <div class="map_cont">
                         <div class="row">   
                             <div class="col-md-6">

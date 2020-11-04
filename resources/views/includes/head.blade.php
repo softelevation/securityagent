@@ -8,7 +8,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" data-lang="{{__('frontend.language')}}">
   <title>{{ config('app.name', 'Be On Time') }}</title>
   <!-- Bootstrap core CSS -->
-  <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/css/bootstrap.min.'.__('frontend.language').'.css')}}" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
   <link href="{{asset('css/toaster.css')}}" rel="stylesheet">
