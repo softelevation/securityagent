@@ -50,7 +50,7 @@
     </div>
     <div class="agent_Map">
         <div class="row">
-            <div class="col-md-4 padding_right_0">
+            <div class="col-md-3 padding_right_0">
                 <div class="Agent_list">
                     <h3>{{__('frontend.text_39')}} {{$search['location']}}</h3> 
                     <div class="mt-2 mb-2">
@@ -140,7 +140,7 @@
                     
                 </div>
             </div>
-            <div class="col-md-8 padding_0">
+            <div class="col-md-9 padding_0">
                 <div class="map_Agent">
                     <div id="agentMap" class="map_div" style="height: 650px;"></div>
                     <div class="map_cont">
