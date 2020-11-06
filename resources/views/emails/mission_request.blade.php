@@ -44,6 +44,9 @@
 					<tr>
 						<td style="padding: 8px 15px;">{{__('frontend.mission_request.mission_date')}}</td><td style="padding: 8px 15px;">{{$data['start_date_time']}}</td>
 					</tr>
+					<tr>
+						<td style="padding: 8px 15px;">{{__('dashboard.mission.agent_vehicle')}}</td><td style="padding: 8px 15px;">{{ ($data['vehicle_required'] == '1') ? __('dashboard.yes') : ($data['vehicle_required'] == '2') ? __('dashboard.no') : __('dashboard.mission.not_matter') }}</td>
+					</tr>
 				</table>
 				<h5 style="font-family: sans-serif; background: #ffc107; margin: 0;  padding: 10px; font-weight: 600;">Be On Time</h5>
 			</div>

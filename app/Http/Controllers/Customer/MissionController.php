@@ -310,13 +310,11 @@ class MissionController extends Controller
 			
 			$templateName = 'emails.mission_request';
             $toEmail = 'contact@ontimebe.com';
-            $toEmail_1 = 'ontimebe@yopmail.com';
-            $toEmail_2 = 'parasharamantyagi@gmail.com';
+			$toEmail_1 = 'ontimebe@yopmail.com';
             $toName = 'Be On Time';
             $subject = trans('frontend.mission_request.mission_request');
             Helper::sendCommonMail($templateName,$input,$toEmail,$toName,$subject);
             Helper::sendCommonMail($templateName,$input,$toEmail_1,$toName,$subject);
-            Helper::sendCommonMail($templateName,$input,$toEmail_2,$toName,$subject);
 			CustomRequest::insert($input_saave);
 			$response['message'] = trans('messages.custom_request');
 			$response['delayTime'] = 5000;
