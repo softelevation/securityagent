@@ -795,7 +795,7 @@ class MissionController extends Controller
             $data = array_except($request->all(),['_token']);
 			$data['start_date_time'] = Carbon::now();
             if($data['quick_book']==0){
-                $date = str_replace('/', '-', $data['start_date_time']);
+				$date = str_replace('/', '-', $request->start_date_time);
                 $startDateTime = date('Y-m-d H:i:s', strtotime($date));
                 $data['start_date_time'] = $startDateTime;
                 $mission_id = $this->saveQuickMissionDetails($data);

@@ -207,6 +207,8 @@ return [
 	'hours_available_msg' => 'This agent is only available for :time Hours',
 	'reset_password_btn' => 'Reset Password',
 	'banner_contant' => 'This site uses cookies and gives you control over what you want to activate',
+	'footer_accept_all' => 'accept all',
+	'footer_personalize' => 'Personalize',
 	'mission_request' => [
 		'detail_info_maindatory' => "Details info - not mandatory",
 		'if_you_can_specify' => "If you can specify your request, please fill in details below",

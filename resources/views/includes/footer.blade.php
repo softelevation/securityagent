@@ -37,8 +37,8 @@
 
 <div id="landContainer" style="display: none;">
   <span id="tarteaucitronDisclaimerAlert">{{__('frontend.banner_contant')}}</span>
-  <button type="button" id="tarteaucitronPersonalize">✓ OK, accept all</button>
-  <button type="button" id="tarteaucitronCloseAlert">Personalize</button>
+  <button type="button" id="tarteaucitronPersonalize">✓ OK, {{__('frontend.footer_accept_all')}}</button>
+  <button type="button" id="tarteaucitronCloseAlert">{{__('frontend.footer_personalize')}}</button>
 </div>
 
 <footer class="footer">
