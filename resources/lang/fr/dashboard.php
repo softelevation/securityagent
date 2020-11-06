@@ -119,7 +119,7 @@ return [
 		'parent' => 'Mission parent',
 		'not_paid' => 'Pas encore payé',
 		'completed' => 'Terminé',
-		'bank_transfer' => 'Bank transfer',
+		'bank_transfer' => 'Virement bancaire',
 		'invoice_paid' => 'Invoice paid',
 		'upload_invoice' => 'Inserer votre justificatif',
 		'save_invoice' => 'Enregistrer',
