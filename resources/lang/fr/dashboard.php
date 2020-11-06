@@ -3,7 +3,7 @@
 return [
 	// Profile Tab
 	'profile' => 'Profil',
-	'mission_requests' => 'Etude de faisabilité',
+	'mission_requests' => 'Demande de mission',
 	'missions' => 'Missions',
 	'mission_to_start' => 'Démarrer une mission',
 	'schedule' => 'Planning',
@@ -186,8 +186,7 @@ return [
 		// Mission Requests Tab
 		'awaiting_requests' => 'En attente de demandes',
 		'expired_requests' => 'Demandes expirées',
-		'request_timeout' => 'Request Timeout',
-		
+		'request_timeout' => 'Délai de demande',
 		// Schedule
 		'schedule' => "Calendrier de l'agent",
 		'available_from' => 'Disponible à partir de',
