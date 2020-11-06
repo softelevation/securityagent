@@ -4,6 +4,7 @@ return [
 	// Profile Tab
     'profile' => 'Profile',
     'mission_requests' => 'Mission Requests',
+    'i_have_mission_requests' => 'Mission Requests',
     'missions' => 'Missions',
     'mission_to_start' => 'Mission to start',
     'schedule' => 'Schedule',

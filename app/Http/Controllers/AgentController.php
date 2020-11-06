@@ -295,7 +295,7 @@ class AgentController extends Controller
 		
         $post = array_except($request->all(),'_token');
         $agent_id = Auth::user()->agent_info->id;
-        $schedule_date = date('Y-m-d', strtotime($request->schedule_date));
+        $schedule_date = Carbon::createFromFormat('d/m/Y', $request->schedule_date)->format('Y-m-d');
         $post['schedule_date'] = $schedule_date;
         $isExists = AgentSchedule::where('agent_id',$agent_id)->whereDate('schedule_date',$schedule_date)->count();
         if($isExists!=0){
