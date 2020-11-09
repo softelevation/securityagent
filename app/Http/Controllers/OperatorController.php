@@ -427,6 +427,17 @@ class OperatorController extends Controller
             $mission = Mission::where('id',$mission_id)->first();
             /*----Agent Notification-----*/
             if(isset($mission->agent_details)){
+				
+				try {
+					$cus_name = $mission->customer_info->first_name.' '.$mission->customer_info->last_name;
+					$message = trans('dashboard.report.received_a_new_mission')." \n";
+					$message .= trans('dashboard.report.customer_name').$cus_name."\n";
+					$message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
+					$message .= trans('dashboard.report.location').$mission->location;
+					PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
+				}catch(\Exception $e){
+				}
+				
                 $mailContent = [
                     'name' => ucfirst($mission->agent_details->first_name),
                     'message' => trans('messages.agent_new_mission_notification'), 
