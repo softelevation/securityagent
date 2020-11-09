@@ -5,7 +5,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 .yellow_btn{box-shadow: none; height: 40px; line-height: 40px}
 .send_by_cus{float: left; width: 100%;}
 .send_by_agent{float: left; width: 100%;}
-.send_by_op{float: right;position: relative;margin-left: 50%;}
+.send_by_op{float: right;position: relative;margin-left: 50%;max-width: 50%;}
 </style>
 <div class="profile">
     <div class="container">
