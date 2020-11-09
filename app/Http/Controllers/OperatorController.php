@@ -408,7 +408,7 @@ class OperatorController extends Controller
             });
         }
 		
-		$verifiedAgents = Agent::select('id','first_name','last_name','username')->where('status','!=','')->whereIn('status',[1,3])->orderBy('id','DESC')->get();
+		$verifiedAgents = Agent::select('id','first_name','last_name','username')->where('status','!=','')->where('status',1)->orderBy('id','DESC')->get();
         $agents = $a->where('status',1)->where('available',1)->select(DB::raw("*, 111.111 *
                 DEGREES(ACOS(LEAST(1.0, COS(RADIANS(".$mission->latitude."))
                 * COS(RADIANS(work_location_latitude))
@@ -429,7 +429,6 @@ class OperatorController extends Controller
             /*----Agent Notification-----*/
             if(isset($mission->agent_details)){
 				try {
-					PlivoSms::sendSms(['phoneNumber' => '+916239463839', 'msg' => 'hello be on time' ]);
 					$cus_name = $mission->customer_details->first_name.' '.$mission->customer_details->last_name;
 					$message = trans('dashboard.report.received_a_new_mission')." \n";
 					$message .= trans('dashboard.report.customer_name').$cus_name."\n";
