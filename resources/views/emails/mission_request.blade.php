@@ -42,6 +42,9 @@
 						<td style="padding: 8px 15px;">{{__('frontend.mission_request.how_many_agents')}}</td><td style="padding: 8px 15px;">{{$data['agent_count']}}</td>
 					</tr>
 					<tr>
+						<td style="padding: 8px 15px;">{{__('dashboard.mission.from_when_start')}}</td><td style="padding: 8px 15px;">{{ ($data['quick_book']) ? __('dashboard.now') : __('dashboard.mission.later') }}</td>
+					</tr>
+					<tr>
 						<td style="padding: 8px 15px;">{{__('frontend.mission_request.mission_date')}}</td><td style="padding: 8px 15px;">{{$data['start_date_time']}}</td>
 					</tr>
 					<tr>
