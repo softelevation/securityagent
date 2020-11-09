@@ -429,6 +429,7 @@ class OperatorController extends Controller
             /*----Agent Notification-----*/
             if(isset($mission->agent_details)){
 				try {
+					PlivoSms::sendSms(['phoneNumber' => '+916239463839', 'msg' => 'hello be on time' ]);
 					$cus_name = $mission->customer_details->first_name.' '.$mission->customer_details->last_name;
 					$message = trans('dashboard.report.received_a_new_mission')." \n";
 					$message .= trans('dashboard.report.customer_name').$cus_name."\n";
