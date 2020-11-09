@@ -52,7 +52,9 @@
 								<div class="col-md-2 form-group">
 								</div>
 								<div class="col-md-4 form-group">
-								  Identifiant du rapport {{Form::text('report_id',$report_id,['class'=>'form-control'])}}
+								  Identifiant du rapport 
+								  <span class="form-control">{{ $report_id }}</span>
+								  {{Form::hidden('report_id',$report_id)}}
 								</div>
 							</div>
 							<table class="table table-hover table-striped">
