@@ -38,7 +38,7 @@
                               <td>{{Helper::mission_id_str($mission->id)}}</td>
                               <td>{{$payment->amount}} <i class="fa fa-euro-sign"></i></td>
                               <td>{{date('d/m/Y H:i:s', strtotime($payment->created_at))}}</td>
-                              <td>{{ucfirst($payment->status)}}</td>
+                              <td>@if($payment->status == 'succeeded') {{__("frontend.$payment->status")}} @else {{__("frontend.$payment->status")}}  @endif</td>
                               <td>
                                 @if($payment->refund_status=='succeeded')
                                   <span style="padding: 0px 5px; font-size: 14px;" type="button" class="btn btn-outline-success">{{__('dashboard.payment.refunded')}}</span>

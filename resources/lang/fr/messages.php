@@ -56,6 +56,8 @@ return [
 	'payment_done_message' => 'Un paiement de :amount EUR a été fait avec succès. Pour vérifier plus de détails sur ce paiement ou pour télécharger la facture de ce paiement, cliquez sur le bouton ci-dessous.',
 	'hello' => 'Bonjour',
 	'thanks' => 'Merci',
+	'cannot_charge_a_customer' => "Impossible de facturer un client qui n'a pas de carte active",
+	'no_such_charge' => "Pas de frais de ce type: 'virement bancaire'",
 	'view_mission_details' => 'Voir le détail de la mission',
 	'view_payment_details' => 'voir les détails du paiement',
 	'user_registered' => "L'utilisateur a été enregistré avec succès.",

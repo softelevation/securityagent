@@ -4,6 +4,7 @@ return [
 	// Profile Tab
 	'profile' => 'Profil',
 	'mission_requests' => 'Demande de mission',
+	'search_by_mission_status' => 'Recherche par statut de mission',
 	'i_have_mission_requests' => 'Etude de faisabilité',
 	'missions' => 'Missions',
 	'mission_to_start' => 'Démarrer une mission',
@@ -168,7 +169,7 @@ return [
 		'payment_success' => 'Paiement réussi',
 		'cancelled' => 'Mission annulée',
 		'archive' => 'Archive',
-		'archive_mission'=> 'Archive Mission',
+		'archive_mission'=> 'Missions archivées',
 		'message_center'=>'Centre de messagerie',
 		'agent_information_edit'=>'Agent Info Edit',
 		'agent_information_edit_fr'=>'Agent Info Edit France',
@@ -221,7 +222,7 @@ return [
 	'billings' => [
 		'heading' => "HISTORIQUE DE PAIEMENT DE LA MISSION",
 		'amount_charged' => 'Montant facturé',
-		'date_time' => 'Date Time',
+		'date_time' => 'Date Heure',
 	],
 	
 	'report' => [

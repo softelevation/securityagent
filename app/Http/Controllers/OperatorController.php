@@ -606,6 +606,9 @@ class OperatorController extends Controller
             }
 
         }catch(\Exception $e){
+			if($e->getMessage() == 'Cannot charge a customer that has no active card'){
+				return $this->getErrorResponse(trans("messages.cannot_charge_a_customer"));
+			}
             return response($this->getErrorResponse($e->getMessage()));
         }
     }
@@ -829,6 +832,9 @@ class OperatorController extends Controller
                 }
             }
         } catch (\Exception $e) {
+			if($e->getMessage() == "No such charge: 'bank transfer'"){
+				return $this->getErrorResponse(trans("messages.no_such_charge"));
+			}
             return response($this->getErrorResponse($e->getMessage()));
         }
     } 

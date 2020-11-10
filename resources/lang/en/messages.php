@@ -56,6 +56,8 @@ return [
 	'payment_done_message' => 'A payment of :amount EUR has been done successfully. To check more details about this payment or to download the invoice of this payment, click on the button given below.',
 	'hello' => 'Hello',
 	'thanks' => 'Thanks',
+	'cannot_charge_a_customer' => 'Cannot charge a customer that has no active card',
+	'no_such_charge' => "No such charge: 'bank transfer'",
 	'view_mission_details' => 'View Mission Details',
 	'view_payment_details' => 'View Payment Details',
 	'user_registered' => 'User has been registered successfully.',

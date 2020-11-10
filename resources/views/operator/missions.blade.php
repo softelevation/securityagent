@@ -15,7 +15,7 @@
                     <div class="col-md-3  float-left form-group">
                         @if(!app('request')->input('archived'))
                             <select class="form-control" name="missionStatus" id="filterMissionStatus"> 
-                                <option value="" disabled selected>Search by Mission status</option>
+                                <option value="" disabled selected>{{__('dashboard.search_by_mission_status')}}</option>
                                 <option value="all">{{__('dashboard.mission.all')}}</option>
                                 @foreach(Helper::get_mission_status_array() as $idx => $val)
                                 <option value='{{$idx}}' @if((null != app('request')->input('missionStatus')) &&  app('request')->input('missionStatus') >=0 &&  app('request')->input('missionStatus') >=0!== 'all' && app('request')->input('missionStatus')==$idx) selected="selected" @endif>{{$val}}</option>
