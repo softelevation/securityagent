@@ -37,7 +37,7 @@
 							<div class="row">
 								<div class="col-md-4 form-group">
 								  <label>Date</label>
-								<span class="form-control">{{$feature->date}}</span>
+								<span class="form-control">{{ date("d-m-Y",strtotime($feature->date)) }}</span>
 								</div>
 								<div class="col-md-2 form-group">
 								</div>

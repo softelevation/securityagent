@@ -120,7 +120,7 @@ return [
 		'not_paid' => 'Pas encore payé',
 		'completed' => 'Terminé',
 		'bank_transfer' => 'Virement bancaire',
-		'invoice_paid' => 'Invoice paid',
+		'invoice_paid' => 'Facture payee',
 		'upload_invoice' => 'Inserer votre justificatif',
 		'save_invoice' => 'Enregistrer',
 		'edit' => 'Modifier la mission',

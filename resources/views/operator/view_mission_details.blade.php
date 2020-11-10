@@ -191,7 +191,7 @@ input:checked + .slider_bank:before {
                                   <th>{{__('dashboard.payment.mission_amount')}}</th>
                                   <th>{{__('dashboard.payment.date')}}</th>
                                   <th>{{__('dashboard.mission.payment_status')}}</th>
-                                  <th>Invoice paid</th>
+                                  <th>{{__('dashboard.mission.invoice_paid')}}</th>
                                   <th>{{__('dashboard.action')}}</th>
                               </tr>
                           </thead>
