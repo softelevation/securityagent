@@ -345,7 +345,7 @@ input[type=submit]:hover {
 						<label for="lname">{{__('dashboard.agents.repetitive_mission')}}</label>
 					  </div>
 					  <div class="col-75">
-						<input type="text" id="lname" value="{{$mission->repetitive_mission}}">
+						<input type="text" id="lname" value="{{__('dashboard.agents.'.str_replace(' ','_',$mission->repetitive_mission).'')}}">
 					  </div>
 					</div>
 					<div class="row">
