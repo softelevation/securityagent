@@ -404,7 +404,7 @@ class OperatorController extends Controller
                 ->whereTime('available_to','>=',$mission_end_time);
             });
             $a->whereDoesntHave('missions',function($q) use ($mission_start_date_time,$mission_end_date_time){
-                $q->whereBetween('start_date_time',[$mission_start_date_time,$mission_end_date_time])->where('status',0);
+                $q->whereBetween('start_date_time',[$mission_start_date_time,$mission_end_date_time]);
             });
         }
 		
