@@ -835,6 +835,9 @@ class OperatorController extends Controller
 			if($e->getMessage() == "No such charge: 'bank transfer'"){
 				return $this->getErrorResponse(trans("messages.no_such_charge"));
 			}
+			if(strpos($e->getMessage(), 'a similar object exists in test mode, but a live mode key was used to make this request')){
+				return $this->getErrorResponse(trans("messages.a_similar_object_exists",['name' => explode("'", $e->getMessage())[1]]));
+			}
             return response($this->getErrorResponse($e->getMessage()));
         }
     } 

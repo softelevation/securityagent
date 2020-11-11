@@ -58,6 +58,7 @@ return [
 	'thanks' => 'Thanks',
 	'cannot_charge_a_customer' => 'Cannot charge a customer that has no active card',
 	'no_such_charge' => "No such charge: 'bank transfer'",
+	'a_similar_object_exists' => "No such charge: :name; a similar object exists in test mode, but a live mode key was used to make this request.",
 	'view_mission_details' => 'View Mission Details',
 	'view_payment_details' => 'View Payment Details',
 	'user_registered' => 'User has been registered successfully.',

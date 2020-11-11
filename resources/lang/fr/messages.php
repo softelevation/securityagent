@@ -58,6 +58,7 @@ return [
 	'thanks' => 'Merci',
 	'cannot_charge_a_customer' => "Impossible de facturer un client qui n'a pas de carte active",
 	'no_such_charge' => "Pas de frais de ce type: 'virement bancaire'",
+	'a_similar_object_exists' => "Pas de frais de ce type: :name; un objet similaire existe en mode test, mais une touche de mode live a été utilisée pour effectuer cette requête.",
 	'view_mission_details' => 'Voir le détail de la mission',
 	'view_payment_details' => 'voir les détails du paiement',
 	'user_registered' => "L'utilisateur a été enregistré avec succès.",
