@@ -1451,7 +1451,7 @@ a.disabled{
 
 .payment-icone-image {
     margin-top: 10px;
-    height: 120px;
+    height: 40px;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 2px;
 }
