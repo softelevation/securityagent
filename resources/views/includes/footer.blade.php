@@ -83,6 +83,9 @@
                         <span><i class="fa fa-envelope"></i></span>
                         <input type="button" class="btn_submit" value="Submit" />
                     </div>
+					<div class="newsletter_box">
+					<img class="payment-icone-image" src="{{url('avatars/stripeVM.png')}}">
+					</div>
                 </div>
             </div>
         </div>

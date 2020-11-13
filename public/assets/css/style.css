@@ -1448,3 +1448,10 @@ a.disabled{
 {
 	.form-control .pac-target-input {width: 60%;}
 }
+
+.payment-icone-image {
+    margin-top: 10px;
+    height: 100px;
+    background-color: white;
+    border-radius: 10px;
+}
