@@ -514,7 +514,7 @@ class MissionController extends Controller
 					}catch(\Exception $e){
 					}
 				}
-				Mission::where('id',$mission_id)->update(['payment_status'=>2]);
+				Mission::where('id',$mission_id)->update(['payment_status'=>2,'assigned_at'=>Carbon::now()]);
 				$paymentDetails = [
                     'amount'      => $amount,
                     'status'      => 'awiting payment',  
