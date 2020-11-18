@@ -514,7 +514,11 @@ class MissionController extends Controller
 					}catch(\Exception $e){
 					}
 				}
-				Mission::where('id',$mission_id)->update(['payment_status'=>2,'assigned_at'=>Carbon::now()]);
+				$mission_update = array('payment_status'=>2);
+				if($mission->quick_book){
+					$mission_update = array('payment_status'=>2,'assigned_at'=>Carbon::now());
+				}
+				Mission::where('id',$mission_id)->update($mission_update);
 				$paymentDetails = [
                     'amount'      => $amount,
                     'status'      => 'awiting payment',  
@@ -584,7 +588,11 @@ class MissionController extends Controller
 					CardDetail::updateOrCreate(array('user_id'=>Auth::user()->id,'card_number'=>$request->card_number),array('user_id'=>Auth::user()->id,'name'=>$request->name,'card_number'=>$request->card_number,'expire_month'=>$request->expire_month,'expire_year'=>$request->expire_year));
 				}
                 // Update Mission Data
-                Mission::where('id',$mission_id)->update(['payment_status'=>1]);
+				$mission_update = array('payment_status'=>1);
+				if($mission->quick_book){
+					$mission_update = array('payment_status'=>1,'assigned_at'=>Carbon::now());
+				}
+                Mission::where('id',$mission_id)->update($mission_update);
                 /*----Customer Notification-----*/
                 $mailContent = [
                     'name' => ucfirst($mission->customer_details->first_name),
