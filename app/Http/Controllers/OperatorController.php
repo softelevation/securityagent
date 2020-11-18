@@ -751,7 +751,7 @@ class OperatorController extends Controller
 		$opData = Operator::select('first_name','last_name')->where('user_id',Auth::id())->first();
 		$params = array();
 		$params['user_id'] =Auth::id();
-		$params['cus_id'] = (isset($user_messages[0])) ? $user_messages[0]->user_id : $customer->user_id;
+		$params['cus_id'] = (isset($user_messages[0])) ? $user_messages[0]->user_id : $id;
 		$params['profile'] = '';
 		$params['user_messages'] = $user_messages;
 		$params['opData'] = $opData;
