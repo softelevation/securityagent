@@ -56,12 +56,16 @@
                                           <td>{{Helper::get_customer_type_name($customer->customer_type)}}</td>
                                           <td>{{$customer->user->email}}</td>
                                           <td>
-                                            <a class="action_icons" href="{{url('operator/customer/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a></br>
-
-                                            @if(Auth::user()->role_id == 3)
-                                             <a class="action_icons" onclick="return confirm('<?php echo __('dashboard.confirm_delete'); ?>');" href="{{url('operator/customer/delete/'.$en_id)}}"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </a>
-                                            @endif
-
+											<div class="dropdown">
+												<a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
+												<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+													<a class="dropdown-item" href="{{url('operator/customer/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
+												@if(Auth::user()->role_id == 3)
+													<a class="dropdown-item" onclick="return confirm('<?php echo __('dashboard.confirm_delete'); ?>');" href="{{url('operator/customer/delete/'.$en_id)}}"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </a>
+												@endif
+													<a class="dropdown-item" href="{{url('operator/message-center/'.Helper::encrypt($customer->user_id))}}"><i class="fa fa-comment"></i> {{__('dashboard.mission.message_center')}}</a>
+												</div>
+											</div>
                                           </td>
                                       </tr>
                                     @empty

@@ -741,7 +741,8 @@ class OperatorController extends Controller
 	
 	public function messageCenterId($id){
 		$id = Helper::decrypt($id);
-		if(Customer::where('user_id',$id)->first()){
+		$customer = Customer::where('user_id',$id)->first();
+		if($customer){
 			$user_messages = MessageCenter::select('customers.user_id','customers.first_name','customers.last_name','message_centers.message','message_centers.message_type')->join('customers','customers.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
 		}else{
 			$user_messages = MessageCenter::select('agents.user_id','agents.first_name','agents.last_name','message_centers.message','message_centers.message_type')->join('agents','agents.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
@@ -750,7 +751,7 @@ class OperatorController extends Controller
 		$opData = Operator::select('first_name','last_name')->where('user_id',Auth::id())->first();
 		$params = array();
 		$params['user_id'] =Auth::id();
-		$params['cus_id'] = (isset($user_messages[0])) ? $user_messages[0]->user_id : '';
+		$params['cus_id'] = (isset($user_messages[0])) ? $user_messages[0]->user_id : $customer->user_id;
 		$params['profile'] = '';
 		$params['user_messages'] = $user_messages;
 		$params['opData'] = $opData;
