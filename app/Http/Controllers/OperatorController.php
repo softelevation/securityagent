@@ -409,7 +409,7 @@ class OperatorController extends Controller
         }
 		
 		$verifiedAgents = Agent::select('id','first_name','last_name','username')->where('status','!=','')->where('status',1)->orderBy('id','DESC')->get();
-        $agents = $a->where('status',1)->where('available',1)->select(DB::raw("*, 111.111 *
+        $agents = $a->where('status',1)->where('available','!=',0)->select(DB::raw("*, 111.111 *
                 DEGREES(ACOS(LEAST(1.0, COS(RADIANS(".$mission->latitude."))
                 * COS(RADIANS(work_location_latitude))
                 * COS(RADIANS(".$mission->longitude." - work_location_longitude))
