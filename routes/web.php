@@ -150,6 +150,8 @@ Route::group(['prefix'=>'customer'], function () {
 // Agent Routes
 Route::group(['prefix'=>'agent'], function () {
     Route::group(['middleware'=>['auth','roles']], function () {
+		Route::get('/report', 'AgentController@reportFilter');
+        Route::post('/report', 'AgentController@reportFilterPost');
         Route::get('/report/{mission_id}', 'AgentController@report');
         Route::get('/report-view/{mission_id}', 'AgentController@reportView');
         Route::post('/report/{mission_id}', 'AgentController@reportUpdate');

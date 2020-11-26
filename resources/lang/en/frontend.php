@@ -8,14 +8,14 @@ return [
     'text_4' => 'Enter your location',
     'text_5' => 'Search Now',
     'text_6' => 'Need to ensure the security of a site, the surveillance of a parking lot, the security of a store or the prevention of fire risks in an establishment open to the public?',
-    "text_7" => "Be on time offers an intervention in one hour throughout the Ile-de-France for your urgent requests. Just open the map to geotag the security officer that's right for you. Then, in a few seconds, after validation, the agent starts his mission.",
+    "text_7" => "BE ON TIME offers an intervention in one hour throughout the Ile-de-France for your urgent requests. Just open the map to geotag the security officer that's right for you. Then, in a few seconds, after validation, the agent starts his mission.",
     "text_8" => "I am an Agent",
     "text_9" => "I am a User",
     "text_10" => "Find an agent available right now or schedule a mission",
 	"text_11" => "Register and post your mission requested",
 	"text_12" => "Receive a quick answer with quotation",
 	"text_13" => "Awesome Features",
-	"text_14" => "Be on time is at your disposal at any time, we can intervene day and night, 7/7 and 24/24 to ensure your security.",
+	"text_14" => "BE ON TIME is at your disposal at any time, we can intervene day and night, 7/7 and 24/24 to ensure your security.",
 	"text_15" => "Cross-Platform",
 	"text_16" => "We provide support with quality service in a purely legal framework while respecting laws, rules and instructions.",
 	"text_17" => "QUALIFIED AND CERTIFIED AGENTS",
@@ -27,7 +27,7 @@ return [
 	"text_23" => "Conscientious, available with great adaptability, I recommend",
 	"text_24" => "I did not complain about any problems during the missions that I planned",
 	"text_25" => "ABOUT OUR PLATFORM",
-	"text_26" => "Be on time is a security and guard company, which is based on 20 years of experience. Holder of a CNAPS accreditation, we act 24/7. We respond to your needs as soon as possible with the installation of agents as soon as possible within 1 hour throughout France. We act for different types of events: guarding, events, personal and premises security, We have ADS agents, dog handlers, SSIAP 1,2 and 3, bodyguard, as well as hostesses.",
+	"text_26" => "BE ON TIME is a security and guard company, which is based on 20 years of experience. Holder of a CNAPS accreditation, we act 24/7. We respond to your needs as soon as possible with the installation of agents as soon as possible within 1 hour throughout France. We act for different types of events: guarding, events, personal and premises security, We have ADS agents, dog handlers, SSIAP 1,2 and 3, bodyguard, as well as hostesses.",
 	"text_27" => "SHORT LINKS",
 	"text_28" => "Contact Us",
 	"text_29" => "Available agents on map",
@@ -60,8 +60,8 @@ return [
 	"text_54" => "Book Now",
 
 	// Agent Page
-	"text_55" => "Join the <b> Be On Time </b> adventure, to develop your activity as <b> Security Officers </b>, everywhere in France.",
-	"text_56" => "<p> <b> Be On Time </b>, has developed a unique and innovative model for Security Agents. We are looking for partners looking for private security missions: </p>
+	"text_55" => "Join the <b> BE ON TIME </b> adventure, to develop your activity as <b> Security Officers </b>, everywhere in France.",
+	"text_56" => "<p> <b> BE ON TIME </b>, has developed a unique and innovative model for Security Agents. We are looking for partners looking for private security missions: </p>
 		<p> We allow Agents who register on our platform, (<a href=':url' target='_blank'> click here to register now </a>) to preserve their quality of life and get more , exercising under the status of employee or self-employed. </p> <p> Through our tool, we want to allow you to find new missions near you and improve your remuneration, even if you already have an activity. </p> ",
 	"text_57" => "To register it's very simple",
 	"text_58" => "<p class = 'card-text'> 1. Indicate your skills, the type of missions you want, your experience, your availability, etc. Everything that will make it easy to find you.</p>

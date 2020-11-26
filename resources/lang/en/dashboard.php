@@ -76,7 +76,7 @@ return [
 	'invoice_date' => 'Date of Invoice',
 	'amount' => 'Amount',
 	'grand_total' => 'Grand Total',
-	'pdf_copyright' => 'Copyright © 2020 - All rights reserved by Be On Time.',
+	'pdf_copyright' => 'Copyright © 2020 - All rights reserved by BE ON TIME.',
 	'block' => 'Block',
 	'unblock' => 'Unblock',
 	'created_at' => 'Created At',

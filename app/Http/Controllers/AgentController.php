@@ -143,6 +143,36 @@ class AgentController extends Controller
         return view('agent.profile',$data);
     }
 	
+	
+	public function reportFilter(){
+		
+		$agent = array();
+		$agentDatas = Agent::select('id','first_name','last_name')->where('status','1')->get();
+		foreach($agentDatas as $agentData){
+			$agent[$agentData->id] = $agentData->first_name.' '.$agentData->last_name;
+		}
+    	return view('agent.report-pdf')->with('agent',$agent);
+    }
+	
+	public function reportFilterPost(Request $request){
+		$inputData = $request->all();
+		$mission = Mission::where('agent_id','!=','0')->where(function ($query) {
+								$query->where('payment_status',1)
+									  ->orWhere('payment_status',2);
+							});
+		if($request->from_date){
+			$to_date = Carbon::now()->format('yy-m-d');
+			if($request->to_date){
+				$to_date = Carbon::parse($request->to_date)->format('yy-m-d');
+			}
+			$mission = $mission->whereBetween('created_at',[Carbon::parse($request->from_date)->format('yy-m-d'), $to_date]);
+		}
+		$result = $mission->get();
+		$customPaper = array(0,0,500.00,850.80);
+		$pdf = \PDF::loadView('pdf.special_agent_report', ['results'=>$result])->setPaper($customPaper, 'landscape');
+		return $pdf->download('report.pdf');
+	}
+	
 	/**
      * @param $request
      * @return new feature page

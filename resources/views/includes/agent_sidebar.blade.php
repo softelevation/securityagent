@@ -29,8 +29,11 @@
                     <a href="{{url('agent/schedule')}}/{{Helper::encrypt(Auth::user()->agent_info->id)}}" class="nav-link"><i class="fa fa-calendar-alt"></i> {{__('dashboard.schedule')}}</a>
                 </li>
 				<li class="nav-item">
-                    <a class="nav-link" href="{{url('agent/message-center')}}"><i class="fa fa-message_center"></i> {{__('dashboard.mission.message_center')}} @if(Helper::get_message_center_count('agent') > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_message_center_count('agent')}}</span>@endif</a>
+                    <a class="nav-link" href="{{url('agent/message-center')}}"><i class="fa fa-comments"></i> {{__('dashboard.mission.message_center')}} @if(Helper::get_message_center_count('agent') > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_message_center_count('agent')}}</span>@endif</a>
                 </li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{url('agent/report')}}"><i class="fa fa-database"></i> {{__('dashboard.report.report')}}</a>
+				</li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('logout')}}"><i class="fa fa-sign-out-alt"></i> {{__('dashboard.logout')}}</a>
                 </li>

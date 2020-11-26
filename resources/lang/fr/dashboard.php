@@ -76,7 +76,7 @@ return [
 	'invoice_date' => 'Date de facture',
 	'amount' => 'Montant',
 	'grand_total' => 'Somme Finale',
-	'pdf_copyright' => 'Copyright © 2020 - Tous droits réservés par Be On Time.',
+	'pdf_copyright' => 'Copyright © 2020 - Tous droits réservés par BE ON TIME.',
 	'block' => 'Bloquer',
 	'unblock' => 'Débloquer',
 	'created_at' => 'Créé à',

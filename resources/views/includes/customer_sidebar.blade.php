@@ -20,7 +20,7 @@
                     <a href="{{url('customer/billing-details')}}" class="nav-link"><i class="fa fa-file-invoice"></i> &nbsp; {{__('dashboard.billing')}}</a>
                 </li>
 				<li class="nav-item">
-                    <a class="nav-link" href="{{url('customer/message-center')}}"><i class="fa fa-message_center"></i> {{__('dashboard.mission.message_center')}} @if(Helper::get_message_center_count('cus') > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_message_center_count('cus')}}</span>@endif</a>
+                    <a class="nav-link" href="{{url('customer/message-center')}}"><i class="fa fa-comments"></i> {{__('dashboard.mission.message_center')}} @if(Helper::get_message_center_count('cus') > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_message_center_count('cus')}}</span>@endif</a>
                 </li>
 				<!-- li class="nav-item">
                     <a class="nav-link" href="{{url('customer/patrolling-mission')}}"><i class="fa fa-sign-out-alt"></i> {{__('dashboard.patrolling_mission')}}</a>

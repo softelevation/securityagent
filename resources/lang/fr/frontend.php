@@ -8,14 +8,14 @@ return [
     'text_4' => 'Saisissez votre position',
     'text_5' => 'Rechercher',
     'text_6' => "Besoin d'assurer le gardiennage d'un chantier, la surveillance d'un parking, la sécurité d'un magasin ou la prévention des risques incendie dans un établissement recevant du public ?",
-    "text_7" => "Be on time propose une intervention en une heure dans toute la France pour vos demandes urgentes. Il vous suffit d’ouvrir la carte pour géolocaliser l’agent de sécurité qui vous convient. Puis, en quelques secondes, après validation, l’agent démarre sa mission.",
+    "text_7" => "BE ON TIME propose une intervention en une heure dans toute la France pour vos demandes urgentes. Il vous suffit d’ouvrir la carte pour géolocaliser l’agent de sécurité qui vous convient. Puis, en quelques secondes, après validation, l’agent démarre sa mission.",
     "text_8" => "Je suis un Agent",
     "text_9" => "Je suis un Client",
     "text_10" => "Trouvez un agent disponible ou programmer une mission",
 	"text_11" => "Planifier une mission",
 	"text_12" => "Recevez une estimation gratuite rapidement",
 	"text_13" => "RAPIDITÉ D'INTERVENTION",
-	"text_14" => "Be on time est à votre disposition à n’importe quel moment, nous pouvons intervenir jour et nuit, 7j/7 et 24h/24 pour assurer votre sécurité.",
+	"text_14" => "BE ON TIME est à votre disposition à n’importe quel moment, nous pouvons intervenir jour et nuit, 7j/7 et 24h/24 pour assurer votre sécurité.",
 	"text_15" => "STRICT RESPECT DES LOIS ET PROCÉDURES",
 	"text_16" => "Nous assurons une prise en charge avec une prestation de qualité dans un cadre purement légale en respectant les lois, les règles et les consignes.",
 	"text_17" => "AGENTS QUALIFIÉS ET CERTIFIÉS",
@@ -62,8 +62,8 @@ return [
 	"text_54" => "Réserver maintenant",
 
 	// Agent Page
-	"text_55" => "Rejoignez l’aventure <b>Be On Time</b>, pour développer votre activité <b>d’Agents de Sécurité</b>, partout en France.",
-	"text_56" => "<p><b>Be On Time</b>, a développé un modèle unique et innovant au service des Agents de Sécurité. Nous sommes à la recherche de partenaires en quête de missions en sécurité privée : </p>
+	"text_55" => "Rejoignez l’aventure <b>BE ON TIME</b>, pour développer votre activité <b>d’Agents de Sécurité</b>, partout en France.",
+	"text_56" => "<p><b>BE ON TIME</b>, a développé un modèle unique et innovant au service des Agents de Sécurité. Nous sommes à la recherche de partenaires en quête de missions en sécurité privée : </p>
         <p>Nous permettons aux Agents qui s’inscrivent sur notre plateforme, (<a href=':url' target='_blank'>cliquez ici pour vous inscrire maintenant</a>) de préserver leur qualité de vie et obtenir plus, en exerçant sous le statut de salarié ou indépendant.</p>
         <p>À travers notre outil, nous souhaitons vous permettre de trouver de nouvelles missions près de chez vous et d’améliorer votre rémunération, même si vous avez déjà une activité.</p>",
 	"text_57" => "Pour s’inscrire c’est très simple",
