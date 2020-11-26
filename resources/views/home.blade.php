@@ -5,6 +5,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="banner_cont">
+                    <h1>BE ON TIME</h1>
                     <h1>{{__('frontend.text_1')}}</h1>
                     <p>{{__('frontend.text_6')}}</p>
                 </div>
