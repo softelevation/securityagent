@@ -212,6 +212,7 @@
                                 <th class="text-center">{{__('dashboard.customer_name')}}</th>
                                 <th class="text-right">{{__('dashboard.agents.time_intervel')}}</th>
                                 <th class="text-right">{{__('dashboard.amount')}}</th>
+								<th class="text-right">{{__('dashboard.mission.location')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -224,6 +225,7 @@
                                 <td class="text-center">{{ucfirst($result->customer_details->first_name.' '.$result->customer_details->last_name)}}</td>
                                 <td class="text-right">{{ $result->total_hours }} {{__('dashboard.hours')}}</td>
                                 <td class="text-right">{{ $result->amount }} €</td>
+								<td class="text-right">{{ $result->location }}</td>
                             </tr>
 							@php 
 							  $original_amount+= $result->amount;

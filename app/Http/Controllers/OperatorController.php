@@ -665,9 +665,9 @@ class OperatorController extends Controller
 	
 	public function reportFilter(){
 		$agent = array();
-		$agentDatas = Agent::select('id','first_name','last_name')->where('status','1')->get();
+		$agentDatas = Agent::select('id','first_name','last_name','username')->where('status','1')->get();
 		foreach($agentDatas as $agentData){
-			$agent[$agentData->id] = $agentData->first_name.' '.$agentData->last_name;
+			$agent[$agentData->id] = $agentData->username.' ('.$agentData->first_name.' '.$agentData->last_name.')';
 		}
     	return view('operator.report')->with('agent',$agent);
     }
