@@ -76,7 +76,7 @@
         width: 100%;
         border-collapse: collapse;
         border-spacing: 0;
-        margin-bottom: 20px
+        margin-bottom: 2px
     }
 
     .invoice table td,.invoice table th {
@@ -128,7 +128,7 @@
         background: 0 0;
         border-bottom: none;
         white-space: nowrap;
-        padding: 10px 20px;
+        padding: 2px 20px;
         font-size: 1.2em;
         border-top: 1px solid #aaa
     }
@@ -253,6 +253,16 @@
                     </table>
                 </div>
                 <hr>
+				<div class="footer">
+                    <p>T.V.A payée sur les encaissements.</p>
+                    <p>Conformément à l’article L.441-6 du Code du Commerce, des pénalités de retard sont dues à défaut de règlement le jour suivant la date de paiement qui figure sur la facture.</p>
+                    <p>Le taux d’intérêt de ces pénalités de retard est de 12,50% annuels.</p>
+                    <p>Conformément au décret n°2012-1115 du 2 octobre 2012, une indemnité forfaitaire pour frais de recouvrement fixée à 40 € sera également due en cas de retard de paiement.</p>
+					<p>Autorisation exercée au numéro CNAPS AUT-075-2119-06-05-20200741467</p>
+				</div>
+				<div class="footer text-center">
+                    <b>SIRET 882 276 694 00024 APE 8020Z</b>
+                </div>
                 <div class="footer text-center">
                     <p>{!!__('dashboard.pdf_copyright')!!}</p>
                 </div>
