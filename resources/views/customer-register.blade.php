@@ -100,7 +100,7 @@
 		                      <div class="form-group ">
 				                <label>Captcha</label><br>
 				                <div class="captcha">
-				                	<div class="g-recaptcha" data-sitekey="6LfQbMoZAAAAALnhk3XZO2-1ZaJ4P-j7gRb51cBZ"></div>
+				                	<div class="g-recaptcha" data-sitekey="6LfaI8YZAAAAAG5WHBahBU1CqSfDj0tgfETRzExw"></div>
 				                </div>
 		                      </div>
 		                    </div>
