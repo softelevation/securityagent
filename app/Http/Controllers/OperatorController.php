@@ -120,6 +120,11 @@ class OperatorController extends Controller
         $status = $request->verify_status;
         $user_id = Helper::decrypt($request->user_id);
         $result = Agent::where('user_id',$user_id)->update(['status'=>$status]);
+		$client = new \GuzzleHttp\Client();
+		$responsess = $client->request('post', 'http://51.68.139.99:3000/veri-fy-agent', ['query' => [
+						'verify_status' => 1, 
+						'email' => User::find($user_id)->email,
+					]]);
         if($result){
             $password1 = Helper::generateToken(8);
             $password = Hash::make($password1);
@@ -135,7 +140,7 @@ class OperatorController extends Controller
                 'name' => ucfirst($user->agent_info->first_name),
                 'message' => $message, 
             ];
-            $user->notify(new AgentCreated($mailContent));    
+            // $user->notify(new AgentCreated($mailContent));    
             /*--------------*/
             $response['message'] = trans('messages.agent_verified');
             $response['delayTime'] = 2000;
