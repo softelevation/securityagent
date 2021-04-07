@@ -73,42 +73,36 @@
                                                 <th>{{__('dashboard.customer_name')}}</th>
                                                 <th>{{__('dashboard.payment.status')}}</th>
                                                 <th>{{__('dashboard.created_at')}}</th>
-                                                <td></td>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @php 
-                                            $i = 0; 
-                                            if($page_name=='all'){
-                                            $records = $limit*($page_no-1);
-                                            $i = $i+$records;
-                                            }
+                                            $i = 0;
                                             @endphp
-                                            @forelse($mission_all as $mission)
+                                            @foreach($mission_all as $mission)
                                             @php $i++; @endphp
                                             <tr>
                                                 <td>{{$i}}.</td>
                                                 <td>{{$mission->title}}</td>
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <!-- <td>{{$mission->location}}</td> -->
-                                                <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                                <td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
+                                                <td>{{Helper::get_mission_status($mission->status)}}</td>
+                                                <td>{{ucfirst($mission->first_name.' '.$mission->last_name)}}</td>
 												<td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.payment.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
-                                                    @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
+													@if($mission->quick_book==1 && $mission->agent_id==0)
                                                     @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
                                                     <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.assign_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
                                                     @endif
                                                     @endif
-                                                    @if($mission->quick_book==1 && $mission->status==3 && $mission->child_missions->count()==0 && $mission->assigned_at!=null)
+                                                    @if($mission->quick_book==1 && $mission->status==3 && $mission->assigned_at!=null)
                                                     @if(Helper::check_mission_starting_delay($mission->assigned_at)==true)
                                                     <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.start_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
                                                     @endif
                                                     @endif
-                                                </td>
-                                                <td>
+													
 													@if($mission->status != 5)
 													<p><a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a></p>
 													@else
@@ -119,69 +113,14 @@
 															@if($mission->status == 5)
                                                             <a href="{{url('operator/mission_chage_status/archive')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.mission.archive')}}</a>
 															@endif
-															@if($mission->status==5 && $mission->report)
-															<a href="{{url('operator/report-view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-rss-square" aria-hidden="true"></i> {{__('frontend.text_155')}}</a>
-															@endif
 														</div>
                                                     </div>
 													@endif
                                                 </td>
                                             </tr>
-                                            @forelse($mission->child_missions as $mission)
-                                            <tr>
-                                                <td></td>
-                                                <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
-                                                <td>{{Helper::mission_id_str($mission->id)}}</td>
-                                                <!-- <td>{{$mission->location}}</td> -->
-                                                <td>@if($mission->child_missions->count() > 0) Parent Mission @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                                <td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
-												<td>@if($mission->payment_status==0) {{__('dashboard.mission.not_paid')}} @elseif($mission->payment_status==2) {{__('dashboard.mission.bank_transfer')}} @else {{__('dashboard.mission.completed')}} @endif</td>
-                                                <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
-                                                <td>
-                                                    @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
-                                                    @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
-                                                    <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.assign_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
-                                                    @endif
-                                                    @endif
-                                                    @if($mission->quick_book==1 && $mission->status==3 && $mission->child_missions->count()==0 && $mission->assigned_at!=null)
-                                                    @if(Helper::check_mission_starting_delay($mission->assigned_at)==true)
-                                                    <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.start_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
-                                                    @endif
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if($mission->agent_id!=0)
-                                                    <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
-
-                                                    @else
-                                                    <div class="dropdown">
-                                                        <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
-
-                                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> {{__('dashboard.agents.assign')}}</a>
-                                                        </div>
-                                                    </div>
-                                                    @endif
-
-                                                </td>
-                                            </tr>
-                                            @empty
-                                            @endforelse
-                                            @empty
-                                            <tr>
-                                                <td colspan="8">{{__('dashboard.no_record')}}</td>
-                                            </tr>
-                                            @endforelse
+                                            @endforeach
                                         </tbody>
                                     </table>
-                                </div>
-                                <div class="row">
-                                    <div class="ml-auto mr-auto">
-                                        <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($mission_all && !empty($paginate_array)) {{$mission_all->appends($paginate_array)->links()}} @elseif($mission_all) {{$mission_all->links()}} @endif
-                                        </nav>
-                                    </div>
                                 </div>
                             </div>
                             <!-- Missions in progress tab -->
@@ -313,119 +252,43 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php 
+											@php 
                                             $i = 0; 
-                                            if($page_name=='quick'){
-                                            $records = $limit*($page_no-1);
-                                            $i = $i+$records;
-                                            }
                                             @endphp
-                                            @forelse($quick_mission as $mission)
+											@foreach($quick_mission as $mission)
                                             @php $i++; @endphp
+											
                                             <tr>
                                                 <td>{{$i}}.</td>
                                                 <td>{{$mission->title}}</td>
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <!-- <td>{{$mission->location}}</td> -->
                                                 <td>{{$mission->total_hours}} Hour(s)</td>
-												<td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
-                                                <td>@if($mission->child_missions->count() > 0) {{__('dashboard.mission.parent')}} @else {{Helper::get_mission_status($mission->status)}} @endif</td>
-                                                <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
-                                                <td>
-                                                    @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
-                                                    @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
-                                                    <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.assign_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
-                                                    @endif
-                                                    @endif
-                                                    @if($mission->quick_book==1 && $mission->status==3 && $mission->child_missions->count()==0 && $mission->assigned_at!=null)
-                                                    @if(Helper::check_mission_starting_delay($mission->assigned_at)==true)
-                                                    <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.start_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
-                                                    @endif
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    @if($mission->child_missions->count() == 0)
-                                                    @if($mission->agent_id!=0)
-                                                    <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a><br/>
-                                                    @if($mission->status == 5)
-                                                    <a href="{{url('operator/mission_chage_status/archive')}}/{{Helper::encrypt($mission->id)}}" class="action_icons archiveMission"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.mission.archive')}}</a>
-                                                    @endif
-                                                    @else
-                                                    <div class="dropdown">
-                                                        <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
-
-                                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> {{__('dashboard.agents.assign')}}</a>
-
-                                            <!-- <a class="dropdown-item" href="#"><i class="far fa-plus-square text-grey" aria-hidden="true"></i> Assign Agent</a> -->
-                                                            <a class="dropdown-item" href="{{url('operator/sub-mission')}}/{{Helper::encrypt($mission->id)}}"><i class="fas fa-border-all text-grey" aria-hidden="true"></i> {{__('dashboard.mission.create_sub')}}</a>
-                                                        </div>
-                                                    </div>
-                                                    @endif
-                                                    @else
-                                                    <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a><br/>
-                                                    @if($mission->status == 5)
-                                                    <a href="{{url('operator/mission_chage_status/archive')}}/{{Helper::encrypt($mission->id)}}" class="action_icons archiveMission"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.mission.archive')}}</a>
-                                                    @endif
-                                                    @endif  
-                                                </td>
-                                            </tr>
-                                            @forelse($mission->child_missions as $mission)
-                                            <tr>
-                                                <td></td>
-                                                <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
-                                                <td>{{Helper::mission_id_str($mission->id)}}</td>
-                                                <!-- <td>{{$mission->location}}</td> -->
-                                                <td>{{$mission->total_hours}} Hour(s)</td>
-												<td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
+												<td>{{ucfirst($mission->first_name.' '.$mission->last_name)}}</td>
                                                 <td>{{Helper::get_mission_status($mission->status)}}</td>
                                                 <td>{{Helper::date_format_show('d/m/Y H:i:s',$mission->created_at)}}</td>
                                                 <td>
-                                                    @if($mission->quick_book==1 && $mission->agent_id==0 && $mission->child_missions->count()==0)
+                                                    @if($mission->quick_book==1 && $mission->agent_id==0)
                                                     @if(Helper::check_mission_assigning_delay($mission->created_at)==true)
                                                     <span class="text-info" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.assign_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
                                                     @endif
                                                     @endif
-                                                    @if($mission->quick_book==1 && $mission->status==3 && $mission->child_missions->count()==0 && $mission->assigned_at!=null)
+                                                    @if($mission->quick_book==1 && $mission->status==3 && $mission->assigned_at!=null)
                                                     @if(Helper::check_mission_starting_delay($mission->assigned_at)==true)
                                                     <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="left" data-content="{{__('dashboard.mission.start_delay_text')}}"><i class="fa fa-exclamation-circle"></i></span>
                                                     @endif
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if($mission->agent_id!=0)
                                                     <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a><br/>
-                                                    @if($mission->status == 5)
-                                                    <a href="{{url('operator/mission_chage_status/archive')}}/{{Helper::encrypt($mission->id)}}" class="action_icons archiveMission"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.mission.archive')}}</a>
-                                                    @endif
-                                                    @else
-                                                    <div class="dropdown">
-                                                        <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
-                                                            <a href="{{url('operator/assign-agent')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-plus-square text-grey" aria-hidden="true"></i> {{__('dashboard.agents.assign')}}</a>
-                                                        </div>
-                                                    </div>
-                                                    @endif
+														@if($mission->status == 5)
+														<a href="{{url('operator/mission_chage_status/archive')}}/{{Helper::encrypt($mission->id)}}" class="action_icons archiveMission"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.mission.archive')}}</a>
+														@endif
                                                 </td>
                                             </tr>
-                                            @empty
-                                            @endforelse
-                                            @empty
-                                            <tr>
-                                                <td colspan="9">{{__('dashboard.no_record')}}</td>
-                                            </tr>
-                                            @endforelse
+                                            @endforeach
                                         </tbody>
                                     </table>
-                                </div>
-                                <div class="row">
-                                    <div class="ml-auto mr-auto">
-                                        <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($quick_mission && !empty($paginate_array)) {{$quick_mission->appends($paginate_array)->links()}} @elseif($quick_mission) {{$quick_mission->links()}} @endif
-                                        </nav>
-                                    </div>
                                 </div>
                             </div>
                             <!-- Misison finished tab -->
@@ -447,57 +310,24 @@
                                         <tbody>
                                             @php 
                                             $i = 0; 
-                                            if($page_name=='finished'){
-                                            $records = $limit*($page_no-1);
-                                            $i = $i+$records;
-                                            }
                                             @endphp
-                                            @forelse($finished_mission as $mission)
+											@foreach($finished_mission as $mission)
                                             @php $i++; @endphp
                                             <tr>
                                                 <td>{{$i}}.</td>
                                                 <td>{{$mission->title}}</td>
                                                 <td>{{Helper::mission_id_str($mission->id)}}</td>
                                                 <td>{{$mission->location}}</td>
-												<td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
+												<td>{{ucfirst($mission->first_name.' '.$mission->last_name)}}</td>
                                                 <td>@if(isset($mission->started_at)){{date('d/m/Y H:i:s', strtotime($mission->started_at))}}@endif</td>
                                                 <td>@if(isset($mission->started_at)){{date('d/m/Y H:i:s', strtotime($mission->ended_at))}}@endif</td>
                                                 <td>
                                                     <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                                 </td>
                                             </tr>
-                                            @forelse($mission->child_missions as $mission)
-                                            <tr>
-                                                <td></td>
-                                                <td>{{$mission->title}} <small class="action_icons">({{__('dashboard.mission.sub')}})</small></td>
-                                                <td>{{Helper::mission_id_str($mission->id)}}</td>
-                                                <td>{{$mission->location}}</td>
-												<td>{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</td>
-                                                <td>{{date('d/m/Y H:i:s', strtotime($mission->started_at))}}</td>
-                                                <td>{{date('d/m/Y H:i:s', strtotime($mission->ended_at))}}</td>
-                                                <td>
-                                                    <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a><br/>
-                                                    @if($mission->status == 5)
-                                                    <a href="{{url('operator/mission_chage_status/archive')}}/{{Helper::encrypt($mission->id)}}" class="action_icons archiveMission"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.mission.archive')}}</a>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                            @empty
-                                            @endforelse
-                                            @empty
-                                            <tr>
-                                                <td colspan="8">No record found</td>
-                                            </tr>
-                                            @endforelse
+                                            @endforeach  
                                         </tbody>
                                     </table>
-                                </div>
-                                <div class="row">
-                                    <div class="ml-auto mr-auto">
-                                        <nav class="navigation2 text-center" aria-label="Page navigation">
-                                            @if($finished_mission && !empty($paginate_array)) {{$finished_mission->appends($paginate_array)->links()}} @elseif($finished_mission) {{$finished_mission->links()}} @endif
-                                        </nav>
-                                    </div>
                                 </div>
                             </div>
                             

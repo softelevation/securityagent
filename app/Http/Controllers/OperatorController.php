@@ -7,6 +7,7 @@ use App\Validators\OperatorValidator;
 use App\Traits\ResponseTrait;
 use App\Traits\HelperTrait;
 use App\Traits\PaymentTrait;
+use App\Traits\CurlTrait;
 use Auth;
 use App\Agent;
 use App\Report;
@@ -33,7 +34,7 @@ use Redirect;
 class OperatorController extends Controller
 {
 
-	use OperatorValidator, ResponseTrait, PaymentTrait;
+	use OperatorValidator, ResponseTrait, PaymentTrait, CurlTrait;
 
     public $limit;
 
@@ -48,10 +49,15 @@ class OperatorController extends Controller
      */
     public function loadProfileView(){
         $profile = '';
-        $profile = Operator::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first();
-        if($profile){
-            $profile = $profile->toArray();
-        }
+        // $profile = Operator::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first();
+		
+		// echo '<pre>';
+		// print_r((array)$this->Make_GET()->data);
+		// die;
+
+        // if($profile){
+            $profile = (array)$this->Make_GET('operator/profile')->data;
+        // }
         $data['profile'] = $profile;
     	return view('operator.profile',$data);
     }
@@ -286,11 +292,23 @@ class OperatorController extends Controller
 					$query->where(DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'like', '%'.$searchString.'%');
 				});
 			}
+			
+			
+			$mission_All = (array)$this->Make_GET('operator/mission')->data;
+			
+			// echo '<pre>';
+			// print_r($mission_All['mission_all']);
+			// die;
+			
+			
 
-            $missionAll = $mission->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
+            // $missionAll = $mission->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
+            $missionAll = $mission_All['mission_all'];
             $missionFuture = $mission->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where('start_date_time','>=',Carbon::now())->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
-            $missionQuick = $mission->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
-            $missionCompleted = Mission::with(['child_missions','customer_details'])->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
+            // $missionQuick = $mission->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
+            $missionQuick = $mission_All['missionInProgress'];
+            // $missionCompleted = Mission::with(['child_missions','customer_details'])->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
+            $missionCompleted = $mission_All['missionCompleted'];
             $statusArr = Helper::getMissionStatus();
             $statusArr = array_flip($statusArr);
             
@@ -659,11 +677,18 @@ class OperatorController extends Controller
     }
 	
 	public function messageCenter(Request $request){
-		$messageCenter = MessageCenter::select('message_centers.id','message_centers.user_id as user_id','message_centers.message_type','message_centers.status','message_centers.created_at','customers.first_name','customers.last_name','agents.first_name as a_first_name','agents.last_name as a_last_name','users.email')
-						->leftJoin('customers','customers.user_id','message_centers.user_id')
-						->leftJoin('agents','agents.user_id','message_centers.user_id')
-						->join('users','users.id','message_centers.user_id')->distinct()->groupBy('user_id')
-						->orderBy('message_centers.id','DESC')->get();
+		
+		$messageCenter = (array)$this->Make_GET('operator/message-center')->data;
+		
+		// echo '<pre>';
+		// print_r($messageCenter);
+		// die;
+		
+		// $messageCenter = MessageCenter::select('message_centers.id','message_centers.user_id as user_id','message_centers.message_type','message_centers.status','message_centers.created_at','customers.first_name','customers.last_name','agents.first_name as a_first_name','agents.last_name as a_last_name','users.email')
+						// ->leftJoin('customers','customers.user_id','message_centers.user_id')
+						// ->leftJoin('agents','agents.user_id','message_centers.user_id')
+						// ->join('users','users.id','message_centers.user_id')->distinct()->groupBy('user_id')
+						// ->orderBy('message_centers.id','DESC')->get();
 		$params['message_center'] = $messageCenter;
         return view('operator.message_center_list',$params);
     }
@@ -748,14 +773,21 @@ class OperatorController extends Controller
 	public function messageCenterId($id){
 		$id = Helper::decrypt($id);
 		$customer = Customer::where('user_id',$id)->first();
-		if($customer){
-			$user_messages = MessageCenter::select('customers.user_id','customers.first_name','customers.last_name','message_centers.message','message_centers.message_type')->join('customers','customers.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
-		}else{
-			$user_messages = MessageCenter::select('agents.user_id','agents.first_name','agents.last_name','message_centers.message','message_centers.message_type')->join('agents','agents.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
-		}
+		
+		$user_messages = $messageCenter = (array)$this->Make_GET("operator/message-center/$id")->data;
+		
+		// echo '<pre>';
+		// print_r($user_messages);
+		// die;
+		// if($customer){
+			// $user_messages = MessageCenter::select('customers.user_id','customers.first_name','customers.last_name','message_centers.message','message_centers.message_type')->join('customers','customers.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
+		// }else{
+			// $user_messages = MessageCenter::select('agents.user_id','agents.first_name','agents.last_name','message_centers.message','message_centers.message_type')->join('agents','agents.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
+		// }
 		$message = MessageCenter::where('user_id',$id)->where('message_type','!=','send_by_op')->update(array('status'=>'2'));
 		$opData = Operator::select('first_name','last_name')->where('user_id',Auth::id())->first();
 		$params = array();
+		$params['mission_id'] =$id;
 		$params['user_id'] =Auth::id();
 		$params['cus_id'] = (isset($user_messages[0])) ? $user_messages[0]->user_id : $id;
 		$params['profile'] = '';
@@ -766,14 +798,18 @@ class OperatorController extends Controller
 	
 	public function messageCenterPost(Request $request){
 		$inputData = $request->all();
-		$updateData = array('user_id'=>$request->cus_id,'operator_id'=>$request->user_id,
-							'message'=>$request->send_message,'message_type'=>'send_by_op','status'=>'1',
-							'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()
-						);
-		MessageCenter::insert($updateData);
-		$opData = Operator::where('user_id',$request->user_id)->first();
-		$name_op = ($opData) ? $opData->first_name.' '.$opData->last_name : 'Unknown';
-		return response()->json(array('status'=>1,'message_type'=>'send_by_op','message'=>$name_op));
+		echo '<pre>';
+		print_r($inputData);
+		die;
+		// $updateData = array('user_id'=>$request->cus_id,'operator_id'=>$request->user_id,
+							// 'message'=>$request->send_message,'message_type'=>'send_by_op','status'=>'1',
+							// 'created_at'=>Carbon::now(),'updated_at'=>Carbon::now()
+						// );
+		
+		// MessageCenter::insert($updateData);
+		// $opData = Operator::where('user_id',$request->user_id)->first();
+		// $name_op = ($opData) ? $opData->first_name.' '.$opData->last_name : 'Unknown';
+		// return response()->json(array('status'=>1,'message_type'=>'send_by_op','message'=>$name_op));
 	}
 
     /**

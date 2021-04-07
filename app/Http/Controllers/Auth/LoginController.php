@@ -74,6 +74,7 @@ class LoginController extends Controller
     public function allInOneLogin(Request $request){
             // $this->print($request->all());
         try{
+			// loginUsingId
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
                 $response['message'] = trans('messages.login_success');

@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-md-6 form-group">
                               <label>{{__('dashboard.home_address')}}</label>
-                              {{Form::text('home_address',null,['class'=>'form-control','placeholder'=>'Your home address'])}}
+                              {{Form::text('address',null,['class'=>'form-control','placeholder'=>'Your home address'])}}
                             </div>
                           </div>
                           <div class="row">
