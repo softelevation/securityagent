@@ -75,10 +75,10 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 @endsection
 
 @section('script')
-<script src="http://localhost:7000/socket.io/socket.io.js"></script>
+<script src="http://51.68.139.99:3000/socket.io/socket.io.js"></script>
 <script>
 	$('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
-	 var socket = io.connect('http://localhost:7000/');
+	 var socket = io.connect('http://51.68.139.99:3000');
 	// console.log(socket);
 	
 	
