@@ -77,6 +77,8 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 @section('script')
 <script src="http://51.68.139.99:3000/socket.io/socket.io.js"></script>
 <script>
+
+	// http://localhost:7000/socket.io/socket.io.js
 	$('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
 	 var socket = io.connect('http://51.68.139.99:3000');
 	// console.log(socket);
@@ -86,7 +88,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 		
 			socket.emit('op_message_center',{
 				mission_id:$('textarea[name="send_message"]').data('mission_id'),
-				user_id:$('textarea[name="send_message"]').data('id'),
+				user_id:32,
 				message:$('textarea[name="send_message"]').val()
 			});
 			

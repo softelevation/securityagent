@@ -77,22 +77,21 @@
 											@else
 												<img src="{{$agent->avatar_icon}}"/>
 											@endIf
-                                            
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="agent_cont">
                                             <h4>{{$agent->username}}</h4>
-                                            <p>{{Helper::get_agent_type_name_multiple($agent->types)}}</p>
-                                            <p>@if($agent->is_vehicle==1) {{__('frontend.text_49')}} @else {{__('frontend.text_50')}} @endif</p>
-                                            @if(Session::has('mission'))<p class="pt-2"><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" data-distance="{{$agent->distance}}" class="btn_submit bookAgentBtn">{{__('frontend.text_54')}}</a>
-                                            @if(isset($agent->available_hours) && isset($agent->available_hours) != '00:00:00')    
+                                            <p>{{Helper::get_agent_type_name_multiple($agent->agent_type)}}</p>
+											<p>@if($agent->is_vehicle==1) {{__('frontend.text_49')}} @else {{__('frontend.text_50')}} @endif</p>
+											@if(Session::has('mission'))<p class="pt-2"><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" data-distance="{{$agent->distance}}" class="btn_submit bookAgentBtn">{{__('frontend.text_54')}}</a>
+											@if(isset($agent->available_hours) && isset($agent->available_hours) != '00:00:00')    
                                             <span class="text-danger" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="{{__('frontend.hours_available_msg',['time'=>$agent->available_hours])}}"><i class="fa fa-exclamation-circle"></i></span>
                                             @endif
-                                            </p>@endif
+											</p>@endif
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+									<div class="col-md-4">
                                         <div class="agent_review">
                                             <div class="star">
                                                 <img src="{{asset('assets/images/star.jpg')}}"/>
@@ -102,6 +101,7 @@
                                             </div>
                                         </div>
                                     </div>
+									
                                 </div>
                             </div>
                             <div class="text-center no_avail_agent_message pt-3 d-none">
@@ -414,20 +414,20 @@
     }
 
     function showVisibleMarkers() {
-        var bounds = map.getBounds(),
-        count = 0;
-        for (var i = 0; i < markArray.length; i++) {
-            var marker = markArray[i];
-            var inMap = bounds.contains(marker.getPosition());
-            var agent_details = '.agent_detail_'+(i+1);
-            if(inMap===true) {
-                $(document).find(agent_details).show().addClass('agent_list_div');
-                count++;
-            }else{
-                $(document).find(agent_details).hide().removeClass('agent_list_div');
-            }
-        }
-        getAvailableAgents();
+        // var bounds = map.getBounds(),
+        // count = 0;
+        // for (var i = 0; i < markArray.length; i++) {
+            // var marker = markArray[i];
+            // var inMap = bounds.contains(marker.getPosition());
+            // var agent_details = '.agent_detail_'+(i+1);
+            // if(inMap===true) {
+                // $(document).find(agent_details).show().addClass('agent_list_div');
+                // count++;
+            // }else{
+                // $(document).find(agent_details).hide().removeClass('agent_list_div');
+            // }
+        // }
+        // getAvailableAgents();
         // console.log(count);
     }
     window.onload = function(){ initMap(zoomVal); };

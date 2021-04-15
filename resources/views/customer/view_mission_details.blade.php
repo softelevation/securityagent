@@ -73,18 +73,18 @@
                     </div>
                   </div>
                 </div>
-                @if(isset($mission->agent_details))
+                @if(isset($mission->agent))
                 <h3>{{__('dashboard.agents.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.agents.name')}}</label>
-                        <span class="form-control">{{ucfirst($mission->agent_details->username)}}</span>
+                        <span class="form-control">{{ucfirst($mission->agent->username)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.agents.type')}}</label>
-                        <span class="form-control">{{Helper::get_agent_type_name_multiple($mission->agent_details->types)}}</span>
+                        <span class="form-control">{{Helper::get_agent_type_name_multiple($mission->agent->agent_type)}}</span>
                       </div>
                     </div>
                     <div class="row">
@@ -158,6 +158,7 @@
                   </div>
                 </div>
 				@endif
+				@if(isset($mission->payments))
                 <h3>{{__('dashboard.payment.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
@@ -172,25 +173,18 @@
                               </tr>
                           </thead>
                           <tbody>
-                            @php $i=0; @endphp
-                            @forelse($mission->payments as $payment)
-                            @php $i++; @endphp
                             <tr>
-                              <td>{{$i}}.</td>
-                              <td>{{$payment->amount}} <i class="fa fa-euro-sign"></i></td>
-                              <td>{{date('d/m/Y H:i:s', strtotime($payment->created_at))}}</td>
-                              <td>@if($payment->status == 'succeeded') {{__("frontend.$payment->status")}} @else {{__("frontend.$payment->status")}}  @endif</td>
+                              <td>1.</td>
+                              <td>{{$mission->payments->amount}} <i class="fa fa-euro-sign"></i></td>
+                              <td>{{date('d/m/Y H:i:s', strtotime($mission->payments->created_at))}}</td>
+                              <td>@if($mission->payments->status == 'succeeded') {{__("frontend.succeeded")}} @else {{__("frontend.succeeded")}}  @endif</td>
                             </tr>
-                            @empty
-                            <tr>
-                              <td colspan="4">{{__('dashboard.no_record')}}</td>
-                            </tr>
-                            @endforelse
                           </tbody>
                         </table>
                     </div>
                   </div>
                 </div>
+				@endif
               </div>
             </div>
         </div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Validators\MissionValidator;
 use App\Traits\ResponseTrait;
 use App\Traits\PaymentTrait;
+use App\Traits\CurlTrait;
 use App\Mission;
 use App\UserPaymentHistory;
 use App\Customer;
@@ -30,7 +31,7 @@ use Redirect;
 
 class MissionController extends Controller
 {
-    use MissionValidator, ResponseTrait, PaymentTrait, MissionTrait;
+    use MissionValidator, ResponseTrait, PaymentTrait, MissionTrait, CurlTrait;
 
     private $limit; 
 
@@ -45,19 +46,15 @@ class MissionController extends Controller
      * @purpose Get Customer Mission's List 
      */
     public function index(Request $request){
-        $missionAll = Mission::with('child_missions')->where('parent_id',0)->where('customer_id',\Auth::user()->customer_info->id)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
-
-        $missionPending = Mission::where('customer_id',\Auth::user()->customer_info->id)->where('status',3)->orderBy('id','DESC')->paginate($this->limit,['*'],'pending');
-        $missionInProgress = Mission::where('customer_id',\Auth::user()->customer_info->id)->where('status',4)->orderBy('id','DESC')->paginate($this->limit,['*'],'inprogress');
-        $missionCompleted = Mission::with('child_missions')->where('parent_id',0)->where('customer_id',\Auth::user()->customer_info->id)->where('status',5)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
+		$mission_payment = $this->Make_GET('customer/my-mission-list')->data;
         $statusArr = Helper::getMissionStatus();
         $statusArr = array_flip($statusArr);
 
         $params = [
-            'mission_all' => $missionAll,
-            'pending_mission' => $missionPending,
-            'inprogress_mission' => $missionInProgress,
-            'finished_mission' => $missionCompleted,
+            'mission_all' => $mission_payment->mission_all,
+            'pending_mission' => $mission_payment->missionPending,
+            'inprogress_mission' => $mission_payment->missionInProgress,
+            'finished_mission' => $mission_payment->missionCompleted,
             'status_list'=>$statusArr,
             'limit' => $this->limit,
             'page_no' => 1,
@@ -335,15 +332,8 @@ class MissionController extends Controller
      */
     public function findMissionAgent($id){
         $id = Helper::decrypt($id);
-        $mission = Mission::where('id',$id)->first();
-        $agent = Agent::where('id',$mission->agent_id)->first();
-        $chargeAmount = $mission->amount;
-        if($mission->quick_book==0){
-            $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
-        }
+		$mission = $this->Make_GET('customer/mission-details/'.$id)->data;
         $data['mission'] = $mission;
-        $data['agent'] = $agent;
-        $data['charge_amount'] = $chargeAmount;
         return view('customer.find_mission_agent',$data);
     }
 
@@ -356,37 +346,16 @@ class MissionController extends Controller
     public function proceedToPayment($id){
         try{
             $mission_id = Helper::decrypt($id);
-            $mission = Mission::where('id',$mission_id)->first();
 			$data['cards'] = array();
-            $data['mission'] = $mission;
-            $chargeAmount = $mission->amount;
-            if($mission->quick_book==0){
-                $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
-            }
-			$data['cards'] = CardDetail::where('user_id',Auth::user()->id)->get();
-            $data['charge_amount'] = $chargeAmount;
-            $data['customer_type'] = $mission->customer_details->customer_type;
-            $data['customer_add_bank'] = $mission->customer_details->add_bank;
-			
-            // if(!isset($mission->customer_details->customer_stripe_id) || $mission->customer_details->customer_stripe_id==null){
-                // Create customer on stripe
-                $user_email = $mission->customer_details->user->email;
-                $customer = $this->createCustomer($user_email);
-                $cus_stripe_id = $customer['id'];
-                Customer::where('id',$mission->customer_details->id)->update(['customer_stripe_id'=>$cus_stripe_id]);
-            // }else{
-                // $addedCards = $this->getCardsList($mission->customer_details->customer_stripe_id);
-                
-                // $data['cards'] = $addedCards;
-            // }
+            $data['mission'] = $this->Make_GET('customer/mission-details/'.$mission_id)->data;
+			$data['cards'] = $this->Make_GET('customer/card-details')->data;
+			$data['profile'] = $this->Make_GET('profile')->data;
             return view('customer.mission_payment_view',$data);
         }catch(\Exception $e){
             $res = $this->getErrorResponse($e->getMessage());
             if($res['error']){
                 return Redirect::back()->withErrors(['Something went wrong with customer id!']);
             }
-           // $res =  response($this->getErrorResponse($e->getMessage()));
-          
         }
     }
 	
@@ -536,108 +505,118 @@ class MissionController extends Controller
 			  }else{
             $amount = Helper::decrypt($request->amount);
             $mission_id = Helper::decrypt($request->mission_id);
-            $mission = Mission::where('id',$mission_id)->first();
-            $chargeAmount = $mission->amount;
-            if($mission->quick_book==0){
-                $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
-            }
-            $customer_stripe_id = $mission->customer_details->customer_stripe_id;
-            $last4digit = substr($request->card_number, -4);
+			
+			
+			$mission_payment = $this->Make_POST('customer/mission-make-payment',array('mission_id'=>$mission_id,'card_number'=>$request->card_number,'exp_month'=>$request->expire_month,'exp_year'=>$request->expire_year,'cvc'=>$request->cvc));
+			
+			
+			
+            // $mission = Mission::where('id',$mission_id)->first();
+            // $chargeAmount = $mission->amount;
+            // if($mission->quick_book==0){
+                // $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
+            // }
+            // $customer_stripe_id = $mission->customer_details->customer_stripe_id;
+            // $last4digit = substr($request->card_number, -4);
             // Get added card's list
-            $addedCards = $this->getCardsList($customer_stripe_id);
+            // $addedCards = $this->getCardsList($customer_stripe_id);
            
-            if(isset($addedCards) && isset($addedCards['data'])){
-                foreach($addedCards['data'] as $card){
-                    // If entered card is already been added
-                    if($card['last4']==$last4digit){
-                        return $this->getErrorResponse(trans('messages.card_already_added'));
-                    }
-                } 
-            }
+            // if(isset($addedCards) && isset($addedCards['data'])){
+                // foreach($addedCards['data'] as $card){
+                    // //If entered card is already been added
+                    // if($card['last4']==$last4digit){
+                        // return $this->getErrorResponse(trans('messages.card_already_added'));
+                    // }
+                // } 
+            // }
           
             // Add New Card
-            $cardData = [
-                'number'    => $request->card_number,
-                'exp_month' => $request->expire_month,
-                'cvc'       => $request->cvc,
-                'exp_year'  => $request->expire_year,
-            ];
-            $card = $this->addNewCard($cardData,$customer_stripe_id);
+            // $cardData = [
+                // 'number'    => $request->card_number,
+                // 'exp_month' => $request->expire_month,
+                // 'cvc'       => $request->cvc,
+                // 'exp_year'  => $request->expire_year,
+            // ];
+            // $card = $this->addNewCard($cardData,$customer_stripe_id);
             // Make Charge Payment
-            $chargeData = [
-                'customer' => $customer_stripe_id,
-                'currency' => config('services.stripe.currency'),
-                'amount'   => $chargeAmount,
-                'description' => 'Mission Charge Amount'
-            ];
+            // $chargeData = [
+                // 'customer' => $customer_stripe_id,
+                // 'currency' => config('services.stripe.currency'),
+                // 'amount'   => $chargeAmount,
+                // 'description' => 'Mission Charge Amount'
+            // ];
 
-            $charge = $this->createCharge($chargeData);
-            if($charge['status']=='succeeded'){
+            // $charge = $this->createCharge($chargeData);
                 // Save data to payment history
-                $paymentDetails = [
-                    'amount'      => $chargeAmount,
-                    'status'      => $charge['status'],  
-                    'charge_id'   => $charge['id'],
-                    'mission_id'  => $mission_id,
-                    'customer_id' => $mission->customer_details->id,
-                    'created_at'  => Carbon::now(),
-                    'updated_at'  => Carbon::now() 
-                ];
-                UserPaymentHistory::insert($paymentDetails);
-				if($request->save_card_deail && $request->save_card_deail == 1){
-					CardDetail::updateOrCreate(array('user_id'=>Auth::user()->id,'card_number'=>$request->card_number),array('user_id'=>Auth::user()->id,'name'=>$request->name,'card_number'=>$request->card_number,'expire_month'=>$request->expire_month,'expire_year'=>$request->expire_year));
-				}
+                // $paymentDetails = [
+                    // 'amount'      => $chargeAmount,
+                    // 'status'      => $charge['status'],  
+                    // 'charge_id'   => $charge['id'],
+                    // 'mission_id'  => $mission_id,
+                    // 'customer_id' => $mission->customer_details->id,
+                    // 'created_at'  => Carbon::now(),
+                    // 'updated_at'  => Carbon::now() 
+                // ];
+                // UserPaymentHistory::insert($paymentDetails);
+				// if($request->save_card_deail && $request->save_card_deail == 1){
+					// CardDetail::updateOrCreate(array('user_id'=>Auth::user()->id,'card_number'=>$request->card_number),array('user_id'=>Auth::user()->id,'name'=>$request->name,'card_number'=>$request->card_number,'expire_month'=>$request->expire_month,'expire_year'=>$request->expire_year));
+				// }
                 // Update Mission Data
-				$mission_update = array('payment_status'=>1);
-				if($mission->quick_book){
-					$mission_update = array('payment_status'=>1,'assigned_at'=>Carbon::now());
-				}
-                Mission::where('id',$mission_id)->update($mission_update);
+				// $mission_update = array('payment_status'=>1);
+				// if($mission->quick_book){
+					// $mission_update = array('payment_status'=>1,'assigned_at'=>Carbon::now());
+				// }
+                // Mission::where('id',$mission_id)->update($mission_update);
                 /*----Customer Notification-----*/
-                $mailContent = [
-                    'name' => ucfirst($mission->customer_details->first_name),
-                    'message' => trans('messages.mission_created'), 
-                    'url' => url('customer/mission-details/view').'/'.$request->mission_id 
-                ];
-                $mission->customer_details->user->notify(new MissionCreated($mailContent));
+                // $mailContent = [
+                    // 'name' => ucfirst($mission->customer_details->first_name),
+                    // 'message' => trans('messages.mission_created'), 
+                    // 'url' => url('customer/mission-details/view').'/'.$request->mission_id 
+                // ];
+                // $mission->customer_details->user->notify(new MissionCreated($mailContent));
                 /*--------------*/
                 /*----Payment Notification-----*/
-                $mailContent = [
-                    'name' => ucfirst($mission->customer_details->first_name),
-                    'message' => trans('messages.payment_done_message',['amount'=>$chargeAmount]), 
-                    'url' => url('customer/billing-details') 
-                ];
-                $mission->customer_details->user->notify(new PaymentDone($mailContent));
+                // $mailContent = [
+                    // 'name' => ucfirst($mission->customer_details->first_name),
+                    // 'message' => trans('messages.payment_done_message',['amount'=>$chargeAmount]), 
+                    // 'url' => url('customer/billing-details') 
+                // ];
+                // $mission->customer_details->user->notify(new PaymentDone($mailContent));
                 /*--------------*/  
                 /*----Agent Notification-----*/
-                if(isset($mission->agent_details)){
-                    $mailContent = [
-                        'name' => ucfirst($mission->agent_details->first_name),
-                        'message' => trans('messages.agent_new_mission_notification'), 
-                        'url' => url('agent/mission-details/view').'/'.$request->mission_id 
-                    ];
-                    $mission->agent_details->user->notify(new MissionCreated($mailContent));
-                }
+                // if(isset($mission->agent_details)){
+                    // $mailContent = [
+                        // 'name' => ucfirst($mission->agent_details->first_name),
+                        // 'message' => trans('messages.agent_new_mission_notification'), 
+                        // 'url' => url('agent/mission-details/view').'/'.$request->mission_id 
+                    // ];
+                    // $mission->agent_details->user->notify(new MissionCreated($mailContent));
+                // }
 				
 				// $agent = Agent::select('phone')->where('id',$agent_id)->first();
-				if($mission->agent_details && $mission->agent_details->phone){
-					try {
-						$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
-						$message = trans('dashboard.report.received_a_new_mission')." \n";
-						$message .= trans('dashboard.report.customer_name').$cus_name."\n";
-						$message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
-						$message .= trans('dashboard.report.location').$mission->location;
-						PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
-					}catch(\Exception $e){
-					}
-				}
+				// if($mission->agent_details && $mission->agent_details->phone){
+					// try {
+						// $cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
+						// $message = trans('dashboard.report.received_a_new_mission')." \n";
+						// $message .= trans('dashboard.report.customer_name').$cus_name."\n";
+						// $message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
+						// $message .= trans('dashboard.report.location').$mission->location;
+						// PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
+					// }catch(\Exception $e){
+					// }
+				// }
                 /*--------------*/
+				// echo '<pre>';
+			// print_r($mission_payment);
+			// die;
+			// $mission_payment->data->raw->message
+            if($mission_payment->status){
                 $response['message'] = trans('messages.payment_completed');
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');
                 return $this->getSuccessResponse($response);
             }else{
-                $response['message'] = trans('messages.error');
+                $response['message'] = $mission_payment->data->raw->message;
                 $response['delayTime'] = 2000;
                 $response['url'] = url('customer/missions');
                 $response['data'] = $charge;
@@ -680,7 +659,7 @@ class MissionController extends Controller
      */
     public function viewMissionDetails($mission_id){
         $dec_mission_id = Helper::decrypt($mission_id);
-        $data['mission'] = Mission::where('id',$dec_mission_id)->first();
+        $data['mission'] = $this->Make_GET('customer/mission-details/'.$dec_mission_id)->data;
         $data['mission_id'] = $mission_id;
         return view('customer.view_mission_details',$data);
     }
@@ -803,37 +782,39 @@ class MissionController extends Controller
                 return response($this->getErrorResponse(trans('messages.invalid_lat_long')));    
             }
             $data = array_except($request->all(),['_token']);
-			$data['start_date_time'] = Carbon::now();
-            if($data['quick_book']==0){
-				$date = str_replace('/', '-', $request->start_date_time);
-                $startDateTime = date('Y-m-d H:i:s', strtotime($date));
-                $data['start_date_time'] = $startDateTime;
-                $mission_id = $this->saveQuickMissionDetails($data);
-                if($mission_id){
-                    $mission_id = Helper::encrypt($mission_id);
-                    $response['message'] = trans('messages.redirect_dashboard');
-                    $response['delayTime'] = 2000;
-                    $response['url'] = url('customer/find-mission-agent/'.$mission_id);
-                    return $this->getSuccessResponse($response);
-                }
-            }
+			$data['start_date_time'] = Carbon::now()->toDateTimeString();
+            // if($data['quick_book']==0){
+				// $date = str_replace('/', '-', $request->start_date_time);
+                // $startDateTime = date('Y-m-d H:i:s', strtotime($date));
+                // $data['start_date_time'] = $startDateTime;
+                // $mission_id = $this->saveQuickMissionDetails($data);
+                // if($mission_id){
+                    // $mission_id = Helper::encrypt($mission_id);
+                    // $response['message'] = trans('messages.redirect_dashboard');
+                    // $response['delayTime'] = 2000;
+                    // $response['url'] = url('customer/find-mission-agent/'.$mission_id);
+                    // return $this->getSuccessResponse($response);
+                // }
+            // }
 			
-            Session::put('mission',$data);
+			$profile = (array)$this->Make_POST('customer/quick-create-mission',$data)->data;
+			$profile_s = $profile;
+            Session::put('mission',$profile_s);
             $response['message'] = trans('messages.finding_agents');
             $response['delayTime'] = 2000;
             $params = [
-                'location'=>$data['location'],
-                'latitude'=>$data['latitude'],
-                'longitude'=>$data['longitude'],
-                'agent_type'=>$data['agent_type']
+                'location'=>$profile_s['location'],
+                'latitude'=>$profile_s['latitude'],
+                'longitude'=>$profile_s['longitude'],
+                'agent_type'=>$profile_s['agent_type']
             ];
-			if(!array_key_exists("vehicle_required",$data)){
+			if(!array_key_exists("vehicle_required",$profile_s)){
 					$params['is_vehicle'] = 1;
 			}else{
-				if($data['vehicle_required']==1){
+				if($profile_s['vehicle_required']==1){
 					$params['is_vehicle'] = 1;
 				}
-				if($data['vehicle_required']==2){
+				if($profile_s['vehicle_required']==2){
 					$params['is_vehicle'] = 0;
 				}
 			}
@@ -877,6 +858,7 @@ class MissionController extends Controller
 
 
             $agent_id = Helper::decrypt($request->agent_id);
+			
             if(Session::has('mission')){
                 $mission = Session::get('mission');
                 //Calculate mission start and end times 
@@ -884,22 +866,23 @@ class MissionController extends Controller
                 $mission_start_date_time = date('Y-m-d H:i:s');
                 $mission_end_date_time = date('Y-m-d H:i:s', strtotime($add_mission_hours, strtotime($mission_start_date_time)));
 
-                $res = Mission::where('agent_id',$agent_id)->whereBetween('start_date_time',[$mission_start_date_time,$mission_end_date_time])->first();
-                if($res){
-                    $time1 = Carbon::parse($mission_start_date_time);
-                    $time2 = Carbon::parse($res->start_date_time);
-                    $diffHours = $time1->diff($time2)->format('%H:%I:%S');
-                    $msg = trans('frontend.hours_available_msg',['time'=>$diffHours]);
-                    return $this->getErrorResponse($msg);
-                }
+                // $res = Mission::where('agent_id',$agent_id)->whereBetween('start_date_time',[$mission_start_date_time,$mission_end_date_time])->first();
+                // if($res){
+                    // $time1 = Carbon::parse($mission_start_date_time);
+                    // $time2 = Carbon::parse($res->start_date_time);
+                    // $diffHours = $time1->diff($time2)->format('%H:%I:%S');
+                    // $msg = trans('frontend.hours_available_msg',['time'=>$diffHours]);
+                    // return $this->getErrorResponse($msg);
+                // }
                 $mission['agent_id'] = $agent_id;
                 $mission['distance'] = $request->distance;
                 Session::put('mission',$mission);
                 if(Auth::check() && Auth::user()->role_id==1){
-                    $mission_id = $this->saveQuickMissionDetails($mission);
-                    if($mission_id){
+					$mission_id = (array)$this->Make_POST('customer/book-now',array('mission_id'=>Session::get('mission')['id'],'agent_id'=>$agent_id));
+                    // $mission_id = $this->saveQuickMissionDetails($mission);
+                    if($mission_id['status']){
                         Session::forget('mission');
-                        $mission_id = Helper::encrypt($mission_id);
+                        $mission_id = Helper::encrypt($mission_id['data']->id);
                         $response['message'] = trans('messages.redirect_dashboard');
                         $response['delayTime'] = 2000;
                         $response['url'] = url('customer/find-mission-agent/'.$mission_id);

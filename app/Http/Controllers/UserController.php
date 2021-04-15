@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Validators\UserValidator;
 use App\Traits\ResponseTrait;
+use App\Traits\CurlTrait;
 use App\Customer;
 use App\Operator;
 use App\Agent;
@@ -18,7 +19,7 @@ use DB;
 
 class UserController extends Controller
 {
-	use UserValidator, ResponseTrait;
+	use UserValidator, ResponseTrait, CurlTrait;
 
 
     /**
@@ -29,25 +30,26 @@ class UserController extends Controller
      */
     public function updateProfileDetails(Request $request){
         try{
-            $post = array_except($request->all(),'_token');
+            $post = array_except($request->all(),['_token','role_id']);
             $validation = $this->updateProfileValidations($request);
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
             }
-            $role = \Auth::user()->role_id;
-            $user_id = \Auth::user()->id;
+            $role = $request->role_id;
+            // $user_id = \Auth::user()->id;
             // Upload image
             if(isset($request->image) && $request->image!=""){
-                $image = $request->file('image');   
-                $fileName = time().'.'.$image->getClientOriginalExtension();
-                $filePath = public_path('profile_images');
-                $uploadStatus = $image->move($filePath,$fileName);
-                $post['image'] = $fileName;
+                $image = $request->file('image');
+				// $request->file('image');   
+                // $fileName = time().'.'.$image->getClientOriginalExtension();
+                // $filePath = public_path('profile_images');
+                // $uploadStatus = $image->move($filePath,$fileName);
+                // $post['image'] = "@$image";
             }
             switch ($role) {
                 case 1:
                     // Update customer table
-                    $result = Customer::where('user_id',$user_id)->update($post);
+					$this->Make_POST('customer/profile',$post);
                     $url = url('customer/profile'); 
                     break;
                 case 2:

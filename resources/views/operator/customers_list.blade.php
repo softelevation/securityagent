@@ -42,19 +42,17 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                    @php 
-                                      $i = 0; 
-                                      $records = $limit*($page_no-1);
-                                      $i = $i+$records;
-                                    @endphp
-                                    @forelse($data as $customer)
-                                      @php $i++; @endphp
-                                      @php $en_id = Helper::encrypt($customer->id); @endphp
+									 @php 
+									$i = 0;
+									@endphp
+									@foreach($data as $customer)
+									@php $i++; @endphp
+									@php $en_id = Helper::encrypt($customer->id); @endphp
                                       <tr>
                                           <td>{{$i}}.</td>
                                           <td>{{$customer->first_name}} {{$customer->last_name}}</td>
                                           <td>{{Helper::get_customer_type_name($customer->customer_type)}}</td>
-                                          <td>{{$customer->user->email}}</td>
+                                          <td>{{$customer->email}}</td>
                                           <td>
 											<div class="dropdown">
 												<a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
@@ -63,25 +61,14 @@
 												@if(Auth::user()->role_id == 3)
 													<a class="dropdown-item" onclick="return confirm('<?php echo __('dashboard.confirm_delete'); ?>');" href="{{url('operator/customer/delete/'.$en_id)}}"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </a>
 												@endif
-													<a class="dropdown-item" href="{{url('operator/message-center/'.Helper::encrypt($customer->user_id))}}"><i class="fa fa-comment"></i> {{__('dashboard.mission.message_center')}}</a>
+													<a class="dropdown-item" href="{{url('operator/message-center/'.Helper::encrypt($customer->id))}}"><i class="fa fa-comment"></i> {{__('dashboard.mission.message_center')}}</a>
 												</div>
 											</div>
                                           </td>
                                       </tr>
-                                    @empty
-                                      <tr>
-                                          <td colspan="5">{{__('dashboard.no_record')}} !</td>
-                                      </tr>
-                                    @endforelse
+                                    @endforeach
                                   </tbody>
                               </table>
-                          </div>
-                          <div class="row">
-                            <div class="ml-auto mr-auto">
-                              <nav class="navigation2 text-center" aria-label="Page navigation">
-                                {{$data->links()}}
-                              </nav>
-                            </div>
                           </div>
                       </div>
                     </div>

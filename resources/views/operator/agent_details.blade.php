@@ -30,7 +30,7 @@
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>{{__('frontend.text_99')}}</label>
-                        <span class="form-control">{{$data->user->email}}</span>
+                        <span class="form-control">{{$data->email}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.phone_number')}}</label>
@@ -60,65 +60,12 @@
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>{{__('frontend.text_111')}}</label>
-                        <span class="form-control">{{Helper::get_agent_type_name_multiple($data->types)}}</span>
+                        <span class="form-control">{{Helper::get_agent_type_name_multiple($data->agent_type)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('frontend.text_113')}}</label>
                         <span class="form-control">@if(empty($data->cnaps_number)) N/A @else {{$data->cnaps_number}} @endif</span>
                       </div>
-                    </div>
-                    @php $agentTypes = $data->types; $diploma=0; $dog = 0; @endphp
-                    @foreach($agentTypes as $type)
-                      @if($type->agent_type==1 || $type->agent_type==2 || $type->agent_type==3) 
-                        @php $diploma = 1; @endphp
-                      @endif
-                      @if($type->agent_type==6) 
-                        @php $dog = 1; $dogDoc = $type->dog_info; @endphp
-                      @endif
-                    @endforeach
-                      <div class="row">
-                        @if($diploma==1 && $data->diploma_certificates->toArray())
-                          <div class="col-md-6 form-group">
-                            <label>{{__('frontend.text_123')}}</label>
-                            @foreach($data->diploma_certificates as $certificate)
-                              <span class="form-control">{{$certificate->file_name}} <a class="action_icons" title="Download" href="{{asset('agent/documents/'.$certificate->file_name)}}" target="_blank"><i class="fa fa-download"></i></a></span>
-                            @endforeach
-                          </div>
-                        @endif
-                      </div>
-                      <div class="row">
-                        @if($dog==1)
-                          <div class="col-md-6 form-group">
-                            <label>{{__('frontend.text_125')}}</label>
-                              <span class="form-control">{{$dogDoc}} <a class="action_icons" title="Download" href="{{asset('agent/documents/'.$dogDoc)}}" target="_blank"><i class="fa fa-download"></i></a></span>
-                          </div>
-                        @endif
-                      </div>
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label>{{__('frontend.text_115')}}</label>
-                        <span class="form-control">{{$data->home_address}}</span>
-                      </div>
-                      <div class="col-md-6 form-group">
-                        <label>{{__('frontend.text_117')}}</label>
-                        <span class="form-control">{{$data->work_location_address}}</span>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6 form-group">
-                        <label>{{__('frontend.text_119')}}</label>
-                        <span class="form-control">@if($data->is_vehicle==1) {{__('dashboard.yes')}} @else {{__('dashboard.no')}} @endif</span>
-                      </div>
-                      <div class="col-md-6 form-group">
-                        <label>{{__('frontend.sub_contract_title')}}</label>
-                        <span class="form-control">@if($data->is_subcontractor==1) {{__('dashboard.yes')}} @else {{__('dashboard.no')}} @endif</span>
-                      </div>
-                      @if($data->is_subcontractor==1)
-                      <div class="col-md-6 form-group">
-                        <label>{{__('frontend.suplier_title')}}</label>
-                        <span class="form-control">{{$data->supplier_company}}</span>
-                      </div>
-                      @endif
                     </div>
                     @if($data->status==0)
                     <div class="row">

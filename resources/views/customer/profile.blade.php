@@ -29,6 +29,7 @@
                       <div class="pending-details">
                         <div class="view_agent_details mt-4">
                           {{Form::model($profile,['url'=>url('update-profile'),'id'=>'general_form'])}}
+						  {{Form::hidden('role_id',null)}}
                           <div class="row">
                             <div class="col-md-6 form-group">
                               <label>{{__('dashboard.first_name')}}</label>

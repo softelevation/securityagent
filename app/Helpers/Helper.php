@@ -215,12 +215,13 @@ class Helper {
             ];
 
         }
-        $strArr = [];
-        foreach($param as $p){
-            $strArr[] = $agentList[$p->agent_type]; 
-        }
-        $string = implode(', ',$strArr);
-        return $string;
+        // $strArr = [];
+        // foreach($param as $p){
+            // $strArr[] = $agentList[$p->agent_type]; 
+        // }
+        // $string = implode(', ',$strArr);
+        // return $string;
+		return $agentList[$param];
     }
 
     /*
@@ -229,7 +230,7 @@ class Helper {
     * @return       :   Get customer type name
     */
     public static function get_customer_type_name($param){
-        $customerList = ['','Individual','Company'];
+        $customerList = ['','Individual','Company','Individual','Individual','Individual'];
         return $customerList[$param];
     }
 

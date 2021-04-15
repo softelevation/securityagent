@@ -17,7 +17,7 @@
               <div class="contact_box">
                 <h3><i class="fa fa-edit"></i> {{__('dashboard.payment.mission')}}</h3>
                 <div class="pending-details">
-					@if($customer_type == '2' && $customer_add_bank == '1')
+					@if($profile->customer_type == '2' && $profile->add_bank == '1')
 						<div class="row payment_option_button">
 							<div class="col-md-12">
 								  <button type="submit" class="button success_btn credit_Card_payment">{{__('dashboard.payment.credit_card')}}</button>
@@ -27,8 +27,8 @@
 							</div>
 						</div>
 					@endif
-                  <div class="view_agent_details mt-4 @if($customer_type == '2' && $customer_add_bank == '1') d-none @endif">
-                  <h5>{{__('dashboard.payment.to_paid')}}: {{$charge_amount}} <i class="fa fa-euro-sign"></i></h5>
+                  <div class="view_agent_details mt-4 @if($profile->customer_type == '2' && $profile->add_bank == '1') d-none @endif">
+                  <h5>{{__('dashboard.payment.to_paid')}}: {{$mission->total_mission_amount}} <i class="fa fa-euro-sign"></i></h5>
                     <!-- Added cards -->
                     @if(!empty($cards))
                     <div class="table-responsive">
@@ -147,9 +147,10 @@
                     </div>
                   </div>
                 </div>
-				@if($customer_type == '2' && $customer_add_bank == '1')
-				<div class="view_agent_details_bank mt-4 @if($customer_type == '2' && $customer_add_bank == '1') d-none @endif">
-                  <h5>{{__('dashboard.payment.to_paid')}}: {{$charge_amount}} <i class="fa fa-euro-sign"></i></h5>
+				
+				@if($profile->customer_type == '2' && $profile->add_bank == '1')
+				<div class="view_agent_details_bank mt-4 @if($profile->customer_type == '2' && $profile->add_bank == '1') d-none @endif">
+                  <h5>{{__('dashboard.payment.to_paid')}}: {{$mission->total_mission_amount}} <i class="fa fa-euro-sign"></i></h5>
 				  <div class="creditCardForm">
                     <div class="card_form_div">
                       <div class="payment">

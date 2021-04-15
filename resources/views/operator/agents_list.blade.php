@@ -48,21 +48,17 @@
                             </thead>
                             <tbody>
                               @php 
-                                $i = 0; 
-                                if($page_name=='pending'){
-                                  $records = $limit*($page_no-1);
-                                  $i = $i+$records;
-                                }
+                                $i = 0;
                               @endphp
-                              @forelse($pending_agents as $agent)
+                              @foreach($pending_agents as $agent)
                                 @php $i++; @endphp
                                 @php $en_id = Helper::encrypt($agent->id); @endphp
                                 <tr> 
                                     <td>{{$i}}.</td>
                                     <td>{{ucfirst($agent->first_name)}} {{ucfirst($agent->last_name)}}</td>
                                     <td>{{ucfirst($agent->username)}}</td>
-                                    <td>{{Helper::get_agent_type_name_multiple($agent->types)}}</td>
-                                    <td>{{$agent->user->email}}</td>
+                                    <td>{{$agent->agent_type}}</td>
+                                    <td>{{$agent->email}}</td>
                                     <td>
                                       <a class="action_icons" href="{{url('operator/agent/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a></br>
                                      
@@ -72,20 +68,9 @@
 
                                     </td>
                                 </tr>
-                              @empty
-                                <tr>
-                                    <td colspan="6">{{__('dashboard.no_record')}}</td>
-                                </tr>
-                              @endforelse
+                              @endforeach
                             </tbody>
                         </table>
-                      </div>
-                      <div class="row">
-                        <div class="ml-auto mr-auto">
-                          <nav class="navigation2 text-center" aria-label="Page navigation">
-                            {{$pending_agents->links()}}
-                          </nav>
-                        </div>
                       </div>
                     </div>
                     <!-- Verified Agents -->
@@ -104,22 +89,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @php  
-                                $i = 0; 
-                                if($page_name=='verified'){
-                                  $records = $limit*($page_no-1);
-                                  $i = $i+$records;
-                                }
+							@php 
+                                $i = 0;
                               @endphp
-                              @forelse($verified_agents as $agent)
+                              @foreach($verified_agents as $agent)
                                 @php $i++; @endphp
                                 @php $en_id = Helper::encrypt($agent->id); @endphp
                                 <tr>
                                     <td>{{$i}}.</td>
                                     <td>{{ucfirst($agent->first_name)}} {{ucfirst($agent->last_name)}}</td>
                                     <td>{{ucfirst($agent->username)}}</td>
-                                    <td>{{Helper::get_agent_type_name_multiple($agent->types)}}</td>
-                                    <!-- <td>{{$agent->user->email}}</td> -->
+                                    <td>{{$agent->agent_type}}</td>
+                                    <!-- <td>{{$agent->email}}</td> -->
                                     <td>
                                       @if($agent->status==1)
                                       <span class="btn btn-outline-success status_outline"> Active </span> @else 
@@ -136,21 +117,11 @@
  
                                     </td>
                                 </tr>
-                              @empty
-                                <tr>
-                                    <td colspan="6">{{__('dashboard.no_record')}}</td>
-                                </tr>
-                              @endforelse
+                              @endforeach
                             </tbody>
                         </table>
                       </div>
-                      <div class="row">
-                        <div class="ml-auto mr-auto">
-                          <nav class="navigation2 text-center" aria-label="Page navigation">
-                            {{$verified_agents->links()}}
-                          </nav>
-                        </div>
-                      </div>
+                      
                     </div>
                   </div>
                 </div>

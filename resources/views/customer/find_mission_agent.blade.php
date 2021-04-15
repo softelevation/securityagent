@@ -81,28 +81,24 @@
                     </div>
                   </div>
                 </div>
-                @if(isset($mission->agent_details))
+                @if(isset($mission->agent))
                 <h3>{{__('dashboard.agents.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-4 form-group">
                         <label>{{__('dashboard.agents.name')}}</label>
-                        <span class="form-control">{{ucfirst($mission->agent_details->username)}}</span>
+                        <span class="form-control">{{ucfirst($mission->agent->username)}}</span>
                       </div>
                       <div class="col-md-4 form-group">
                         <label>{{__('dashboard.agents.type')}}</label>
-                        <span class="form-control">{{Helper::get_agent_type_name_multiple($mission->agent_details->types)}}</span>
+                        <span class="form-control">{{Helper::get_agent_type_name_multiple($mission->agent->agent_type)}}</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 @endif
                 <h3>{{__('dashboard.payment.details')}}</h3>
-                @php 
-                  $vat_amount = Helper::get_vat_amount($mission->amount,$mission->vat);
-                  $original_amount = $mission->amount-$vat_amount;
-                @endphp
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="table-responsive">
@@ -110,15 +106,15 @@
                           <tbody>
                             <tr>
                               <td width="50%" class="text-right">{{__('dashboard.payment.total')}}:</td>
-                              <td class="text-left">{{$original_amount}} <i class="fa fa-euro-sign"></i></td>
+                              <td class="text-left">{{$mission->total_amount}} <i class="fa fa-euro-sign"></i></td>
                             </tr>
                             <tr>
-                              <td class="text-right">{{__('dashboard.vat')}} ({{Helper::VAT_PERCENTAGE}}%)</td>
-                              <td class="text-left">{{$vat_amount}} <i class="fa fa-euro-sign"></i></td>
+                              <td class="text-right">{{__('dashboard.vat')}} ({{$mission->vat_percentage}}%)</td>
+                              <td class="text-left">{{$mission->tva}} <i class="fa fa-euro-sign"></i></td>
                             </tr>
                             <tr>
                               <th class="text-right">{{__('dashboard.payment.total_mission_amount')}}</th>
-                              <th class="text-left">{{$mission->amount}} <i class="fa fa-euro-sign"></i></th>
+                              <th class="text-left">{{$mission->total_mission_amount}} <i class="fa fa-euro-sign"></i></th>
                             </tr>
                             @if($mission->quick_book==0)
                             <tr>

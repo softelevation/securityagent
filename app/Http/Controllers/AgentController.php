@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Traits\AgentTrait;
 use App\Validators\AgentValidator;
 use App\Traits\ResponseTrait;
+use App\Traits\CurlTrait;
 use Auth;
 use App\Agent;
 use App\AgentSchedule;
@@ -21,7 +22,7 @@ use App\Helpers\PlivoSms;
 
 class AgentController extends Controller
 {
-	use AgentValidator, AgentTrait, ResponseTrait, MissionTrait;
+	use AgentValidator, AgentTrait, ResponseTrait, MissionTrait, CurlTrait;
     
     /**
      * @param $request
@@ -121,14 +122,20 @@ class AgentController extends Controller
             $request->request->set('latitude',$latitude);
             $request->request->set('longitude',$longitude);
         }
+		
+		if(Session::has('mission')){
+                $mission = Session::get('mission');
+				$agent_All = (array)$this->Make_POST('customer/available-agents',array('mission_id'=>$mission['id']))->data;
+            }
+		
         $search['latitude'] = $latitude;
         $search['longitude'] = $longitude;
         $search['location'] = $location;
         $search['s_val'] = $searchVal; 
         $search['zoom'] = $zoom;
-        $agents = $this->getAvailableAgents($request);
+        // $agents = $this->getAvailableAgents($request);
         // $this->print($agents);
-        return view('available_agents',['data'=>json_encode($agents),'search'=>$search]);
+        return view('available_agents',['data'=>json_encode($agent_All),'search'=>$search]);
     }
 
     /**
@@ -138,7 +145,7 @@ class AgentController extends Controller
      * @purpose Load agent profile view 
      */
     public function agentProfileView(){
-        $profile = Agent::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first()->toArray();
+		$profile = (array)$this->Make_GET('profile')->data;
         $data['profile'] = $profile;
         return view('agent.profile',$data);
     }

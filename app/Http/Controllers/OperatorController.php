@@ -68,15 +68,27 @@ class OperatorController extends Controller
      * @purpose View Agents List
      */
     public function viewAgentsList(Request $request){  
-        $pendingAgents = Agent::where('status',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'pending');
-        $verifiedAgents = Agent::where('status','!=','')->whereIn('status',[1,3])->orderBy('id','DESC')->paginate($this->limit,['*'],'verified');
+	
+	
+		$mission_All = (array)$this->Make_GET('operator/agents')->data;
+
+        // $pendingAgents = Agent::where('status',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'pending');
+        // $verifiedAgents = Agent::where('status','!=','')->whereIn('status',[1,3])->orderBy('id','DESC')->paginate($this->limit,['*'],'verified');
+		
+		$pendingAgents = $mission_All['pending_agents'];
+        $verifiedAgents = $mission_All['verified_agents'];
+		
+		// echo '<pre>';
+		// print_r($pendingAgents);
+		// die;
+		
         $params = [
             'pending_agents' => $pendingAgents,
             'verified_agents' => $verifiedAgents,
             'page_no' => 1,
-            'page_name' => 'pending',
-            'limit' => $this->limit
+            'page_name' => 'pending'
         ];
+		
         if($request->isMethod('get')){
             if(!empty($request->all())){
                 $pageName = array_keys($request->all());
@@ -107,7 +119,7 @@ class OperatorController extends Controller
      */
     public function viewAgentDetails($en_id){
         $id = Helper::decrypt($en_id);
-        $agent = Agent::where('id',$id)->first();
+		$agent = $this->Make_GET('operator/agent/view/'.$id)->data;
         return view('operator.agent_details',['data'=>$agent]);
     }
 
@@ -125,27 +137,23 @@ class OperatorController extends Controller
     public function agentVerificationAction(Request $request){
         $status = $request->verify_status;
         $user_id = Helper::decrypt($request->user_id);
-        $result = Agent::where('user_id',$user_id)->update(['status'=>$status]);
-		$client = new \GuzzleHttp\Client();
-		$responsess = $client->request('post', 'http://51.68.139.99:3000/veri-fy-agent', ['query' => [
-						'verify_status' => 1, 
-						'email' => User::find($user_id)->email,
-					]]);
+		$result = $this->Make_POST('operator/veri-fy-agent',array('user_id'=>$user_id,'verify_status'=>$request->verify_status));
         if($result){
-            $password1 = Helper::generateToken(8);
-            $password = Hash::make($password1);
-            User::where('id',$user_id)->update(['password'=>$password]);
-            $user = User::where('id',$user_id)->first();
-            if($status==1){
-                $message = trans('messages.agent_verification_message',['email'=>$user->email,'password'=>$password1]);
-            }else{
-                $message = trans('messages.agent_verification_rejected');
-            }
-            /*----Agent Register Confirmation-----*/
-            $mailContent = [
-                'name' => ucfirst($user->agent_info->first_name),
-                'message' => $message, 
-            ];
+			
+            // $password1 = Helper::generateToken(8);
+            // $password = Hash::make($password1);
+            // User::where('id',$user_id)->update(['password'=>$password]);
+            // $user = User::where('id',$user_id)->first();
+            // if($status==1){
+                // $message = trans('messages.agent_verification_message',['email'=>$user->email,'password'=>$password1]);
+            // }else{
+                // $message = trans('messages.agent_verification_rejected');
+            // }
+            // /*----Agent Register Confirmation-----*/
+            // $mailContent = [
+                // 'name' => ucfirst($user->agent_info->first_name),
+                // 'message' => $message, 
+            // ];
             // $user->notify(new AgentCreated($mailContent));    
             /*--------------*/
             $response['message'] = trans('messages.agent_verified');
@@ -163,10 +171,11 @@ class OperatorController extends Controller
      * @purpose Load customer list view
      */
     public function viewCustomersList(Request $request){
-        $customers = Customer::select('customers.*','users.email')->join('users','users.id','customers.user_id')->orderBy('customers.id','DESC')->where('customers.status','!=',3)->paginate($this->limit);
+		
+		$customers = $this->Make_GET('operator/customer')->data;
+        // $customers = Customer::select('customers.*','users.email')->join('users','users.id','customers.user_id')->orderBy('customers.id','DESC')->where('customers.status','!=',3)->paginate($this->limit);
         $params = [
             'data' => $customers,
-            'limit' => $this->limit,
             'page_no' => 1
         ];
         if(isset($request->page)){
@@ -203,7 +212,8 @@ class OperatorController extends Controller
      */
     public function viewCustomerDetails($en_id){
         $id = Helper::decrypt($en_id);
-        $customer = Customer::where('id',$id)->first();
+		$customer = $this->Make_GET('operator/customer/view/'.$id)->data;
+        // $customer = Customer::where('id',$id)->first();
         return view('operator.customer_details',['data'=>$customer]);
     }
 	

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Traits\CustomerTrait;
 use App\Validators\CustomerValidator;
 use App\Traits\ResponseTrait;
+use App\Traits\CurlTrait;
 use App\CustomerNotification;
 use App\Customer;
 use App\Operator;
@@ -17,7 +18,7 @@ use Auth;
 
 class CustomerController extends Controller
 {
-	use CustomerValidator, CustomerTrait, ResponseTrait;
+	use CustomerValidator, CustomerTrait, ResponseTrait, CurlTrait;
 
     public $limit;
 
@@ -61,7 +62,9 @@ class CustomerController extends Controller
      * @purpose Load customer signup view 
      */
     public function customerProfileView(){
-        $profile = Customer::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first()->toArray();
+		
+		$profile = (array)$this->Make_GET('profile')->data;
+        // $profile = Customer::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first()->toArray();
         $data['profile'] = $profile;
         return view('customer.profile',$data);
     }
@@ -125,11 +128,9 @@ class CustomerController extends Controller
      * @purpose Get payment history
      */
     public function getPaymentHistory(Request $request){
-        $customer_id = Auth::user()->customer_info->id;
-        $data = UserPaymentHistory::select('user_payment_histories.id','user_payment_histories.amount','user_payment_histories.status','user_payment_histories.created_at','missions.title','missions.id as mid')->join('missions','missions.id','user_payment_histories.mission_id')->where('user_payment_histories.customer_id',$customer_id)->orderBy('user_payment_histories.id','DESC')->paginate($this->limit);
-        $params = [
+		$data = $this->Make_GET('customer/billing-details')->data;
+		$params = [
             'history' => $data,
-            'limit' => $this->limit,
             'page_no' => 1
         ];
         if(isset($request->page)){

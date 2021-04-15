@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Validators\MissionValidator;
 use App\Traits\ResponseTrait;
 use App\Traits\PaymentTrait;
+use App\Traits\CurlTrait;
 use App\Mission;
 use App\UserPaymentHistory;
 use App\FailedPayment;
@@ -29,7 +30,7 @@ use Auth;
 
 class MissionController extends Controller
 {
-    use MissionValidator, ResponseTrait, PaymentTrait, MissionTrait;
+    use MissionValidator, ResponseTrait, PaymentTrait, MissionTrait, CurlTrait;
 
     private $limit; 
 
@@ -45,13 +46,15 @@ class MissionController extends Controller
      * @purpose Get Customer Mission's List 
      */
     public function index(){
-        $statusArr = Helper::getMissionStatus();
-        $statusArr = array_flip($statusArr);
-        $missionInProgress = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',4)->orderBy('id','DESC')->get();
-        $missionCompleted = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',5)->orderBy('id','DESC')->get();
-        $data['inprogress_mission'] = $missionInProgress;
-        $data['finished_mission'] = $missionCompleted;
-        $data['status_list'] = $statusArr;
+		
+		$missionlist = $this->Make_GET('agent/mission-list')->data;
+		// echo '<pre>';
+		// print_r($missionlist);
+		// die;
+        // $missionInProgress = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',4)->orderBy('id','DESC')->get();
+        // $missionCompleted = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',5)->orderBy('id','DESC')->get();
+        $data['inprogress_mission'] = $missionlist->missionInProgress;
+        $data['finished_mission'] = $missionlist->missionCompleted;
        
         return view('agent.missions',$data);
     }

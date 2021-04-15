@@ -91,7 +91,7 @@ input:checked + .slider_bank:before {
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>{{__('frontend.text_131')}}</label>
-                        <span class="form-control">{{$data->user->email}}</span>
+                        <span class="form-control">{{$data->email}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('frontend.text_133')}}</label>
@@ -108,7 +108,7 @@ input:checked + .slider_bank:before {
                         <span class="form-control">{{Helper::get_customer_type_name($data->customer_type)}}</span>
                       </div>
                     </div>
-					@if($data->customer_type == '2')
+					@if($data->customer_type == 2)
 					<div class="row">
                       <div class="col-md-6 form-group">
 					   <label>{{__('frontend.text_154')}}</label><br/>
@@ -159,7 +159,7 @@ input:checked + .slider_bank:before {
         <form id="general_form" method="post" action="{{url('operator/customer_verification')}}" novalidate="novalidate">
           @csrf
           <input id="model_action_value" type="hidden" name="verify_status">
-          <input type="hidden" name="user_id" value="{{Helper::encrypt($data->user_id)}}">
+          <input type="hidden" name="user_id" value="{{Helper::encrypt($data->id)}}">
           <button type="submit" class="btn btn-primary success_btn" >Yes</button>
         </form>
         <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">Close</button>

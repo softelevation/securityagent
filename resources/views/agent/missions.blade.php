@@ -90,7 +90,7 @@
                                     <td>{{date('d/m/Y H:i:s', strtotime($mission->started_at))}}</td>
                                     <td>{{date('d/m/Y H:i:s', strtotime($mission->ended_at))}}</td>
                                     <td>
-									@if($mission->status==5 && $mission->report)
+									@if($mission->status==5)
 										<div class="dropdown">
 											<a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
 											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
