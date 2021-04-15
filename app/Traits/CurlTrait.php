@@ -12,7 +12,7 @@ trait CurlTrait
 	public function Make_GET($link){
         $curl = curl_init();
 		curl_setopt_array($curl, array(
-			CURLOPT_URL => "http://localhost:7000/$link",
+			CURLOPT_URL => "http://51.68.139.99:3000/$link",
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => "",
 			CURLOPT_TIMEOUT => 30000,
@@ -39,7 +39,7 @@ trait CurlTrait
 	public function Make_POST($link,$input){
 		$curl = curl_init();
 		$options = array(
-			CURLOPT_URL => "http://localhost:7000/$link",
+			CURLOPT_URL => "http://51.68.139.99:3000/$link",
 			CURLOPT_HEADER => false,
 			CURLOPT_POST => 1,
 			CURLOPT_HTTPHEADER => array(
