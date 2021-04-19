@@ -215,13 +215,15 @@ class Helper {
             ];
 
         }
-        // $strArr = [];
-        // foreach($param as $p){
-            // $strArr[] = $agentList[$p->agent_type]; 
-        // }
-        // $string = implode(', ',$strArr);
-        // return $string;
-		return $agentList[$param];
+		
+		$param = explode(",",$param);
+        $strArr = [];
+        foreach($param as $p){
+            $strArr[] = $agentList[$p]; 
+        }
+        $string = implode(', ',$strArr);
+        return $string;
+		// return $agentList[$param];
     }
 
     /*
@@ -703,6 +705,12 @@ class Helper {
 	
 	public static function google_api_key(){
 		return 'AIzaSyB1erXOJ7-_yyd3jYyRYrMh7THiUxpAevU';
+	}
+	
+	public static function api_url($input){
+		$var_name = "http://51.68.139.99:3000/$input";
+		// $var_name = $input;
+		return $var_name;
 	}
 
 }

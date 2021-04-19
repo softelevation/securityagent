@@ -40,17 +40,17 @@
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>{{__('frontend.text_103')}}</label>
-                        <span class="form-control">{{$data->identity_card}} <a class="action_icons" title="Download" href="{{asset('agent/documents/'.$data->identity_card)}}" target="_blank"><i class="fa fa-download"></i></a></span>
+                        <span class="form-control">{{$data->identity_card}} <a class="action_icons" title="Download" href="{{Helper::api_url($data->identity_card)}}" target="_blank"><i class="fa fa-download"></i></a></span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('frontend.text_105')}}</label>
-                        <span class="form-control">{{$data->social_security_number}} <a class="action_icons" title="Download" href="{{asset('agent/documents/'.$data->social_security_number)}}" target="_blank"><i class="fa fa-download"></i></a></span>
+                        <span class="form-control">{{$data->social_security_number}} <a class="action_icons" title="Download" href="{{Helper::api_url($data->social_security_number)}}" target="_blank"><i class="fa fa-download"></i></a></span>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>{{__('frontend.text_107')}}</label>
-                        <span class="form-control">{{$data->cv}} <a class="action_icons" title="Download" href="{{asset('agent/documents/'.$data->cv)}}" target="_blank"><i class="fa fa-download"></i></a></span>
+                        <span class="form-control">{{$data->cv}} <a class="action_icons" title="Download" href="{{Helper::api_url($data->cv)}}" target="_blank"><i class="fa fa-download"></i></a></span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('frontend.text_109')}}</label>

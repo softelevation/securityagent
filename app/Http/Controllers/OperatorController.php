@@ -296,12 +296,12 @@ class OperatorController extends Controller
 			
 			$mission = Mission::with(['child_missions','customer_details']);
 			
-			if($request->get('search') && !empty($request->get('search'))){
-				$searchString = $request->get('search');
-				$search = $mission->whereHas('customer_details',function ($query) use ($searchString){
-					$query->where(DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'like', '%'.$searchString.'%');
-				});
-			}
+			// if($request->get('search') && !empty($request->get('search'))){
+				// $searchString = $request->get('search');
+				// $search = $mission->whereHas('customer_details',function ($query) use ($searchString){
+					// $query->where(DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'like', '%'.$searchString.'%');
+				// });
+			// }
 			
 			
 			$mission_All = (array)$this->Make_GET('operator/mission')->data;
@@ -314,7 +314,8 @@ class OperatorController extends Controller
 
             // $missionAll = $mission->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
             $missionAll = $mission_All['mission_all'];
-            $missionFuture = $mission->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where('start_date_time','>=',Carbon::now())->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
+            // $missionFuture = $mission->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where('start_date_time','>=',Carbon::now())->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
+            $missionFuture = $mission_All['future_mission'];
             // $missionQuick = $mission->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
             $missionQuick = $mission_All['missionInProgress'];
             // $missionCompleted = Mission::with(['child_missions','customer_details'])->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
@@ -652,9 +653,15 @@ class OperatorController extends Controller
      * @purpose To get all missions list without agents
      */
     public function missionsListWithoutAgents(Request $request){
-        $missions = Mission::whereDoesntHave('child_missions')->where('status',0)->where('agent_id',0)->where(function ($query) {
-					$query->where('payment_status',1)->orWhere('payment_status',2);
-				})->orderBy('id','DESC')->paginate($this->limit); 
+		
+		
+			
+		$missions = (array)$this->Make_GET('operator/mission-without-agents')->data;
+			
+			
+        // $missions = Mission::whereDoesntHave('child_missions')->where('status',0)->where('agent_id',0)->where(function ($query) {
+					// $query->where('payment_status',1)->orWhere('payment_status',2);
+				// })->orderBy('id','DESC')->paginate($this->limit); 
         $statusArr = Helper::getMissionStatus();
         $params = [
             'data' => $missions,

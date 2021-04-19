@@ -62,13 +62,7 @@
                                 </tbody>
                             </table>
                           </div>
-                          <div class="row">
-                            <div class="ml-auto mr-auto">
-                              <nav class="navigation2 text-center" aria-label="Page navigation">
-                                {{$data->links()}}
-                              </nav>
-                            </div>
-                          </div>
+                          
                       </div>
                     </div>
                   </div>
