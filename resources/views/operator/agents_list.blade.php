@@ -57,7 +57,7 @@
                                     <td>{{$i}}.</td>
                                     <td>{{ucfirst($agent->first_name)}} {{ucfirst($agent->last_name)}}</td>
                                     <td>{{ucfirst($agent->username)}}</td>
-                                    <td>{{Helper::get_agent_type_name_multiple($agent->agent_type)}}</td>
+                                    <td>{{$agent->agent_type}}</td>
                                     <td>{{$agent->email}}</td>
                                     <td>
                                       <a class="action_icons" href="{{url('operator/agent/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a></br>
