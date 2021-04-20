@@ -7,13 +7,14 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
 use App\Traits\MissionTrait;
+use App\Traits\CurlTrait;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\Helper;
 use Auth;
 
 class LoginController extends Controller
 {
-    use MissionTrait;
+    use MissionTrait, CurlTrait;
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -76,7 +77,10 @@ class LoginController extends Controller
         try{
 			// loginUsingId
             $credentials = $request->only('email', 'password');
-            if (Auth::attempt($credentials)) {
+			$result = $this->Make_POST('operator/login',$credentials);
+            if ($result->status) {
+            // if (Auth::attempt($result->data->id)) {
+            if (Auth::loginUsingId($result->data->id)) {
                 $response['message'] = trans('messages.login_success');
                 switch(Auth::user()->role_id){
                     // Customer
@@ -116,6 +120,9 @@ class LoginController extends Controller
                 $response['delayTime'] = 2000;
                 return $this->getSuccessResponse($response);
             }else{
+                return response($this->getErrorResponse(trans('messages.invalid_login')));    
+            }
+			}else{
                 return response($this->getErrorResponse(trans('messages.invalid_login')));    
             }
 

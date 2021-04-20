@@ -8,7 +8,7 @@ trait CurlTrait
 	private $base_url = 'http://51.68.139.99:3000/';
 	// token for customer
 	// private $user_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJzb25pYWJhbmdhNzBAZ21haWwuY29tIiwicm9sZV9pZCI6MSwic3ViX2lkIjoyLCJpYXQiOjE2MTc3OTg0MTF9.MmVbmmfCl272de2IdDm1QsqxpqgnzKEwOXULtEsqpzk';
-	private $user_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhbWFuQGdtYWlsLmNvbSIsInJvbGVfaWQiOjEsImlhdCI6MTYxMTIxMDE5M30.PXXxubIDek4LDrxEdOl5qTE7m88Fv_QArFZAP84GDRg';
+	private $user_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJzb25pYWJhbmdhNzBAZ21haWwuY29tIiwicm9sZV9pZCI6MSwiaWF0IjoxNjE4OTI0MTkxfQ.CJYlMZiTylpLU1nVC1s30_pcC9-haVvKQYK61K329cA';
     // token for agent
 	// private $user_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ2aWpheTE0QHlvcG1haWwuY29tIiwicm9sZV9pZCI6Miwic3ViX2lkIjoyLCJpYXQiOjE2MTg0Njc5Njl9.Oskx3BLc9mnnocEw7UTVIA9_oR-oZsOjAnLEFd1WfNM';
 	
