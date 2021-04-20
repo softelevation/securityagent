@@ -287,9 +287,8 @@ class OperatorController extends Controller
         $statusArr = [];
         
         if($request->get('archived')){
-			$mission_All = (array)$this->Make_GET('operator/mission')->data;
-			
-            $missionArchived = $mission_All['archived_mission'];;
+			$mission_All = $this->Make_GET('operator/mission')->data;
+            $missionArchived = $mission_All->archived_mission;
 
         }else{
             $missionStatus = $request->get('missionStatus'); 
@@ -307,22 +306,16 @@ class OperatorController extends Controller
 			// }
 			
 			
-			$mission_All = (array)$this->Make_GET('operator/mission')->data;
-			
-			// echo '<pre>';
-			// print_r($mission_All['mission_all']);
-			// die;
-			
-			
+			$mission_All = $this->Make_GET('operator/mission')->data;
 
             // $missionAll = $mission->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
-            $missionAll = $mission_All['mission_all'];
+            $missionAll = $mission_All->mission_all;
             // $missionFuture = $mission->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where('start_date_time','>=',Carbon::now())->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
-            $missionFuture = $mission_All['future_mission'];
+            $missionFuture = $mission_All->future_mission;
             // $missionQuick = $mission->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
-            $missionQuick = $mission_All['missionInProgress'];
+            $missionQuick = $mission_All->missionInProgress;
             // $missionCompleted = Mission::with(['child_missions','customer_details'])->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
-            $missionCompleted = $mission_All['missionCompleted'];
+            $missionCompleted = $mission_All->missionCompleted;
             $statusArr = Helper::getMissionStatus();
             $statusArr = array_flip($statusArr);
             
