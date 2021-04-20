@@ -785,7 +785,7 @@ class OperatorController extends Controller
 	
 	public function messageCenterId($id){
 		$id = Helper::decrypt($id);
-		$customer = Customer::where('user_id',$id)->first();
+		// $customer = Customer::where('user_id',$id)->first();
 		
 		$user_messages = $messageCenter = (array)$this->Make_GET("operator/message-center/$id")->data;
 		
@@ -797,15 +797,14 @@ class OperatorController extends Controller
 		// }else{
 			// $user_messages = MessageCenter::select('agents.user_id','agents.first_name','agents.last_name','message_centers.message','message_centers.message_type')->join('agents','agents.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
 		// }
-		$message = MessageCenter::where('user_id',$id)->where('message_type','!=','send_by_op')->update(array('status'=>'2'));
-		$opData = Operator::select('first_name','last_name')->where('user_id',Auth::id())->first();
+		// $message = MessageCenter::where('user_id',$id)->where('message_type','!=','send_by_op')->update(array('status'=>'2'));
+		// $opData = Operator::select('first_name','last_name')->where('user_id',Auth::id())->first();
 		$params = array();
 		$params['mission_id'] =$id;
 		$params['user_id'] =Auth::id();
 		$params['cus_id'] = (isset($user_messages[0])) ? $user_messages[0]->user_id : $id;
 		$params['profile'] = '';
 		$params['user_messages'] = $user_messages;
-		$params['opData'] = $opData;
         return view('operator.message_center',$params);
     }
 	

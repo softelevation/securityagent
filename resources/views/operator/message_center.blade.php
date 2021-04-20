@@ -34,7 +34,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 								  @foreach($user_messages as $user_message)
 								  <?php
 									if($user_message->message_type === 'send_by_op'){
-										$fullname = ($opData) ? ucfirst($opData->first_name).' '.ucfirst($opData->last_name) : 'Unknown';
+										$fullname = 'Operator';
 									}else{
 										$fullname = ($user_message) ? ucfirst($user_message->first_name).' '.ucfirst($user_message->last_name) : 'Unknown';
 									}
@@ -49,7 +49,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 								{{Form::model($profile,['url'=>url('operator/message-center'),'id'=>'message_center'])}}
 								  <div class="row">
 									<div class="col-md-8 form-group">
-									  {{Form::textarea('send_message',null,['data-id'=>$user_id,'data-cus_id'=>$cus_id,'data-mission_id'=>$mission_id,'class'=>'form-control message-center','placeholder'=>__('frontend.text_152')])}}
+									  {{Form::textarea('send_message',null,['data-id'=>$user_id,'data-cus_id'=>$cus_id,'class'=>'form-control message-center','placeholder'=>__('frontend.text_152')])}}
 									</div>
 									<div class="col-md-4 ">
 										<input type="submit" class="yellow_btn" value="{{__('frontend.text_73')}}"/>
@@ -78,17 +78,25 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 <script src="http://51.68.139.99:3000/socket.io/socket.io.js"></script>
 <script>
 
+	var mission_id = {{$mission_id}};
+	var cus_id = {{$cus_id}};
 	// http://localhost:7000/socket.io/socket.io.js
 	$('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
 	 var socket = io.connect('http://51.68.139.99:3000');
 	// console.log(socket);
 	
 	
+	socket.on('message_center_'+mission_id,function(msg){
+		if(msg){
+			location.reload();
+		}
+	});
+			
+			
 	$('#message_center').submit(function(event){
-		
 			socket.emit('op_message_center',{
-				mission_id:$('textarea[name="send_message"]').data('mission_id'),
-				user_id:32,
+				mission_id:mission_id,
+				user_id:cus_id,
 				message:$('textarea[name="send_message"]').val()
 			});
 			
