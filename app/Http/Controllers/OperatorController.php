@@ -125,7 +125,8 @@ class OperatorController extends Controller
 
     public function deleteAgentDetails($e_id){
         $id = Helper::decrypt($e_id);
-        Agent::where('id',$id)->update(['status'=>3]);
+		$this->Make_PATCH('operator/agents/'.$id,array('status'=>3))->data;
+        // Agent::where('id',$id)->update(['status'=>3]);
         return redirect()->back()->with('message_success', 'Deleted Successfully.');
     }
 
@@ -286,7 +287,9 @@ class OperatorController extends Controller
         $statusArr = [];
         
         if($request->get('archived')){
-            $missionArchived = Mission::with('child_missions')->where('parent_id',0)->where('status',10)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
+			$mission_All = (array)$this->Make_GET('operator/mission')->data;
+			
+            $missionArchived = $mission_All['archived_mission'];;
 
         }else{
             $missionStatus = $request->get('missionStatus'); 
@@ -294,7 +297,7 @@ class OperatorController extends Controller
                 $statusCond = ['status'=>$missionStatus];
             }
 			
-			$mission = Mission::with(['child_missions','customer_details']);
+			// $mission = Mission::with(['child_missions','customer_details']);
 			
 			// if($request->get('search') && !empty($request->get('search'))){
 				// $searchString = $request->get('search');
@@ -913,10 +916,10 @@ class OperatorController extends Controller
             $agent_id = Helper::decrypt($request->agent_id);
             $type = $request->type;
             if($type==1){
-                $result = Agent::where('id',$agent_id)->update(['status'=>3]);
+				$result = $this->Make_PATCH('operator/agents/'.$agent_id,array('status'=>3));
             }
             if($type==0){
-                $result = Agent::where('id',$agent_id)->update(['status'=>1]);
+				$result = $this->Make_PATCH('operator/agents/'.$agent_id,array('status'=>1));
             }
             if($result){
                 $response['message'] = trans('messages.agent_status_changed');

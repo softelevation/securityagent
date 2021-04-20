@@ -104,8 +104,8 @@ class AgentController extends Controller
 	}
 	
     public function showAvailableAgents(Request $request){
-        $latitude = '48.7993';
-        $longitude = '1.7153';
+        $latitude = '48.8796835';
+        $longitude = '2.308955';
         $location = 'France';
         $zoom = 7;
         $searchVal = false;
@@ -126,7 +126,9 @@ class AgentController extends Controller
 		if(Session::has('mission')){
                 $mission = Session::get('mission');
 				$agent_All = (array)$this->Make_POST('customer/available-agents',array('mission_id'=>$mission['id']))->data;
-            }
+            }else{
+				$agent_All = (array)$this->Make_POST('customer/available-agents',array())->data;
+		}
 		
         $search['latitude'] = $latitude;
         $search['longitude'] = $longitude;
