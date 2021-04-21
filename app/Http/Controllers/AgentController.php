@@ -125,9 +125,18 @@ class AgentController extends Controller
 		
 		if(Session::has('mission')){
                 $mission = Session::get('mission');
-				$agent_All = (array)$this->Make_POST('customer/available-agents',array('mission_id'=>$mission['id']))->data;
+				$agent_All = $this->Make_POST('customer/available-agents',array('mission_id'=>$mission['id']))->data;
             }else{
-				$agent_All = (array)$this->Make_POST('customer/available-agents',array())->data;
+				$agent_All = $this->Make_POST('customer/available-agents',array())->data;
+		}
+		$final_data = array();
+		foreach($agent_All as $agent_Al){
+			$final_data[] = array(
+						'username'=>$agent_Al->username,'avatar_icon'=>'http://51.68.139.99:3000/agent-images/1618836798905photo.jpg',
+						'image'=>$agent_Al->image,'agent_type'=>$agent_Al->agent_type,'lat'=>$agent_Al->work_location_latitude,'long'=>$agent_Al->work_location_longitude,
+						'is_vehicle'=>$agent_Al->is_vehicle,'id'=>$agent_Al->id,'marker'=>'http://51.68.139.99:3000/agent-images/1618836798905photo.jpg',
+						'distance'=>$agent_Al->distance,'work_location_address'=>$agent_Al->work_location_address,'agent_rating'=>5
+					);
 		}
 		
         $search['latitude'] = $latitude;
@@ -136,8 +145,8 @@ class AgentController extends Controller
         $search['s_val'] = $searchVal; 
         $search['zoom'] = $zoom;
         // $agents = $this->getAvailableAgents($request);
-        // $this->print($agents);
-        return view('available_agents',['data'=>json_encode($agent_All),'search'=>$search]);
+        // $this->print($final_data);
+        return view('available_agents',['data'=>json_encode($final_data),'search'=>$search]);
     }
 
     /**
