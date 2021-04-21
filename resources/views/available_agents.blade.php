@@ -358,6 +358,7 @@
     var longitude = '@php echo $search["longitude"]; @endphp';
     var search = '@php echo $search["s_val"]; @endphp';
     var zoomVal = parseInt('@php echo $search["zoom"]; @endphp');
+	var locations = @php echo $data @endphp;
     var map,
         markArray = [];
     function initMap(zoomVal) {
@@ -379,7 +380,7 @@
     }
 
     function addMarkers() {
-        var locations = JSON.parse('@php echo $data @endphp');
+        // var locations = JSON.parse('@php echo $data @endphp');
         var infowindow = new google.maps.InfoWindow();
         var bounds = new google.maps.LatLngBounds();
         var marker, i;

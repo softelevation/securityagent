@@ -132,13 +132,12 @@ class AgentController extends Controller
 		$final_data = array();
 		foreach($agent_All as $agent_Al){
 			$final_data[] = array(
-						'username'=>$agent_Al->username,'avatar_icon'=>'http://51.68.139.99:3000/agent-images/1618836798905photo.jpg',
+						'username'=>$agent_Al->username,'avatar_icon'=>'http://51.68.139.99:3000/avatars/dummy_avatar.jpg',
 						'image'=>$agent_Al->image,'agent_type'=>$agent_Al->agent_type,'lat'=>$agent_Al->work_location_latitude,'long'=>$agent_Al->work_location_longitude,
-						'is_vehicle'=>$agent_Al->is_vehicle,'id'=>$agent_Al->id,'marker'=>'http://51.68.139.99:3000/agent-images/1618836798905photo.jpg',
+						'is_vehicle'=>$agent_Al->is_vehicle,'id'=>$agent_Al->id,'marker'=>'http://51.68.139.99:3000/avatars/marker-male.png',
 						'distance'=>$agent_Al->distance,'work_location_address'=>$agent_Al->work_location_address,'agent_rating'=>5
 					);
 		}
-		
         $search['latitude'] = $latitude;
         $search['longitude'] = $longitude;
         $search['location'] = $location;
