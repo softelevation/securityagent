@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -51,6 +52,10 @@ class User extends Authenticatable
     }
 	
 	public function getTokenAttribute(){
-		return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJzb25pYWJhbmdhNzBAZ21haWwuY29tIiwicm9sZV9pZCI6MSwic3ViX2lkIjoyLCJpYXQiOjE2MTkwMTEzMDN9.Jn-vEYWEZEHmj9414fRsvqPscNQfQMPY9gNfcoETLJY";
+		if(Session::has('accessToken')){
+			return Session::get('accessToken');
+		}else{
+			return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJzb25pYWJhbmdhNzBAZ21haWwuY29tIiwicm9sZV9pZCI6MSwic3ViX2lkIjoyLCJpYXQiOjE2MTkwMTEzMDN9.Jn-vEYWEZEHmj9414fRsvqPscNQfQMPY9gNfcoETLJY";
+		}
 	}
 }
