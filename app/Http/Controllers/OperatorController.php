@@ -400,80 +400,37 @@ class OperatorController extends Controller
      */
     public function assignMissionAgent($mission_id){
         $mission_id = Helper::decrypt($mission_id);
-		$mission = Mission::where('id',$mission_id)->first();
-        $data['mission'] = $mission;
-        //Calculate mission start and end times 
-        $add_mission_hours = '+'.$mission->total_hours.' hours';
-        $mission_start_date_time = $mission->start_date_time;
-        $mission_end_date_time = date('Y-m-d H:i:s', strtotime($add_mission_hours, strtotime($mission->start_date_time)));
-        $mission_start_time = date('H:i:s',strtotime($mission_start_date_time));
-        $mission_end_time = date('H:i:s',strtotime($mission_end_date_time));
-        // Check if any agent available 
-        $agent_type_needed = $mission->agent_type;
-        if($mission->quick_book==1){
-            $start_date = date('Y-m-d');    
-            if(isset($mission->start_date_time) && $mission->start_date_time!=''){
-                $start_date = date('Y-m-d',strtotime($mission->start_date_time));
-            }
-        }else{
-            $start_date = date('Y-m-d',strtotime($mission->start_date_time));
-        }
-        // Get nearest agent
-        $a = Agent::whereHas('types',function($q) use($agent_type_needed){
-            $q->where('agent_type',$agent_type_needed);
-        });
-        $a->with(['schedule'=>function($q) use ($start_date,$mission_start_time,$mission_end_time){
-            $q->whereDate('schedule_date',$start_date)
-            ->whereTime('available_from','<=',$mission_start_time)
-            ->whereTime('available_to','>=',$mission_end_time);
-        }]);
-        if($mission->quick_book==0 || (isset($mission->start_date_time) && $mission->start_date_time!='')){
-            $a->whereHas('schedule',function($q) use ($start_date,$mission_start_time,$mission_end_time){
-                $q->whereDate('schedule_date',$start_date)
-                ->whereTime('available_from','<=',$mission_start_time)
-                ->whereTime('available_to','>=',$mission_end_time);
-            });
-            $a->whereDoesntHave('missions',function($q) use ($mission_start_date_time,$mission_end_date_time){
-                $q->whereBetween('start_date_time',[$mission_start_date_time,$mission_end_date_time]);
-            });
-        }
-		
-		$verifiedAgents = Agent::select('id','first_name','last_name','username')->where('status','!=','')->where('status',1)->orderBy('id','DESC')->get();
-        $agents = $a->where('status',1)->where('available','!=',0)->select(DB::raw("*, 111.111 *
-                DEGREES(ACOS(LEAST(1.0, COS(RADIANS(".$mission->latitude."))
-                * COS(RADIANS(work_location_latitude))
-                * COS(RADIANS(".$mission->longitude." - work_location_longitude))
-                + SIN(RADIANS(".$mission->latitude."))
-                * SIN(RADIANS(work_location_latitude))))) AS distance_in_km"))->having('distance_in_km', '<', 100)->orderBy('distance_in_km','ASC')->get();  
-        $data['verifiedAgents'] = $verifiedAgents;
-		$data['agents'] = $agents;
-        return view('operator.assign_agent',$data);
+		$data = $this->Make_GET('operator/assign-agent/'.$mission_id);
+		$mission['mission'] = $data->data;
+        return view('operator.assign_agent',$mission);
     }
 
     public function bookAgentLaterMission(Request $request){
         try{
+			
             $mission_id = Helper::decrypt($request->mission_id);
             $agent_id = Helper::decrypt($request->agent_id);
-            Mission::where('id',$mission_id)->update(['agent_id'=>$agent_id,'assigned_at'=>Carbon::now()]);
-            $mission = Mission::where('id',$mission_id)->first();
+			$result = $this->Make_POST('operator/assign-agent/'.$mission_id,array('agent_id'=>$agent_id));
+            // Mission::where('id',$mission_id)->update(['agent_id'=>$agent_id,'assigned_at'=>Carbon::now()]);
+            // $mission = Mission::where('id',$mission_id)->first();
             /*----Agent Notification-----*/
-            if(isset($mission->agent_details)){
-				try {
-					$cus_name = $mission->customer_details->first_name.' '.$mission->customer_details->last_name;
-					$message = trans('dashboard.report.received_a_new_mission')." \n";
-					$message .= trans('dashboard.report.customer_name').$cus_name."\n";
-					$message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
-					$message .= trans('dashboard.report.location').$mission->location;
-					PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
-				}catch(\Exception $e){
-				}
-                $mailContent = [
-                    'name' => ucfirst($mission->agent_details->first_name),
-                    'message' => trans('messages.agent_new_mission_notification'), 
-                    'url' => url('agent/mission-details/view').'/'.$request->mission_id 
-                ];
-                $mission->agent_details->user->notify(new MissionCreated($mailContent));
-            }
+            // if(isset($mission->agent_details)){
+				// try {
+					// $cus_name = $mission->customer_details->first_name.' '.$mission->customer_details->last_name;
+					// $message = trans('dashboard.report.received_a_new_mission')." \n";
+					// $message .= trans('dashboard.report.customer_name').$cus_name."\n";
+					// $message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
+					// $message .= trans('dashboard.report.location').$mission->location;
+					// PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
+				// }catch(\Exception $e){
+				// }
+                // $mailContent = [
+                    // 'name' => ucfirst($mission->agent_details->first_name),
+                    // 'message' => trans('messages.agent_new_mission_notification'), 
+                    // 'url' => url('agent/mission-details/view').'/'.$request->mission_id 
+                // ];
+                // $mission->agent_details->user->notify(new MissionCreated($mailContent));
+            // }
             /*--------------*/
             $response['message'] = trans('messages.mission_req_sent');
             $response['delayTime'] = 2000;

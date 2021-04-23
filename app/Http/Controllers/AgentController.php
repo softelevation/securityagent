@@ -125,9 +125,9 @@ class AgentController extends Controller
 		
 		if(Session::has('mission')){
                 $mission = Session::get('mission');
-				$agent_All = $this->Make_POST('customer/available-agents',array('mission_id'=>$mission['id']))->data;
+				$agent_All = $this->Make_Login('customer/available-agents',array('mission_id'=>$mission['id']))->data;
             }else{
-				$agent_All = $this->Make_POST('customer/available-agents',array())->data;
+				$agent_All = $this->Make_Login('customer/available-agents',array())->data;
 		}
 		$final_data = array();
 		foreach($agent_All as $agent_Al){
@@ -145,7 +145,7 @@ class AgentController extends Controller
         $search['s_val'] = $searchVal; 
         $search['zoom'] = $zoom;
         // $agents = $this->getAvailableAgents($request);
-        $this->print($final_data);
+        // $this->print($final_data);
         return view('available_agents',['data'=>json_encode($final_data),'search'=>$search]);
     }
 

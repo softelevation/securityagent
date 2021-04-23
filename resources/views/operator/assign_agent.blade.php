@@ -76,7 +76,7 @@
 					  <div class="col-md-6 form-group">
 						<select class="form-control" name="selectmission">
 								<option value="">{{__('dashboard.report.select_agent')}}</option>
-								@foreach($verifiedAgents as $verifiedAgent)
+								@foreach($mission->all_agents as $verifiedAgent)
 									<option value="{{Helper::encrypt($verifiedAgent->id)}}">{{ ucfirst($verifiedAgent->username) }}</option>
 								@endforeach
 						</select>
@@ -90,21 +90,17 @@
                           <table class="table table-hover table-striped">
                               <thead>
                                   <tr>
+									<th>Name</th>
                                     <th>{{__('dashboard.agent')}}</th>
-                                    <th>Date</th>
-                                    <th>{{__('dashboard.agents.available_from')}}</th>
-                                    <th>{{__('dashboard.agents.available_to')}}</th>
                                     <th>Action</th>
                                   </tr>
                               </thead>
                               <tbody>
-                                @forelse($agents as $agent)
+                                @forelse($mission->available_agents as $agent)
                                 <tr>
+                                  <td>{{$agent->first_name.''.$agent->last_name}}</td>
                                   <td>{{$agent->username}}</td>
-                                  <td>@if($agent->schedule->count() > 0) {{Helper::date_format_show('d/m/Y', $agent->schedule[0]->schedule_date)}} @else {{__('dashboard.not_set')}} @endif</td>
-                                  <td>@if($agent->schedule->count() > 0) {{$agent->schedule[0]->available_from}} @else {{__('dashboard.not_set')}} @endif</td>
-                                  <td>@if($agent->schedule->count() > 0) {{$agent->schedule[0]->available_to}} @else {{__('dashboard.not_set')}} @endif</td>
-                                  <td><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" class="action_icons day_on book_agent_later"><i class="fa fa-user-plus"></i> {{__('dashboard.assign')}}</a></td>
+								  <td><a href="javascript:void(0)" id="{{Helper::encrypt($agent->id)}}" class="action_icons day_on book_agent_later"><i class="fa fa-user-plus"></i> {{__('dashboard.assign')}}</a></td>
                                 </tr>
                                 @empty
                                 <tr>
