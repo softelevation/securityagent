@@ -49,4 +49,8 @@ class User extends Authenticatable
     public function operator_info(){
         return $this->hasOne('App\Operator', 'user_id');
     }
+	
+	public function getTokenAttribute(){
+		return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJzb25pYWJhbmdhNzBAZ21haWwuY29tIiwicm9sZV9pZCI6MSwic3ViX2lkIjoyLCJpYXQiOjE2MTkwMTEzMDN9.Jn-vEYWEZEHmj9414fRsvqPscNQfQMPY9gNfcoETLJY";
+	}
 }

@@ -133,7 +133,8 @@ class AgentController extends Controller
 		foreach($agent_All as $agent_Al){
 			$final_data[] = array(
 						'username'=>$agent_Al->username,'avatar_icon'=>'https://beontime.io/avatars/dummy_avatar.jpg',
-						'image'=>$agent_Al->image,'agent_type'=>$agent_Al->agent_type,'lat'=>$agent_Al->work_location_latitude,'long'=>$agent_Al->work_location_longitude,
+						'image'=>$agent_Al->image,'agent_type'=>$agent_Al->agent_type,
+						'lat'=>$agent_Al->work_location_latitude,'long'=>$agent_Al->work_location_longitude,
 						'is_vehicle'=>$agent_Al->is_vehicle,'id'=>$agent_Al->id,'marker'=>'https://beontime.io/avatars/marker-male.png',
 						'distance'=>$agent_Al->distance,'work_location_address'=>$agent_Al->work_location_address,'agent_rating'=>5
 					);
@@ -144,7 +145,7 @@ class AgentController extends Controller
         $search['s_val'] = $searchVal; 
         $search['zoom'] = $zoom;
         // $agents = $this->getAvailableAgents($request);
-        // $this->print($final_data);
+        $this->print($final_data);
         return view('available_agents',['data'=>json_encode($final_data),'search'=>$search]);
     }
 

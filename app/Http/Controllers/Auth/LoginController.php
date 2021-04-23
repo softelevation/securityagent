@@ -77,7 +77,7 @@ class LoginController extends Controller
         try{
 			// loginUsingId
             $credentials = $request->only('email', 'password');
-			$result = $this->Make_POST('operator/login',$credentials);
+			$result = $this->Make_Login('operator/login',$credentials);
             if ($result->status) {
             // if (Auth::attempt($result->data->id)) {
             if (Auth::loginUsingId($result->data->id)) {
