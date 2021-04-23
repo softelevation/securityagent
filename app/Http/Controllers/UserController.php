@@ -35,7 +35,7 @@ class UserController extends Controller
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
             }
-            $role = $request->role_id;
+            $role = \Auth::user()->role_id;
             // $user_id = \Auth::user()->id;
             // Upload image
             if(isset($request->image) && $request->image!=""){
