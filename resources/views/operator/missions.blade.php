@@ -113,6 +113,9 @@
 															@if($mission->status == 5)
                                                             <a href="{{url('operator/mission_chage_status/archive')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.mission.archive')}}</a>
 															@endif
+															@if($mission->status==5 && $mission->reports_id != null)
+															<a href="{{url('operator/report-view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-rss-square" aria-hidden="true"></i> {{__('frontend.text_155')}}</a>
+															@endif
 														</div>
                                                     </div>
 													@endif

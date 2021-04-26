@@ -234,9 +234,6 @@ class OperatorController extends Controller
     public function deleteCustomerDetails($e_id){ 
         $id = Helper::decrypt($e_id);
 		$profile = (array)$this->Make_POST('operator/customer/'.$id,array('status'=>3))->data;
-		// print_r($id);
-		// die;
-        // Customer::where('id',$id)->update(['status'=>3]);
         return redirect()->back()->with('message_success', 'Deleted Successfully.');
     }
 
@@ -298,17 +295,6 @@ class OperatorController extends Controller
             if($missionStatus !== null && $missionStatus !== 'all'){
                 $statusCond = ['status'=>$missionStatus];
             }
-			
-			// $mission = Mission::with(['child_missions','customer_details']);
-			
-			// if($request->get('search') && !empty($request->get('search'))){
-				// $searchString = $request->get('search');
-				// $search = $mission->whereHas('customer_details',function ($query) use ($searchString){
-					// $query->where(DB::raw("CONCAT(`first_name`, ' ', `last_name`)"), 'like', '%'.$searchString.'%');
-				// });
-			// }
-			
-			
 			$mission_All = $this->Make_GET('operator/mission')->data;
 
             // $missionAll = $mission->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
@@ -445,8 +431,12 @@ class OperatorController extends Controller
     }
 	
 	public function reportView($mission_id){
-		$feature = Report::where('mission_id',Helper::decrypt($mission_id))->first();
-        return view('operator.report-view')->with('feature',$feature);
+		$result = $this->Make_GET('operator/report-view/'.Helper::decrypt($mission_id));
+		// $feature = Report::where('mission_id',Helper::decrypt($mission_id))->first();
+		// echo '<pre>';
+		// print_r($result);
+		// die;
+        return view('operator.report-view')->with('feature',$result->data);
     }
 
     public function createSubMissions($mission_id){
