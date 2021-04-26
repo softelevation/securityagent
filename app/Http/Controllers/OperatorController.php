@@ -233,7 +233,10 @@ class OperatorController extends Controller
 
     public function deleteCustomerDetails($e_id){ 
         $id = Helper::decrypt($e_id);
-        Customer::where('id',$id)->update(['status'=>3]);
+		$profile = (array)$this->Make_POST('operator/customer/'.$id,array('status'=>3))->data;
+		// print_r($id);
+		// die;
+        // Customer::where('id',$id)->update(['status'=>3]);
         return redirect()->back()->with('message_success', 'Deleted Successfully.');
     }
 
