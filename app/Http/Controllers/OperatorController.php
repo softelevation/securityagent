@@ -223,10 +223,7 @@ class OperatorController extends Controller
 			Mission::where('id',$request->id)->update(array('invoice_status'=>$request->bank_transfer));
 		}else{
 			if($request->id){
-				$cus = Customer::find($request->id);
-				if($cus){
-					Customer::where('id',$request->id)->update(array('add_bank'=>$request->bank_transfer));
-				}
+				$result = $this->Make_POST('operator/customer/'.$request->id,array('add_bank'=>$request->bank_transfer));
 			}
 		}
     }
