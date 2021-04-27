@@ -220,7 +220,13 @@ class OperatorController extends Controller
 	
 	public function customer_status(Request $request){
 		if($request->status == 'invouce'){
-			Mission::where('id',$request->id)->update(array('invoice_status'=>$request->bank_transfer));
+			if($request->bank_transfer){
+				$saveData = array('payment_status'=>1,'invoice_status'=>2);
+			}else{
+				$saveData = array('payment_status'=>0,'invoice_status'=>1);
+			}
+			$result = $this->Make_POST('operator/mission/invoice/'.$request->id,$saveData);
+			// Mission::where('id',$request->id)->update(array('invoice_status'=>$request->bank_transfer));
 		}else{
 			if($request->id){
 				$result = $this->Make_POST('operator/customer/'.$request->id,array('add_bank'=>$request->bank_transfer));
@@ -360,9 +366,16 @@ class OperatorController extends Controller
      */
     public function viewMissionDetails($mission_id){
         $mission_id = Helper::decrypt($mission_id);
-        $data['mission'] = Mission::where('id',$mission_id)->first();
 		
-		// print_r($data['mission']->upload_invoice);
+		
+		$data['mission'] = $this->Make_GET('operator/mission/view/'.$mission_id)->data;
+		
+		
+		
+        // $data['mission'] = Mission::where('id',$mission_id)->first();
+		// {{$mission->upload_invoice}}
+		// echo '<pre>';
+		// print_r($data['mission']);
 		// die();
         return view('operator.view_mission_details',$data);
     }

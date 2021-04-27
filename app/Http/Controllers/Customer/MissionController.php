@@ -448,56 +448,7 @@ class MissionController extends Controller
 				}
 				$amount = Helper::decrypt($request->amount);
 				$mission_id = Helper::decrypt($request->mission_id);
-				$mission = Mission::where('id',$mission_id)->first();
-				$chargeAmount = $mission->amount;
-				if($mission->quick_book==0){
-					$chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
-				}
-				
-				$mailContent = [
-                    'name' => ucfirst($mission->customer_details->first_name),
-                    'message' => trans('messages.payment_done_message',['amount'=>$chargeAmount]), 
-                    'url' => url('customer/billing-details') 
-                ];
-				try {
-					$mission->customer_details->user->notify(new PaymentDone($mailContent));
-				}catch(\Exception $e){
-				}
-				if($mission->agent_details && $mission->agent_details->phone){
-					
-					$mailContent = [
-                        'name' => ucfirst($mission->agent_details->first_name),
-                        'message' => trans('messages.agent_new_mission_notification'), 
-                        'url' => url('agent/mission-details/view').'/'.$request->mission_id 
-                    ];
-                    $mission->agent_details->user->notify(new MissionCreated($mailContent));
-					
-					$agentNumber = $mission->agent_details->phone;
-					try {
-						$cus_name = \Auth::user()->customer_info->first_name.' '.\Auth::user()->customer_info->last_name;
-						$message = trans('dashboard.report.received_a_new_mission')." \n";
-						$message .= trans('dashboard.report.customer_name').$cus_name."\n";
-						$message .= trans('dashboard.report.mission_type').trans('dashboard.agents.'.$mission->intervention.'')."\n";
-						$message .= trans('dashboard.report.location').$mission->location;
-						PlivoSms::sendSms(['phoneNumber' => $mission->agent_details->phone, 'msg' => trans($message) ]);
-					}catch(\Exception $e){
-					}
-				}
-				$mission_update = array('payment_status'=>2);
-				if($mission->quick_book){
-					$mission_update = array('payment_status'=>2,'assigned_at'=>Carbon::now());
-				}
-				Mission::where('id',$mission_id)->update($mission_update);
-				$paymentDetails = [
-                    'amount'      => $amount,
-                    'status'      => 'awiting payment',  
-                    'charge_id'   => 'bank transfer',
-                    'mission_id'  => $mission_id,
-                    'customer_id' => $mission->customer_details->id,
-                    'created_at'  => Carbon::now(),
-                    'updated_at'  => Carbon::now()
-                ];
-				UserPaymentHistory::insert($paymentDetails);
+				$mission_payment = $this->Make_POST('customer/mission-make-payment',array('mission_id'=>$mission_id,'payment_type'=>2));
 				$response['message'] = trans('messages.payment_completed');
                 $response['delayTime'] = 5000;
                 $response['url'] = url('customer/missions');
@@ -505,11 +456,15 @@ class MissionController extends Controller
 			  }else{
             $amount = Helper::decrypt($request->amount);
             $mission_id = Helper::decrypt($request->mission_id);
-			
-			
-			$mission_payment = $this->Make_POST('customer/mission-make-payment',array('mission_id'=>$mission_id,'card_number'=>$request->card_number,'exp_month'=>$request->expire_month,'exp_year'=>$request->expire_year,'cvc'=>$request->cvc));
-			
-			
+			$save_array = array(
+								'mission_id'=>$mission_id,'card_number'=>$request->card_number,
+								'exp_month'=>$request->expire_month,'exp_year'=>$request->expire_year,
+								'cvc'=>$request->cvc,'payment_type'=>1
+							);
+			if($request->save_card_deail){
+				$save_array['save_card'] = 1;
+			}
+			$mission_payment = $this->Make_POST('customer/mission-make-payment',$save_array);
 			
             // $mission = Mission::where('id',$mission_id)->first();
             // $chargeAmount = $mission->amount;
@@ -783,6 +738,9 @@ class MissionController extends Controller
             }
             $data = array_except($request->all(),['_token']);
 			$data['start_date_time'] = Carbon::now()->toDateTimeString();
+			if(!$request->vehicle_required){
+				$data['vehicle_required'] = 1;
+			}
             // if($data['quick_book']==0){
 				// $date = str_replace('/', '-', $request->start_date_time);
                 // $startDateTime = date('Y-m-d H:i:s', strtotime($date));

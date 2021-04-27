@@ -105,7 +105,7 @@ input:checked + .slider_bank:before {
                       </div>
 					  <div class="col-md-6 form-group">
                         <label>{{__('dashboard.customer_name')}}</label>
-                        <span class="form-control">{{ucfirst($mission->customer_details->first_name.' '.$mission->customer_details->last_name)}}</span>
+                        <span class="form-control">{{ucfirst($mission->customer->first_name.' '.$mission->customer->last_name)}}</span>
                       </div>
 					  <div class="col-md-6 form-group">
                         <label>{{__('dashboard.agents.intervention')}}</label>
@@ -142,18 +142,18 @@ input:checked + .slider_bank:before {
                     </div>
                   </div>
                 </div>
-                @if(isset($mission->agent_details))
+                @if(isset($mission->agent->id))
                 <h3>{{__('dashboard.agents.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.agents.name')}}</label>
-                        <span class="form-control">{{ucfirst($mission->agent_details->username)}}</span>
+                        <span class="form-control">{{ucfirst($mission->agent->username)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.agents.type')}}</label>
-                        <span class="form-control">{{Helper::get_agent_type_name_multiple($mission->agent_details->types)}}</span>
+                        <span class="form-control">{{Helper::get_agent_type_name_multiple($mission->agent->agent_type)}}</span>
                       </div>
                     </div>
                     <div class="row">
@@ -179,7 +179,7 @@ input:checked + .slider_bank:before {
                   </div>
                 </div>
                 @endif
-				@if(isset($mission->upload_invoice) && $mission->payment_status == '2')
+				@if(isset($mission->upload_invoice->id)))
                 <h3>{{__('dashboard.mission.upload_invoice')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
@@ -203,11 +203,11 @@ input:checked + .slider_bank:before {
                               <td>{{__('dashboard.payment.bank_transfer')}}</td>
                               <td>
 								<label class="switch">
-								  <input type="checkbox" name="bank_transfer" data-status="invouce" value="{{$mission->id}}" @if($mission->invoice_status == '1') checked @endIf>
+								  <input type="checkbox" name="bank_transfer" data-status="invouce" value="{{$mission->id}}" @if($mission->invoice_status == '2') checked @endIf>
 								  <span class="slider_bank round"></span>
 								</label>
 							  </td>
-                              <td><a class="download" href="{{asset('upload_invoices/'.$mission->upload_invoice->invoice)}}" download>{{__('dashboard.download')}} </a></td>
+                              <td><a class="download" href="{{'http://51.68.139.99:3000/'.$mission->upload_invoice->invoice}}" download>{{__('dashboard.download')}} </a></td>
                             </tr>
                           </tbody>
                         </table>
@@ -215,39 +215,31 @@ input:checked + .slider_bank:before {
                   </div>
                 </div>
                 @endif
-                <h3>{{__('dashboard.payment.details')}}</h3>
+				@if(isset($mission->payments->id))
+				<h3>{{__('dashboard.payment.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
                     <div class="table-responsive">
                         <table class="table table-hover table-striped">
                           <thead>
                               <tr>
-                                  <th>#</th>
                                   <th>{{__('dashboard.payment.mission_amount')}}</th>
                                   <th>{{__('dashboard.payment.date')}}</th>
                                   <th>{{__('dashboard.payment.status')}}</th>
                               </tr>
                           </thead>
                           <tbody>
-                            @php $i=0; @endphp
-                            @forelse($mission->payments as $payment)
-                            @php $i++; @endphp
                             <tr>
-                              <td>{{$i}}.</td>
-                              <td>{{$payment->amount}} <i class="fa fa-euro-sign"></i></td>
-                              <td>{{date('d/m/Y H:i:s', strtotime($payment->created_at))}}</td>
-                              <td>@if($payment->status == 'succeeded') {{__("frontend.$payment->status")}} @else {{__("frontend.$payment->status")}}  @endif</td>
+                              <td>{{$mission->payments->amount}} <i class="fa fa-euro-sign"></i></td>
+                              <td>{{date('d/m/Y H:i:s', strtotime($mission->payments->created_at))}}</td>
+                              <td>{{$mission->payments->status}}</td>
                             </tr>
-                            @empty
-                            <tr>
-                              <td colspan="4">{{__('dashboard.no_record')}}</td>
-                            </tr>
-                            @endforelse
                           </tbody>
                         </table>
                     </div>
                   </div>
                 </div>
+				@endif
               </div>
             </div>
         </div>
