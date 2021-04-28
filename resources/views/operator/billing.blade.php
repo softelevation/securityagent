@@ -38,19 +38,17 @@
                                   <tbody>
                                     @php 
                                       $i = 0; 
-                                      $records = $limit*($page_no-1);
-                                      $i = $i+$records;
                                     @endphp
                                     @forelse($history as $data)
                                       @php $i++; @endphp
                                       <tr>
                                           <td>{{$i}}.</td>
-                                          <td>{{ ($data->mission_details) ? $data->mission_details->title : '' }}</td>
-                                          <td>{{ ($data->mission_details) ? Helper::mission_id_str($data->mission_details->id) : '' }}</td>
+                                          <td>{{$data->title}}</td>
+                                          <td>{{Helper::mission_id_str($data->mid)}}</td>
                                           <td>{{$data->amount}} <i class="fa fa-euro-sign"></i></td>
                                           <td>@if($data->status == 'succeeded') {{__("frontend.$data->status")}} @else {{__("frontend.$data->status")}}  @endif</td>
                                           <td>{{date('d/m/Y H:i:s', strtotime($data->created_at))}}</td>
-                                          <td><a class="action_icons" href="{{url('download-payment-receipt/'.Helper::encrypt($data->id))}}"><i class="fa fa-download"></i> {{__('dashboard.download')}}</a></td>
+                                          <td><a class="action_icons" href="#"><i class="fa fa-download"></i> {{__('dashboard.download')}}</a></td>
                                       </tr>
                                     @empty
                                       <tr>
@@ -59,13 +57,6 @@
                                     @endforelse
                                   </tbody>
                               </table>
-                          </div>
-                          <div class="row">
-                            <div class="ml-auto mr-auto">
-                              <nav class="navigation2 text-center" aria-label="Page navigation">
-                                {{$history->links()}}
-                              </nav>
-                            </div>
                           </div>
                       </div>
                     </div>

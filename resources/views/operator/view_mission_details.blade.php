@@ -179,7 +179,7 @@ input:checked + .slider_bank:before {
                   </div>
                 </div>
                 @endif
-				@if(isset($mission->upload_invoice->id)))
+				@if($mission->invoice_status)
                 <h3>{{__('dashboard.mission.upload_invoice')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
@@ -207,7 +207,11 @@ input:checked + .slider_bank:before {
 								  <span class="slider_bank round"></span>
 								</label>
 							  </td>
-                              <td><a class="download" href="{{'http://51.68.139.99:3000/'.$mission->upload_invoice->invoice}}" download>{{__('dashboard.download')}} </a></td>
+                              <td>
+								@if(isset($mission->upload_invoice->id))
+								<a class="download" href="{{'http://51.68.139.99:3000/'.$mission->upload_invoice->invoice}}" download>{{__('dashboard.download')}} </a>
+								@endif
+								</td>
                             </tr>
                           </tbody>
                         </table>
@@ -232,7 +236,11 @@ input:checked + .slider_bank:before {
                             <tr>
                               <td>{{$mission->payments->amount}} <i class="fa fa-euro-sign"></i></td>
                               <td>{{date('d/m/Y H:i:s', strtotime($mission->payments->created_at))}}</td>
-                              <td>{{$mission->payments->status}}</td>
+							  @if($mission->payments->payment_type == 'bank')
+								<td>{{__('dashboard.payment.bank_transfer')}}</td>
+							  @else
+								<td>{{$mission->payments->status}}</td>
+							  @endif
                             </tr>
                           </tbody>
                         </table>

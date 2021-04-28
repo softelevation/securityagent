@@ -492,16 +492,10 @@ class OperatorController extends Controller
      * @purpose Get payment history
      */
     public function getPaymentHistory(Request $request){
-        $data = UserPaymentHistory::orderBy('id','DESC')->paginate($this->limit);
-        $params = [
-            'history' => $data,
-            'limit' => $this->limit,
-            'page_no' => 1
-        ];
-        if(isset($request->page)){
-            $params['page_no'] = $request->page; 
-        }
-        return view('operator.billing',$params);
+		
+		// $data = UserPaymentHistory::orderBy('id','DESC')->paginate($this->limit);
+		$data['history'] = (array)$this->Make_GET('operator/billing-details')->data;
+        return view('operator.billing',$data);
     }
 
     /**

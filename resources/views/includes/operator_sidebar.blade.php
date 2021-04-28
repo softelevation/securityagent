@@ -2,9 +2,9 @@
                 <div class="Left_tabs_panel border">
                     <div class="profile_img">
                         @if(isset(Auth::user()->operator_info->image) && Auth::user()->operator_info->image!="")
-                            <img src="{{asset('profile_images/'.Auth::user()->operator_info->image)}}" class="img-fluid" />
+                            <img src="http://51.68.139.99:3000/avatars/dummy_avatar.jpg" class="img-fluid" />
                         @else
-                            <img src="{{asset('assets/images/user_img.jpg')}}" class="img-fluid" />
+                            <img src="http://51.68.139.99:3000/avatars/dummy_avatar.jpg" class="img-fluid" />
                         @endif
                         <h3>{{Auth::user()->email}} <span>{{__('dashboard.operator')}}</span></h3>
                     </div>
