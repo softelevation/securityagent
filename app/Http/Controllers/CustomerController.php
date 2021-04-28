@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Traits\CustomerTrait;
+// use App\Traits\CustomerTrait;
 use App\Validators\CustomerValidator;
 use App\Traits\ResponseTrait;
-// use App\Traits\CurlTrait;
+use App\Traits\CurlTrait;
 use App\CustomerNotification;
 use App\Customer;
 use App\Operator;
@@ -18,7 +18,7 @@ use Auth;
 
 class CustomerController extends Controller
 {
-	use CustomerValidator, CustomerTrait, ResponseTrait;
+	use CustomerValidator, ResponseTrait, CurlTrait;
 
     public $limit;
 
@@ -49,7 +49,19 @@ class CustomerController extends Controller
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
             }
-            return $this->registerCustomer($request);
+			$post = array_except($request->all(),['_token','password_confirmation','captcha']);
+			$result = $this->Make_Login('customer/signup',$post);
+			if($result->status){
+                $response['url'] = url('/');
+				$response['message'] = trans('messages.user_registered');
+				$response['delayTime'] = 5000;
+				return $this->getSuccessResponse($response);
+            }else{
+				// return $this->getErrorResponse(trans('messages.error'));
+				return $this->getErrorResponse($result->message);
+            }
+			
+            // return $this->registerCustomer($request);
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }
@@ -63,10 +75,10 @@ class CustomerController extends Controller
      */
     public function customerProfileView(){
 		
-		// $profile = (array)$this->Make_GET('profile')->data;
+		$profile = (array)$this->Make_GET('profile')->data;
         // $profile = Customer::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first()->toArray();
-        // $data['profile'] = $profile;
-        // return view('customer.profile',$data);
+        $data['profile'] = $profile;
+        return view('customer.profile',$data);
     }
 	
 	public function messageCenter(Request $request){
@@ -128,15 +140,15 @@ class CustomerController extends Controller
      * @purpose Get payment history
      */
     public function getPaymentHistory(Request $request){
-		// $data = $this->Make_GET('customer/billing-details')->data;
-		// $params = [
-            // 'history' => $data,
-            // 'page_no' => 1
-        // ];
-        // if(isset($request->page)){
-            // $params['page_no'] = $request->page; 
-        // }
-        // return view('customer.billing',$params);
+		$data = $this->Make_GET('customer/billing-details')->data;
+		$params = [
+            'history' => $data,
+            'page_no' => 1
+        ];
+        if(isset($request->page)){
+            $params['page_no'] = $request->page; 
+        }
+        return view('customer.billing',$params);
     }
 	
 	public function testing(){
