@@ -63,10 +63,10 @@ class CustomerController extends Controller
      */
     public function customerProfileView(){
 		
-		$profile = (array)$this->Make_GET('profile')->data;
+		// $profile = (array)$this->Make_GET('profile')->data;
         // $profile = Customer::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first()->toArray();
-        $data['profile'] = $profile;
-        return view('customer.profile',$data);
+        // $data['profile'] = $profile;
+        // return view('customer.profile',$data);
     }
 	
 	public function messageCenter(Request $request){
@@ -128,15 +128,15 @@ class CustomerController extends Controller
      * @purpose Get payment history
      */
     public function getPaymentHistory(Request $request){
-		$data = $this->Make_GET('customer/billing-details')->data;
-		$params = [
-            'history' => $data,
-            'page_no' => 1
-        ];
-        if(isset($request->page)){
-            $params['page_no'] = $request->page; 
-        }
-        return view('customer.billing',$params);
+		// $data = $this->Make_GET('customer/billing-details')->data;
+		// $params = [
+            // 'history' => $data,
+            // 'page_no' => 1
+        // ];
+        // if(isset($request->page)){
+            // $params['page_no'] = $request->page; 
+        // }
+        // return view('customer.billing',$params);
     }
 	
 	public function testing(){
