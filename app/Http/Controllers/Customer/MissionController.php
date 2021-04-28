@@ -87,19 +87,11 @@ class MissionController extends Controller
 	
 	public function viewAgentDetails(Request $request, $id){
         $mission_id = Helper::decrypt($id);
-		$agent = Mission::find($mission_id)->agent_details;
-		$feedback_agent = Feedback::where('agent_id',$agent->id)->pluck('rating')->toArray();
-		if($feedback_agent){
-			$feedback_agent = ceil(array_sum($feedback_agent)/count($feedback_agent));
-		}else{
-			$feedback_agent = 5;
-		}
-		
-        $feedback = Feedback::where('mission_id',$mission_id)->first();
-		if(!$feedback){
-			$feedback = (object)array('rating'=>0,'message'=>'');
-		}
-        return view('customer.feedback')->with('agent',$agent)->with('feedback',$feedback)->with('feedback_agent',$feedback_agent)->with('id',$id);
+		$mission = $this->Make_GET('customer/mission-details/'.$mission_id);
+		$agent = $mission->data->agent;	
+		$feedback = $mission->data->feedback;	
+		// return view('customer.feedback')->with('agent',$agent)->with('feedback',$feedback)->with('feedback_agent',$feedback_agent)->with('id',$id);
+        return view('customer.feedback')->with('agent',$agent)->with('feedback',$feedback)->with('id',$id);
     }
 	
 	/**
@@ -115,9 +107,8 @@ class MissionController extends Controller
 		if($validation['status']==false){
 				return response($this->getValidationsErrors($validation));
 		}
-		$inputData = array('rating'=>$request->rating,'message'=>$request->message,'mission_id'=>Helper::decrypt($id),'customer_id'=>Auth::user()->id);
-		$inputData['agent_id'] = Mission::find(Helper::decrypt($id))->agent_details->id;
-		Feedback::updateOrCreate(array('mission_id'=>Helper::decrypt($id)),$inputData);
+		$inputData = array('rating'=>$request->rating,'message'=>$request->message,'mission_id'=>Helper::decrypt($id));
+		$mission_payment = $this->Make_POST('customer/feedback',$inputData);
 		$response['message'] = trans('messages.feedback_completed');
 		$response['delayTime'] = 5000;
 		$response['url'] = url('customer/missions');

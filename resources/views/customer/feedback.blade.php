@@ -85,11 +85,11 @@
                       </div>
                       <div class="pt-3">
                         <p class="review-star">
-                                <span class="fa fa-star @if($feedback_agent >= 1) checked @endIf"></span>
-                                <span class="fa fa-star @if($feedback_agent >= 2) checked @endIf"></span>
-                                <span class="fa fa-star @if($feedback_agent >= 3) checked @endIf"></span>
-                                <span class="fa fa-star @if($feedback_agent >= 4) checked @endIf"></span>
-                                <span class="fa fa-star @if($feedback_agent >= 5) checked @endIf"></span>
+                                <span class="fa fa-star @if($agent->rating >= 1) checked @endIf"></span>
+                                <span class="fa fa-star @if($agent->rating >= 2) checked @endIf"></span>
+                                <span class="fa fa-star @if($agent->rating >= 3) checked @endIf"></span>
+                                <span class="fa fa-star @if($agent->rating >= 4) checked @endIf"></span>
+                                <span class="fa fa-star @if($agent->rating >= 5) checked @endIf"></span>
                         </p>
                       </div>
                       <div>
@@ -104,24 +104,25 @@
                       <div class="">
                         <h4>{{$agent->username}}</h4>
                         <hr>
-                        <h6>{{Helper::get_agent_type_name_multiple($agent->types)}}</h6>
+                        <h6>{{Helper::get_agent_type_name_multiple($agent->agent_type)}}</h6>
                       </div>
-                      <form id="general_form" method="post" action="{{url('customer/feedback/'.$id)}}">
+					  
+					  <form id="general_form" method="post" action="{{url('customer/feedback/'.$id)}}">
 						@csrf
                       <div class="row">
                         <div class="col-md-12">
                           <h3>{{__('dashboard.agents.reviews')}}</h3>
                           <div class="row review-wrapper">
                             <div class="star-rating__stars">
-							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="1" id="rating-1" @if($feedback->rating == 1) checked @endIf />
+							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="1" id="rating-1" @if($feedback && isset($feedback->rating) == 1) checked @endIf />
 							  <label class="star-rating__label" for="rating-1" aria-label="One"></label>
-							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="2" id="rating-2" @if($feedback->rating == 2) checked @endIf />
+							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="2" id="rating-2" @if($feedback && isset($feedback->rating) == 2) checked @endIf />
 							  <label class="star-rating__label" for="rating-2" aria-label="Two"></label>
-							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="3" id="rating-3" @if($feedback->rating == 3) checked @endIf />
+							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="3" id="rating-3" @if($feedback && isset($feedback->rating) == 3) checked @endIf />
 							  <label class="star-rating__label" for="rating-3" aria-label="Three"></label>
-							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="4" id="rating-4" @if($feedback->rating == 4) checked @endIf />
+							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="4" id="rating-4" @if($feedback && isset($feedback->rating) == 4) checked @endIf />
 							  <label class="star-rating__label" for="rating-4" aria-label="Four"></label>
-							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="5" id="rating-5" @if($feedback->rating == 5) checked @endIf />
+							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="5" id="rating-5" @if($feedback && isset($feedback->rating) == 5) checked @endIf />
 							  <label class="star-rating__label" for="rating-5" aria-label="Five"></label>
 							  <div class="star-rating__focus"></div>
 							</div>
@@ -129,7 +130,7 @@
 						  <div class="row review-wrapper">
 							<div class="col-md-12 form-group">
 							  <label>{{__('frontend.text_71')}}</label>
-                              <textarea name="message" class="form-control">{{$feedback->message}}</textarea>
+                              <textarea name="message" class="form-control">{{$feedback && isset($feedback->message)}}</textarea>
 							</div>
                           </div>
 						  <div class="row review-wrapper">
@@ -140,6 +141,7 @@
                         </div>
                       </div>
 					  </form>
+                     
                     </div>
                   </div>
                 </div>
