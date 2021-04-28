@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Traits\CustomerTrait;
 use App\Validators\CustomerValidator;
 use App\Traits\ResponseTrait;
-use App\Traits\CurlTrait;
+// use App\Traits\CurlTrait;
 use App\CustomerNotification;
 use App\Customer;
 use App\Operator;
@@ -18,7 +18,7 @@ use Auth;
 
 class CustomerController extends Controller
 {
-	use CustomerValidator, CustomerTrait, ResponseTrait, CurlTrait;
+	use CustomerValidator, CustomerTrait, ResponseTrait;
 
     public $limit;
 
