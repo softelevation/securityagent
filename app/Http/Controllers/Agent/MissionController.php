@@ -77,7 +77,11 @@ class MissionController extends Controller
      */
     public function viewMissionDetails($mission_id){
         $mission_id = Helper::decrypt($mission_id);
-        $data['mission'] = Mission::where('id',$mission_id)->first();
+		$data['mission'] = $this->Make_GET('agent/mission/'.$mission_id)->data;
+		// echo '<pre>';
+		// print_r($awaitingRequests);
+		// die;
+        // $data['mission'] = Mission::where('id',$mission_id)->first();
         return view('agent.view_mission_details',$data);
     }
 
@@ -88,28 +92,36 @@ class MissionController extends Controller
      * @purpose View Mission Request's List 
      */
     public function viewMissionRequests(Request $request){
-        $awaitingRequests = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',0)
+		
+		$awaitingRequests = $this->Make_GET('agent/mission-requests');
+		
+        // $awaitingRequests = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',0)
 							// ->where('payment_status',1)
-							->where(function ($query) {
-								$query->where('payment_status',1)
-									  ->orWhere('payment_status',2);
-							})->orderBy('id','desc')->paginate($this->limit,['*'],'awaiting');
-        $expiredRequests = MissionRequestsIgnored::where('agent_id',\Auth::user()->agent_info->id)->where('is_deleted',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'expired');
-        $params = [
-            'awaiting_requests' => $awaitingRequests,
-            'expired_requests' => $expiredRequests,
+							// ->where(function ($query) {
+								// $query->where('payment_status',1)
+									  // ->orWhere('payment_status',2);
+							// })->orderBy('id','desc')->paginate($this->limit,['*'],'awaiting');
+        // $expiredRequests = MissionRequestsIgnored::where('agent_id',\Auth::user()->agent_info->id)->where('is_deleted',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'expired');
+        
+		// echo '<pre>';
+		// print_r($awaitingRequests);
+		// die;
+		
+		$params = [
+            'awaiting_requests' => $awaitingRequests->data,
+            'expired_requests' => $awaitingRequests->mission_expire,
             'page_no' => 1,
             'page_name' => 'awaiting',
             'limit' => $this->limit
         ];
-        if($request->isMethod('get')){
-            if(!empty($request->all())){
-                $pageName = array_keys($request->all());
-                $pageNo = array_values($request->all());
-                $params['page_no'] = $pageNo[0]; 
-                $params['page_name'] = $pageName[0];
-            }
-        }
+        // if($request->isMethod('get')){
+            // if(!empty($request->all())){
+                // $pageName = array_keys($request->all());
+                // $pageNo = array_values($request->all());
+                // $params['page_no'] = $pageNo[0]; 
+                // $params['page_name'] = $pageName[0];
+            // }
+        // }
         return view('agent.mission_requests',$params);
     }
 	
@@ -148,6 +160,10 @@ class MissionController extends Controller
      */
     public function processMissionRequest(Request $request){
         try{
+			
+			echo '<pre>';
+			print_r($request->all());
+			die;
 			$action = $request->action_value;
 			if($action == 2) {
 				$validation = $this->rejectMissionValidations($request);
@@ -155,8 +171,8 @@ class MissionController extends Controller
 						return response($this->getValidationsErrors($validation));
 				}
 			}
-            
-
+			
+			
             $mission_id = Helper::decrypt($request->mission_id);
             $mission = Mission::with('customer_details')->where('id',$mission_id)->first();
             $customerNumber = $mission->customer_details->phone;

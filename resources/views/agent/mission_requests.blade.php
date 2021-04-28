@@ -42,10 +42,6 @@
                             <tbody>
                               @php 
                                 $i = 0; 
-                                if($page_name=='awaiting'){
-                                  $records = $limit*($page_no-1);
-                                  $i = $i+$records;
-                                }
                               @endphp
                               @forelse($awaiting_requests as $mission)
                                 @php $i++; @endphp
@@ -69,13 +65,6 @@
                             </tbody>
                         </table>
                       </div>
-                      <div class="row">
-                        <div class="ml-auto mr-auto">
-                          <nav class="navigation2 text-center" aria-label="Page navigation">
-                            {{$awaiting_requests->links()}}
-                          </nav>
-                        </div>
-                      </div>
                     </div>
                     <!-- Verified Agents -->
                     <div class="tab-pane fade show @if($page_name=='expired') active @endif" id="nav-expired" role="tabpanel" aria-labelledby="nav-expired-tab">
@@ -94,26 +83,20 @@
                             <tbody>
                               @php 
                                 $i = 0; 
-                                if($page_name=='expired'){
-                                  $records = $limit*($page_no-1);
-                                  $i = $i+$records;
-                                }
                               @endphp
                               @forelse($expired_requests as $data)
                                 @php $i++; @endphp
-								@if($data->mission_details)
                                 <tr>
                                     <td>{{$i}}.</td>
-                                    <td>{{$data->mission_details->title}}</td>
-                                    <td>{{$data->mission_details->location}}</td>
-                                    <td>{{$data->mission_details->total_hours}} {!!__('dashboard.hours')!!}</td>
+                                    <td>{{$data->title}}</td>
+                                    <td>{{$data->location}}</td>
+                                    <td>{{$data->total_hours}} {!!__('dashboard.hours')!!}</td>
                                     <td><button class="btn btn-outline-danger status_btn">{{__('dashboard.expired')}}</button></td>
                                     <td>
-                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($data->mission_details->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
+                                      <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($data->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                       <a href="{{url('agent/remove-expired-mission/')}}/{{Helper::encrypt($data->id)}}" class="action_icons remove_mission_request"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.delete')}} </a>
                                     </td>
                                 </tr>
-								@endIf
                               @empty
                                 <tr>
                                     <td colspan="7">{{__('dashboard.no_record')}}</td>
@@ -122,13 +105,7 @@
                             </tbody>
                         </table>
                       </div>
-                      <div class="row">
-                        <div class="ml-auto mr-auto">
-                          <nav class="navigation2 text-center" aria-label="Page navigation">
-                            {{$expired_requests->links()}}
-                          </nav>
-                        </div>
-                      </div>
+                     
                     </div>
                   </div>
                 </div>

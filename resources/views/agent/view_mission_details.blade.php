@@ -20,92 +20,92 @@
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.title')}}</label>
-                        <span class="form-control">{{$mission->title}}</span>
+                        <span class="form-control">{{$mission->mission->title}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.ref')}}</label>
-                        <span class="form-control">{{Helper::mission_id_str($mission->id)}}</span>
+                        <span class="form-control">{{Helper::mission_id_str($mission->mission->id)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.location')}}</label>
-                        <span class="form-control">{{$mission->location}}</span>
+                        <span class="form-control">{{$mission->mission->location}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.agent_needed')}}</label>
-                        <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
+                        <span class="form-control">{{Helper::get_agent_type_name($mission->mission->agent_type)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.vehicle_required')}}</label>
-                        <span class="form-control">{{Helper::vehicle_required_status($mission->vehicle_required)}}</span>
+                        <span class="form-control">{{Helper::vehicle_required_status($mission->mission->vehicle_required)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.mission_hours')}}</label>
-                        <span class="form-control">{{$mission->total_hours}} {{__('dashboard.hours')}}</span>
+                        <span class="form-control">{{$mission->mission->total_hours}} {{__('dashboard.hours')}}</span>
                       </div>
 					  <div class="col-md-12 form-group">
                         <label>{{__('dashboard.agents.intervention')}}</label>
-                        <span class="form-control">{{__('dashboard.agents.'.$mission->intervention.'')}}</span>
+                        <span class="form-control">{{__('dashboard.agents.'.$mission->mission->intervention.'')}}</span>
                       </div>
-					  @if($mission->intervention == 'Security_patrol' && isset($mission->repetitive_mission) && isset($mission->mission_finish_time) && !empty($mission->repetitive_mission) && !empty($mission->mission_finish_time))
+					  @if($mission->mission->intervention == 'Security_patrol' && isset($mission->mission->repetitive_mission) && isset($mission->mission->mission_finish_time) && !empty($mission->mission->repetitive_mission) && !empty($mission->mission->mission_finish_time))
 						<div class="col-md-4 form-group">
                         <label>{{__('dashboard.agents.repetitive_mission')}}</label>
-                        <span class="form-control">{{__('dashboard.agents.'.str_replace(" ","_",$mission->repetitive_mission).'')}}</span>
+                        <span class="form-control">{{__('dashboard.agents.'.str_replace(" ","_",$mission->mission->repetitive_mission).'')}}</span>
                       </div>
 					  <div class="col-md-4 form-group">
                         <label>{{__('dashboard.agents.finish_time')}}</label>
-                        <span class="form-control">{{$mission->mission_finish_time}}</span>
+                        <span class="form-control">{{$mission->mission->mission_finish_time}}</span>
                       </div>
 					  <div class="col-md-4 form-group">
                         <label>{{__('dashboard.agents.time_intervel')}}</label>
-                        <span class="form-control">{{$mission->time_intervel}} {{__('dashboard.hours')}}</span>
+                        <span class="form-control">{{$mission->mission->time_intervel}} {{__('dashboard.hours')}}</span>
                       </div>
 					  @endif
-                      @if(isset($mission->start_date_time) && $mission->start_date_time!="")
+                      @if(isset($mission->mission->start_date_time) && $mission->mission->start_date_time!="")
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.start_time')}}</label>
-                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->start_date_time)}}</span>
+                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->mission->start_date_time)}}</span>
                       </div>
                       @endif
                     </div>
                     <div class="row">
                       <div class="col-md-12 form-group">
                         <label>{{__('dashboard.mission.description')}}</label>
-                        <span class="form-control">{{$mission->description}}</span>
+                        <span class="form-control">{{$mission->mission->description}}</span>
                       </div>
                     </div>
-                    @if($mission->status==5)
+                    @if($mission->mission->status==5)
                     <div class="row">
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.mission_status')}}</label>
-                        <span class="form-control">{{Helper::getMissionStatus($mission->status)}}</span>
+                        <span class="form-control">{{Helper::getMissionStatus($mission->mission->status)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.hours_taken')}}</label>
-                        <span class="form-control">{{Helper::get_mission_hours($mission->started_at,$mission->ended_at)}}</span>
+                        <span class="form-control">{{Helper::get_mission_hours($mission->mission->started_at,$mission->mission->ended_at)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.started_at')}}</label>
-                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->started_at)}}</span>
+                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->mission->started_at)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.ended_at')}}</label>
-                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->ended_at)}}</span>
+                        <span class="form-control">{{Helper::date_format_show('d/m/Y H:i:s',$mission->mission->ended_at)}}</span>
                       </div>
                     </div>
                     @endif
                     <div class="row">
-                      <div class="col-md-12 text-center">
-                          @if($mission->status==3)
+                     <div class="col-md-12 text-center">
+                          @if($mission->mission->status==3)
                             <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/start-mission')}}" data-type="start" class="button success_btn confirmBtn"><i class="fa fa-check"></i> {{__('dashboard.mission.start_mission')}}</button>
                           @endif
-                          @if($mission->status==4)
+                          @if($mission->mission->status==4)
                             <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/finish-mission')}}" data-type="finish" class="button success_btn confirmBtn"><i class="fa fa-check"></i> {{__('dashboard.mission.finish_mission')}}</button>
                           @endif
-                          @if($mission->status==3 || $mission->status==4)
+                          @if($mission->mission->status==3 || $mission->mission->status==4)
                             <!-- <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/cancel-mission-agent')}}" data-type="cancel_agent" class="button danger_btn confirmBtn" data-action="2"><i class="fa fa-times"></i> Cancel Mission</button> -->
                           @endif
-                          @if($mission->status==0 && $mission->agent_id==Auth::user()->agent_info->id)
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="accept" class="button success_btn confirmBtn" data-value="1" data-hours="{{$mission->total_hours}}"><i class="fa fa-check"></i> {{__('dashboard.mission.accept_mission')}}</button>
+                          @if($mission->mission->status==0 && $mission->mission->agent_id==Auth::user()->agent_info->id)
+                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="accept" class="button success_btn confirmBtn" data-value="1" data-hours="{{$mission->mission->total_hours}}"><i class="fa fa-check"></i> {{__('dashboard.mission.accept_mission')}}</button>
                             <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="reject" class="button danger_btn confirmBtn" data-value="2"><i class="fa fa-times"></i> {{__('dashboard.mission.reject_mission')}}</button>
                           @endif
                       </div>
@@ -136,7 +136,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <p class="confirmation_text"></p>
-                <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->id)}}">
+                <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->mission->id)}}">
                 <input id="actionInput" type="hidden" name="action_value">  
                 <div class="reject_reason">
                   <div class="form-group">
@@ -149,7 +149,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          @if($mission->total_hours > 12)<button id="12_hrs_btn" type="button" class="btn btn-primary orange_bg">{!!__('dashboard.book_12_hours')!!}</button>@endif
+          @if($mission->mission->total_hours > 12)<button id="12_hrs_btn" type="button" class="btn btn-primary orange_bg">{!!__('dashboard.book_12_hours')!!}</button>@endif
           <button type="submit" class="btn btn-primary success_btn" >{{__('dashboard.yes')}}</button>
           <button type="button" class="btn btn-secondary danger_btn"  data-dismiss="modal">{{__('dashboard.close')}}</button>
         </div>
@@ -158,7 +158,7 @@
   </div>
 </div>
 {{Form::open(['url'=>url('agent/create-sub-missions'),'id'=>'general_form_2'])}}
-{{Form::hidden('mission_id',Helper::encrypt($mission->id))}}
+{{Form::hidden('mission_id',Helper::encrypt($mission->mission->id))}}
 {{Form::close()}}
 <script>
   var locale = '@php echo app()->getLocale(); @endphp';
