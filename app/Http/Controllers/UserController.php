@@ -49,7 +49,7 @@ class UserController extends Controller
             switch ($role) {
                 case 1:
                     // Update customer table
-					$this->Make_POST('customer/profile',$post);
+					$result = $this->Make_POST('customer/profile',$post);
                     $url = url('customer/profile'); 
                     break;
                 case 2:
@@ -118,9 +118,10 @@ class UserController extends Controller
 
     public function downloadPaymentReceipt($id){
         $id = Helper::decrypt($id);
-        $data = UserPaymentHistory::whereId($id)->first();
+		$profile = $this->Make_GET('profile');
+		$mission = $this->Make_GET('customer/mission-details/'.$id);
 		$customPaper = array(0,0,500.00,850.80);
-        $pdf = \PDF::loadView('pdf.payment_receipt', ['data'=>$data])->setPaper($customPaper, 'landscape');
+        $pdf = \PDF::loadView('pdf.payment_receipt', ['data'=>$mission->data,'profile'=>$profile->data])->setPaper($customPaper, 'landscape');
         return $pdf->download('invoice.pdf');
         // return view('pdf.payment_receipt',['data'=>$data]);
     }

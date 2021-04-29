@@ -205,9 +205,9 @@
                     <div class="row contacts">
                         <div class="pull-left invoice-to">
                             <div class="text-gray-light">{{__('dashboard.customer_details')}}:</div>
-                            <p class="to">{{$data->customer_details->first_name}} {{$data->customer_details->last_name}}</p>
-                            <div class="address">{{$data->customer_details->home_address}}</div>
-                            <div class="email"><a href="mailto:{{$data->customer_details->user->email}}">{{$data->customer_details->user->email}}</a></div>
+                            <p class="to">{{$profile->first_name}} {{$profile->last_name}}</p>
+                            <div class="address">{{$profile->home_address}}</div>
+                            <div class="email"><a href="mailto:{{$profile->email}}">{{$profile->email}}</a></div>
                         </div>
                         <div class="pull-right">
                             <h2 class="invoice-id">REC-000-{{$data->id}}</h2>
@@ -217,7 +217,7 @@
                     </div>
                 </div>
                 @php 
-                  $vat_amount = Helper::get_vat_amount($data->amount,$data->mission_details->vat);
+                  $vat_amount = Helper::get_vat_amount($data->amount,$data->vat);
                   $original_amount = $data->amount-$vat_amount;
                 @endphp
                 <div class="table">
@@ -233,16 +233,16 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="text-center">{{Helper::mission_id_str($data->mission_details->id)}}</td>
-                                <td class="text-center">{{strtoupper($data->mission_details->title)}}</td>
-                                <td class="text-center">@if($data->mission_details->quick_book==1) {{__('dashboard.quick_booking')}} @else {{__('dashboard.future_booking')}} @endif</td>
-                                <td class="text-center">@if($data->status == 'succeeded') {{__("frontend.$data->status")}} @else {{__("frontend.$data->status")}}  @endif</td>
+                                <td class="text-center">{{Helper::mission_id_str($data->id)}}</td>
+                                <td class="text-center">{{strtoupper($data->title)}}</td>
+                                <td class="text-center">@if($data->quick_book==1) {{__('dashboard.quick_booking')}} @else {{__('dashboard.future_booking')}} @endif</td>
+                                <td class="text-center">@if($data->payments->status == 'succeeded') {{__("frontend.succeeded")}} @else {{ $data->payments->status }}  @endif</td>
                                 <td class="text-right">{{$original_amount}} &euro;</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td class="text-right" colspan="4">{{__('dashboard.vat')}} ({{$data->mission_details->vat}}%)</td>
+                                <td class="text-right" colspan="4">{{__('dashboard.vat')}} ({{$data->vat}}%)</td>
                                 <td class="text-right">{{$vat_amount}} &euro;</td>
                             </tr>
                             <tr>

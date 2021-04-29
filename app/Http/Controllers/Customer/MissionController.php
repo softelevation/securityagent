@@ -869,16 +869,19 @@ class MissionController extends Controller
         try{
             $encMissionId = $mission_id;
             $mission_id = Helper::decrypt($mission_id);
-            $cancelled = $this->cancelMissionRequest($mission_id);
-            if($cancelled==1){
-                $mission = Mission::where('id',$mission_id)->first();
+			$mission_payment = $this->Make_GET('customer/mission-cancel/'.$mission_id);
+			// print_r($mission_id);
+			// die;
+            // $cancelled = $this->cancelMissionRequest($mission_id);
+            if($mission_payment){
+                // $mission = Mission::where('id',$mission_id)->first();
                 /*----Agent Notification-----*/
-                $mailContent = [
-                    'name' => ucfirst($mission->agent_details->first_name),
-                    'message' => trans('messages.cancel_mission_notify_agent'), 
-                    'url' => url('agent/mission-details/view').'/'.$encMissionId
-                ];
-                $mission->agent_details->user->notify(new MissionCancelled($mailContent));
+                // $mailContent = [
+                    // 'name' => ucfirst($mission->agent_details->first_name),
+                    // 'message' => trans('messages.cancel_mission_notify_agent'), 
+                    // 'url' => url('agent/mission-details/view').'/'.$encMissionId
+                // ];
+                // $mission->agent_details->user->notify(new MissionCancelled($mailContent));
                 /*--------------*/
                 $response['message'] = trans('messages.mission_cancelled');
                 $response['url'] = url('customer/missions'); 
@@ -900,8 +903,9 @@ class MissionController extends Controller
     public function deleteMission($mission_id){
         try{
             $mission_id = Helper::decrypt($mission_id);
-            $deleted = $this->deleteMissionRequest($mission_id);
-            if($deleted==1){
+			$mission_payment = $this->Make_GET('customer/mission-delete/'.$mission_id);
+            // $deleted = $this->deleteMissionRequest($mission_id);
+            if($mission_payment->status){
                 $response['message'] = trans('messages.mission_deleted');
                 $response['url'] = url('customer/missions'); 
                 return $this->getSuccessResponse($response);

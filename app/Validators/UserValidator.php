@@ -42,7 +42,7 @@ trait UserValidator
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'phone' => 'required',
-                'address' => 'required',
+                'home_address' => 'required',
                 'image' => 'mimes:jpeg,jpg,png|max:5000',
             );
             $validator = Validator::make($request->all(),$validations);
