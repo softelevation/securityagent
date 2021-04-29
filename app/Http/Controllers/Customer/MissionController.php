@@ -88,13 +88,15 @@ class MissionController extends Controller
 	public function viewAgentDetails(Request $request, $id){
         $mission_id = Helper::decrypt($id);
 		$feedback = (object)array('rating'=>0,'message'=>'');
+		$is_submit =  false;
 		$mission = $this->Make_GET('customer/mission-details/'.$mission_id);
 		$agent = $mission->data->agent;	
 		if(isset($mission->data->feedback->id)){
 			$feedback = $mission->data->feedback;
+			$is_submit =  true;
 		}
 		// return view('customer.feedback')->with('agent',$agent)->with('feedback',$feedback)->with('feedback_agent',$feedback_agent)->with('id',$id);
-        return view('customer.feedback')->with('agent',$agent)->with('feedback',$feedback)->with('id',$id);
+        return view('customer.feedback')->with('agent',$agent)->with('feedback',$feedback)->with('id',$id)->with('is_submit',$is_submit);
     }
 	
 	/**

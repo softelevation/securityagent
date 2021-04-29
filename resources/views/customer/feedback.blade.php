@@ -114,15 +114,15 @@
                           <h3>{{__('dashboard.agents.reviews')}}</h3>
                           <div class="row review-wrapper">
                             <div class="star-rating__stars">
-							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="1" id="rating-1" @if($feedback->rating == 1) checked @endIf />
+							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="1" id="rating-1" @if($is_submit) disabled @endIf @if($feedback->rating == 1) checked @endIf />
 							  <label class="star-rating__label" for="rating-1" aria-label="One"></label>
-							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="2" id="rating-2" @if($feedback->rating == 2) checked @endIf />
+							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="2" id="rating-2" @if($is_submit) disabled @endIf @if($feedback->rating == 2) checked @endIf />
 							  <label class="star-rating__label" for="rating-2" aria-label="Two"></label>
-							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="3" id="rating-3" @if($feedback->rating == 3) checked @endIf />
+							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="3" id="rating-3" @if($is_submit) disabled @endIf @if($feedback->rating == 3) checked @endIf />
 							  <label class="star-rating__label" for="rating-3" aria-label="Three"></label>
-							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="4" id="rating-4" @if($feedback->rating == 4) checked @endIf />
+							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="4" id="rating-4" @if($is_submit) disabled @endIf @if($feedback->rating == 4) checked @endIf />
 							  <label class="star-rating__label" for="rating-4" aria-label="Four"></label>
-							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="5" id="rating-5" @if($feedback->rating == 5) checked @endIf />
+							  <input class="star-rating__input" name="rating" type="radio" name="rating" value="5" id="rating-5" @if($is_submit) disabled @endIf @if($feedback->rating == 5) checked @endIf />
 							  <label class="star-rating__label" for="rating-5" aria-label="Five"></label>
 							  <div class="star-rating__focus"></div>
 							</div>
@@ -130,14 +130,16 @@
 						  <div class="row review-wrapper">
 							<div class="col-md-12 form-group">
 							  <label>{{__('frontend.text_71')}}</label>
-                              <textarea name="message" class="form-control">{{$feedback->message}}</textarea>
+                              <textarea name="message" class="form-control" @if($is_submit) disabled @endIf>{{$feedback->message}}</textarea>
 							</div>
                           </div>
+						  @if(!$is_submit)
 						  <div class="row review-wrapper">
 							<div class="col-md-12 form-group">
                               <input type="submit" class="yellow_btn" value="{{__('frontend.text_73')}}"/>
 							</div>
                           </div>
+						  @endIf
                         </div>
                       </div>
 					  </form>
