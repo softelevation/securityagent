@@ -203,7 +203,7 @@ input:checked + .slider_bank:before {
                               <td>{{__('dashboard.payment.bank_transfer')}}</td>
                               <td>
 								<label class="switch">
-								  <input type="checkbox" name="bank_transfer" data-status="invouce" value="{{$mission->id}}" @if($mission->invoice_status == '2') checked @endIf>
+								  <input type="checkbox" name="bank_transfer" data-status="invouce" value="{{$mission->id}}" @if($mission->payment_status) checked @endIf>
 								  <span class="slider_bank round"></span>
 								</label>
 							  </td>
