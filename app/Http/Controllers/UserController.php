@@ -139,39 +139,21 @@ class UserController extends Controller
         if($validation['status']==false){
             return response($this->getValidationsErrors($validation));
         }
-        $email = $request->email;
-        $user = User::where('email',$email)->first();
-        if($user){
-            $token = Helper::generateToken(30);
-            $exists = DB::table('password_resets')->where('email',$email)->first();
-            if($exists){
-                $result = DB::table('password_resets')->where('email',$email)->update(['token'=>$token]);
-            }else{
-                $result = DB::table('password_resets')->insert(['email'=>$email,'token'=>$token]);
-            }
-            if($result){
-                /*----Send Reset Password Link-----*/
-                $mailContent = [
-                    'name' => $user->first_name,
-                    'url' => url('reset-password-request/'.$token) 
-                ];
-                $user->notify(new ResetPasswordNotification($mailContent));
-                /*------------*/
+		$result = $this->Make_Login('forgot-password',array('email'=>$request->email));
+        if($result->status){
                 $response['message'] = trans('messages.reset_pwd_link_sent');
                 $response['delayTime'] = 2000;
+				$response['url'] = $result->data->url;
                 return response($this->getSuccessResponse($response));
-            }else{
-                return response($this->getErrorResponse(trans('messages.error')));
-            }
         }else{
             return response($this->getErrorResponse(trans('messages.email_not_exists')));
         }
     }
 
     public function ChangePasswordView($token){
-        $data = DB::table('password_resets')->where('token',$token)->first();
-        if($data){
-            $param['token'] = $data->token;
+        // $data = DB::table('password_resets')->where('token',$token)->first();
+        if($token){
+            $param['token'] = $token;
             return view('set_password',$param);
         }else{
             abort('404');
@@ -184,13 +166,17 @@ class UserController extends Controller
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
             }
-            $token = $request->email_token;
-            $data = DB::table('password_resets')->where('token',$token)->first();
-            $email = $data->email;
-            $password = Hash::make($request->password);
-            $result = User::where('email',$email)->update(['password'=>$password]);
-            if($result){
-                DB::table('password_resets')->where('token',$token)->delete();
+			$result = $this->Make_Login('forgot-update-password',array('email_token'=>$request->email_token,'password'=>$request->password,'confirm_password'=>$request->password));
+			// echo '<pre>';
+			// print_r($request->all());
+			// die;
+            // $token = $request->email_token;
+            // $data = DB::table('password_resets')->where('token',$token)->first();
+            // $email = $data->email;
+            // $password = Hash::make($request->password);
+            // $result = User::where('email',$email)->update(['password'=>$password]);
+            if($result->status){
+                // DB::table('password_resets')->where('token',$token)->delete();
                 $response['message'] = trans('messages.password_changed');
                 $response['delayTime'] = 5000;
                 $response['url'] = url('/login');
