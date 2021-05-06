@@ -98,15 +98,23 @@ class UserController extends Controller
             }
             $current_password = $request->current_password;
             $new_password = $request->new_password;
-            if(Hash::check($current_password, Auth::user()->password)){
-                $new_password = Hash::make($new_password);
-                $result = User::where('id',Auth::id())->update(['password'=>$new_password]);
-                if($result){
-                    $response['message'] = trans('messages.password_changed');
-                    $response['delayTime'] = 5000;
-                    $response['url'] = url('/logout');
-                    return response($this->getSuccessResponse($response));
-                }
+			$result = $this->Make_POST('change-password',array('current_password'=>$current_password,'new_password'=>$new_password,'confirm_password'=>$new_password));
+          
+            // if(Hash::check($current_password, Auth::user()->password)){
+                // $new_password = Hash::make($new_password);
+                // $result = User::where('id',Auth::id())->update(['password'=>$new_password]);
+                // if($result){
+                    // $response['message'] = trans('messages.password_changed');
+                    // $response['delayTime'] = 5000;
+                    // $response['url'] = url('/logout');
+                    // return response($this->getSuccessResponse($response));
+                // }
+			
+			if($result->status){
+				$response['message'] = $result->message;
+                $response['delayTime'] = 5000;
+                $response['url'] = url('/logout');
+                return response($this->getSuccessResponse($response));
             }else{
                 return response($this->getErrorResponse(trans('messages.wrong_current_password')));
             }
