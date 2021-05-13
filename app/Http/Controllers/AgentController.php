@@ -31,6 +31,7 @@ class AgentController extends Controller
      * @purpose Load agent signup view 
      */
     public function index(){
+		Session::forget('agentFile');
         return view('agent-register');
     }
 
@@ -40,6 +41,20 @@ class AgentController extends Controller
      * @method agentRegister
      * @purpose To register as an agent
      */
+	public function agentFile(Request $request){
+		$session_value = Session::get('agentFile');
+		if($session_value){
+			Session::forget('agentFile');
+			$final_array = array_merge($session_value,array($request->name=>$request->value));
+			// $final_array['page_name'] = "bath";
+			Session::put('agentFile', $final_array);
+		}else{
+			Session::put('agentFile', array($request->name=>$request->value));
+		}
+		return response(true);
+	}
+	
+	
     public function signup(Request $request){
     	try{
             // Check Agent Table Validation
@@ -81,7 +96,24 @@ class AgentController extends Controller
             // if(!isset($request->current_location['lat']) || empty($request->current_location['lat'])){
             //     return $this->getErrorResponse('GPS location is not enabled.');
             // }
-            return $this->registerAgent($request);
+			$session_value = Session::get('agentFile');
+			$work_location = $request->work_location;
+			$post = array_except($request->all(),array('_token','identity_card','social_security_number','cv','cnaps_number','work_location','current_location','is_subcontractor'));
+			$post['is_subc'] = $request->is_subcontractor;
+			$post['lat'] = $work_location['lat'];
+			$post['long'] = $work_location['long'];
+			$final_array = array_merge($post,$session_value);
+			$result = $this->Make_Login('agent/signup',$final_array);
+			if($result->status){
+                $response['url'] = url('/');
+				$response['message'] = trans('messages.user_registered');
+				$response['delayTime'] = 5000;
+				return $this->getSuccessResponse($response);
+            }else{
+				// return $this->getErrorResponse(trans('messages.error'));
+				return $this->getErrorResponse($result->message);
+            }
+            // return $this->registerAgent($request);
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }

@@ -496,6 +496,9 @@ class OperatorController extends Controller
      */
     public function paymentApprovalsView(Request $request){
         $data = PaymentApproval::where('status',0)->orderBy('id','DESC')->paginate($this->limit);
+		echo '<pre>';
+		print_r($data->toArray());
+		die;
         $params = [
             'payments' => $data,
             'limit' => $this->limit,

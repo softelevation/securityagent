@@ -52,6 +52,7 @@ Route::get('/change-language/{lang}', 'CommonController@changeLanguage');
 Route::post('/contact-form-submission', 'CommonController@submitContactForm');
 Route::post('/suport-ticket', 'CommonController@suportTicket');
 Route::get('/register-agent-view','AgentController@index');
+Route::post('/agent-file', 'AgentController@agentFile');
 Route::post('/register_agent', 'AgentController@signup');
 Route::get('/customer-signup', 'CustomerController@customerSignupView');
 Route::post('/register_customer_form', 'CustomerController@customerSignupForm');

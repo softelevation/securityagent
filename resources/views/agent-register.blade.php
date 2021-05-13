@@ -388,3 +388,61 @@ function geolocate() {
     async defer></script>
 <!-- Bootstrap core JavaScript -->
 @endsection
+
+@section('script')
+<script>
+// "_token": "{{ csrf_token() }}",
+	function store_val_database(name,value){
+		console.log(name);
+		console.log(value);
+		$.ajax({
+			url: "/agent-file",
+			type: 'POST',
+			dataType: "JSON",
+			data: {
+					"_token": "{{ csrf_token() }}",
+					"name": name,
+					"value": value,
+			},
+			success: function (response)
+			{
+				
+			}
+		});
+	}
+	
+	function ajax_call_function(image,name){
+		let formData = new FormData();
+		formData.append('image', image);
+		$.ajax({
+			url: 'http://51.68.139.99:3000/agent/upload-media',
+			enctype: 'multipart/form-data',
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			cache: false,
+			headers: {
+				'name': name
+			},
+			data: formData,
+			success: function(output) {
+				store_val_database(output.name,output.value);
+			  // if (output == "OK") {
+				// alert("OK");
+			  // } else {
+				// alert(output);
+			  // }
+			}
+		});
+	}
+	$('input[name="identity_card"]').change(function(){
+		ajax_call_function(this.files[0],'identity_card');
+	});
+	$('input[name="social_security_number"]').change(function(){
+		ajax_call_function(this.files[0],'social_security_number');
+	});
+	$('input[name="cv"]').change(function(){
+		ajax_call_function(this.files[0],'cv');
+	});
+</script>
+@endsection
