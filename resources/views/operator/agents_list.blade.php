@@ -99,7 +99,7 @@
                                     <td>{{$i}}.</td>
                                     <td>{{ucfirst($agent->first_name)}} {{ucfirst($agent->last_name)}}</td>
                                     <td>{{ucfirst($agent->username)}}</td>
-                                    <td>{{$agent->agent_type}}</td>
+                                    <td>{{Helper::get_agent_type_name_multiple($agent->agent_type)}}</td>
                                     <!-- <td>{{$agent->email}}</td> -->
                                     <td>
                                       @if($agent->status==1)
