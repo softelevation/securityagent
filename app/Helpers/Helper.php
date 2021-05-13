@@ -215,7 +215,10 @@ class Helper {
             ];
 
         }
-		
+
+		$param = str_replace("]","",$param);
+		$param = str_replace("[","",$param);
+		$param = str_replace('"',"",$param);
 		$param = explode(",",$param);
         $strArr = [];
         foreach($param as $p){
