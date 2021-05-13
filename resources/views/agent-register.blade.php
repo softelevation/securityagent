@@ -415,7 +415,7 @@ function geolocate() {
 		let formData = new FormData();
 		formData.append('image', image);
 		$.ajax({
-			url: 'http://51.68.139.99:3000/agent/upload-media',
+			url: "{{ Helper::api_url('agent/upload-media') }}",
 			enctype: 'multipart/form-data',
 			type: 'POST',
 			processData: false,

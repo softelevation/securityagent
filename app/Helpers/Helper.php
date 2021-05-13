@@ -707,9 +707,12 @@ class Helper {
 		return 'AIzaSyB1erXOJ7-_yyd3jYyRYrMh7THiUxpAevU';
 	}
 	
-	public static function api_url($input){
-		$var_name = "http://51.68.139.99:3000/$input";
-		// $var_name = $input;
+	public static function api_url($input = null){
+		if($input){
+			$var_name = "https://api.beontime.io/$input";
+		}else{
+			$var_name = "https://api.beontime.io";
+		}
 		return $var_name;
 	}
 

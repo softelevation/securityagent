@@ -51,6 +51,14 @@ class User extends Authenticatable
         return $this->hasOne('App\Operator', 'user_id');
     }
 	
+	public function getProfileAttribute(){
+		if(Session::has('userProfile')){
+			return Session::get('userProfile');
+		}else{
+			return array();
+		}
+	}
+	
 	public function getTokenAttribute(){
 		if(Session::has('accessToken')){
 			return Session::get('accessToken');

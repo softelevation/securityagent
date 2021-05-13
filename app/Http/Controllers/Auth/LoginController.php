@@ -82,6 +82,7 @@ class LoginController extends Controller
             // if (Auth::attempt($result->data->id)) {
             if (Auth::loginUsingId($result->data->id)) {
 				Session::put('accessToken',$result->data->accessToken);
+				Session::put('userProfile',$result->data->profile);
                 $response['message'] = trans('messages.login_success');
                 switch(Auth::user()->role_id){
                     // Customer

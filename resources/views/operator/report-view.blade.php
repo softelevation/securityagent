@@ -59,7 +59,7 @@
 										<td>{{__('dashboard.report.signature')}}</td>
 										<td>
 											<div class="profile_img">
-												<img src="{{ 'http://51.68.139.99:3000/'.$feature->report->signature}}" class="img-fluid">
+												<img src="{{ Helper::api_url($feature->report->signature) }}" class="img-fluid">
 											</div>
 										</td>
 									</tr>

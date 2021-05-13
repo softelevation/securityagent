@@ -73,14 +73,14 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 @endsection
 
 @section('script')
-<script src="http://51.68.139.99:3000/socket.io/socket.io.js"></script>
+<script src="{{Helper::api_url('socket.io/socket.io.js')}}"></script>
 <script>
 
 	var mission_id = {{$mission_id}};
 	var cus_id = {{$cus_id}};
 	// http://localhost:7000/socket.io/socket.io.js
 	$('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
-	 var socket = io.connect('http://51.68.139.99:3000');
+	 var socket = io.connect("{{ Helper::api_url() }}");
 	
 	socket.on('message_center_'+mission_id,function(msg){
 		if(msg){

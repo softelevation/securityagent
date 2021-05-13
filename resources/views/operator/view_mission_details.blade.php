@@ -209,7 +209,7 @@ input:checked + .slider_bank:before {
 							  </td>
                               <td>
 								@if(isset($mission->upload_invoice->id))
-								<a class="download" href="{{'http://51.68.139.99:3000/'.$mission->upload_invoice->invoice}}" download>{{__('dashboard.download')}} </a>
+								<a class="download" href="{{Helper::api_url($mission->upload_invoice->invoice)}}" download>{{__('dashboard.download')}} </a>
 								@endif
 								</td>
                             </tr>
