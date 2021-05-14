@@ -31,10 +31,12 @@ class UserController extends Controller
      */
     public function updateProfileDetails(Request $request){
         try{
-            $post = array_except($request->all(),['_token','role_id']);
+            $post = array_except($request->all(),['_token','role_id','image']);
 			if(Session::has('session_val')){
 				$session_value = Session::get('session_val');
 				$post = array_merge($post,$session_value);
+				// print_r($post);
+				// die;
 			}
             $validation = $this->updateProfileValidations($request);
             if($validation['status']==false){
