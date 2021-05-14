@@ -113,3 +113,53 @@
     <!-- /.container -->
 </div>
 @endsection
+
+@section('script')
+<script>
+	
+	function store_val_database(name,value){
+		// console.log(name);
+		// console.log(value);
+		$.ajax({
+			url: "/upload-media",
+			type: 'POST',
+			dataType: "JSON",
+			data: {
+					"_token": "{{ csrf_token() }}",
+					"name": name,
+					"value": value,
+			},
+			success: function (response)
+			{
+				
+			}
+		});
+	}
+	
+	function ajax_call_function(image,name){
+		let formData = new FormData();
+		formData.append('image', image);
+		$.ajax({
+			url: "{{ Helper::api_url('customer/upload-media') }}",
+			enctype: 'multipart/form-data',
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			cache: false,
+			headers: {
+				'name': name
+			},
+			data: formData,
+			success: function(output) {
+				store_val_database(output.name,output.value);
+			}
+		});
+	}
+	
+	$('input[name="image"]').change(function(){
+		ajax_call_function(this.files[0],'profile');
+	});
+	
+
+</script>
+@endsection

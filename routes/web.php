@@ -66,6 +66,7 @@ Route::get('/agent-details/{agent_id}/{distance}', 'AgentController@viewAgentDet
 Route::post('/process-notification', 'CustomerController@processNotifications');
 Route::post('/update-profile', 'UserController@updateProfileDetails');
 Route::post('/update-password', 'UserController@updatePassword');
+Route::post('/upload-media', 'UserController@uploadMedia');
 Route::get('/download-payment-receipt/{payment_id}', 'UserController@downloadPaymentReceipt');
 
 

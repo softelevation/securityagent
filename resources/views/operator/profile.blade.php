@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-md-6 form-group">
                               <label>{{__('dashboard.home_address')}}</label>
-                              {{Form::text('address',null,['class'=>'form-control','placeholder'=>'Your home address'])}}
+                              {{Form::text('home_address',null,['class'=>'form-control','placeholder'=>'Your home address'])}}
                             </div>
                           </div>
                           <div class="row">
@@ -111,4 +111,57 @@
     </div>
     <!-- /.container -->
 </div>
+@endsection
+
+@section('script')
+<script>
+	
+	function store_val_database(name,value){
+		$.ajax({
+			url: "/upload-media",
+			type: 'POST',
+			dataType: "JSON",
+			data: {
+					"_token": "{{ csrf_token() }}",
+					"name": name,
+					"value": value,
+			},
+			success: function (response)
+			{
+				
+			}
+		});
+	}
+	
+	function ajax_call_function(image,name){
+		let formData = new FormData();
+		formData.append('image', image);
+		$.ajax({
+			url: "{{ Helper::api_url('operator/upload-media') }}",
+			enctype: 'multipart/form-data',
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			cache: false,
+			headers: {
+				'name': name
+			},
+			data: formData,
+			success: function(output) {
+				// console.log(output);
+				store_val_database(output.name,output.value);
+			  // if (output == "OK") {
+				// alert("OK");
+			  // } else {
+				// alert(output);
+			  // }
+			}
+		});
+	}
+	
+	$('input[name="image"]').change(function(){
+		ajax_call_function(this.files[0],'profile');
+	});
+
+</script>
 @endsection

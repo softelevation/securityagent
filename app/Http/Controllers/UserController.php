@@ -10,6 +10,7 @@ use App\Customer;
 use App\Operator;
 use App\Agent;
 use App\User;
+use Session;
 use App\Helpers\Helper;
 use App\UserPaymentHistory;
 use App\Notifications\ResetPasswordNotification;
@@ -31,6 +32,10 @@ class UserController extends Controller
     public function updateProfileDetails(Request $request){
         try{
             $post = array_except($request->all(),['_token','role_id']);
+			if(Session::has('session_val')){
+				$session_value = Session::get('session_val');
+				$post = array_merge($post,$session_value);
+			}
             $validation = $this->updateProfileValidations($request);
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
@@ -50,6 +55,9 @@ class UserController extends Controller
                 case 1:
                     // Update customer table
 					$result = $this->Make_POST('customer/profile',$post);
+					$userProfile = (array)Session::get('userProfile');
+					$userProfile_array = (object)array_merge($userProfile,$post);
+					Session::put('userProfile',$userProfile_array);
                     $url = url('customer/profile'); 
                     break;
                 case 2:
@@ -58,14 +66,8 @@ class UserController extends Controller
                     $url = url('agent/profile'); 
                     break;
                 case 3:
-                    // Update customer table
-                    $q = Operator::where('user_id',$user_id);
-                    if($q->first()){
-                        $result = $q->update($post);
-                    }else{
-                        $post['user_id'] = $user_id;
-                        $result = $q->insert($post);
-                    }
+					$result = $this->Make_POST('operator/profile',$post);
+					Session::put('userProfile',$result->data);
                     $url = url('operator/profile'); 
                     break;
             }
@@ -82,6 +84,18 @@ class UserController extends Controller
         }
 
     }
+	
+	
+	public function uploadMedia(Request $request){
+		$session_value = Session::get('session_val');
+		if(!empty($session_value)){
+			Session::put('session_val',array($request->name=>$request->value));
+			
+		}else{
+			Session::put('session_val',array($request->name=>$request->value));
+		}
+		// return true;
+	}
 
     /**
      * @param $request

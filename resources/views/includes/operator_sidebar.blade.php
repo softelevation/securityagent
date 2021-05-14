@@ -1,8 +1,8 @@
 <div class="col-md-3 mb-3">
                 <div class="Left_tabs_panel border">
                     <div class="profile_img">
-                        @if(isset(Auth::user()->operator_info->image) && Auth::user()->operator_info->image!="")
-                            <img src="{{ Helper::api_url('avatars/dummy_avatar.jpg') }}" class="img-fluid" />
+                        @if(isset(Auth::user()->profile->image) && Auth::user()->profile->image!="")
+                            <img src="{{Helper::api_url(Auth::user()->profile->image)}}" class="img-fluid" />
                         @else
                             <img src="{{ Helper::api_url('avatars/dummy_avatar.jpg') }}" class="img-fluid" />
                         @endif

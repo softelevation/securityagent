@@ -5,9 +5,9 @@ use Auth;
 
 trait CurlTrait
 {
-	// private $base_url = 'http://localhost:7000/';
+	private $base_url = 'http://localhost:7000/';
 	// private $base_url = 'http://51.68.139.99:3000/';
-	private $base_url = 'https://api.beontime.io/';
+	// private $base_url = 'https://api.beontime.io/';
 	
 	public function Make_GET($link){
         $curl = curl_init();
