@@ -711,8 +711,8 @@ class Helper {
 	}
 	
 	public static function api_url($input = null){
-		// $base_url = "https://api.beontime.io";
-		$base_url = "http://localhost:7000";
+		$base_url = "https://api.beontime.io";
+		// $base_url = "http://localhost:7000";
 		if($input){
 			$var_name = $base_url.'/'.$input;
 		}else{
