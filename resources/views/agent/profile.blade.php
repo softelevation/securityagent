@@ -29,6 +29,7 @@
                       <div class="pending-details">
                         <div class="view_agent_details mt-4">
                           {{Form::model($profile,['url'=>url('update-profile'),'id'=>'general_form'])}}
+						  {{Form::hidden('profile_image',null)}}
                           <div class="row">
                             <div class="col-md-6 form-group">
                               <label>{{__('dashboard.first_name')}}</label>
@@ -111,4 +112,39 @@
     </div>
     <!-- /.container -->
 </div>
+@endsection
+
+@section('script')
+<script>
+	
+	function ajax_call_function(image,name){
+		let formData = new FormData();
+		formData.append('image', image);
+		$.ajax({
+			url: "{{ Helper::api_url('agent/upload-media') }}",
+			enctype: 'multipart/form-data',
+			type: 'POST',
+			processData: false,
+			contentType: false,
+			cache: false,
+			beforeSend  : function () {
+				$("#preloader").show();
+			},
+			headers: {
+				'name': name
+			},
+			data: formData,
+			success: function(output) {
+				$("#preloader").hide();
+				$('input[name="profile_image"]').val(output.value);
+			}
+		});
+	}
+	
+	$('input[name="image"]').change(function(){
+		ajax_call_function(this.files[0],'image');
+	});
+	
+
+</script>
 @endsection

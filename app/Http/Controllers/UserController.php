@@ -32,11 +32,14 @@ class UserController extends Controller
     public function updateProfileDetails(Request $request){
         try{
             $post = array_except($request->all(),['_token','role_id','image']);
-			if(Session::has('session_val')){
-				$session_value = Session::get('session_val');
-				$post = array_merge($post,$session_value);
-				// print_r($post);
-				// die;
+			// if(Session::has('session_val')){
+				// $session_value = Session::get('session_val');
+				// $post = array_merge($post,$session_value);
+			// }
+			if($request->profile_image){
+				// $session_value = Session::get('session_val');
+				$post['image'] = $request->profile_image;
+				unset($post['profile_image']);
 			}
             $validation = $this->updateProfileValidations($request);
             if($validation['status']==false){
@@ -64,7 +67,8 @@ class UserController extends Controller
                     break;
                 case 2:
                     // Update customer table
-                    $result = Agent::where('user_id',$user_id)->update($post);
+					$result = $this->Make_POST('agent/profile',$post);
+					Session::put('userProfile',$result->data);
                     $url = url('agent/profile'); 
                     break;
                 case 3:

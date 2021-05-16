@@ -75,7 +75,7 @@ class CustomerController extends Controller
      * @purpose Load customer signup view 
      */
     public function customerProfileView(){
-		Session::forget('session_val');
+		// Session::forget('session_val');
 		$profile = (array)$this->Make_GET('profile')->data;
         // $profile = Customer::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first()->toArray();
         $data['profile'] = $profile;

@@ -188,6 +188,7 @@ class AgentController extends Controller
      * @purpose Load agent profile view 
      */
     public function agentProfileView(){
+		// Session::forget('session_val');
 		$profile = (array)$this->Make_GET('profile')->data;
         $data['profile'] = $profile;
         return view('agent.profile',$data);

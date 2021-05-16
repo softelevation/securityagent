@@ -48,7 +48,7 @@ class OperatorController extends Controller
      * @purpose Load dashboard view
      */
     public function loadProfileView(){
-		Session::forget('session_val');
+		// Session::forget('session_val');
         $profile = '';
         // $profile = Operator::select('first_name','last_name','phone','image','home_address')->where('user_id',\Auth::id())->first();
 		

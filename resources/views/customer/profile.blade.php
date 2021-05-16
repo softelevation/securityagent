@@ -29,6 +29,7 @@
                       <div class="pending-details">
                         <div class="view_agent_details mt-4">
                           {{Form::model($profile,['url'=>url('update-profile'),'id'=>'general_form'])}}
+						  {{Form::hidden('profile_image',null)}}
 						  {{Form::hidden('role_id',null)}}
                           <div class="row">
                             <div class="col-md-6 form-group">
@@ -117,25 +118,6 @@
 @section('script')
 <script>
 	
-	function store_val_database(name,value){
-		// console.log(name);
-		// console.log(value);
-		$.ajax({
-			url: "/upload-media",
-			type: 'POST',
-			dataType: "JSON",
-			data: {
-					"_token": "{{ csrf_token() }}",
-					"name": name,
-					"value": value,
-			},
-			success: function (response)
-			{
-				
-			}
-		});
-	}
-	
 	function ajax_call_function(image,name){
 		let formData = new FormData();
 		formData.append('image', image);
@@ -146,12 +128,17 @@
 			processData: false,
 			contentType: false,
 			cache: false,
+			beforeSend  : function () {
+				$("#preloader").show();
+			},
 			headers: {
 				'name': name
 			},
 			data: formData,
 			success: function(output) {
-				store_val_database(output.name,output.value);
+				$("#preloader").hide();
+				$('input[name="profile_image"]').val(output.value);
+				// store_val_database(output.name,output.value);
 			}
 		});
 	}
