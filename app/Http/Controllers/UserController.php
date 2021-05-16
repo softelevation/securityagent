@@ -39,8 +39,8 @@ class UserController extends Controller
 			if($request->profile_image){
 				// $session_value = Session::get('session_val');
 				$post['image'] = $request->profile_image;
-				unset($post['profile_image']);
 			}
+			unset($post['profile_image']);
             $validation = $this->updateProfileValidations($request);
             if($validation['status']==false){
                 return response($this->getValidationsErrors($validation));
@@ -68,12 +68,16 @@ class UserController extends Controller
                 case 2:
                     // Update customer table
 					$result = $this->Make_POST('agent/profile',$post);
-					Session::put('userProfile',$result->data);
+					$userProfile = (array)Session::get('userProfile');
+					$userProfile_array = (object)array_merge($userProfile,$post);
+					Session::put('userProfile',$userProfile_array);
                     $url = url('agent/profile'); 
                     break;
                 case 3:
 					$result = $this->Make_POST('operator/profile',$post);
-					Session::put('userProfile',$result->data);
+					$userProfile = (array)Session::get('userProfile');
+					$userProfile_array = (object)array_merge($userProfile,$post);
+					Session::put('userProfile',$userProfile_array);
                     $url = url('operator/profile'); 
                     break;
             }
