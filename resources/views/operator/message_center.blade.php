@@ -80,7 +80,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	var cus_id = {{$cus_id}};
 	// http://localhost:7000/socket.io/socket.io.js
 	$('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
-	 var socket = io.connect("{{ Helper::api_url() }}");
+	 var socket = io.connect("api.beontime.io");
 	
 	socket.on('message_center_'+mission_id,function(msg){
 		if(msg){
