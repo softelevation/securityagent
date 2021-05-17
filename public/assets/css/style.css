@@ -1438,6 +1438,11 @@ a.disabled{
 	margin-left: 8px;
 }
 
+.profile_img img.img-fluid {
+    height: 245px;
+    width: 100%;
+}
+
 @media(max-width:770px)
 {
 	.contact_box h3 {height: 71px;}
