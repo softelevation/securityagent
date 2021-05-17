@@ -82,7 +82,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	// http://localhost:7000/socket.io/socket.io.js
 	$('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
 	
-	let socket = io.connect('api.beontime.io', {secure: true});
+	let socket = io.connect('https://api.beontime.io', {secure: true});
 	 // var socket = io.connect('//api.beontime.io', {
             // 'force new connection': true,
             // 'secure': true,

@@ -31,7 +31,7 @@ class AgentController extends Controller
      * @purpose Load agent signup view 
      */
     public function index(){
-		Session::forget('agentFile');
+		// Session::forget('agentFile');
         return view('agent-register');
     }
 
@@ -96,14 +96,19 @@ class AgentController extends Controller
             // if(!isset($request->current_location['lat']) || empty($request->current_location['lat'])){
             //     return $this->getErrorResponse('GPS location is not enabled.');
             // }
-			$session_value = Session::get('agentFile');
+			// $session_value = Session::get('agentFile');
 			$work_location = $request->work_location;
-			$post = array_except($request->all(),array('_token','identity_card','social_security_number','cv','cnaps_number','work_location','current_location','is_subcontractor'));
+			$identity_card = $request->identity_card_image;
+			$social_security_number = $request->social_security_number_image;
+			$cv = $request->cv_image;
+			$post = array_except($request->all(),array('_token','identity_card','social_security_number','cv','identity_card_image','social_security_number_image','cv_image','cnaps_number','work_location','current_location','is_subcontractor','diploma'));
+			$post['identity_card'] = $identity_card;
+			$post['social_security_number'] = $social_security_number;
+			$post['cv'] = $cv;
 			$post['is_subc'] = $request->is_subcontractor;
 			$post['lat'] = $work_location['lat'];
 			$post['long'] = $work_location['long'];
-			$final_array = array_merge($post,$session_value);
-			$result = $this->Make_Login('agent/signup',$final_array);
+			$result = $this->Make_Login('agent/signup',$post);
 			if($result->status){
                 $response['url'] = url('/');
 				$response['message'] = trans('messages.user_registered');

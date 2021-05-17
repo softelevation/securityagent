@@ -56,6 +56,11 @@
 		                      </div>
 	                    	</div>
 	               		</div>
+						
+						<input type="hidden" name="identity_card_image" id="identityCard"/>
+						<input type="hidden" name="social_security_number_image"/>
+						<input type="hidden" name="cv_image"/>
+						
 	                	<div class="row">
 	                		<div class="col-md-6">
 		                      <div class="form-group">
@@ -392,26 +397,27 @@ function geolocate() {
 @section('script')
 <script>
 // "_token": "{{ csrf_token() }}",
-	function store_val_database(name,value){
-		console.log(name);
-		console.log(value);
-		$.ajax({
-			url: "/agent-file",
-			type: 'POST',
-			dataType: "JSON",
-			data: {
-					"_token": "{{ csrf_token() }}",
-					"name": name,
-					"value": value,
-			},
-			success: function (response)
-			{
+	// function store_val_database(name,value){
+		// console.log(name);
+		// console.log(value);
+		// $.ajax({
+			// url: "/agent-file",
+			// type: 'POST',
+			// dataType: "JSON",
+			// data: {
+					// "_token": "{{ csrf_token() }}",
+					// "name": name,
+					// "value": value,
+			// },
+			// success: function (response)
+			// {
 				
-			}
-		});
-	}
+			// }
+		// });
+	// }
 	
 	function ajax_call_function(image,name){
+		let file_name = name+'_image';
 		let formData = new FormData();
 		formData.append('image', image);
 		$.ajax({
@@ -426,12 +432,8 @@ function geolocate() {
 			},
 			data: formData,
 			success: function(output) {
-				store_val_database(output.name,output.value);
-			  // if (output == "OK") {
-				// alert("OK");
-			  // } else {
-				// alert(output);
-			  // }
+				$('input[name="'+file_name+'"]').val(output.value);
+				// store_val_database(output.name,output.value);
 			}
 		});
 	}
