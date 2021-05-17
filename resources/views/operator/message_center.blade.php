@@ -80,14 +80,22 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	var cus_id = {{$cus_id}};
 	// https://api.beontime.io/socket.io/socket.io.js
 	// http://localhost:7000/socket.io/socket.io.js
+	// http://51.68.139.99:3000
 	// $('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
 	
 	// let socket = new WebSocket("wss://api.beontime.io");
 
 
-	const socket = new WebSocket('wss://api.beontime.io');
+	// const socket = new WebSocket('ws://51.68.139.99:3000');
 	
-	// let socket = io.connect('https://api.beontime.io', {secure: true});
+	// socket.onopen = function(e) {
+	  // alert("[open] Connection established");
+	  // alert("Sending to server");
+	  // socket.send("My name is John");
+	// };
+	// 'https://api.beontime.io'
+	// , {secure: true}
+	let socket = io.connect('wss://api.beontime.io');
 	
 	// const socket = io('https://api.beontime.io');
 		// socket.on('connect', (a) => {
