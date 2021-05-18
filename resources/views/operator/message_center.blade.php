@@ -83,11 +83,11 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	// let socket = io.connect('wss://api.beontime.io');
 	let socket = io.connect('https://51.68.139.99:3001');
 	
-	socket.on('connect', (a) => {
-		console.log(a);
-		console.log('wwwwwwwwwwwwwwwwwww');
+	// socket.on('connect', (a) => {
+		// console.log(a);
+		// console.log('wwwwwwwwwwwwwwwwwww');
 	  // dispatch(socketConnection(socket));
-	});
+	// });
 	
 	// https://api.beontime.io/socket.io/socket.io.js
 	// http://localhost:7000/socket.io/socket.io.js
@@ -123,19 +123,19 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	
 	
 	
-	// socket.on('message_center_'+mission_id,function(msg){
-		// if(msg){
-			// location.reload();
-		// }
-	// });
+	socket.on('message_center_'+mission_id,function(msg){
+		if(msg){
+			location.reload();
+		}
+	});
 			
-	// $('input[type="submit"]').click(function(event){
-		// socket.emit('op_message_center',{
-			// mission_id:mission_id,
-			// user_id:cus_id,
-			// message:$('textarea[name="send_message"]').val()
-		// });
-	// });
+	$('input[type="submit"]').click(function(event){
+		socket.emit('op_message_center',{
+			mission_id:mission_id,
+			user_id:cus_id,
+			message:$('textarea[name="send_message"]').val()
+		});
+	});
 			
 </script>
 @endsection
