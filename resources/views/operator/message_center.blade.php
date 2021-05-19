@@ -73,15 +73,17 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 @endsection
 
 @section('script')
-<script src="{{Helper::api_url('socket.io/socket.io.js')}}"></script>
+<script src="http://51.68.139.99:3000/socket.io/socket.io.js"></script>
 <script>
 
+	
+	
 	var mission_id = {{$mission_id}};
 	var cus_id = {{$cus_id}};
 	
 	
 	// let socket = io.connect('wss://api.beontime.io');
-	let socket = io.connect('https://51.68.139.99:3001');
+	let socket = io.connect('http://51.68.139.99:3000');
 	
 	// socket.on('connect', (a) => {
 		// console.log(a);
@@ -123,10 +125,11 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	
 	
 	
-	socket.on('message_center_'+mission_id,function(msg){
-		if(msg){
-			location.reload();
-		}
+	socket.on('message_center_215',function(msg){
+		console.log(msg);
+		// if(msg){
+			// location.reload();
+		// }
 	});
 			
 	$('input[type="submit"]').click(function(event){

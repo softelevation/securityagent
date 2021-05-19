@@ -496,17 +496,12 @@ class OperatorController extends Controller
      * @purpose View list of payment approvals
      */
     public function paymentApprovalsView(Request $request){
-        $data = PaymentApproval::where('status',0)->orderBy('id','DESC')->paginate($this->limit);
-		echo '<pre>';
-		print_r($data->toArray());
-		die;
-        $params = [
-            'payments' => $data,
-            'limit' => $this->limit,
-            'page_no' => 1
-        ];
+        // $data = PaymentApproval::where('status',0)->orderBy('id','DESC')->paginate($this->limit);
+		
+		$data = $this->Make_GET('operator/payment-approvals');
+		$params['payments'] = $data->data; 
         if(isset($request->page)){
-            $params['page_no'] = $request->page; 
+            $params['page_no'] = 1; 
         }
         return view('operator.payment_approval',$params);
     }
@@ -521,67 +516,77 @@ class OperatorController extends Controller
         try{
             $record_id = Helper::decrypt($request->record_id);
             $type = $request->type;
-            $data = PaymentApproval::where('id',$record_id)->first();
-            if($type==1){
-                $chargeData = [
-                    'customer' => $data->customer_details->customer_stripe_id,
-                    'currency' => config('services.stripe.currency'),
-                    'amount'   => $data->amount,
-                    'description' => 'Extra Mission Charge Amount',
-                ];
-                $charge = $this->createCharge($chargeData);
-                $responseData = [
-                    'customer_id'   => $data->customer_id,
-                    'mission_id'    => $data->mission_id,
-                    'amount'        => $data->amount,
-                    'status'        => $charge['status'],
-                    'created_at'    => Carbon::now(),
-                    'updated_at'    => Carbon::now()
-                ];
-                if($charge['status']=='succeeded'){
-                    // Save data to payment history
-                    $responseData['charge_id'] = $charge['id'];
-                    $result = UserPaymentHistory::insert($responseData);
-                    if($result){
-                        PaymentApproval::where('id',$record_id)->update(['status'=>1]);
-                        /*----Payment Notification-----*/
-                        $mailContent = [
-                            'name' => ucfirst($data->customer_details->first_name),
-                            'message' => trans('messages.payment_done_message',['amount'=>$data->amount]), 
-                            'url' => url('customer/billing-details') 
-                        ];
-                        $data->customer_details->user->notify(new PaymentDone($mailContent));
-                        /*--------------*/
-                        $response['message'] = trans('messages.payment_completed');
-                        $response['delayTime'] = 2000;
-                        $response['url'] = url('operator/payment-approvals');
-                        return $this->getSuccessResponse($response);
-                    }else{
-                        $response['message'] = trans('messages.error');
-                        $response['delayTime'] = 2000;
-                        $response['url'] = url('operator/payment-approvals');
-                        return $this->getErrorResponse($response);
-                    }
-                }else{
-                    // Store Failed Payment 
-                    $responseData = [ 
-                        'remarks' => 'Extra Mission Amount', 
-                        'response' => json_encode($charge),
-                    ];
-                    FailedPayment::insert($responseData);
-
-                    $response['message'] = trans('messages.payment_failed');
-                    $response['delayTime'] = 2000;
-                    $response['url'] = url('operator/payment-approvals');
-                    return $this->getErrorResponse($response);
-                }
-            }else{
-                PaymentApproval::where('id',$record_id)->update(['status'=>2]);
-                $response['message'] = trans('messages.payment_rejected');
+			$result = $this->Make_POST('operator/payment-approval-action',array('record_id'=>$record_id,'type'=>$type));
+			if($type==1){
+				$response['message'] = trans('messages.payment_completed');
                 $response['delayTime'] = 2000;
                 $response['url'] = url('operator/payment-approvals');
                 return $this->getSuccessResponse($response);
-            }
+			}else{
+				$response['message'] = trans('messages.payment_rejected');
+                $response['delayTime'] = 2000;
+                $response['url'] = url('operator/payment-approvals');
+                return $this->getSuccessResponse($response);
+			}
+            // $data = PaymentApproval::where('id',$record_id)->first();
+            // if($type==1){
+                // $chargeData = [
+                    // 'customer' => $data->customer_details->customer_stripe_id,
+                    // 'currency' => config('services.stripe.currency'),
+                    // 'amount'   => $data->amount,
+                    // 'description' => 'Extra Mission Charge Amount',
+                // ];
+                // $charge = $this->createCharge($chargeData);
+                // $responseData = [
+                    // 'customer_id'   => $data->customer_id,
+                    // 'mission_id'    => $data->mission_id,
+                    // 'amount'        => $data->amount,
+                    // 'status'        => $charge['status'],
+                    // 'created_at'    => Carbon::now(),
+                    // 'updated_at'    => Carbon::now()
+                // ];
+                // if($charge['status']=='succeeded'){
+                    // $responseData['charge_id'] = $charge['id'];
+                    // $result = UserPaymentHistory::insert($responseData);
+                    // if($result){
+                        // PaymentApproval::where('id',$record_id)->update(['status'=>1]);
+                        // /*----Payment Notification-----*/
+                        // $mailContent = [
+                            // 'name' => ucfirst($data->customer_details->first_name),
+                            // 'message' => trans('messages.payment_done_message',['amount'=>$data->amount]), 
+                            // 'url' => url('customer/billing-details') 
+                        // ];
+                        // $data->customer_details->user->notify(new PaymentDone($mailContent));
+                        // /*--------------*/
+                        // $response['message'] = trans('messages.payment_completed');
+                        // $response['delayTime'] = 2000;
+                        // $response['url'] = url('operator/payment-approvals');
+                        // return $this->getSuccessResponse($response);
+                    // }else{
+                        // $response['message'] = trans('messages.error');
+                        // $response['delayTime'] = 2000;
+                        // $response['url'] = url('operator/payment-approvals');
+                        // return $this->getErrorResponse($response);
+                    // }
+                // }else{
+                    // $responseData = [ 
+                        // 'remarks' => 'Extra Mission Amount', 
+                        // 'response' => json_encode($charge),
+                    // ];
+                    // FailedPayment::insert($responseData);
+
+                    // $response['message'] = trans('messages.payment_failed');
+                    // $response['delayTime'] = 2000;
+                    // $response['url'] = url('operator/payment-approvals');
+                    // return $this->getErrorResponse($response);
+                // }
+            // }else{
+                // PaymentApproval::where('id',$record_id)->update(['status'=>2]);
+                // $response['message'] = trans('messages.payment_rejected');
+                // $response['delayTime'] = 2000;
+                // $response['url'] = url('operator/payment-approvals');
+                // return $this->getSuccessResponse($response);
+            // }
 
         }catch(\Exception $e){
 			if($e->getMessage() == 'Cannot charge a customer that has no active card'){
