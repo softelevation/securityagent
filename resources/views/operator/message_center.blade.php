@@ -73,7 +73,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 @endsection
 
 @section('script')
-<script src="https://51.68.139.99:3001/socket.io/socket.io.js"></script>
+<script src="https://api.beontime.io/socket.io/socket.io.js"></script>
 <script>
 
 	
