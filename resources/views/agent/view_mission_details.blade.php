@@ -96,17 +96,17 @@
                     <div class="row">
                      <div class="col-md-12 text-center">
                           @if($mission->mission->status==3)
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/start-mission')}}" data-type="start" class="button success_btn confirmBtn"><i class="fa fa-check"></i> {{__('dashboard.mission.start_mission')}}</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="start-mission" data-type="start" class="button success_btn confirmBtn"><i class="fa fa-check"></i> {{__('dashboard.mission.start_mission')}}</button>
                           @endif
                           @if($mission->mission->status==4)
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/finish-mission')}}" data-type="finish" class="button success_btn confirmBtn"><i class="fa fa-check"></i> {{__('dashboard.mission.finish_mission')}}</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="finish-mission" data-type="finish" class="button success_btn confirmBtn"><i class="fa fa-check"></i> {{__('dashboard.mission.finish_mission')}}</button>
                           @endif
                           @if($mission->mission->status==3 || $mission->mission->status==4)
                             <!-- <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/cancel-mission-agent')}}" data-type="cancel_agent" class="button danger_btn confirmBtn" data-action="2"><i class="fa fa-times"></i> Cancel Mission</button> -->
                           @endif
                           @if($mission->mission->status==0 && $mission->mission->agent_id==Auth::user()->agent_info->id)
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="accept" class="button success_btn confirmBtn" data-value="1" data-hours="{{$mission->mission->total_hours}}"><i class="fa fa-check"></i> {{__('dashboard.mission.accept_mission')}}</button>
-                            <button data-toggle="modal" data-target="#mission_action" data-url="{{url('agent/process-mission-request')}}" data-type="reject" class="button danger_btn confirmBtn" data-value="2"><i class="fa fa-times"></i> {{__('dashboard.mission.reject_mission')}}</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="process-mission-request" data-type="accept" class="button success_btn confirmBtn" data-value="1" data-hours="{{$mission->mission->total_hours}}"><i class="fa fa-check"></i> {{__('dashboard.mission.accept_mission')}}</button>
+                            <button data-toggle="modal" data-target="#mission_action" data-url="process-mission-request" data-type="reject" class="button danger_btn confirmBtn" data-value="2"><i class="fa fa-times"></i> {{__('dashboard.mission.reject_mission')}}</button>
                           @endif
                       </div>
                   </div>
@@ -129,14 +129,14 @@
         <h4 class="modal-title">{{__('dashboard.confirm')}}</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <form id="general_form" class="mission_action_form" method="post" action="" novalidate="novalidate">
+      <form id="general_form_sockit" class="mission_action_form" name="" method="post" action="" novalidate="novalidate">
       @csrf
         <div class="modal-body">
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
                 <p class="confirmation_text"></p>
-                <input type="hidden" name="mission_id" value="{{Helper::encrypt($mission->mission->id)}}">
+                <input type="hidden" name="mission_id" value="{{$mission->mission->id}}">
                 <input id="actionInput" type="hidden" name="action_value">  
                 <div class="reject_reason">
                   <div class="form-group">
@@ -160,6 +160,10 @@
 {{Form::open(['url'=>url('agent/create-sub-missions'),'id'=>'general_form_2'])}}
 {{Form::hidden('mission_id',Helper::encrypt($mission->mission->id))}}
 {{Form::close()}}
+@endsection
+
+@section('script')
+<script src="https://51.68.139.99:3001/socket.io/socket.io.js"></script>
 <script>
   var locale = '@php echo app()->getLocale(); @endphp';
   $(document).on('click','.confirmBtn', function(){
@@ -212,6 +216,7 @@
       $(document).find('.reject_reason').removeClass('d-none');  
     }
     $(document).find('.confirmation_text').html(txtMsg);
+    $(document).find('.mission_action_form').attr('name',url);
     $(document).find('.mission_action_form').attr('action',url);
   });
 
@@ -219,5 +224,51 @@
   $(document).on('click','#12_hrs_btn',function(){
     $(document).find('#general_form_2').submit();
   });
+  
+	let socket = io.connect('https://51.68.139.99:3001');
+  
+	$("#general_form_sockit").validate({
+      errorClass   : "has-error",
+      highlight    : function(element, errorClass) {
+        $(element).parents('.form-group').addClass(errorClass);
+      },
+      unhighlight  : function(element, errorClass, validClass) {
+        $(element).parents('.form-group').removeClass(errorClass);
+      },
+      rules:{
+      },
+      messages:{
+      },
+      submitHandler: function (form)
+      {
+		  // console.log('general_form_sockit');
+			sockit_request(form);
+      }
+    });
+	
+	function sockit_request(form){
+		if(form.name == 'process-mission-request'){
+			socket.emit('agent_mission_request',{
+				mission_id:form.mission_id.value,
+				status:form.action_value.value
+			});
+			location.reload();
+		}
+		if(form.name == 'start-mission'){
+			socket.emit('start_mission',{mission_id: form.mission_id.value, token: "{{Auth::user()->token}}"});
+			location.reload();
+		}
+		if(form.name == 'finish-mission'){
+			let mission_id = '{{ url("/agent/report") }}/'+"{{Helper::encrypt('"+form.mission_id.value+"')}}";
+			socket.emit('finish_mission',{mission_id: form.mission_id.value, token: "{{Auth::user()->token}}"});
+			window.location.href = mission_id;
+		}
+		
+		// console.log(form.name);
+		// console.log(form.mission_id.value);
+		// console.log(form.action_value.value);
+		// console.log(form.reason.value);
+	}
+	
 </script>
 @endsection

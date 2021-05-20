@@ -73,7 +73,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 @endsection
 
 @section('script')
-<script src="http://51.68.139.99:3000/socket.io/socket.io.js"></script>
+<script src="https://51.68.139.99:3001/socket.io/socket.io.js"></script>
 <script>
 
 	
@@ -83,7 +83,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	
 	
 	// let socket = io.connect('wss://api.beontime.io');
-	let socket = io.connect('http://51.68.139.99:3000');
+	let socket = io.connect('https://51.68.139.99:3001');
 	
 	// socket.on('connect', (a) => {
 		// console.log(a);
@@ -125,19 +125,22 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	
 	
 	
-	socket.on('message_center_215',function(msg){
-		console.log(msg);
-		// if(msg){
-			// location.reload();
-		// }
+	socket.on('message_center_'+mission_id,function(msg){
+		if(msg){
+			location.reload();
+		}
 	});
 			
 	$('input[type="submit"]').click(function(event){
+		let send_message = $('textarea[name="send_message"]').val();
 		socket.emit('op_message_center',{
 			mission_id:mission_id,
 			user_id:cus_id,
-			message:$('textarea[name="send_message"]').val()
+			message:send_message
 		});
+		
+		// $('textarea[name="send_message"]').val('');
+		// $(".message_last").after('<p class="'+response.message_type+'"><b>'+response.message+' :</b>'+message+'</p>');
 	});
 			
 </script>
