@@ -75,15 +75,11 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 @section('script')
 <script src="https://api.beontime.io/socket.io/socket.io.js"></script>
 <script>
-
-	
-	
 	var mission_id = {{$mission_id}};
 	var cus_id = {{$cus_id}};
 	
-	
 	// let socket = io.connect('wss://api.beontime.io:3001');
-	let socket = io.connect('wss://api.beontime.io');
+	let socket = io.connect('https://api.beontime.io');
 	// let socket = io.connect('https://51.68.139.99:3001');
 	
 	// socket.on('connect', (a) => {
@@ -92,39 +88,6 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 		// console.log('wwwwwwwwwwwwwwwwwww');
 	  // dispatch(socketConnection(socket));
 	// });
-	
-	// https://api.beontime.io/socket.io/socket.io.js
-	// http://localhost:7000/socket.io/socket.io.js
-	// http://51.68.139.99:3000
-	// $('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
-	
-	// let socket = new WebSocket("wss://api.beontime.io");
-
-
-	// const socket = new WebSocket('ws://51.68.139.99:3000');
-	
-	// socket.onopen = function(e) {
-	  // alert("[open] Connection established");
-	  // alert("Sending to server");
-	  // socket.send("My name is John");
-	// };
-	// 'https://api.beontime.io'
-	// , {secure: true}
-	// 
-	
-	
-	// const socket = io('https://api.beontime.io');
-		// socket.on('connect', (a) => {
-			// console.log(a);
-		  // dispatch(socketConnection(socket));
-		// });
-	
-	
-	 // var socket = io.connect('//api.beontime.io', {
-            // 'force new connection': true,
-            // 'secure': true,
-            // 'resource': 'path/to/socket.io'});
-	
 	
 	
 	socket.on('message_center_'+mission_id,function(msg){
@@ -140,7 +103,6 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 			user_id:cus_id,
 			message:send_message
 		});
-		
 		// $('textarea[name="send_message"]').val('');
 		// $(".message_last").after('<p class="'+response.message_type+'"><b>'+response.message+' :</b>'+message+'</p>');
 	});

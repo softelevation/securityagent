@@ -163,7 +163,7 @@
 @endsection
 
 @section('script')
-<script src="https://51.68.139.99:3001/socket.io/socket.io.js"></script>
+<script src="https://api.beontime.io/socket.io/socket.io.js"></script>
 <script>
   var locale = '@php echo app()->getLocale(); @endphp';
   $(document).on('click','.confirmBtn', function(){
@@ -225,7 +225,7 @@
     $(document).find('#general_form_2').submit();
   });
   
-	let socket = io.connect('https://51.68.139.99:3001');
+	let socket = io.connect('https://api.beontime.io');
   
 	$("#general_form_sockit").validate({
       errorClass   : "has-error",
