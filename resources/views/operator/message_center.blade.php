@@ -82,10 +82,12 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	var cus_id = {{$cus_id}};
 	
 	
-	// let socket = io.connect('wss://api.beontime.io');
-	let socket = io.connect('https://51.68.139.99:3001');
+	// let socket = io.connect('wss://api.beontime.io:3001');
+	let socket = io.connect('wss://api.beontime.io');
+	// let socket = io.connect('https://51.68.139.99:3001');
 	
 	// socket.on('connect', (a) => {
+		// https://api.beontime.io/
 		// console.log(a);
 		// console.log('wwwwwwwwwwwwwwwwwww');
 	  // dispatch(socketConnection(socket));
