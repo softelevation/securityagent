@@ -78,6 +78,12 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	// $('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
 	let socket = io.connect("{{ Helper::api_url() }}");
 	
+	socket.on('message_center_0',function(msg){
+		if(msg){
+			location.reload();
+		}
+	});
+	
 	$('input[type="submit"]').click(function(event){
 		let send_message = $('textarea[name="send_message"]').val();
 		// console.log({

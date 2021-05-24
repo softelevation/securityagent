@@ -84,16 +84,22 @@ class CustomerController extends Controller
 	
 	public function messageCenter(Request $request){
 		// operator_id
-		$user_messages = MessageCenter::select('message_centers.message','message_centers.message_type')->where('message_centers.user_id',Auth::id())->orderBy('message_centers.created_at','ASC')->get();
-		$customer_profile = Customer::select('first_name','last_name')->where('user_id',\Auth::id())->first();
-		$operator_profile = Operator::select('first_name','last_name')->first();
-		MessageCenter::where('user_id',Auth::user()->id)->where('message_type','send_by_op')->where('status','1')->update(array('status'=>'2'));
+		
+		$user_messages = $this->Make_GET('customer/message-center/0')->data;
+		$operator_profile = $this->Make_GET('operator/profile')->data;
+		// echo '<pre>';
+		// print_r($operator_profile);
+		// die;
+		// $user_messages = MessageCenter::select('message_centers.message','message_centers.message_type')->where('message_centers.user_id',Auth::id())->orderBy('message_centers.created_at','ASC')->get();
+		// $customer_profile = Customer::select('first_name','last_name')->where('user_id',\Auth::id())->first();
+		// $operator_profile = Operator::select('first_name','last_name')->first();
+		// MessageCenter::where('user_id',Auth::user()->id)->where('message_type','send_by_op')->where('status','1')->update(array('status'=>'2'));
 		$params = array();
 		$params['user_id'] =Auth::id();
-		$params['cus_id'] = '1';
+		$params['cus_id'] = Auth::user()->profile->id;
 		$params['profile'] = '';
 		$params['user_messages'] = $user_messages;
-		$params['cus_profile'] = $customer_profile;
+		$params['cus_profile'] = Auth::user()->profile;
 		$params['operator_profile'] = $operator_profile;
         return view('customer.message_center',$params);
     }

@@ -76,7 +76,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 <script src="{{ Helper::api_url('socket.io/socket.io.js') }}"></script>
 
 <script>
-	var mission_id = {{$mission_id}};
+	var mission_id = 0;
 	var cus_id = {{$cus_id}};
 	
 	// let socket = io.connect('wss://api.beontime.io:3001');
@@ -101,11 +101,18 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 			
 	$('input[type="submit"]').click(function(event){
 		let send_message = $('textarea[name="send_message"]').val();
+		
+		// console.log({
+			// mission_id:mission_id,
+			// user_id:cus_id,
+			// message:send_message
+		// });
 		socket.emit('op_message_center',{
 			mission_id:mission_id,
 			user_id:cus_id,
 			message:send_message
 		});
+		location.reload();
 		// $('textarea[name="send_message"]').val('');
 		// $(".message_last").after('<p class="'+response.message_type+'"><b>'+response.message+' :</b>'+message+'</p>');
 	});
