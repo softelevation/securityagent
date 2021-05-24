@@ -43,10 +43,10 @@
                             <tbody>
                               @foreach($message_center as $message)
                                 <tr>
-                                    <td>{{$message->title}}</td>
+                                    <td>{{$message->first_name.' '.$message->last_name}}</td>
                                     <td>@if($message->message_type=='send_by_cus') {{__('dashboard.customer')}} @else {{__('dashboard.agent')}} @endif</td>
                                     <td>{{date('d/m/Y H:i:s', strtotime($message->created_at))}}</td>
-                                    <td><a href="{{url('operator/message-center')}}/{{ Helper::encrypt($message->mission_id) }}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>@if(Helper::get_message_center_from_user($message->mission_id) > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_message_center_from_user($message->mission_id)}}</span>@endif</td>
+                                    <td><a href="{{url('operator/message-center')}}/{{ Helper::encrypt($message->user_id) }}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>@if(Helper::get_message_center_from_user($message->user_id) > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_message_center_from_user($message->user_id)}}</span>@endif</td>
                                 </tr>
                               @endforeach
                             </tbody>

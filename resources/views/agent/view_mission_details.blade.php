@@ -163,7 +163,7 @@
 @endsection
 
 @section('script')
-<script src="https://api.beontime.io/socket.io/socket.io.js"></script>
+<script src="{{ Helper::api_url('socket.io/socket.io.js') }}"></script>
 <script>
   var locale = '@php echo app()->getLocale(); @endphp';
   $(document).on('click','.confirmBtn', function(){
@@ -225,7 +225,7 @@
     $(document).find('#general_form_2').submit();
   });
   
-	let socket = io.connect('https://api.beontime.io');
+	let socket = io.connect("{{ Helper::api_url() }}");
   
 	$("#general_form_sockit").validate({
       errorClass   : "has-error",

@@ -48,7 +48,6 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 						  
                           </div>
 						  <div class="view_agent_details mt-4">
-								{{Form::model($profile,['url'=>url('customer/message-center'),'id'=>'message_center'])}}
 								  <div class="row">
 									<div class="col-md-8 form-group">
 									  {{Form::textarea('send_message',null,['data-id'=>$user_id,'data-cus_id'=>$cus_id,'class'=>'form-control message-center','placeholder'=>__('frontend.text_152')])}}
@@ -57,42 +56,10 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 										<input type="submit" class="yellow_btn" value="{{__('frontend.text_73')}}"/>
 									</div>
 								  </div>
-								  {{Form::close()}}
 							</div>
 						  
                       </div>
                     <!-- Missions in progress tab -->
-                    <div class="tab-pane fade show" id="nav-password" role="tabpanel" aria-labelledby="nav-in-progress-tab">
-                      <div class="pending-details">
-                        <div class="view_agent_details mt-4">
-                          {{Form::open(['url'=>url('update-password'),'id'=>'general_form_2'])}}
-                          <div class="row">
-                            <div class="col-md-6 form-group">
-                              <label>{{__('dashboard.current_password')}}</label>
-                              {{Form::password('current_password',['class'=>'form-control','placeholder'=>__('dashboard.current_password_place')])}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6 form-group">
-                              <label>{{__('dashboard.new_password')}}</label>
-                              {{Form::password('new_password',['class'=>'form-control','placeholder'=>__('dashboard.new_password_place')])}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-6 form-group">
-                              <label>{{__('dashboard.confirm_password')}}</label>
-                              {{Form::password('confirm_password',['class'=>'form-control','placeholder'=>__('dashboard.confirm_password_place')])}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-12 text-center">
-                                  <button type="submit" class="button success_btn">{{__('dashboard.update_password')}}</button>
-                            </div>
-                          </div>
-                          {{Form::close()}}
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -106,7 +73,34 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 @endsection
 
 @section('script')
+<script src="{{ Helper::api_url('socket.io/socket.io.js') }}"></script>
 <script>
-	$('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
+	// $('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
+	let socket = io.connect("{{ Helper::api_url() }}");
+	
+	$('input[type="submit"]').click(function(event){
+		let send_message = $('textarea[name="send_message"]').val();
+		// console.log({
+			// mission_id:0,
+			// token:"{{Auth::user()->token}}",
+			// message:send_message
+		// });
+		socket.emit('message_center',{
+			mission_id:0,
+			token:"{{Auth::user()->token}}",
+			message:send_message
+		});
+		
+		location.reload();
+		
+		// console.log(send_message);
+		// socket.emit('op_message_center',{
+			// mission_id:mission_id,
+			// user_id:cus_id,
+			// message:send_message
+		// });
+		// $('textarea[name="send_message"]').val('');
+		// $(".message_last").after('<p class="'+response.message_type+'"><b>'+response.message+' :</b>'+message+'</p>');
+	});
 </script>
 @endsection

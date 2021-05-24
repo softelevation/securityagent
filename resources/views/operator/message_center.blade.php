@@ -73,13 +73,16 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 @endsection
 
 @section('script')
-<script src="https://api.beontime.io/socket.io/socket.io.js"></script>
+<script src="{{ Helper::api_url('socket.io/socket.io.js') }}"></script>
+
 <script>
 	var mission_id = {{$mission_id}};
 	var cus_id = {{$cus_id}};
 	
 	// let socket = io.connect('wss://api.beontime.io:3001');
-	let socket = io.connect('https://api.beontime.io');
+	
+	
+	let socket = io.connect("{{ Helper::api_url() }}");
 	// let socket = io.connect('https://51.68.139.99:3001');
 	
 	// socket.on('connect', (a) => {

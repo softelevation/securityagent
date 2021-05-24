@@ -1,19 +1,20 @@
 <?php
 
 namespace App\Traits;
+use App\Helpers\Helper;
 use Auth;
 
 trait CurlTrait
 {
 	// private $base_url = 'http://localhost:7000/';
-	private $base_url = 'https://api.beontime.io/';
+	// private $base_url = 'https://api.beontime.io/';
 	// private $base_url = 'http://51.68.139.99:3000/';
 	
 	
 	public function Make_GET($link){
         $curl = curl_init();
 		curl_setopt_array($curl, array(
-			CURLOPT_URL => $this->base_url.$link,
+			CURLOPT_URL => Helper::api_url($link),
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => "",
 			CURLOPT_TIMEOUT => 30000,
@@ -40,7 +41,7 @@ trait CurlTrait
 	public function Make_Login($link,$input){
 		$curl = curl_init();
 		$options = array(
-			CURLOPT_URL => $this->base_url.$link,
+			CURLOPT_URL => Helper::api_url($link),
 			CURLOPT_HEADER => false,
 			CURLOPT_POST => 1,
 			CURLOPT_HTTPHEADER => array(
@@ -64,7 +65,7 @@ trait CurlTrait
 	public function Make_POST($link,$input){
 		$curl = curl_init();
 		$options = array(
-			CURLOPT_URL => $this->base_url.$link,
+			CURLOPT_URL => Helper::api_url($link),
 			CURLOPT_HEADER => false,
 			CURLOPT_POST => 1,
 			CURLOPT_HTTPHEADER => array(
@@ -88,7 +89,7 @@ trait CurlTrait
 	public function Make_PATCH($link,$input){
 		$ch = curl_init();
 		// set url
-		curl_setopt($ch, CURLOPT_URL, $this->base_url.$link);
+		curl_setopt($ch, CURLOPT_URL, Helper::api_url($link));
 		// set method
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH');
 		// return the transfer as a string
