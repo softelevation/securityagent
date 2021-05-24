@@ -221,8 +221,8 @@
                             <tr>
                                 <td class="text-center">{{Helper::mission_id_str($result->id)}}</td>
                                 <td class="text-center">{{ $result->title }}</td>
-                                <td class="text-center">{{ucfirst($result->agent_details->first_name.' '.$result->agent_details->last_name)}}</td>
-                                <td class="text-center">{{ucfirst($result->customer_details->first_name.' '.$result->customer_details->last_name)}}</td>
+                                <td class="text-center">{{ucfirst($result->agent_first_name.' '.$result->agent_last_name)}}</td>
+                                <td class="text-center">{{ucfirst($result->first_name.' '.$result->last_name)}}</td>
                                 <td class="text-right">{{ $result->total_hours }} {{__('dashboard.hours')}}</td>
                                 <td class="text-right">{{ $result->amount }} €</td>
 								<td class="text-right">{{ $result->location }}</td>

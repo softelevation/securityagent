@@ -651,7 +651,8 @@ class OperatorController extends Controller
 	
 	public function reportFilter(){
 		$agent = array();
-		$agentDatas = Agent::select('id','first_name','last_name','username')->where('status','1')->get();
+		// $agentDatas = Agent::select('id','first_name','last_name','username')->where('status','1')->get();
+		$agentDatas = $this->Make_GET('operator/agents')->data->verified_agents;
 		foreach($agentDatas as $agentData){
 			$agent[$agentData->id] = $agentData->username.' ('.$agentData->first_name.' '.$agentData->last_name.')';
 		}
@@ -660,17 +661,18 @@ class OperatorController extends Controller
 	
 	public function reportFilterPost(Request $request){
 		$inputData = $request->all();
-		$mission = Mission::where('agent_id','!=','0')->where(function ($query) {
-								$query->where('payment_status',1)
-									  ->orWhere('payment_status',2);
-							});
-		if($request->agent_name){
-			$mission = $mission->whereIn('agent_id',array_filter($request->agent_name));
-		}
-		if($request->from_date && $request->to_date){
-			$mission = $mission->whereBetween('created_at',[Carbon::parse($request->from_date)->format('yy-m-d'), Carbon::parse($request->to_date)->format('yy-m-d')]);
-		}
-		$result = $mission->get();
+		$result = $this->Make_POST('operator/report',array('agent_name'=>$request->agent_name))->data;
+		// $mission = Mission::where('agent_id','!=','0')->where(function ($query) {
+								// $query->where('payment_status',1)
+									  // ->orWhere('payment_status',2);
+							// });
+		// if($request->agent_name){
+			// $mission = $mission->whereIn('agent_id',array_filter($request->agent_name));
+		// }
+		// if($request->from_date && $request->to_date){
+			// $mission = $mission->whereBetween('created_at',[Carbon::parse($request->from_date)->format('yy-m-d'), Carbon::parse($request->to_date)->format('yy-m-d')]);
+		// }
+		// $result = $mission->get();
 		
 		if($request->formet == 1){
 			$customPaper = array(0,0,500.00,850.80);
@@ -694,8 +696,8 @@ class OperatorController extends Controller
 										trans('dashboard.mission.start_time')=>Carbon::parse($results->created_at)->format('d-m-yy'),
 										trans('dashboard.mission.mission_id') => Helper::mission_id_str($results->id),
 										trans('dashboard.mission.title') => $results->title,
-										trans('dashboard.agent') => ucfirst($results->agent_details->first_name.' '.$results->agent_details->last_name),
-										trans('dashboard.customer_name') => ucfirst($results->customer_details->first_name.' '.$results->customer_details->last_name),
+										trans('dashboard.agent') => ucfirst($results->agent_first_name.' '.$results->agent_last_name),
+										trans('dashboard.customer_name') => ucfirst($results->first_name.' '.$results->last_name),
 										trans('dashboard.agents.time_intervel') => $results->total_hours.' '.trans('dashboard.hours'),
 										trans('dashboard.amount') => $results->amount.' €',
 										trans('dashboard.agents.intervention') => $intervention,
@@ -717,7 +719,6 @@ class OperatorController extends Controller
 										trans('dashboard.amount')=>trans('dashboard.grand_total').' '.$original_amount.' €'
 										);
 			}
-			
 			return \Excel::create('report', function($excel) use($excelResult) {
 				$excel->sheet('Sheetname', function($sheet) use($excelResult) {
 					$sheet->fromArray($excelResult);

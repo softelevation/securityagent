@@ -229,11 +229,14 @@ class AgentController extends Controller
      */
 	public function report($mission_id){
 		$newFeature = array();
-		$newFeatureData = Report::where('mission_id',Helper::decrypt($mission_id))->first();
-		$number = Report::select('id')->orderBy('id', 'DESC')->first();
-		$numberData = ($number) ? $number->id : 0;
-		if($newFeatureData){
-			$newFeature = $newFeatureData->toArray();
+		$mission_id =  285; // Helper::decrypt($mission_id)
+		$result = $this->Make_POST('agent/mission-report',array('mission_id'=>$mission_id));
+		
+		// $newFeatureData = Report::where('mission_id',$mission_id)->first();
+		// $number = Report::select('id')->orderBy('id', 'DESC')->first();
+		$numberData =  0;
+		if(isset($result->data->report)){
+			$newFeature = (array)$result->data->report;
 		}
 		$report_id = 'RIA'.sprintf("%03d", $numberData).date("dmY");
         return view('agent.report')->with('report_id',$report_id)->with('mission_id',$mission_id)->with('newFeature',$newFeature);
@@ -252,7 +255,9 @@ class AgentController extends Controller
 		
 		// NewFeature
 		$inputDate = $request->all();
-		
+		echo '<pre>';
+		print_r($inputDate);
+		die;
 		$validation = $this->agentNewFeatureValidations($request);
         
 		if($validation['status']==false){
