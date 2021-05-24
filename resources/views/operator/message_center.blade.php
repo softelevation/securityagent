@@ -93,7 +93,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	// });
 	
 	
-	socket.on('message_center_'+mission_id,function(msg){
+	socket.on('refresh_feed_'+cus_id,function(msg){
 		if(msg){
 			location.reload();
 		}

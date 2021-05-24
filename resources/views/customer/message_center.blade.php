@@ -76,9 +76,11 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 <script src="{{ Helper::api_url('socket.io/socket.io.js') }}"></script>
 <script>
 	// $('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
+	var cus_id = {{$cus_id}};
 	let socket = io.connect("{{ Helper::api_url() }}");
 	
-	socket.on('message_center_0',function(msg){
+	socket.on('refresh_feed_'+cus_id,function(msg){
+		// console.log(msg);
 		if(msg){
 			location.reload();
 		}
