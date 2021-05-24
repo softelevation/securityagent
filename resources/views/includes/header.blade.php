@@ -79,11 +79,11 @@
                       <div>{{__('frontend.text_85')}}</div> 
                       <label class="switch">
                         <input 
-                        @if(\Auth::user()->agent_info->available==2) disabled="disabled" @endif 
+                        @if(\Auth::user()->profile->available==2) disabled="disabled" @endif 
                         type="checkbox" id="availability_check_btn" class="check" 
-                        @if(\Auth::user()->agent_info->available==1) checked @endif>
+                        @if(\Auth::user()->profile->available==1) checked @endif>
                         <span 
-                        @if(\Auth::user()->agent_info->available==2) 
+                        @if(\Auth::user()->profile->available==2) 
                         data-container="body" data-toggle="popover" data-placement="bottom" data-content="During ongoing mission, availability status can't be changed." data-html="true" data-trigger="hover" @endif class="slider round"></span>
                       </label>
                     </div>

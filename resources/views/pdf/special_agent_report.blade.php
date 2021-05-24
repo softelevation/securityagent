@@ -219,7 +219,7 @@
 							@foreach($results as $result)
                             <tr>
                                 <td class="text-center">{{Helper::mission_id_str($result->id)}}</td>
-                                <td class="text-center">{{ucfirst($result->customer_details->first_name.' '.$result->customer_details->last_name)}}</td>
+                                <td class="text-center">{{ucfirst($result->first_name.' '.$result->last_name)}}</td>
                                 <td class="text-right">{{ $result->total_hours }} {{__('dashboard.hours')}}</td>
                                 <td class="text-right">{{__('dashboard.agents.'.$result->intervention.'')}}</td>
                                 <td class="text-right">{{Helper::date_format_show('d/m/Y H:i:s',$result->start_date_time)}}</td>

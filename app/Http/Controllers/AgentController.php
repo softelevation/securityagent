@@ -202,30 +202,22 @@ class AgentController extends Controller
 	
 	public function reportFilter(){
 		
-		$agent = array();
-		$agentDatas = Agent::select('id','first_name','last_name')->where('status','1')->get();
-		foreach($agentDatas as $agentData){
-			$agent[$agentData->id] = $agentData->first_name.' '.$agentData->last_name;
-		}
-    	return view('agent.report-pdf')->with('agent',$agent);
+		// $agent = array();
+		// $agentDatas = Agent::select('id','first_name','last_name')->where('status','1')->get();
+		// foreach($agentDatas as $agentData){
+			// $agent[$agentData->id] = $agentData->first_name.' '.$agentData->last_name;
+		// }
+    	return view('agent.report-pdf');
     }
 	
 	public function reportFilterPost(Request $request){
-		$inputData = $request->all();
-		$mission = Mission::where('agent_id','!=','0')->where(function ($query) {
-								$query->where('payment_status',1)
-									  ->orWhere('payment_status',2);
-							});
-		if($request->from_date){
-			$to_date = Carbon::now()->format('yy-m-d');
-			if($request->to_date){
-				$to_date = Carbon::parse($request->to_date)->format('yy-m-d');
-			}
-			$mission = $mission->whereBetween('created_at',[Carbon::parse($request->from_date)->format('yy-m-d'), $to_date]);
+		$inputData = array();
+		if($request->from_date && $request->to_date){
+			$inputData = array('from_date'=>Carbon::parse($request->from_date)->format('Y-m-d'),'to_date'=>Carbon::parse($request->to_date)->format('Y-m-d'));
 		}
-		$result = $mission->get();
+		$result = $this->Make_POST('agent/report',$inputData);
 		$customPaper = array(0,0,500.00,850.80);
-		$pdf = \PDF::loadView('pdf.special_agent_report', ['results'=>$result])->setPaper($customPaper, 'landscape');
+		$pdf = \PDF::loadView('pdf.special_agent_report', ['results'=>$result->data])->setPaper($customPaper, 'landscape');
 		return $pdf->download('report.pdf');
 	}
 	
@@ -315,14 +307,20 @@ class AgentController extends Controller
      */
     public function setAvailability(Request $request){
         try{
-            if(Auth::check() && Auth::user()->role_id==2){
-                $data = Agent::where('user_id',Auth::user()->id)->first();
-                if($data->available==2){
-                    return response($this->getErrorResponse(trans('messages.cant_change_availability')));
-                }else{
-                    $availableStatus = $request->availability_status;
-                    $update = Agent::where('user_id',Auth::user()->id)->update(['available'=>$availableStatus]);
-                    if($update){
+			$result = $this->Make_POST('agent/agent-available',array('status'=>$request->availability_status));
+			
+			
+            // if(Auth::check() && Auth::user()->role_id==2){
+                // $data = Agent::where('user_id',Auth::user()->id)->first();
+                // if($data->available==2){
+                    // return response($this->getErrorResponse(trans('messages.cant_change_availability')));
+                // }else{
+                    // $availableStatus = $request->availability_status;
+                    // $update = Agent::where('user_id',Auth::user()->id)->update(['available'=>$availableStatus]);
+                    if($result->status){
+						$userProfile = Session::get('userProfile');
+						$userProfile->available = $request->availability_status;
+						Session::put('userProfile',$userProfile);
                         $response['message'] = trans('messages.availability_changed');
                         $response['delayTime'] = 5000;
                         $response['url'] = $request->current_url;
@@ -330,10 +328,10 @@ class AgentController extends Controller
                     }else{
                         return response($this->getErrorResponse(trans('messages.error')));
                     }
-                }
-            }else{
-                return response($this->getErrorResponse(trans('messages.error')));    
-            }
+                // }
+            // }else{
+                // return response($this->getErrorResponse(trans('messages.error')));    
+            // }
         }catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }
