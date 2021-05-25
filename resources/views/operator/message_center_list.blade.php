@@ -43,7 +43,7 @@
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>
-                                    <th>{{__('dashboard.mission.mission')}}</th>
+                                    <th>@if($action_req == 'customers') {{__('dashboard.customer_name')}} @else {{__('dashboard.agents.name')}} @endif</th>
                                     <th>{{__('dashboard.from')}}</th>
                                     <th>{{__('dashboard.billings.date_time')}}</th>
                                     <th>Action</th>
