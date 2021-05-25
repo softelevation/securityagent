@@ -24,7 +24,11 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
                       <li class="nav-item w-100">
-                          <a class="nav-link active">{{__('dashboard.customer_support')}} </a>
+						@if($action_message == 'customers')
+							<a class="nav-link active">{{__('dashboard.customer_support')}} </a>
+						@else
+							<a class="nav-link active">{{__('dashboard.agent_support')}} </a>
+						@endif
                       </li>
                   </ul>
                   <div class="tab-content" id="nav-tabContent">
@@ -78,6 +82,10 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 <script>
 	var mission_id = 0;
 	var cus_id = {{$cus_id}};
+	var action_message = "{{$action_message}}";
+	console.log(action_message);
+	
+	// $action_message == 'customers'
 	
 	// let socket = io.connect('wss://api.beontime.io:3001');
 	
@@ -110,7 +118,8 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 		socket.emit('op_message_center',{
 			mission_id:mission_id,
 			user_id:cus_id,
-			message:send_message
+			message:send_message,
+			action_message: action_message
 		});
 		location.reload();
 		// $('textarea[name="send_message"]').val('');

@@ -282,80 +282,84 @@ class OperatorController extends Controller
      */
 
     public function missionsList(Request $request){
-        $statusCond = [];
-        $missionArchived = [];
-        $missionAll = [];
-        $missionFuture = [];
-        $missionQuick = [];
-        $missionCompleted = [];
-        $statusArr = [];
-        
-        if($request->get('archived')){
-			$mission_All = $this->Make_GET('operator/mission')->data;
-            $missionArchived = $mission_All->archived_mission;
+		try {
+			$statusCond = [];
+			$missionArchived = [];
+			$missionAll = [];
+			$missionFuture = [];
+			$missionQuick = [];
+			$missionCompleted = [];
+			$statusArr = [];
+			
+			if($request->get('archived')){
+				$mission_All = $this->Make_GET('operator/mission')->data;
+				$missionArchived = $mission_All->archived_mission;
 
-        }else{
-            $missionStatus = $request->get('missionStatus'); 
-            if($missionStatus !== null && $missionStatus !== 'all'){
-                $statusCond = ['status'=>$missionStatus];
-            }
-			$mission_All = $this->Make_GET('operator/mission')->data;
+			}else{
+				$missionStatus = $request->get('missionStatus'); 
+				if($missionStatus !== null && $missionStatus !== 'all'){
+					$statusCond = ['status'=>$missionStatus];
+				}
+				$mission_All = $this->Make_GET('operator/mission')->data;
 
-            // $missionAll = $mission->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
-            $missionAll = $mission_All->mission_all;
-            // $missionFuture = $mission->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where('start_date_time','>=',Carbon::now())->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
-            $missionFuture = $mission_All->future_mission;
-            // $missionQuick = $mission->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
-            $missionQuick = $mission_All->missionInProgress;
-            // $missionCompleted = Mission::with(['child_missions','customer_details'])->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
-            $missionCompleted = $mission_All->missionCompleted;
-            $statusArr = Helper::getMissionStatus();
-            $statusArr = array_flip($statusArr);
-            
-        }
-        
-        $params = [
-            'archived_mission' => $missionArchived,
-            'mission_all' => $missionAll,
-            'future_mission' => $missionFuture,
-            'quick_mission' => $missionQuick,
-            'finished_mission' => $missionCompleted,
-            'status_list'=>$statusArr,
-            'limit' => $this->limit,
-            'page_no' => 1,
-			'paginate_array' => array(),
-            'page_name' => 'all'
-        ];
-        
-        if($request->isMethod('get')){
-            if(isset($request->all)){ 
-                $params['page_no'] = $request->all; 
-                $params['page_name'] = 'all'; 
-            }
-            if(isset($request->future)){ 
-                $params['page_no'] = $request->future; 
-                $params['page_name'] = 'future'; 
-            }
-            if(isset($request->quick)){ 
-                $params['page_no'] = $request->quick; 
-                $params['page_name'] = 'quick'; 
-            }
-            if(isset($request->finished)){ 
-                $params['page_no'] = $request->finished; 
-                $params['page_name'] = 'finished';
-            }
-            if(isset($request->archived)){ 
-                $params['page_no'] = $request->archived; 
-                $params['page_name'] = 'archived';
-            }
-			if($request->missionStatus){
-				$params['paginate_array'] = array('missionStatus'=>$request->missionStatus);
+				// $missionAll = $mission->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
+				$missionAll = $mission_All->mission_all;
+				// $missionFuture = $mission->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where('start_date_time','>=',Carbon::now())->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
+				$missionFuture = $mission_All->future_mission;
+				// $missionQuick = $mission->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
+				$missionQuick = $mission_All->missionInProgress;
+				// $missionCompleted = Mission::with(['child_missions','customer_details'])->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
+				$missionCompleted = $mission_All->missionCompleted;
+				$statusArr = Helper::getMissionStatus();
+				$statusArr = array_flip($statusArr);
+				
 			}
-			if($request->search){
-				$params['paginate_array'] = array_merge($params['paginate_array'],array('search'=>$request->search));
+			
+			$params = [
+				'archived_mission' => $missionArchived,
+				'mission_all' => $missionAll,
+				'future_mission' => $missionFuture,
+				'quick_mission' => $missionQuick,
+				'finished_mission' => $missionCompleted,
+				'status_list'=>$statusArr,
+				'limit' => $this->limit,
+				'page_no' => 1,
+				'paginate_array' => array(),
+				'page_name' => 'all'
+			];
+			
+			if($request->isMethod('get')){
+				if(isset($request->all)){ 
+					$params['page_no'] = $request->all; 
+					$params['page_name'] = 'all'; 
+				}
+				if(isset($request->future)){ 
+					$params['page_no'] = $request->future; 
+					$params['page_name'] = 'future'; 
+				}
+				if(isset($request->quick)){ 
+					$params['page_no'] = $request->quick; 
+					$params['page_name'] = 'quick'; 
+				}
+				if(isset($request->finished)){ 
+					$params['page_no'] = $request->finished; 
+					$params['page_name'] = 'finished';
+				}
+				if(isset($request->archived)){ 
+					$params['page_no'] = $request->archived; 
+					$params['page_name'] = 'archived';
+				}
+				if($request->missionStatus){
+					$params['paginate_array'] = array('missionStatus'=>$request->missionStatus);
+				}
+				if($request->search){
+					$params['paginate_array'] = array_merge($params['paginate_array'],array('search'=>$request->search));
+				}
 			}
+			return view('operator.missions',$params);
+		}catch(\Exception $e){
+			return redirect('operator/missions');
         }
-        return view('operator.missions',$params);
     }
 
 
@@ -643,10 +647,13 @@ class OperatorController extends Controller
     }
 	
 	public function messageCenter(Request $request){
-		
-		$messageCenter = (array)$this->Make_GET('operator/message-center')->data;
-		$params['message_center'] = $messageCenter;
-        return view('operator.message_center_list',$params);
+		try {
+			$messageCenter = (array)$this->Make_GET('operator/message-center?action='.$request->action)->data;
+			$params['message_center'] = $messageCenter;
+			return view('operator.message_center_list',$params);
+		}catch(\Exception $e){
+			return redirect('operator/message-center');
+        }
     }
 	
 	public function reportFilter(){
@@ -727,27 +734,15 @@ class OperatorController extends Controller
 		}
 	}
 	
-	public function messageCenterId($id){
+	public function messageCenterId(Request $request, $id){
 		$id = Helper::decrypt($id);
-		// $customer = Customer::where('user_id',$id)->first();
-		
-		$user_messages = $messageCenter = (array)$this->Make_GET("operator/message-center/$id")->data;
-		
-		// echo '<pre>';
-		// print_r($user_messages);
-		// die;
-		// if($customer){
-			// $user_messages = MessageCenter::select('customers.user_id','customers.first_name','customers.last_name','message_centers.message','message_centers.message_type')->join('customers','customers.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
-		// }else{
-			// $user_messages = MessageCenter::select('agents.user_id','agents.first_name','agents.last_name','message_centers.message','message_centers.message_type')->join('agents','agents.user_id','message_centers.user_id')->where('message_centers.user_id',$id)->orderBy('message_centers.created_at','ASC')->get();
-		// }
-		// $message = MessageCenter::where('user_id',$id)->where('message_type','!=','send_by_op')->update(array('status'=>'2'));
-		// $opData = Operator::select('first_name','last_name')->where('user_id',Auth::id())->first();
+		$user_messages = $messageCenter = (array)$this->Make_GET("operator/message-center/$id?action=".$request->action)->data;
 		$params = array();
 		$params['mission_id'] =$id;
 		$params['user_id'] =Auth::id();
 		$params['cus_id'] = (isset($user_messages[0])) ? $user_messages[0]->user_id : $id;
 		$params['profile'] = '';
+		$params['action_message'] = $request->action;
 		$params['user_messages'] = $user_messages;
         return view('operator.message_center',$params);
     }
