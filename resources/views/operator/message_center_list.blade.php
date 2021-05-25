@@ -81,7 +81,7 @@
 <script>
 	// var mission_id = 0;
 	// <select class="form-control" name="message_center_status"> 
-	$('select[name="message_center_status"]').click(function(){	
+	$('select[name="message_center_status"]').change(function(){	
 		let action_val = $(this).val();
 		console.log(action_val);
 		window.location.href = 'message-center?action='+action_val; 
