@@ -8,6 +8,7 @@ use Mail;
 use App\Mission;
 use App\Agent;
 use App\CustomerNotification;
+use App\Notification;
 use App\PaymentApproval;
 use App\RefundRequest;
 use Carbon\Carbon;
@@ -380,14 +381,9 @@ class Helper {
     public static function get_misison_request_count(){
         $count = 0;
         if(Auth::check() && Auth::user()->role_id==2){
-            $agent_id = Auth::user()->agent_info->id;
-            $count = Mission::where('agent_id',$agent_id)
-                            ->where('status',0)
-							->where(function ($query) {
-								$query->where('payment_status',1)
-									  ->orWhere('payment_status',2);
-							})
-                            // ->where('payment_status',1)
+            $agent_id = Auth::user()->profile->id;
+            $count = Notification::where('agent_id',$agent_id)
+                            ->where('status',1)
                             ->count();
         }
         return $count;
