@@ -648,8 +648,13 @@ class OperatorController extends Controller
 	
 	public function messageCenter(Request $request){
 		try {
-			$messageCenter = (array)$this->Make_GET('operator/message-center?action='.$request->action)->data;
+			$action_req = '';
+			if($request->action){
+				$action_req = $request->action;
+			}
+			$messageCenter = (array)$this->Make_GET('operator/message-center?action='.$action_req)->data;
 			$params['message_center'] = $messageCenter;
+			$params['action_req'] = $action_req;
 			return view('operator.message_center_list',$params);
 		}catch(\Exception $e){
 			return redirect('operator/message-center');
@@ -736,13 +741,17 @@ class OperatorController extends Controller
 	
 	public function messageCenterId(Request $request, $id){
 		$id = Helper::decrypt($id);
+		$action_message = 'customers';
+		if($request->action == 'agents'){
+			$action_message = 'agents';
+		}
 		$user_messages = $messageCenter = (array)$this->Make_GET("operator/message-center/$id?action=".$request->action)->data;
 		$params = array();
 		$params['mission_id'] =$id;
 		$params['user_id'] =Auth::id();
 		$params['cus_id'] = (isset($user_messages[0])) ? $user_messages[0]->user_id : $id;
 		$params['profile'] = '';
-		$params['action_message'] = $request->action;
+		$params['action_message'] = $action_message;
 		$params['user_messages'] = $user_messages;
         return view('operator.message_center',$params);
     }

@@ -24,10 +24,10 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
                       <li class="nav-item w-100">
-						@if($action_message == 'customers')
-							<a class="nav-link active">{{__('dashboard.customer_support')}} </a>
-						@else
+						@if($action_message == 'agents')
 							<a class="nav-link active">{{__('dashboard.agent_support')}} </a>
+						@else
+							<a class="nav-link active">{{__('dashboard.customer_support')}} </a>
 						@endif
                       </li>
                   </ul>
@@ -113,7 +113,8 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 		// console.log({
 			// mission_id:mission_id,
 			// user_id:cus_id,
-			// message:send_message
+			// message:send_message,
+			// action_message: action_message
 		// });
 		socket.emit('op_message_center',{
 			mission_id:mission_id,
@@ -122,8 +123,6 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 			action_message: action_message
 		});
 		location.reload();
-		// $('textarea[name="send_message"]').val('');
-		// $(".message_last").after('<p class="'+response.message_type+'"><b>'+response.message+' :</b>'+message+'</p>');
 	});
 			
 </script>

@@ -21,8 +21,8 @@
                     <div class="col-md-3  float-left form-group">
                         <select class="form-control" name="message_center_status"> 
                                 <option value="" disabled="" selected="">Search message by :</option>
-                                <option value="customers" <?php echo ($_GET['action'] == 'customers') ? 'selected':''; ?>>{{__('dashboard.customers')}}</option>
-                                <option value="agents" <?php echo ($_GET['action'] == 'agents') ? 'selected':''; ?>>{{__('dashboard.agents.agents')}}</option>
+                                <option value="customers" <?php echo ($action_req == 'customers') ? 'selected':''; ?>>{{__('dashboard.customers')}}</option>
+                                <option value="agents" <?php echo ($action_req == 'agents') ? 'selected':''; ?>>{{__('dashboard.agents.agents')}}</option>
                         </select>
                     </div>
 					</form>
@@ -55,7 +55,7 @@
                                     <td>{{$message->first_name.' '.$message->last_name}}</td>
                                     <td>@if($message->message_type=='send_by_cus') {{__('dashboard.customer')}} @elseif($message->message_type=='send_by_op') {{__('dashboard.operator')}} @else {{__('dashboard.agent')}} @endif</td>
                                     <td>{{date('d/m/Y H:i:s', strtotime($message->created_at))}}</td>
-                                    <td><a href="{{url('operator/message-center')}}/{{ Helper::encrypt($message->user_id) }}?action={{$_GET['action']}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>@if(Helper::get_message_center_from_user($message->user_id) > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_message_center_from_user($message->user_id)}}</span>@endif</td>
+                                    <td><a href="{{url('operator/message-center')}}/{{ Helper::encrypt($message->user_id) }}?action={{$action_req}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>@if(Helper::get_message_center_from_user($message->user_id) > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_message_center_from_user($message->user_id)}}</span>@endif</td>
                                 </tr>
                               @endforeach
                             </tbody>
