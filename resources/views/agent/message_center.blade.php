@@ -48,16 +48,14 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 						  
                           </div>
 						  <div class="view_agent_details mt-4">
-								{{Form::model($profile,['url'=>url('agent/message-center'),'id'=>'message_center'])}}
-								  <div class="row">
+								<div class="row">
 									<div class="col-md-8 form-group">
 									  {{Form::textarea('send_message',null,['data-id'=>$user_id,'data-cus_id'=>$cus_id,'class'=>'form-control message-center','placeholder'=>__('frontend.text_152')])}}
 									</div>
 									<div class="col-md-4 ">
 										<input type="submit" class="yellow_btn" value="{{__('frontend.text_73')}}"/>
 									</div>
-								  </div>
-								  {{Form::close()}}
+								</div>
 							</div>
 						  
                       </div>
@@ -75,7 +73,28 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 @endsection
 
 @section('script')
+<script src="{{ Helper::api_url('socket.io/socket.io.js') }}"></script>
 <script>
 	$('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
+	var cus_id = {{$cus_id}};
+	// console.log(cus_id);
+	let socket = io.connect("{{ Helper::api_url() }}");
+	
+	socket.on('refresh_feed_'+cus_id,function(msg){
+		if(msg){
+			location.reload();
+		}
+	});
+	
+	$('input[type="submit"]').click(function(event){
+		let send_message = $('textarea[name="send_message"]').val();
+		socket.emit('message_center',{
+			mission_id:0,
+			token:"{{Auth::user()->token}}",
+			message:send_message
+		});
+		location.reload();
+		
+	});
 </script>
 @endsection
