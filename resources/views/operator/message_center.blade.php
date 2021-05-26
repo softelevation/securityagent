@@ -80,6 +80,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 <script src="{{ Helper::api_url('socket.io/socket.io.js') }}"></script>
 
 <script>
+	$('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
 	var mission_id = 0;
 	var cus_id = {{$cus_id}};
 	var action_message = "{{$action_message}}";

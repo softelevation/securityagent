@@ -81,8 +81,12 @@ class MissionController extends Controller
     }
 	
 	public function reportView($mission_id){
-		$feature = Report::where('mission_id',Helper::decrypt($mission_id))->first();
-        return view('customer.report-view')->with('feature',$feature);
+		try{
+			$mission = $this->Make_GET('customer/mission-details/'.Helper::decrypt($mission_id));
+			return view('customer.report-view')->with('mission',$mission->data);
+		}catch(\Exception $e){
+			return redirect('customer/missions');
+        }
     }
 	
 	public function viewAgentDetails(Request $request, $id){

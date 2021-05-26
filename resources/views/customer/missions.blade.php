@@ -78,6 +78,7 @@
                                             @endif
 											@if($mission->status==5)
 												<a href="{{url('customer/feedback')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-rss-square" aria-hidden="true"></i> {{__('frontend.text_61')}}</a>
+												<a href="{{url('customer/report-view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-rss-square" aria-hidden="true"></i> {{__('dashboard.report.report')}}</a>
 											@endif
                                           </div>
                                       </div>

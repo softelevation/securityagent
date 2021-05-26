@@ -244,8 +244,8 @@ class AgentController extends Controller
 	
 	public function reportView($mission_id){
 		try{
-			$feature = Report::where('mission_id',Helper::decrypt($mission_id))->first();
-			return view('agent.report-view')->with('feature',$feature);
+			$mission = $this->Make_GET('agent/mission/'.Helper::decrypt($mission_id));
+			return view('agent.report-view')->with('mission',$mission->data);
 		}catch(\Exception $e){
 			return redirect('agent/missions');
         }

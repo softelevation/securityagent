@@ -75,7 +75,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 @section('script')
 <script src="{{ Helper::api_url('socket.io/socket.io.js') }}"></script>
 <script>
-	// $('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
+	$('.message-center-child').scrollTop($('.message-center-child')[0].scrollHeight);
 	var cus_id = {{$cus_id}};
 	let socket = io.connect("{{ Helper::api_url() }}");
 	
