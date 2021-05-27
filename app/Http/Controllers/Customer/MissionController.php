@@ -333,7 +333,11 @@ class MissionController extends Controller
     public function findMissionAgent($id){
         $id = Helper::decrypt($id);
 		$mission = $this->Make_GET('customer/mission-details/'.$id)->data;
+		if($mission->quick_book==0){
+            $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
+        }
         $data['mission'] = $mission;
+        $data['charge_amount'] = $chargeAmount;
         return view('customer.find_mission_agent',$data);
     }
 
