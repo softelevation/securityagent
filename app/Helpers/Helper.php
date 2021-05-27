@@ -553,13 +553,18 @@ class Helper {
 		}else if($input == 'agent'){
 			$message_center = DB::table('message_centers')->select('id')->where('user_id',Auth::user()->id)->where('message_type','send_by_op')->where('status','1')->count();
 		}else if($input == 'operator'){
-			$message_center = DB::table('message_centers')->select('id')->where('message_type','!=','send_by_op')->where('status','1')->count();
+			// $message_center = DB::table('message_centers')->select('id')->where('message_type','!=','send_by_op')->where('status','1')->count();
+			$message_center = 0;
 		}
         return $message_center;
     }
 	
-	public static function get_message_center_from_user($input){
-		$message_center = DB::table('message_centers')->select('id')->where('user_id',$input)->where('message_type','!=','send_by_op')->where('status','1')->count();
+	public static function get_message_center_from_user($input,$from){
+		if($from == 'agents'){
+			$message_center = DB::table('agent_message_centers')->select('id')->where('user_id',$input)->where('message_type','send_by_agent')->where('badge','1')->count();
+		}else{
+			$message_center = DB::table('customer_message_centers')->select('id')->where('user_id',$input)->where('message_type','send_by_cus')->where('badge','1')->count();
+		}
 		return $message_center;
 	}
 

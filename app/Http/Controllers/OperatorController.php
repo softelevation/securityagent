@@ -441,7 +441,7 @@ class OperatorController extends Controller
 		// echo '<pre>';
 		// print_r($result);
 		// die;
-        return view('operator.report-view')->with('feature',$result->data);
+        return view('operator.report-view')->with('mission',$result->data);
     }
 
     public function createSubMissions($mission_id){
@@ -648,7 +648,7 @@ class OperatorController extends Controller
 	
 	public function messageCenter(Request $request){
 		try {
-			$action_req = '';
+			$action_req = 'customers';
 			if($request->action){
 				$action_req = $request->action;
 			}
@@ -745,11 +745,20 @@ class OperatorController extends Controller
 		if($request->action == 'agents'){
 			$action_message = 'agents';
 		}
-		$user_messages = $messageCenter = (array)$this->Make_GET("operator/message-center/$id?action=".$request->action)->data;
+		$user_messages = (array)$this->Make_GET("operator/message-center/$id?action=".$request->action)->data;
+		if($request->action){
+			$request_action = 'customer_message_centers';
+			$request_action_type = 'send_by_cus';
+			if($request->action == 'agents'){
+				$request_action = 'agent_message_centers';
+				$request_action_type = 'send_by_agent';
+			}
+			DB::table($request_action)->where('user_id',$id)->where('message_type',$request_action_type)->update(array('badge'=>0));
+		}
 		$params = array();
 		$params['mission_id'] =$id;
 		$params['user_id'] =Auth::id();
-		$params['cus_id'] = (isset($user_messages[0])) ? $user_messages[0]->user_id : $id;
+		$params['cus_id'] = $id;
 		$params['profile'] = '';
 		$params['action_message'] = $action_message;
 		$params['user_messages'] = $user_messages;
