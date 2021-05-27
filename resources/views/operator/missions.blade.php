@@ -288,8 +288,16 @@
                                                 <td>@if(isset($mission->started_at)){{date('d/m/Y H:i:s', strtotime($mission->started_at))}}@endif</td>
                                                 <td>@if(isset($mission->started_at)){{date('d/m/Y H:i:s', strtotime($mission->ended_at))}}@endif</td>
                                                 <td>
-                                                    <a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
-                                                </td>
+												<div class="dropdown">
+													<a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
+													<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+														<a href="{{url('operator/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
+														@if($mission->status==5 && $mission->reports_id != null)
+														<a href="{{url('operator/report-view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-rss-square" aria-hidden="true"></i> {{__('frontend.text_155')}}</a>
+														@endif
+													</div>
+												</div>
+												</td>
                                             </tr>
                                             @endforeach  
                                         </tbody>
