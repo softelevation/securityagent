@@ -561,9 +561,9 @@ class Helper {
 	
 	public static function get_message_center_from_user($input,$from){
 		if($from == 'agents'){
-			$message_center = DB::table('agent_message_centers')->select('id')->where('user_id',$input)->where('message_type','send_by_agent')->where('badge','0')->count();
+			$message_center = DB::table('agent_message_centers')->select('id')->where('user_id',$input)->where('message_type','send_by_agent')->where('op_badge','1')->count();
 		}else{
-			$message_center = DB::table('customer_message_centers')->select('id')->where('user_id',$input)->where('message_type','send_by_cus')->where('badge','0')->count();
+			$message_center = DB::table('customer_message_centers')->select('id')->where('user_id',$input)->where('message_type','send_by_cus')->where('op_badge','1')->count();
 		}
 		return $message_center;
 	}
