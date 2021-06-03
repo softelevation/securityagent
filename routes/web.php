@@ -139,6 +139,7 @@ Route::group(['prefix'=>'customer'], function () {
         Route::get('/save-pdf-proceed-payment/{mission_id}', 'Customer\MissionController@savePdfProceedToPayment');
         Route::post('/make-mission-payment', 'Customer\MissionController@makeMissionPayment');
         Route::get('/mission-details/view/{mission_id}', 'Customer\MissionController@viewMissionDetails');
+        Route::get('/track-mission/{mission_id}', 'Customer\MissionController@trackMission');
         Route::post('/make-card-payment', 'Customer\MissionController@makeCardPayment');
         Route::get('/billing-details', 'CustomerController@getPaymentHistory');
         Route::get('/message-center', 'CustomerController@messageCenter');

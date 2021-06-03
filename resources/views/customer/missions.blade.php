@@ -134,6 +134,7 @@
                                           <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
                                           @if($mission->payment_status==1 && ($mission->status!=5 && $mission->status!=6 && $mission->status!=7))
                                             <a href="{{url('customer/cancel-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item cancel_mission_cls"><i class="fas fa-window-close text-grey" aria-hidden="true"></i> {{__('dashboard.mission.cancel')}}</a>
+                                            <a href="{{url('customer/track-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-truck-moving" aria-hidden="true"></i> Track</a>
                                           @endif
                                           @if($mission->status==0 && $mission->payment_status==0)
                                             <a href="{{url('customer/delete-mission')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item delete_mission_cls"><i class="fas fa-trash-alt text-grey" aria-hidden="true"></i> {{__('dashboard.mission.delete')}}</a>
@@ -239,7 +240,13 @@
                                     <td>@if(isset($mission->started_at)){{date('d/m/Y H:i:s', strtotime($mission->started_at))}}@endif</td>
                                     <td>@if(isset($mission->started_at)){{date('d/m/Y H:i:s', strtotime($mission->ended_at))}}@endif</td>
                                     <td>
-                                      <a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
+									<div class="dropdown">
+                                          <a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+											<a href="{{url('customer/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.mission.view_details')}}</a>
+											<a href="{{url('customer/report-view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-rss-square" aria-hidden="true"></i> {{__('dashboard.report.report')}}</a>
+                                          </div>
+                                      </div>
                                     </td>
                                 </tr>
                               @empty

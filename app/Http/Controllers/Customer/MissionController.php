@@ -622,6 +622,17 @@ class MissionController extends Controller
         $data['mission_id'] = $mission_id;
         return view('customer.view_mission_details',$data);
     }
+	
+	
+	public function trackMission($mission_id){
+		
+		$dec_mission_id = Helper::decrypt($mission_id);
+		$data = $this->Make_GET('customer/mission-details/'.$dec_mission_id)->data;
+		// echo '<pre>';
+		// print_r($data['mission']->agent->username);
+		// die;
+        return view('customer.track_mission',['mission'=>$data,'mission_id'=>$dec_mission_id]);
+    }
 
     /**
      * @param $request

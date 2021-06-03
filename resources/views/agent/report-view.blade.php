@@ -34,7 +34,7 @@
 							<div class="row">
 								<div class="col-md-4 form-group">
 								  <label>Date</label>
-								<span class="form-control">{{ date("d-m-Y",strtotime($mission->report->date)) }}</span>
+								<span class="form-control">{{ isset($mission->report->date) ? date("d-m-Y",strtotime($mission->report->date)) : 'N/A' }}</span>
 								</div>
 								<div class="col-md-2 form-group">
 								</div>
@@ -46,9 +46,9 @@
 							<table class="table table-hover table-striped">
 								<tbody>
 									<tr>
-										<td><label>HEURE APPEL :</label> <span class="form-control">{{$mission->report->heure_appel}}</span></td>
-										<td><label>HEURE ARRIVEE :</label> <span class="form-control">{{$mission->report->heure_arivve}}</span></td>
-										<td><label>HEURE DE DEPART :</label> <span class="form-control">{{$mission->report->heure_de_depart}}</span></td>
+										<td><label>HEURE APPEL :</label> <span class="form-control">{{isset($mission->report->heure_appel) ? $mission->report->heure_appel : 'N/A'}}</span></td>
+										<td><label>HEURE ARRIVEE :</label> <span class="form-control">{{isset($mission->report->heure_arivve) ? $mission->report->heure_arivve : 'N/A'}}</span></td>
+										<td><label>HEURE DE DEPART :</label> <span class="form-control">{{isset($mission->report->heure_de_depart) ? $mission->report->heure_de_depart : 'N/A'}}</span></td>
 									</tr>
 								</tbody>
 							</table>
@@ -57,64 +57,64 @@
 									<tr>
 										<td>Constat météo</td>
 										<td>
-											{{$mission->report->constat_meteo}}
+											{{isset($mission->report->constat_meteo) ? $mission->report->constat_meteo : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Circulation</td>
 										<td>
-											{{$mission->report->circulation}}
+											{{isset($mission->report->circulation) ? $mission->report->circulation : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Circuit de Vérification</td>
 										<td>
-											{{$mission->report->circuit_de_verification}}
+											{{isset($mission->report->circuit_de_verification) ? $mission->report->circuit_de_verification : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Lumière allumée</td>
 										<td>
-											{{$mission->report->lumiere_allumee}}
+											{{isset($mission->report->lumiere_allumee) ? $mission->report->lumiere_allumee : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Issues(s) ouvertes(s)</td>
 										<td>
-											{{$mission->report->issues_ouvertes}}
+											{{isset($mission->report->issues_ouvertes) ? $mission->report->issues_ouvertes : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Sirène en fonction</td>
 										<td>
-											{{$mission->report->sirene_en_fonction}}
+											{{isset($mission->report->sirene_en_fonction) ? $mission->report->sirene_en_fonction : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Système</td>
 										<td>
-											{{$mission->report->systeme}}
+											{{isset($mission->report->systeme) ? $mission->report->systeme : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Remise en service du système</td>
 										<td>
-											{{$mission->report->remise_en_service_du_systeme}}
+											{{isset($mission->report->remise_en_service_du_systeme) ? $mission->report->remise_en_service_du_systeme : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Effraction constatée</td>
 										<td>
-											{{$mission->report->effraction_constatee}}
+											{{isset($mission->report->effraction_constatee) ? $mission->report->effraction_constatee : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>{{__('dashboard.comments')}}</td>
 										<td>
-											<span>{{$mission->report->description}}</span>
+											<span>{{isset($mission->report->description) ? $mission->report->description : 'N/A'}}</span>
 										</td>
 									</tr>
-									@if($mission->report->signature)
+									@if(isset($mission->report->signature) && $mission->report->signature)
 									<tr>
 										<td>{{__('dashboard.report.signature')}}</td>
 										<td>

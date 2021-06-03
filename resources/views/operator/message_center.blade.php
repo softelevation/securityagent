@@ -86,20 +86,8 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	var action_message = "{{$action_message}}";
 	console.log(action_message);
 	
-	// $action_message == 'customers'
-	
-	// let socket = io.connect('wss://api.beontime.io:3001');
-	
 	
 	let socket = io.connect("{{ Helper::api_url() }}");
-	// let socket = io.connect('https://51.68.139.99:3001');
-	
-	// socket.on('connect', (a) => {
-		// https://api.beontime.io/
-		// console.log(a);
-		// console.log('wwwwwwwwwwwwwwwwwww');
-	  // dispatch(socketConnection(socket));
-	// });
 	
 	
 	socket.on('refresh_feed_'+cus_id,function(msg){
@@ -110,13 +98,6 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 			
 	$('input[type="submit"]').click(function(event){
 		let send_message = $('textarea[name="send_message"]').val();
-		
-		// console.log({
-			// mission_id:mission_id,
-			// user_id:cus_id,
-			// message:send_message,
-			// action_message: action_message
-		// });
 		socket.emit('op_message_center',{
 			mission_id:mission_id,
 			user_id:cus_id,

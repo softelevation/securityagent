@@ -56,7 +56,7 @@
                                 <label>{{__('dashboard.profile_image')}}</label><br>
                                 <div class="custom-file">
                                   <input type="file" name="image" class="custom-file-input" id="profilePicImage"/>
-                                  <label class="custom-file-label" for="profilePicImage">@if(isset($profile['image'])) {{$profile['image']}} @else {{__('dashboard.upload_image')}} @endif</label>
+                                  <label class="custom-file-label" for="profilePicImage">@if(isset($profile['image'])) {{substr($profile['image'], 13, 100)}} @else {{__('dashboard.upload_image')}} @endif</label>
                                 </div>
                               </div>
                             </div>
