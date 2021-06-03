@@ -46,7 +46,7 @@
                         <h3>{{__('dashboard.agents.docs')}}</h3>
                         <div class="row document-details">
                           @if($agent->cv)
-                          <a href="{{asset('agent/documents/'.$agent->cv)}}" target="_blank" class="col-md-2 text-center hover-box" title="Curriculam Vitae">
+                          <a href="{{Helper::api_url($agent->cv)}}" target="_blank" class="col-md-2 text-center hover-box" title="Curriculam Vitae">
                             <i class="fas fa-file"></i> <br>
                           </a>
                           @endif
