@@ -16,7 +16,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
                   <h2>{{__('dashboard.mission.message_center')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
+                  <a class="back back_btn" href="javascript:void(0)"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="tab-pane">
@@ -88,11 +88,6 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 	
 	$('input[type="submit"]').click(function(event){
 		let send_message = $('textarea[name="send_message"]').val();
-		// console.log({
-			// mission_id:0,
-			// token:"{{Auth::user()->token}}",
-			// message:send_message
-		// });
 		socket.emit('message_center',{
 			mission_id:0,
 			token:"{{Auth::user()->token}}",
@@ -100,15 +95,6 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
 		});
 		
 		location.reload();
-		
-		// console.log(send_message);
-		// socket.emit('op_message_center',{
-			// mission_id:mission_id,
-			// user_id:cus_id,
-			// message:send_message
-		// });
-		// $('textarea[name="send_message"]').val('');
-		// $(".message_last").after('<p class="'+response.message_type+'"><b>'+response.message+' :</b>'+message+'</p>');
 	});
 </script>
 @endsection

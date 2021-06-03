@@ -549,6 +549,10 @@ $(document).ready(function () {
 			}
 		});
 		
+		$(document).on('click', 'a[class="back back_btn"]', function () {
+			window.history.back();
+		});
+		
 		
 });
 

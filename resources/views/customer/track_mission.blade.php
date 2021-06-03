@@ -42,7 +42,7 @@
 @endsection
 
 @section('script')
-	<script type="text/javascript" src="http://maps.google.com/maps/api/js?key={{ Helper::google_api_key() }}"></script>
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js?key={{ Helper::google_api_key() }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key={{ Helper::google_api_key() }}&libraries=places&callback=initAutocomplete"
         async defer></script>
 	<script src="{{ Helper::api_url('socket.io/socket.io.js') }}"></script>
@@ -62,16 +62,27 @@
             center: new google.maps.LatLng(lat, longs),
             zoom: zoomVal,
             mapTypeId: google.maps.MapTypeId.ROADMAP
-        };    
+        };
         map = new google.maps.Map(document.getElementById("agentMap"), mapOptions);
 		let marker_s = 'https://beontime.io/avatars/marker-male.png';
-        addMarkers(lat,longs,username,marker_s);
+		
+		socket.on('agent_location_'+mission_id,function(msg){
+			console.log(msg);
+			if(msg){
+				// initMap(zoomVal, msg.latitude,msg.longitude,username); 
+				addMarkers(msg.latitude,msg.longitude,username,marker_s);
+			}
+			// initMap(zoomVal, msg.latitude,msg.longitude); 
+		});
+		
+        // addMarkers(lat,longs,username,marker_s);
     }
-
+	// setMap
     function addMarkers(lat,longs,username,marker_s) {
         var infowindow = new google.maps.InfoWindow();
         var bounds = new google.maps.LatLngBounds();
         var marker, i;
+		marker.setMap(null);
           marker = new google.maps.Marker({
             position: new google.maps.LatLng(lat, longs),
             map: map,
@@ -87,16 +98,13 @@
           })(marker, i));
           markArray.push(marker);
     }
-    // window.onload = function(){
+    window.onload = function(){
+		initMap(zoomVal,'30.401071024414478','76.74540037318917',username);
+	}
+	// { "lat": 30.398503098263316, "lng": 76.7535998861477 }
+
 		// addMarkers(lat,longs,username,marker_s);
-	initMap(zoomVal,'30.393908','76.768404',username);
-	socket.on('agent_location_'+mission_id,function(msg){
-		console.log(msg);
-		if(msg){
-			initMap(zoomVal, msg.latitude,msg.longitude,username); 
-		}
-		// initMap(zoomVal, msg.latitude,msg.longitude); 
-	});
+	
 	
     </script>
 @endsection

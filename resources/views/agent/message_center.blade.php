@@ -16,7 +16,7 @@ div.ex1 {background-color: lightblue; height: 325px; overflow: scroll; padding: 
                   <h2>{{__('dashboard.mission.message_center')}}</h2>
               </div>
               <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
+                  <a class="back back_btn" href="javascript:void(0)"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
               </div>
               <div class="clearfix"></div>
               <div class="tab-pane">

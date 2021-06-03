@@ -925,9 +925,7 @@ class OperatorController extends Controller
     }
 
     public function agent_information(){
-        $res = Mission::get_agent_info(3);
-        $data['res_data'] = $res;
-        return view('agent_information',$data);
+        return view('agent_information');
     }
 	
 	public function privacyPolicy(){
