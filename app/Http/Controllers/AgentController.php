@@ -350,10 +350,17 @@ class AgentController extends Controller
      */
     public function viewAgentDetails($agent_id,$distance){
         $agent_id = Helper::decrypt($agent_id);
-		$feedback = Feedback::where('agent_id',$agent_id);
-		$rating = Helper::agent_rating($feedback->get()->toArray());
-        $agent = Agent::where('id',$agent_id)->first();
-        return view('view-agent-details',['agent'=>$agent,'distance'=>$distance,'rating'=>$rating,'feedbacks'=>$feedback->get()]);
+		$agent = $this->Make_GET('customer/agents-details/'.$agent_id);
+		
+		// echo '<pre>';
+		// print_r($agent);
+		// die;
+		
+		// $feedback = Feedback::where('agent_id',$agent_id);
+		// $rating = Helper::agent_rating($feedback->get()->toArray());
+        // $agent = Agent::where('id',$agent_id)->first();
+		// ,'distance'=>$distance,'rating'=>$rating,'feedbacks'=>$feedback->get()
+        return view('view-agent-details',['agent'=>$agent->data,'distance'=>$distance]);
     }
 
     /**

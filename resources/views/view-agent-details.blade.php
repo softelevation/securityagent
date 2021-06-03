@@ -11,18 +11,18 @@
                     <div class="col-md-3 text-center">
                       <div>
 						@if($agent->image && !empty($agent->image))
-							<img class="rounded-circle avatar-image" src="{{asset('profile_images/'.$agent->image)}}">
+							<img class="rounded-circle avatar-image" src="{{Helper::api_url($agent->image)}}">
 						@else
 							<img class="rounded-circle avatar-image" src="{{asset('avatars/'.$agent->avatar_icon)}}">
 						@endIf
                       </div>
                       <div class="pt-3">
                         <p class="review-star">
-                                <span class="fa fa-star @if($rating >= 1) checked @endIf"></span>
-                                <span class="fa fa-star @if($rating >= 2) checked @endIf"></span>
-                                <span class="fa fa-star @if($rating >= 3) checked @endIf"></span>
-                                <span class="fa fa-star @if($rating >= 4) checked @endIf"></span>
-                                <span class="fa fa-star @if($rating >= 5) checked @endIf"></span>
+                                <span class="fa fa-star @if($agent->rating >= 1) checked @endIf"></span>
+                                <span class="fa fa-star @if($agent->rating >= 2) checked @endIf"></span>
+                                <span class="fa fa-star @if($agent->rating >= 3) checked @endIf"></span>
+                                <span class="fa fa-star @if($agent->rating >= 4) checked @endIf"></span>
+                                <span class="fa fa-star @if($agent->rating >= 5) checked @endIf"></span>
                         </p>
                       </div>
                       <div>
@@ -40,7 +40,7 @@
                       <div class="">
                         <h4>{{$agent->username}}</h4>
                         <hr>
-                        <h6>{{Helper::get_agent_type_name_multiple($agent->types)}}</h6>
+                        <h6>{{Helper::get_agent_type_name_multiple($agent->agent_type)}}</h6>
                       </div>
                       <div class="mt-4">
                         <h3>{{__('dashboard.agents.docs')}}</h3>
@@ -50,13 +50,13 @@
                             <i class="fas fa-file"></i> <br>
                           </a>
                           @endif
-                          @php $agentTypes = $agent->types; $diploma=0; $dog = 0; @endphp
+                          @php $agentTypes = explode(',',$agent->agent_type); $diploma=0; $dog = 0; @endphp
                           @foreach($agentTypes as $type)
-                            @if($type->agent_type==1 || $type->agent_type==2 || $type->agent_type==3) 
+                            @if($type==1 || $type==2 || $type==3) 
                               @php $diploma = 1; @endphp
                             @endif
-                            @if($type->agent_type==6) 
-                              @php $dog = 1; $dogDoc = $type->dog_info; @endphp
+                            @if($type==6) 
+                              @php $dog = 1; $dogDoc = $type; @endphp
                             @endif
                           @endforeach
 
@@ -68,17 +68,13 @@
 
                         </div>
                       </div>
-                      <div class="row">
+					  <div class="row">
                         <div class="col-md-12">
                           <h3>{{__('dashboard.agents.reviews')}}</h3>
-						  @foreach($feedbacks as $feedback)
+						  @foreach($agent->feedbacks as $feedback)
                           <div class="row review-wrapper">
                             <div class="review-img">
-							@if($feedback->customer_details->image)
-								<img class="img-circle" src="{{asset('profile_images/'.$feedback->customer_details->image)}}">
-							@else
 								<img class="img-circle" src="{{asset('avatars/dummy_avatar.jpg')}}">
-							@endIf
                             </div>
                             <div class="review-text">
                               <P>{{$feedback->message}}</P>
@@ -94,6 +90,7 @@
 						  @endforeach
                         </div>
                       </div>
+                     
                     </div>
                   </div>
                 </div>
