@@ -7,7 +7,7 @@ use Edujugon\PushNotification\PushNotification;
 use Mail;
 use App\Mission;
 use App\Agent;
-use App\CustomerNotification;
+// use App\CustomerNotification;
 use App\Notification;
 use App\PaymentApproval;
 use App\RefundRequest;
@@ -383,7 +383,7 @@ class Helper {
         if(Auth::check() && Auth::user()->role_id==2){
             $agent_id = Auth::user()->profile->id;
             $count = Notification::where('agent_id',$agent_id)
-                            ->where('status',1)
+                            ->where('status',1)->where('type','cus_new_mission')
                             ->count();
         }
         return $count;
@@ -434,9 +434,9 @@ class Helper {
     public static function get_customer_notification_count(){
         $count = 0;
         if(Auth::check() && Auth::user()->role_id==1){
-            $customer_id = Auth::user()->customer_info->id;
-            $count = CustomerNotification::where('customer_id',$customer_id)
-                            ->where('status',0)
+            $customer_id = Auth::user()->profile->id;
+            $count = Notification::where('customer_id',$customer_id)
+                            ->where('status',1)->where('type','!=','cus_new_mission')
                             ->count();
         }
         return $count;
@@ -450,7 +450,7 @@ class Helper {
         $data = null;
         if(Auth::check() && Auth::user()->role_id==1){
             $customer_id = Auth::user()->customer_info->id;
-            $data = CustomerNotification::where('customer_id',$customer_id)->where('status',0)->get();
+            $data = Notification::where('customer_id',$customer_id)->where('status',1)->where('type','!=','cus_new_mission')->get();
         }
         return $data;
     }

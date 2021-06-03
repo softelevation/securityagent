@@ -94,7 +94,7 @@
 										<div class="dropdown">
 											<a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
 											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-												<a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
+												<a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
 												<a href="{{url('agent/report-view')}}/{{Helper::encrypt($mission->id)}}" class="dropdown-item"><i class="fas fa-rss-square" aria-hidden="true"></i> {{__('frontend.text_155')}}</a>
 											</div>
 										</div>

@@ -12,13 +12,14 @@ use App\Mission;
 use App\UserPaymentHistory;
 use App\FailedPayment;
 use App\Customer;
+use App\Notification;
 use App\Operator;
 use App\MessageCenter;
 use App\Agent;
 use App\RejectedMission;
 use Carbon\Carbon;
 use App\Helpers\Helper;
-use App\CustomerNotification;
+// use App\CustomerNotification;
 use App\Notifications\MissionCreated;
 use App\Notifications\PaymentDone;
 use App\PaymentApproval;
@@ -93,6 +94,7 @@ class MissionController extends Controller
      */
     public function viewMissionRequests(Request $request){
 		
+		Notification::where('agent_id',Auth::user()->profile->id)->where('type','cus_new_mission')->update(array('status'=>0));
 		$awaitingRequests = $this->Make_GET('agent/mission-requests');
 		
         // $awaitingRequests = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',0)
@@ -298,7 +300,7 @@ class MissionController extends Controller
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()  
                 );
-                CustomerNotification::insert($notification);
+                // CustomerNotification::insert($notification);
                 /*----Customer Notification-----*/
                 $mailContent = [
                     'name' => ucfirst($data->customer_details->first_name),
@@ -423,14 +425,14 @@ class MissionController extends Controller
         if($result){
             // Update agent's availability status
             Agent::where('id',$data->agent_id)->update(['available'=>1]);
-            $notification = array(
-                'customer_id' => $data->customer_id,
-                'mission_id' => $mission_id,
-                'content' => 'messages.mission_finished',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()  
-            );
-            CustomerNotification::insert($notification);
+            // $notification = array(
+                // 'customer_id' => $data->customer_id,
+                // 'mission_id' => $mission_id,
+                // 'content' => 'messages.mission_finished',
+                // 'created_at' => Carbon::now(),
+                // 'updated_at' => Carbon::now()  
+            // );
+            // CustomerNotification::insert($notification);
             /*----Customer Notification-----*/
             $mailContent = [
                 'name' => ucfirst($data->customer_details->first_name),

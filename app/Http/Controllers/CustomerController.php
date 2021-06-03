@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Validators\CustomerValidator;
 use App\Traits\ResponseTrait;
 use App\Traits\CurlTrait;
-use App\CustomerNotification;
+use App\Notification;
 use App\Customer;
 use App\Operator;
 use App\MessageCenter;
@@ -129,7 +129,7 @@ class CustomerController extends Controller
     public function processNotifications(Request $request){
         $id = $request->notification_id;
         $url = $request->notification_url;
-        $result = CustomerNotification::where('id',$id)->update(['status'=>1]);
+        $result = Notification::where('id',$id)->update(['status'=>0]);
         if($result){
             $response['message'] = trans('messages.please_wait');
             $response['delayTime'] = 1000;
