@@ -16,9 +16,9 @@
                             <li class="nav-item">
                                 <a href="{{url('operator/missions')}}" class="nav-link"><i class="fa fa-edit"></i> {{__('dashboard.missions')}}</a>
                             </li>
-							<li class="nav-item">
+							<!-- li class="nav-item">
                                 <a href="{{url('operator/mission-requests')}}" class="nav-link"><i class="fa fa-edit"></i> {{__('dashboard.mission_requests')}}</a>
-                            </li>
+                            </li -->
                             <li class="nav-item">
                                 <a href="{{url('operator/missions-without-agents')}}" class="nav-link"><i class="fa fa-user-slash"></i> {{__('dashboard.mission.without_agents')}} @if(Helper::get_mission_without_agent_count() > 0)<span class="badge badge-primary badge-pill float-right orange_bg">{{Helper::get_mission_without_agent_count()}}</span>@endif</a>
                             </li>

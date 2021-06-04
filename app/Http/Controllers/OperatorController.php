@@ -68,37 +68,30 @@ class OperatorController extends Controller
      * @method viewAgentsList
      * @purpose View Agents List
      */
-    public function viewAgentsList(Request $request){  
-	
-	
-		$mission_All = (array)$this->Make_GET('operator/agents')->data;
-
-        // $pendingAgents = Agent::where('status',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'pending');
-        // $verifiedAgents = Agent::where('status','!=','')->whereIn('status',[1,3])->orderBy('id','DESC')->paginate($this->limit,['*'],'verified');
-		
-		$pendingAgents = $mission_All['pending_agents'];
-        $verifiedAgents = $mission_All['verified_agents'];
-		
-		// echo '<pre>';
-		// print_r($pendingAgents);
-		// die;
-		
-        $params = [
-            'pending_agents' => $pendingAgents,
-            'verified_agents' => $verifiedAgents,
-            'page_no' => 1,
-            'page_name' => 'pending'
-        ];
-		
-        if($request->isMethod('get')){
-            if(!empty($request->all())){
-                $pageName = array_keys($request->all());
-                $pageNo = array_values($request->all());
-                $params['page_no'] = $pageNo[0]; 
-                $params['page_name'] = $pageName[0];
-            }
-        } 
-        return view('operator.agents_list',$params);
+    public function viewAgentsList(Request $request){
+		try {
+			$mission_All = (array)$this->Make_GET('operator/agents')->data;
+			$pendingAgents = $mission_All['pending_agents'];
+			$verifiedAgents = $mission_All['verified_agents'];
+			
+			$params = [
+				'pending_agents' => $pendingAgents,
+				'verified_agents' => $verifiedAgents,
+				'page_no' => 1,
+				'page_name' => 'pending'
+			];
+			if($request->isMethod('get')){
+				if(!empty($request->all())){
+					$pageName = array_keys($request->all());
+					$pageNo = array_values($request->all());
+					$params['page_no'] = $pageNo[0]; 
+					$params['page_name'] = $pageName[0];
+				}
+			} 
+			return view('operator.agents_list',$params);
+		}catch(\Exception $e){
+			return redirect('/');
+        }
     }
 	
 	public function reportPdf($agent_id){

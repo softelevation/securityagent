@@ -60,12 +60,15 @@
                                     <td>{{Helper::get_agent_type_name_multiple($agent->agent_type)}}</td>
                                     <td>{{$agent->email}}</td>
                                     <td>
-                                      <a class="action_icons" href="{{url('operator/agent/view/'.$en_id)}}"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a></br>
-                                     
-                                      @if(Auth::user()->role_id == 3)
-                                        <a class="action_icons" onclick="return confirm('<?php echo __('dashboard.confirm_delete'); ?>');" href="{{url('operator/agent/delete/'.$en_id)}}"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </a>
-                                      @endif
-
+									<div class="dropdown">
+										<a class="action_icons dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fas fa-list text-grey" aria-hidden="true"></i> Actions</a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+												<a href="{{url('operator/agent/view/'.$en_id)}}" class="dropdown-item"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}}</a>
+											@if(Auth::user()->role_id == 3)
+												<a class="dropdown-item" onclick="return confirm('<?php echo __('dashboard.confirm_delete'); ?>');" href="{{url('operator/agent/delete/'.$en_id)}}"> <i class="fa fa-trash" aria-hidden="true"></i> Delete </a>
+											@endif
+											</div>
+									</div>
                                     </td>
                                 </tr>
                               @endforeach
@@ -113,8 +116,7 @@
                                       @else
                                         <a id="{{Helper::encrypt($agent->id)}}" data-type="1" class="action_icons block_un_agent" href="javascript:void(0)"><i class="fas fa-toggle-on text-grey" aria-hidden="true"></i> {{__('dashboard.block')}}</a>
                                       @endif
-									  <p><a href="{{url('operator/report')}}/{{Helper::encrypt($agent->id)}}" class="action_icons"><i class="fas fa-rss-square" aria-hidden="true"></i></a></p>
- 
+									  <p><a href="{{url('operator/report')}}/{{Helper::encrypt($agent->id)}}" class="action_icons"><i class="fas fa-rss-square" aria-hidden="true"></i> Report</a></p>
                                     </td>
                                 </tr>
                               @endforeach
