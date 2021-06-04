@@ -262,7 +262,7 @@ input[type=submit]:hover {
                             <div class="text-gray-light">{{__('dashboard.customer_details')}}:</div>
                             <p class="to">{{$data->first_name}} {{$data->last_name}}</p>
                             <div class="address">{{$data->home_address}}</div>
-                            <div class="email"><a href="mailto:{{$email}}">{{$email}}</a></div>
+                            <div class="email"><a href="mailto:{{$data->email}}">{{$data->email}}</a></div>
                         </div>
                         <div class="pull-right">
                             <h2 class="invoice-id">REC-000-{{$data->id}}</h2>

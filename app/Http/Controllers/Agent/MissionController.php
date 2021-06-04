@@ -79,10 +79,6 @@ class MissionController extends Controller
     public function viewMissionDetails($mission_id){
         $mission_id = Helper::decrypt($mission_id);
 		$data['mission'] = $this->Make_GET('agent/mission/'.$mission_id)->data;
-		// echo '<pre>';
-		// print_r($awaitingRequests);
-		// die;
-        // $data['mission'] = Mission::where('id',$mission_id)->first();
         return view('agent.view_mission_details',$data);
     }
 

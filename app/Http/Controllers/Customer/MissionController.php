@@ -333,6 +333,7 @@ class MissionController extends Controller
     public function findMissionAgent($id){
         $id = Helper::decrypt($id);
 		$mission = $this->Make_GET('customer/mission-details/'.$id)->data;
+		$chargeAmount = $mission->amount;
 		if($mission->quick_book==0){
             $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
         }
@@ -367,16 +368,17 @@ class MissionController extends Controller
 		try{
 			
 			$mission_id = Helper::decrypt($id);
-            $mission = Mission::where('id',$mission_id)->first();
-			$email = Auth::user()->email;
-			$data = Customer::where('user_id',Auth::user()->id)->first();
+			
+			$missionData = $this->Make_GET('customer/mission-details/'.$mission_id);
+            $mission = $missionData->data;
+			$data = $this->Make_GET('profile')->data;
 			$chargeAmount = $mission->amount;
             if($mission->quick_book==0){
                 $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
             }
 			// return view('pdf.save_pdf_proceed',['mission'=>$mission,'data'=>$data,'email'=>$email]);
 			$customPaper = array(0,0,500.00,850.80);
-			$pdf = \PDF::loadView('pdf.save_pdf_proceed', ['mission'=>$mission,'data'=>$data,'email'=>$email,'charge_amount'=>$chargeAmount])->setPaper($customPaper, 'landscape');
+			$pdf = \PDF::loadView('pdf.save_pdf_proceed', ['mission'=>$mission,'data'=>$data,'charge_amount'=>$chargeAmount])->setPaper($customPaper, 'landscape');
 			return $pdf->download('invoice.pdf');
 		}catch(\Exception $e){
             return $this->getErrorResponse($e->getMessage());

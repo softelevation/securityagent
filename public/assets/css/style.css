@@ -1460,3 +1460,6 @@ a.disabled{
     background-color: white;
     border-radius: 2px;
 }
+label#reason-error {
+    color: red;
+}

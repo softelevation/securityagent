@@ -141,7 +141,7 @@
                 <div class="reject_reason">
                   <div class="form-group">
                     <label>{{__('dashboard.specify_reason')}}</label>
-                    <textarea name="reason" class="form-control"></textarea>
+                    <textarea name="reason" class="form-control" required></textarea>
                   </div>
                 </div>
               </div>
