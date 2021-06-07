@@ -429,12 +429,26 @@ class OperatorController extends Controller
     }
 	
 	public function reportView($mission_id){
-		$result = $this->Make_GET('operator/report-view/'.Helper::decrypt($mission_id));
-		// $feature = Report::where('mission_id',Helper::decrypt($mission_id))->first();
-		// echo '<pre>';
-		// print_r($result);
-		// die;
-        return view('operator.report-view')->with('mission',$result->data);
+		try{
+			$object = (object)array();
+			$result = $this->Make_GET('operator/report-view/'.Helper::decrypt($mission_id));
+			
+			if($result->data->report){
+				$report = $result->data->report;
+				$object = (object) array_filter((array) $report, function ($val) {
+					return ($val != 'null') ? $val : '';
+				});
+				$object->intervention = (isset($report->intervention)) ? true : false;
+			}
+			
+			// $feature = Report::where('mission_id',Helper::decrypt($mission_id))->first();
+			// echo '<pre>';
+			// print_r($result);
+			// die;
+			return view('operator.report-view')->with('report',$object);
+		}catch(\Exception $e){
+			return redirect('operator/missions');
+        }
     }
 
     public function createSubMissions($mission_id){

@@ -26,14 +26,14 @@
 							<table class="table table-hover table-striped">
 								<tbody>
 									<tr>
-										<td>{{Form::checkbox('intervention',1,($mission->report->intervention) ? true:false)}} <label>INTERVENTION</label></td>
+										<td>{{Form::checkbox('intervention',1,($report->intervention) ? true:false)}} <label>INTERVENTION</label></td>
 									</tr>
 								</tbody>
 							</table>
 							<div class="row">
 								<div class="col-md-4 form-group">
 								  <label>Date</label>
-								<span class="form-control">{{ date("d-m-Y",strtotime($mission->report->date)) }}</span>
+								<span class="form-control">{{ date("d-m-Y",strtotime($report->date)) }}</span>
 								</div>
 								<div class="col-md-2 form-group">
 								</div>
@@ -45,9 +45,9 @@
 							<table class="table table-hover table-striped">
 								<tbody>
 									<tr>
-										<td><label>HEURE APPEL :</label> <span class="form-control">{{$mission->report->heure_appel}}</span></td>
-										<td><label>HEURE ARRIVEE :</label> <span class="form-control">{{$mission->report->heure_arivve}}</span></td>
-										<td><label>HEURE DE DEPART :</label> <span class="form-control">{{$mission->report->heure_de_depart}}</span></td>
+										<td><label>HEURE APPEL :</label> <span class="form-control">{{$report->heure_appel}}</span></td>
+										<td><label>HEURE ARRIVEE :</label> <span class="form-control">{{$report->heure_arivve}}</span></td>
+										<td><label>HEURE DE DEPART :</label> <span class="form-control">{{$report->heure_de_depart}}</span></td>
 									</tr>
 								</tbody>
 							</table>
@@ -56,69 +56,69 @@
 									<tr>
 										<td>Constat météo</td>
 										<td>
-											{{$mission->report->constat_meteo}}
+											{{isset($report->constat_meteo) ? $report->constat_meteo : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Circulation</td>
 										<td>
-											{{$mission->report->circulation}}
+											{{isset($report->circulation) ? $report->circulation : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Circuit de Vérification</td>
 										<td>
-											{{$mission->report->circuit_de_verification}}
+											{{isset($report->circuit_de_verification) ? $report->circuit_de_verification : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Lumière allumée</td>
 										<td>
-											{{$mission->report->lumiere_allumee}}
+											{{isset($report->lumiere_allumee) ? $report->lumiere_allumee : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Issues(s) ouvertes(s)</td>
 										<td>
-											{{$mission->report->issues_ouvertes}}
+											{{isset($report->issues_ouvertes) ? $report->issues_ouvertes : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Sirène en fonction</td>
 										<td>
-											{{$mission->report->sirene_en_fonction}}
+											{{isset($report->sirene_en_fonction) ? $report->sirene_en_fonction : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Système</td>
 										<td>
-											{{$mission->report->systeme}}
+											{{isset($report->systeme) ? $report->systeme : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Remise en service du système</td>
 										<td>
-											{{$mission->report->remise_en_service_du_systeme}}
+											{{isset($report->remise_en_service_du_systeme) ? $report->remise_en_service_du_systeme : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Effraction constatée</td>
 										<td>
-											{{$mission->report->effraction_constatee}}
+											{{isset($report->effraction_constatee) ? $report->effraction_constatee : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>{{__('dashboard.comments')}}</td>
 										<td>
-											<span>{{$mission->report->description}}</span>
+											<span>{{isset($report->description) ? $report->description : 'N/A'}}</span>
 										</td>
 									</tr>
-									@if($mission->report->signature)
+									@if(isset($report->signature) && $report->signature)
 									<tr>
 										<td>{{__('dashboard.report.signature')}}</td>
 										<td>
 											<div class="profile_img">
-												<img src="{{ Helper::api_url($mission->report->signature) }}" class="img-fluid" style="width: 260px;">
+												<img src="{{ Helper::api_url($report->signature) }}" class="img-fluid" style="width: 260px;">
 											</div>
 										</td>
 									</tr>
