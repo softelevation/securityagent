@@ -24,7 +24,7 @@ trait AgentValidator
             $validations = array(
                 'date' => 'required',
                 'heure_appel' => 'required',
-                'heure_arrivee'    => 'required',
+                'heure_arivve'    => 'required',
                 'heure_de_depart'     => 'required',
             );
             $validator = Validator::make($request->all(),$validations);

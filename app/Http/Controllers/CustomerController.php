@@ -52,6 +52,9 @@ class CustomerController extends Controller
             }
 			$post = array_except($request->all(),['_token','password_confirmation','captcha']);
 			$result = $this->Make_Login('customer/signup',$post);
+			echo '<pre>';
+			print_r($result);
+			die;
 			if($result->status){
                 $response['url'] = url('/');
 				$response['message'] = trans('messages.user_registered');

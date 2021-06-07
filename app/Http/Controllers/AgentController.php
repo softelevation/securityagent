@@ -229,8 +229,8 @@ class AgentController extends Controller
      */
 	public function report($mission_id){
 		$newFeature = array();
-		$mission_id =  285; // Helper::decrypt($mission_id)
-		$result = $this->Make_POST('agent/mission-report',array('mission_id'=>$mission_id));
+		// $mission_id =  285; // Helper::decrypt($mission_id)
+		$result = $this->Make_POST('agent/mission-report',array('mission_id'=>Helper::decrypt($mission_id)));
 		
 		// $newFeatureData = Report::where('mission_id',$mission_id)->first();
 		// $number = Report::select('id')->orderBy('id', 'DESC')->first();
@@ -254,26 +254,33 @@ class AgentController extends Controller
 	public function reportUpdate($mission_id, Request $request) {
 		
 		// NewFeature
-		$inputDate = $request->all();
-		echo '<pre>';
-		print_r($inputDate);
-		die;
+		$input = $request->all();
+		$input['mission_id'] = Helper::decrypt($mission_id);
+		
+		$inputDate = array_except($input,['_token']);
+		
+		
 		$validation = $this->agentNewFeatureValidations($request);
+		
+		
         
 		if($validation['status']==false){
 			return response($this->getValidationsErrors($validation));
 		}
 			
-		unset($inputDate['_token']);
-		$inputDate['mission_id'] = Helper::decrypt($mission_id);
-		$inputDate['date'] = Carbon::parse($request->date)->format('yy-m-d');
-		$inputDate['status'] = 1;
-		$report_id = Report::updateOrCreate(array('mission_id'=>$inputDate['mission_id']),$inputDate);
+		// unset($inputDate['_token']);
+		// $inputDate['mission_id'] = Helper::decrypt($mission_id);
+		$inputDate['date'] = Carbon::parse($request->date)->format('Y-m-d');
+		// $inputDate['status'] = 1;
+		
+		$report_id = $this->Make_POST('agent/mission-report',$inputDate);
+		
+		// $report_id = Report::updateOrCreate(array('mission_id'=>$inputDate['mission_id']),$inputDate);
 		$response['message'] = trans('messages.new_feature_save');
 		$response['delayTime'] = 2000;
 		$response['modelShow'] = true;
-		$response['report_id'] = $report_id;
-		// $response['url'] = url('agent/missions');
+		$response['report_id'] = $mission_id;
+		// $response['url'] = url('agent/report/'.$mission_id);
 		return response($this->getSuccessResponse($response));
 	}
 	
@@ -285,16 +292,19 @@ class AgentController extends Controller
 		if($validation['status']==false){
 			return response($this->getValidationsErrors($validation));
 		}
-		$folderPath = public_path('agent/signature/');
-		$image_parts = explode(";base64,", $request->signature);
-		$image_type_aux = explode("image/", $image_parts[0]);
-		$image_type = $image_type_aux[1];
-		$image_name = uniqid() . '.'.$image_type;
-		$image_base64 = base64_decode($image_parts[1]);
-		$file = $folderPath . $image_name;
-		file_put_contents($file, $image_base64);
-		$mission_id = Helper::decrypt($mission_id);
-		Report::where('mission_id',$mission_id)->update(array('signature'=>$image_name));
+		
+		$inputDate = array_except($request->all(),['_token']);
+		$inputDate['mission_id'] = Helper::decrypt($mission_id);
+		
+		$this->Make_POST('agent/mission-report-signature',$inputDate);
+		
+		// $mission_id = 
+		// echo '<pre>';
+		// print_r($inputDate);
+		// die;
+		
+		
+		// Report::where('mission_id',$mission_id)->update(array('signature'=>$image_name));
 		$response['message'] = trans('messages.new_feature_save');
 		$response['delayTime'] = 2000;
 		$response['success']  = true;

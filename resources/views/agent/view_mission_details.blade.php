@@ -259,7 +259,7 @@
 			location.reload();
 		}
 		if(form.name == 'finish-mission'){
-			let mission_id = '{{ url("/agent/report") }}/'+"{{Helper::encrypt('"+form.mission_id.value+"')}}";
+			let mission_id = '{{ url("/agent/report") }}/'+"{{Helper::encrypt($mission->mission->id)}}";
 			socket.emit('finish_mission',{mission_id: form.mission_id.value, token: "{{Auth::user()->token}}"});
 			window.location.href = mission_id;
 		}
