@@ -82,8 +82,16 @@ class MissionController extends Controller
 	
 	public function reportView($mission_id){
 		try{
+			$report = array();
 			$mission = $this->Make_GET('customer/mission-details/'.Helper::decrypt($mission_id));
-			return view('customer.report-view')->with('mission',$mission->data);
+			if($mission->data->report){
+				$report = $mission->data->report;
+				$object = (object) array_filter((array) $report, function ($val) {
+					return ($val != 'null') ? $val : '';
+				});
+				$object->intervention = (isset($report->intervention)) ? true : false;
+			}
+			return view('customer.report-view')->with('report',$object);
 		}catch(\Exception $e){
 			return redirect('customer/missions');
         }

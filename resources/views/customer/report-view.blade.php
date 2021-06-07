@@ -26,14 +26,14 @@
 							<table class="table table-hover table-striped">
 								<tbody>
 									<tr>
-										<td>{{Form::checkbox('intervention',1,($mission->report->intervention) ? true:false)}} <label>INTERVENTION</label></td>
+										<td>{{Form::checkbox('intervention',1,($report->intervention) ? true:false)}} <label>INTERVENTION</label></td>
 									</tr>
 								</tbody>
 							</table>
 							<div class="row">
 								<div class="col-md-4 form-group">
 								  <label>Date</label>
-								<span class="form-control">{{ isset($mission->report->date) ? date("d-m-Y",strtotime($mission->report->date)) : 'N/A' }}</span>
+								<span class="form-control">{{ isset($report->date) ? date("d-m-Y",strtotime($report->date)) : 'N/A' }}</span>
 								</div>
 								<div class="col-md-2 form-group">
 								</div>
@@ -45,9 +45,9 @@
 							<table class="table table-hover table-striped">
 								<tbody>
 									<tr>
-										<td><label>HEURE APPEL :</label> <span class="form-control">{{isset($mission->report->heure_appel) ? $mission->report->heure_appel : 'N/A'}}</span></td>
-										<td><label>HEURE ARRIVEE :</label> <span class="form-control">{{isset($mission->report->heure_arivve) ? $mission->report->heure_arivve : 'N/A'}}</span></td>
-										<td><label>HEURE DE DEPART :</label> <span class="form-control">{{isset($mission->report->heure_de_depart) ? $mission->report->heure_de_depart : 'N/A'}}</span></td>
+										<td><label>HEURE APPEL :</label> <span class="form-control">{{isset($report->heure_appel) ? $report->heure_appel : 'N/A'}}</span></td>
+										<td><label>HEURE ARRIVEE :</label> <span class="form-control">{{isset($report->heure_arivve) ? $report->heure_arivve : 'N/A'}}</span></td>
+										<td><label>HEURE DE DEPART :</label> <span class="form-control">{{isset($report->heure_de_depart) ? $report->heure_de_depart : 'N/A'}}</span></td>
 									</tr>
 								</tbody>
 							</table>
@@ -56,69 +56,69 @@
 									<tr>
 										<td>Constat météo</td>
 										<td>
-											{{isset($mission->report->constat_meteo) ? $mission->report->constat_meteo : 'N/A'}}
+											{{isset($report->constat_meteo) ? $report->constat_meteo : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Circulation</td>
 										<td>
-											{{isset($mission->report->circulation) ? $mission->report->circulation : 'N/A'}}
+											{{isset($report->circulation) ? $report->circulation : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Circuit de Vérification</td>
 										<td>
-											{{isset($mission->report->circuit_de_verification) ? $mission->report->circuit_de_verification : 'N/A'}}
+											{{isset($report->circuit_de_verification) ? $report->circuit_de_verification : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Lumière allumée</td>
 										<td>
-											{{isset($mission->report->lumiere_allumee) ? $mission->report->lumiere_allumee : 'N/A'}}
+											{{isset($report->lumiere_allumee) ? $report->lumiere_allumee : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Issues(s) ouvertes(s)</td>
 										<td>
-											{{isset($mission->report->issues_ouvertes) ? $mission->report->issues_ouvertes : 'N/A'}}
+											{{isset($report->issues_ouvertes) ? $report->issues_ouvertes : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Sirène en fonction</td>
 										<td>
-											{{isset($mission->report->sirene_en_fonction) ? $mission->report->sirene_en_fonction : 'N/A'}}
+											{{isset($report->sirene_en_fonction) ? $report->sirene_en_fonction : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Système</td>
 										<td>
-											{{isset($mission->report->systeme) ? $mission->report->systeme : 'N/A'}}
+											{{isset($report->systeme) ? $report->systeme : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Remise en service du système</td>
 										<td>
-											{{isset($mission->report->remise_en_service_du_systeme) ? $mission->report->remise_en_service_du_systeme : 'N/A'}}
+											{{isset($report->remise_en_service_du_systeme) ? $report->remise_en_service_du_systeme : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>Effraction constatée</td>
 										<td>
-											{{isset($mission->report->effraction_constatee) ? $mission->report->effraction_constatee : 'N/A'}}
+											{{isset($report->effraction_constatee) ? $report->effraction_constatee : 'N/A'}}
 										</td>
 									</tr>
 									<tr>
 										<td>{{__('dashboard.comments')}}</td>
 										<td>
-											<span>{{isset($mission->report->description) ? $mission->report->description : 'N/A'}}</span>
+											<span>{{isset($report->description) ? $report->description : 'N/A'}}</span>
 										</td>
 									</tr>
-									@if(isset($mission->report->signature) && $mission->report->signature)
+									@if(isset($report->signature) && $report->signature)
 									<tr>
 										<td>{{__('dashboard.report.signature')}}</td>
 										<td>
 											<div class="profile_img">
-												<img src="{{ Helper::api_url($mission->report->signature) }}" class="img-fluid" style="width: 260px;">
+												<img src="{{ Helper::api_url($report->signature) }}" class="img-fluid" style="width: 260px;">
 											</div>
 										</td>
 									</tr>
