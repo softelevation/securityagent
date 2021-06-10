@@ -48,63 +48,41 @@
 	<script src="{{ Helper::api_url('socket.io/socket.io.js') }}"></script>
     <script type="text/javascript">
 	let socket = io.connect("{{ Helper::api_url() }}");
-	// var search = '@php echo $mission_id; @endphp';
-    // var zoomVal = parseInt('@php echo $mission_id; @endphp');
-	
-    // var latitude = '48.8796835';
     var username = "{{$mission->agent->username}}";
 	var mission_id = {{$mission_id}};
     var zoomVal = 22;
+	// document.getElementById("agentMap")
     var map,
         markArray = [];
-    function initMap(zoomVal,lat,longs,username) {
-        var mapOptions = {
-            center: new google.maps.LatLng(lat, longs),
-            zoom: zoomVal,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        map = new google.maps.Map(document.getElementById("agentMap"), mapOptions);
-		let marker_s = 'https://beontime.io/avatars/marker-male.png';
-		
-		socket.on('agent_location_'+mission_id,function(msg){
-			console.log(msg);
-			if(msg){
-				// initMap(zoomVal, msg.latitude,msg.longitude,username); 
-				addMarkers(msg.latitude,msg.longitude,username,marker_s);
-			}
-			// initMap(zoomVal, msg.latitude,msg.longitude); 
-		});
-		
-        // addMarkers(lat,longs,username,marker_s);
-    }
-	// setMap
-    function addMarkers(lat,longs,username,marker_s) {
-        var infowindow = new google.maps.InfoWindow();
-        var bounds = new google.maps.LatLngBounds();
-        var marker, i;
-		marker.setMap(null);
-          marker = new google.maps.Marker({
-            position: new google.maps.LatLng(lat, longs),
-            map: map,
-            icon: marker_s,
-          });
-          bounds.extend(marker.position);
-          google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
-            return function() {
-              var contentString = username;
-              infowindow.setContent(contentString);
-              infowindow.open(map, marker);
-            }
-          })(marker, i));
-          markArray.push(marker);
-    }
-    window.onload = function(){
-		initMap(zoomVal,'30.401071024414478','76.74540037318917',username);
+    function initMap() {
+	  const myLatlng = { lat: -25.363, lng: 131.044 };
+	  const map = new google.maps.Map(document.getElementById("agentMap"), {
+		zoom: 4,
+		center: myLatlng,
+	  });
+	  const marker = new google.maps.Marker({
+		position: myLatlng,
+		map: map,
+		title: "Click to zoom",
+	  });
+	  map.addListener("center_changed", () => {
+		// 3 seconds after the center of the map has changed, pan back to the
+		// marker.
+		window.setTimeout(() => {
+		  map.panTo(marker.getPosition());
+		}, 3000);
+	  });
+	  marker.addListener("click", () => {
+		// map.setZoom(8);
+		// map.setCenter(marker.getPosition());
+		newLocation = new google.maps.LatLng('30.401071024414478','76.74540037318917');
+		marker.setPosition( newLocation );
+	  });
 	}
-	// { "lat": 30.398503098263316, "lng": 76.7535998861477 }
-
-		// addMarkers(lat,longs,username,marker_s);
-	
+    window.onload = function(){
+		// initMap(zoomVal,'30.401071024414478','76.74540037318917',username);
+		initMap();
+	}
 	
     </script>
 @endsection

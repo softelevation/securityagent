@@ -87,7 +87,7 @@
                   <div class="view_agent_details mt-4">
                     <div class="row">
                       <div class="col-md-4 form-group">
-                        <label>{{__('dashboard.agents.name')}}</label>
+                        <label>{{__('dashboard.agents.username')}}</label>
                         <span class="form-control">{{ucfirst($mission->agent->username)}}</span>
                       </div>
                       <div class="col-md-4 form-group">

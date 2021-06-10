@@ -379,7 +379,9 @@
     }
 
     function addMarkers() {
-        var locations = JSON.parse('@php echo $data @endphp');
+		// agent_type
+        // var locations = '@php echo $data @endphp';
+        var locations = [{"username":"user42","avatar_icon":"https://beontime.io/avatars/dummy_avatar.jpg","image":null,"agent_type":"2,1,3,4","lat":"48.8428464","long":"2.067866699999999","is_vehicle":1,"id":42,"marker":"https://beontime.io/avatars/marker-male.png","distance":10.75845535424175,"work_location_address":null,"agent_rating":5},{"username":"celineagent boulogne438","avatar_icon":"https://beontime.io/avatars/dummy_avatar.jpg","image":null,"agent_type":"2,1,3,4","lat":"48.8396952","long":"2.2399123","is_vehicle":1,"id":77,"marker":"https://beontime.io/avatars/marker-male.png","distance":12.225549473872766,"work_location_address":null,"agent_rating":5},{"username":"agent421","avatar_icon":"https://beontime.io/avatars/dummy_avatar.jpg","image":"agent-images/1619079867194IMG_0007.JPG","agent_type":"2,1,3,4","lat":"48.856614","long":"2.3522219","is_vehicle":1,"id":45,"marker":"https://beontime.io/avatars/marker-male.png","distance":14.505480910669574,"work_location_address":null,"agent_rating":5},{"username":"agent demo1212","avatar_icon":"https://beontime.io/avatars/dummy_avatar.jpg","image":null,"agent_type":"1,2,4","lat":"48.82640720000001","long":"2.3706772","is_vehicle":1,"id":73,"marker":"https://beontime.io/avatars/marker-male.png","distance":16.54920757399274,"work_location_address":null,"agent_rating":5},{"username":"agent98","avatar_icon":"https://beontime.io/avatars/dummy_avatar.jpg","image":"agent-images/1622716535437Murthal.jpg","agent_type":"1,4","lat":"48.745193","long":"2.401373","is_vehicle":1,"id":52,"marker":"https://beontime.io/avatars/marker-male.png","distance":21.71446752631482,"work_location_address":null,"agent_rating":5}];
         var infowindow = new google.maps.InfoWindow();
         var bounds = new google.maps.LatLngBounds();
         var marker, i;
@@ -432,8 +434,6 @@
     }
     window.onload = function(){ initMap(zoomVal); };
     </script>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key={{ Helper::google_api_key() }}"></script>
-
     <!-- Google Places API -->
     <script>
     var placeSearch, autocomplete;
