@@ -23,9 +23,13 @@ class PlivoSms
      */
     public static function sendSms($params){
 			$phone_Number = ltrim($params['phoneNumber']);
+			
 			if($phone_Number[0] != '+'){
 				$phone_Number = '+33'.$params['phoneNumber'];
 			}
+			
+			// print_r($phone_Number);
+			// die;
             $plivoClient = self::getClient();
             $message_created = $plivoClient->messages->create(
                 self::PLIVO_PHONE,
