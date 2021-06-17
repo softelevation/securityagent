@@ -47,27 +47,25 @@ class MissionController extends Controller
      * @purpose Get Customer Mission's List 
      */
     public function index(){
-		
-		$missionlist = $this->Make_GET('agent/mission-list')->data;
-		// echo '<pre>';
-		// print_r($missionlist);
-		// die;
-        // $missionInProgress = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',4)->orderBy('id','DESC')->get();
-        // $missionCompleted = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',5)->orderBy('id','DESC')->get();
-        $data['inprogress_mission'] = $missionlist->missionInProgress;
-        $data['finished_mission'] = $missionlist->missionCompleted;
-       
-        return view('agent.missions',$data);
+		try{
+			$missionlist = $this->Make_GET('agent/mission-list')->data;
+			$data['inprogress_mission'] = $missionlist->missionInProgress;
+			$data['finished_mission'] = $missionlist->missionCompleted;
+			return view('agent.missions',$data);
+		}catch(\Exception $e){
+			return redirect('agent/profile');
+        }
     }
 	
 	
 	public function missiontoStart(){
-        $statusArr = Helper::getMissionStatus();
-        $statusArr = array_flip($statusArr);
-    	$missionPending = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',3)->orderBy('id','DESC')->get();
-        $data['pending_mission'] = $missionPending;
-        $data['status_list'] = $statusArr;
-        return view('agent.mission-to-start',$data);
+		try{
+			$missionlist = $this->Make_GET('agent/mission-list')->data;
+			$data['pending_mission'] = $missionlist->missionPending;
+			return view('agent.mission-to-start',$data);
+		}catch(\Exception $e){
+			return redirect('agent/profile');
+        }
     }
 
     /**

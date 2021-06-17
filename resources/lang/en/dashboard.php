@@ -111,6 +111,8 @@ return [
 		'description' => 'Mission Description',
 		'mission_status' => 'Mission Status',
 		'hours_taken' => 'Total Hours Taken By Agent',
+		'travel_to_mission' => 'Travel to mission',
+		'arrived_to_mission' => 'Arrived on mission',
 		'start_mission' => 'Start Mission',
 		'finish_mission' => 'Finish Mission',
 		'accept_mission' => 'Accept Mission',

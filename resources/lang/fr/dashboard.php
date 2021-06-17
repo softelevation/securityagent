@@ -111,6 +111,8 @@ return [
 		'description' => 'Description de la mission',
 		'mission_status' => 'Statut de la mission',
 		'hours_taken' => "Nombre total d'heures prises par l'agent",
+		'travel_to_mission' => 'Voyage en mission',
+		'arrived_to_mission' => 'Arrivé en mission',
 		'start_mission' => 'Démarrer la mission',
 		'finish_mission' => 'Terminer la mission',
 		'accept_mission' => 'Accepter la mission',

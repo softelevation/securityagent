@@ -95,6 +95,12 @@
                     @endif
                     <div class="row">
                      <div class="col-md-12 text-center">
+						  @if($mission->mission->status==1)
+                            <button data-toggle="modal" data-target="#mission_action" data-url="travel-to-mission" data-type="travel" class="button success_btn confirmBtn"><i class="fa fa-check"></i> {{__('dashboard.mission.travel_to_mission')}}</button>
+                          @endif
+						  @if($mission->mission->status==2)
+                            <button data-toggle="modal" data-target="#mission_action" data-url="arrived-to-mission" data-type="arrived" class="button success_btn confirmBtn"><i class="fa fa-check"></i> {{__('dashboard.mission.arrived_to_mission')}}</button>
+                          @endif
                           @if($mission->mission->status==3)
                             <button data-toggle="modal" data-target="#mission_action" data-url="start-mission" data-type="start" class="button success_btn confirmBtn"><i class="fa fa-check"></i> {{__('dashboard.mission.start_mission')}}</button>
                           @endif
@@ -174,6 +180,18 @@
     let hours = $(this).attr('data-hours');
     $('#actionInput').val(value);
     var txtMsg = '';
+	if(type=='travel'){
+      txtMsg = 'Are you sure to travel this mission now?';
+      if(locale=='fr'){
+        txtMsg = 'Êtes-vous sûr de voyager cette mission maintenant?';
+      }
+    }
+	if(type=='arrived'){
+      txtMsg = 'Are you sure to arrive on mission?';
+      if(locale=='fr'){
+        txtMsg = "Êtes-vous sûr d'arriver en mission?";
+      }
+    }
     if(type=='start'){
       txtMsg = 'Are you sure to start this mission now?';
       if(locale=='fr'){
@@ -252,6 +270,14 @@
 				mission_id:form.mission_id.value,
 				status:form.action_value.value
 			});
+			location.reload();
+		}
+		if(form.name == 'travel-to-mission'){
+			socket.emit('travel_to_mission',{mission_id: form.mission_id.value, token: "{{Auth::user()->token}}"});
+			location.reload();
+		}
+		if(form.name == 'arrived-to-mission'){
+			socket.emit('arrived_to_mission',{mission_id: form.mission_id.value, token: "{{Auth::user()->token}}"});
 			location.reload();
 		}
 		if(form.name == 'start-mission'){

@@ -47,42 +47,20 @@
         async defer></script>
 	<script src="{{ Helper::api_url('socket.io/socket.io.js') }}"></script>
     <script type="text/javascript">
-	let socket = io.connect("{{ Helper::api_url() }}");
-    var username = "{{$mission->agent->username}}";
-	var mission_id = {{$mission_id}};
-    var zoomVal = 22;
-	// document.getElementById("agentMap")
-    var map,
-        markArray = [];
-    function initMap() {
-	  const myLatlng = { lat: -25.363, lng: 131.044 };
-	  const map = new google.maps.Map(document.getElementById("agentMap"), {
-		zoom: 4,
-		center: myLatlng,
-	  });
-	  const marker = new google.maps.Marker({
-		position: myLatlng,
-		map: map,
-		title: "Click to zoom",
-	  });
-	  map.addListener("center_changed", () => {
-		// 3 seconds after the center of the map has changed, pan back to the
-		// marker.
-		window.setTimeout(() => {
-		  map.panTo(marker.getPosition());
-		}, 3000);
-	  });
-	  marker.addListener("click", () => {
-		// map.setZoom(8);
-		// map.setCenter(marker.getPosition());
-		newLocation = new google.maps.LatLng('30.401071024414478','76.74540037318917');
-		marker.setPosition( newLocation );
-	  });
-	}
-    window.onload = function(){
-		// initMap(zoomVal,'30.401071024414478','76.74540037318917',username);
-		initMap();
-	}
-	
+	// Initialize and add the map
+var map;
+function initMap() {
+  // The map, centered on Central Park
+  const center = {lat: 40.774102, lng: -73.971734};
+  const options = {zoom: 15, scaleControl: true, center: center};
+  map = new google.maps.Map(
+      document.getElementById('agentMap'), options);
+  // Locations of landmarks
+  const dakota = {lat: 40.7767644, lng: -73.9761399};
+  const frick = {lat: 40.771209, lng: -73.9673991};
+  // The markers for The Dakota and The Frick Collection
+  var mk1 = new google.maps.Marker({position: dakota, map: map});
+  var mk2 = new google.maps.Marker({position: frick, map: map});
+}
     </script>
 @endsection
