@@ -46,38 +46,42 @@ class MissionController extends Controller
      * @purpose Get Customer Mission's List 
      */
     public function index(Request $request){
-		$mission_payment = $this->Make_GET('customer/my-mission-list')->data;
-        $statusArr = Helper::getMissionStatus();
-        $statusArr = array_flip($statusArr);
+		try{
+			$mission_payment = $this->Make_GET('customer/my-mission-list')->data;
+			$statusArr = Helper::getMissionStatus();
+			$statusArr = array_flip($statusArr);
 
-        $params = [
-            'mission_all' => $mission_payment->mission_all,
-            'pending_mission' => $mission_payment->missionPending,
-            'inprogress_mission' => $mission_payment->missionInProgress,
-            'finished_mission' => $mission_payment->missionCompleted,
-            'status_list'=>$statusArr,
-            'limit' => $this->limit,
-            'page_no' => 1,
-            'page_name' => 'all'
-        ];
-        if($request->isMethod('get')){
-            if(isset($request->all)){ 
-                $params['page_no'] = $request->all; 
-                $params['page_name'] = 'all'; 
-            }
-            if(isset($request->inprogress)){ 
-                $params['page_no'] = $request->inprogress; 
-                $params['page_name'] = 'inprogress'; 
-            }
-            if(isset($request->pending)){ 
-                $params['page_no'] = $request->pending; 
-                $params['page_name'] = 'pending'; 
-            }
-            if(isset($request->finished)){ 
-                $params['page_no'] = $request->finished; 
-                $params['page_name'] = 'finished'; }
+			$params = [
+				'mission_all' => $mission_payment->mission_all,
+				'pending_mission' => $mission_payment->missionPending,
+				'inprogress_mission' => $mission_payment->missionInProgress,
+				'finished_mission' => $mission_payment->missionCompleted,
+				'status_list'=>$statusArr,
+				'limit' => $this->limit,
+				'page_no' => 1,
+				'page_name' => 'all'
+			];
+			if($request->isMethod('get')){
+				if(isset($request->all)){ 
+					$params['page_no'] = $request->all; 
+					$params['page_name'] = 'all'; 
+				}
+				if(isset($request->inprogress)){ 
+					$params['page_no'] = $request->inprogress; 
+					$params['page_name'] = 'inprogress'; 
+				}
+				if(isset($request->pending)){ 
+					$params['page_no'] = $request->pending; 
+					$params['page_name'] = 'pending'; 
+				}
+				if(isset($request->finished)){ 
+					$params['page_no'] = $request->finished; 
+					$params['page_name'] = 'finished'; }
+			}
+			return view('customer.missions',$params);
+		}catch(\Exception $e){
+			return redirect('customer/profile');
         }
-        return view('customer.missions',$params);
     }
 	
 	public function reportView($mission_id){
@@ -635,13 +639,13 @@ class MissionController extends Controller
 	
 	
 	public function trackMission($mission_id){
-		
-		$dec_mission_id = Helper::decrypt($mission_id);
-		$data = $this->Make_GET('customer/mission-details/'.$dec_mission_id)->data;
-		// echo '<pre>';
-		// print_r($data['mission']->agent->username);
-		// die;
-        return view('customer.track_mission',['mission'=>$data,'mission_id'=>$dec_mission_id]);
+		try{
+			$dec_mission_id = Helper::decrypt($mission_id);
+			$data = $this->Make_GET('customer/mission-details/'.$dec_mission_id)->data;
+			return view('customer.track_mission',['mission'=>$data,'mission_id'=>$dec_mission_id]);
+		}catch(\Exception $e){
+			return $this->getErrorResponse($e->getMessage());
+        }
     }
 
     /**
