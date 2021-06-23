@@ -389,9 +389,19 @@ class AgentController extends Controller
      */
     public function setScheduleView($agent_id){
         $agent_id = Helper::decrypt($agent_id);
-        $agent = Agent::where('id',$agent_id)->first();
-        $schedule = AgentSchedule::select('schedule_date','available_from','available_to')->where('agent_id',$agent_id)->whereDate('schedule_date', '>=', Carbon::now())->get();
-        return view('agent.schedule',['agent'=>$agent,'schedule'=>$schedule]);
+        // $agent = Agent::where('id',$agent_id)->first();
+		$schedules = $this->Make_GET('agent/schedule-date')->data;
+		$schedules_array = array();
+		foreach($schedules as $schedule){
+			$getDate = Carbon::parse($schedule->schedule_date)->addDays(1);
+			$schedules_array[] = array(
+										'schedule_date'=>$getDate->format('Y-m-d'),
+										'available_from'=>$schedule->available_from,
+										'available_to'=>$schedule->available_to
+			);
+		}
+        // $schedule = AgentSchedule::select('schedule_date','available_from','available_to')->where('agent_id',$agent_id)->whereDate('schedule_date', '>=', Carbon::now())->get();
+        return view('agent.schedule',['schedule'=>json_encode($schedules_array)]);
     }
 
     /**
@@ -411,15 +421,7 @@ class AgentController extends Controller
         $agent_id = Auth::user()->agent_info->id;
         $schedule_date = Carbon::createFromFormat('d/m/Y', $request->schedule_date)->format('Y-m-d');
         $post['schedule_date'] = $schedule_date;
-        $isExists = AgentSchedule::where('agent_id',$agent_id)->whereDate('schedule_date',$schedule_date)->count();
-        if($isExists!=0){
-            $result = AgentSchedule::where('agent_id',$agent_id)->whereDate('schedule_date',$schedule_date)->update($post);
-        }else{
-            $post['agent_id'] = $agent_id;
-            $post['created_at'] = Carbon::now();
-            $post['updated_at'] = Carbon::now();
-            $result = AgentSchedule::insert($post);
-        }
+		$result = $this->Make_POST('agent/schedule-date',$post);
         if($result){
             $response['message'] = trans('messages.schedule_saved');
             $response['delayTime'] = 2000;
