@@ -48,7 +48,7 @@
                                           <td>{{$data->amount}} <i class="fa fa-euro-sign"></i></td>
                                           <td>@if($data->status == 'succeeded') {{__("frontend.$data->status")}} @else {{__("frontend.$data->status")}}  @endif</td>
                                           <td>{{date('d/m/Y H:i:s', strtotime($data->created_at))}}</td>
-                                          <td><a class="action_icons" href="#"><i class="fa fa-download"></i> {{__('dashboard.download')}}</a></td>
+                                          <td><a class="action_icons" href="{{url('operator/billing-detail-download/'.Helper::encrypt($data->id))}}"><i class="fa fa-download"></i> {{__('dashboard.download')}}</a></td>
                                       </tr>
                                     @empty
                                       <tr>

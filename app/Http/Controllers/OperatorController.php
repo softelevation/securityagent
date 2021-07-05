@@ -187,18 +187,50 @@ class OperatorController extends Controller
      * @purpose Load customer list view
      */
     public function missionRequest(Request $request){
-        $custom_req = CustomRequest::select('customers.first_name','customers.last_name','custom_requests.title','custom_requests.location')
-					->join('customers','customers.id','custom_requests.customer_id')->orderBy('custom_requests.id','DESC')->paginate($this->limit);
-        $params = [
-            'data' => $custom_req,
-            'limit' => $this->limit,
-            'page_no' => 1
-        ];
-        if(isset($request->page)){
-            $params['page_no'] = $request->page; 
-        }
-        return view('operator.mission_request',$params);
+        // $custom_req = CustomRequest::select('customers.first_name','customers.last_name','custom_requests.title','custom_requests.location')
+					// ->join('customers','customers.id','custom_requests.customer_id')->orderBy('custom_requests.id','DESC')->paginate($this->limit);
+        // $params = [
+            // 'data' => $custom_req,
+            // 'limit' => $this->limit,
+            // 'page_no' => 1
+        // ];
+		$mission['results'] = $this->Make_GET('operator/mission-requests')->data;
+        return view('operator.mission_request',$mission);
     }
+	
+	/**
+     * @param $mission_id
+     * @return mixed
+     * @method viewMissionDetails
+     * @purpose View mission details
+     */
+    public function viewMissionRequestDetails($mission_id){
+        $mission_id = Helper::decrypt($mission_id);
+		$data['mission'] = $this->Make_GET('operator/mission-request/view/'.$mission_id)->data;
+		$agent_All = $this->Make_GET('operator/agents')->data;
+		$data['agents'] = $agent_All->verified_agents;
+        return view('operator.view_mission_request_details',$data);
+    }
+	
+	
+	public function sandCustomRequest(Request $request,$id){
+		try{
+			$inputData = $request->all();
+			$result = $this->Make_POST('operator/mission-request/'.$id,array(
+					'agent_type'=>$inputData['agent_type'],
+					'start_date_time'=>$inputData['start_date_time'],
+					'end_date_time'=>$inputData['end_date_time']
+			));
+			$response['message'] = $result->message;
+            $response['delayTime'] = 2000;
+            $response['url'] = url('operator/mission-requests');
+            return $this->getSuccessResponse($response);
+		}catch(\Exception $e){
+            return response($this->getErrorResponse($e->getMessage()));
+        }
+    }
+	
+	
 
     /**
      * @return mixed
@@ -498,6 +530,14 @@ class OperatorController extends Controller
 		// $data = UserPaymentHistory::orderBy('id','DESC')->paginate($this->limit);
 		$data['history'] = (array)$this->Make_GET('operator/billing-details')->data;
         return view('operator.billing',$data);
+    }
+	
+	public function billingDetailDownload($mission_id){
+		$mission_id = Helper::decrypt($mission_id);
+		$missionData = $this->Make_GET('operator/mission/view/'.$mission_id)->data;
+		$customPaper = array(0,0,500.00,850.80);
+        $pdf = \PDF::loadView('pdf.billing', ['result'=>$missionData])->setPaper($customPaper, 'landscape');
+        return $pdf->download('billing.pdf');
     }
 
     /**

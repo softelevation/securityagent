@@ -92,12 +92,15 @@ Route::group(['prefix'=>'operator'], function () {
         Route::post('/customer_verification', 'OperatorController@customerVerificationAction');
         Route::get('/missions', 'OperatorController@missionsList');
 		Route::get('/mission-requests', 'OperatorController@missionRequest');
+		Route::get('/mission-requests/view/{mission_id}', 'OperatorController@viewMissionRequestDetails');
+		Route::post('/sand-custom-request/{mission_id}', 'OperatorController@sandCustomRequest');
         Route::get('/mission-details/view/{mission_id}', 'OperatorController@viewMissionDetails');
         Route::get('/assign-agent/{mission_id}', 'OperatorController@assignMissionAgent');
         Route::get('/sub-mission/{mission_id}', 'OperatorController@createSubMissions');
         Route::post('/book-agent-later-mission', 'OperatorController@bookAgentLaterMission');
         Route::get('/verify-mission/{id}', 'OperatorController@verifyMission');
         Route::get('/billing-details', 'OperatorController@getPaymentHistory');
+        Route::get('/billing-detail-download/{id}', 'OperatorController@billingDetailDownload');
         Route::get('/payment-approvals', 'OperatorController@paymentApprovalsView');
         Route::post('/payment-approval-action', 'OperatorController@paymentApprovalAction');
         Route::get('/missions-without-agents', 'OperatorController@missionsListWithoutAgents');

@@ -4,6 +4,7 @@ return [
 	// Profile Tab
 	'profile' => 'Profil',
 	'mission_requests' => 'Demande de mission',
+	'all_mission_requests' => 'Toutes les demandes de mission',
 	'search_by_mission_status' => 'Recherche par statut de mission',
 	'i_have_mission_requests' => 'Etude de faisabilité',
 	'missions' => 'Missions',

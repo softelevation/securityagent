@@ -436,6 +436,40 @@ $(document).ready(function () {
 			}
 		});
 		
+		$(document).on('click', 'i[class="fas fa-plus-circle custom-mission-request"]', function () {
+			let agent_type_all = $('select[name="agent_type[]"]').find('option');
+			let agent_type = '<div class="row"><div class="col-md-4 form-group">';
+				agent_type += '<select name="agent_type[]" class="form-control">';
+				console.log(agent_type_all);
+				agent_type_all.map(function(key) {
+											agent_type +=  agent_type_all[key].outerHTML;
+									});
+				agent_type += '</select>';
+				agent_type += '</div>';
+				
+				agent_type += '<div class="col-md-3 form-group">';
+				agent_type += '<input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time[]" type="text">';
+				agent_type += '</div>';
+				
+				agent_type += '<div class="col-md-3 form-group">';
+				agent_type += '<input class="form-control datetimepicker" placeholder="Date Time" name="end_date_time[]" type="text">';
+				agent_type += '</div>';
+				
+				agent_type += '<div class="col-md-2">';
+				agent_type += '<p class="action_icons"><i class="fa fa-minus-circle custom-mission-request" aria-hidden="true"></i></p>';
+				agent_type += '</div></div>';
+			$('div[class="row custom-mission-request"]').after(agent_type);
+			jQuery('.datetimepicker').datetimepicker({
+				format: 'd/m/Y H:i:s',
+				minDate: 0
+			});
+		});
+		
+		$(document).on('click', 'i[class="fa fa-minus-circle custom-mission-request"]', function () {
+			$(this).parent().parent().parent().remove();
+		});
+		
+		
 		$(document).on('click', 'input[name="mission_finish_time"]', function () {
 				let datepicker_active = false;
 				let format_val = 'H:i';
