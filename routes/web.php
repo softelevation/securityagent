@@ -125,6 +125,8 @@ Route::group(['prefix'=>'customer'], function () {
     Route::group(['middleware'=>['auth','roles']], function () {
         Route::get('/profile', 'CustomerController@customerProfileView');
         Route::get('/missions', 'Customer\MissionController@index');
+		Route::get('/mission-request-list', 'Customer\MissionController@missionRequestList');
+		Route::get('/mission-requests/view/{mission_id}', 'Customer\MissionController@missionRequestFromId');
 		Route::get('/report-view/{mission_id}', 'Customer\MissionController@reportView');
 		Route::get('/feedback/{id}', 'Customer\MissionController@viewAgentDetails');
 		Route::post('/feedback/{id}', 'Customer\MissionController@feedback');
@@ -166,6 +168,7 @@ Route::group(['prefix'=>'agent'], function () {
         Route::get('/missions', 'Agent\MissionController@index');
 		Route::get('/mission-to-start', 'Agent\MissionController@missiontoStart');
         Route::get('/mission-details/view/{mission_id}', 'Agent\MissionController@viewMissionDetails');
+        Route::get('/custom-mission-details/view/{mission_id}', 'Agent\MissionController@customMissionDetails');
         Route::post('/start-mission', 'Agent\MissionController@startMission');
         Route::post('/finish-mission', 'Agent\MissionController@finishMission');
         Route::post('/set-availability', 'AgentController@setAvailability');

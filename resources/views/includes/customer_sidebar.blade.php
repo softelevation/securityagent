@@ -16,6 +16,9 @@
                 <li class="nav-item">
                     <a href="{{url('customer/missions')}}" class="nav-link"><i class="fa fa-edit"></i> {{__('dashboard.missions')}}</a>
                 </li>
+				<li class="nav-item">
+                    <a href="{{url('customer/mission-request-list')}}" class="nav-link"><i class="fa fa-truck-moving"></i> {{__('dashboard.mission_requests')}}</a>
+                </li>
                 <li class="nav-item">
                     <a href="{{url('customer/billing-details')}}" class="nav-link"><i class="fa fa-file-invoice"></i> &nbsp; {{__('dashboard.billing')}}</a>
                 </li>

@@ -58,6 +58,7 @@ return [
 	'no_notification' => 'Pas nouveau notification.',
 	'billing' => 'Facturation',
 	'quick_order_agent' => 'Je commande rapidement mon agent ',
+	'custom_request' => 'Demande personnalisée',
 	'i_have_a_custom_request' => 'j’ai une demande particulière',
 	'action' => 'Actions',
 	'download' => "Télécharger",

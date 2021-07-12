@@ -16,11 +16,14 @@
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
                   <ul class="nav nav-tabs">
-                      <li class="nav-item w-50">
+                      <li class="nav-item w-33">
                           <a id="nav-awaiting-tab" data-toggle="tab" href="#nav-awaiting" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='awaiting') active @endif">{{__('dashboard.agents.awaiting_requests')}}</a>
                       </li>
-                      <li class="nav-item w-50">
+                      <li class="nav-item w-33">
                           <a id="nav-expired-tab" data-toggle="tab" href="#nav-expired" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='expired') active @endif">{{__('dashboard.agents.expired_requests')}}</a>
+                      </li>
+					  <li class="nav-item w-33">
+                          <a id="nav-custom_request-tab" data-toggle="tab" href="#nav-custom_request" role="tab" aria-controls="nav-home" aria-selected="true" class="nav-link @if($page_name=='custom_request') active @endif">{{__('dashboard.custom_request')}}</a>
                       </li>
                   </ul>
                   <div class="tab-content" id="nav-tabContent">
@@ -95,6 +98,47 @@
                                     <td>
                                       <a href="{{url('agent/mission-details/view')}}/{{Helper::encrypt($data->id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                       <a href="{{url('agent/remove-expired-mission/')}}/{{Helper::encrypt($data->id)}}" class="action_icons remove_mission_request"><i class="fas fa-trash text-grey" aria-hidden="true"></i> {{__('dashboard.delete')}} </a>
+                                    </td>
+                                </tr>
+                              @empty
+                                <tr>
+                                    <td colspan="7">{{__('dashboard.no_record')}}</td>
+                                </tr>
+                              @endforelse
+                            </tbody>
+                        </table>
+                      </div>
+                     
+                    </div>
+					
+					<!-- Custom Agents -->
+                    <div class="tab-pane fade show @if($page_name=='custom_request') active @endif" id="nav-custom_request" role="tabpanel" aria-labelledby="nav-custom_request-tab">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{{__('dashboard.mission.title')}}</th>
+                                    <th>{{__('dashboard.mission.location')}}</th>
+                                    <th>{{__('dashboard.mission.duration')}}</th>
+                                    <th>{{__('dashboard.status')}}</th>
+                                    <th>{{__('dashboard.action')}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              @php 
+                                $i = 0; 
+                              @endphp
+                              @forelse($custom_requests as $custom_request)
+                                @php $i++; @endphp
+                                <tr>
+                                    <td>{{$i}}.</td>
+                                    <td>{{$custom_request->title}}</td>
+                                    <td>{{$custom_request->location}}</td>
+                                    <td>2 {!!__('dashboard.hours')!!}</td>
+                                    <td><button class="btn btn-outline-success status_btn">{{__('dashboard.expired')}}</button></td>
+                                    <td>
+                                      <a href="{{url('agent/custom-mission-details/view')}}/{{Helper::encrypt($custom_request->mission_id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>
                                 </tr>
                               @empty

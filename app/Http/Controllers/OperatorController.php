@@ -216,11 +216,12 @@ class OperatorController extends Controller
 	public function sandCustomRequest(Request $request,$id){
 		try{
 			$inputData = $request->all();
-			$result = $this->Make_POST('operator/mission-request/'.$id,array(
-					'agent_type'=>$inputData['agent_type'],
+			$saveData = array(
+					'agent_id'=>$inputData['agent_type'],
 					'start_date_time'=>$inputData['start_date_time'],
 					'end_date_time'=>$inputData['end_date_time']
-			));
+			);
+			$result = $this->Make_POST('operator/mission-request/'.$id,$saveData);
 			$response['message'] = $result->message;
             $response['delayTime'] = 2000;
             $response['url'] = url('operator/mission-requests');
@@ -315,60 +316,31 @@ class OperatorController extends Controller
 			$missionQuick = [];
 			$missionCompleted = [];
 			$statusArr = [];
-			
-			if($request->get('archived')){
-				$mission_All = $this->Make_GET('operator/mission')->data;
-				$missionArchived = $mission_All->archived_mission;
-
-			}else{
-				$missionStatus = $request->get('missionStatus'); 
-				if($missionStatus !== null && $missionStatus !== 'all'){
-					$statusCond = ['status'=>$missionStatus];
-				}
-				$mission_All = $this->Make_GET('operator/mission')->data;
-
-				// $missionAll = $mission->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
-				$missionAll = $mission_All->mission_all;
-				// $missionFuture = $mission->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where('start_date_time','>=',Carbon::now())->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
-				$missionFuture = $mission_All->future_mission;
-				// $missionQuick = $mission->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
-				$missionQuick = $mission_All->missionInProgress;
-				// $missionCompleted = Mission::with(['child_missions','customer_details'])->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
-				$missionCompleted = $mission_All->missionCompleted;
-				$statusArr = Helper::getMissionStatus();
-				$statusArr = array_flip($statusArr);
-				
-			}
-			
-			$params = [
-				'archived_mission' => $missionArchived,
-				'mission_all' => $missionAll,
-				'future_mission' => $missionFuture,
-				'quick_mission' => $missionQuick,
-				'finished_mission' => $missionCompleted,
-				'status_list'=>$statusArr,
-				'limit' => $this->limit,
-				'page_no' => 1,
-				'paginate_array' => array(),
-				'page_name' => 'all'
-			];
+			$params = [];
+			$params['page_no'] = 1;
+			$params['page_name'] = '';
+			$api_url = "operator/mission";
 			
 			if($request->isMethod('get')){
 				if(isset($request->all)){ 
-					$params['page_no'] = $request->all; 
-					$params['page_name'] = 'all'; 
+					$params['page_no'] = $request->all;
+					$params['page_name'] = 'all';
+					$api_url .= '?type=all&page='.$request->all;
 				}
-				if(isset($request->future)){ 
+				if(isset($request->future)){
 					$params['page_no'] = $request->future; 
-					$params['page_name'] = 'future'; 
+					$params['page_name'] = 'future';
+					$api_url .= '?future='.$request->future;
 				}
 				if(isset($request->quick)){ 
 					$params['page_no'] = $request->quick; 
-					$params['page_name'] = 'quick'; 
+					$params['page_name'] = 'quick';
+					$api_url .= '?quick='.$request->quick;
 				}
 				if(isset($request->finished)){ 
 					$params['page_no'] = $request->finished; 
 					$params['page_name'] = 'finished';
+					$api_url .= '?type=finished&page='.$request->finished;
 				}
 				if(isset($request->archived)){ 
 					$params['page_no'] = $request->archived; 
@@ -381,6 +353,42 @@ class OperatorController extends Controller
 					$params['paginate_array'] = array_merge($params['paginate_array'],array('search'=>$request->search));
 				}
 			}
+			
+			if($request->get('archived')){
+				$mission_All = $this->Make_GET($api_url)->data;
+				$missionArchived = $mission_All->archived_mission;
+			}else{
+				$missionStatus = $request->get('missionStatus'); 
+				if($missionStatus !== null && $missionStatus !== 'all'){
+					$statusCond = ['status'=>$missionStatus];
+				}
+				$mission_All = $this->Make_GET($api_url)->data;
+
+				// $missionAll = $mission->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'all');
+				$missionAll = $mission_All->mission_all;
+				// $missionFuture = $mission->where('quick_book',0)->where('parent_id',0)->where('status','!=',10)->where('start_date_time','>=',Carbon::now())->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'future');
+				$missionFuture = $mission_All->future_mission;
+				// $missionQuick = $mission->where('quick_book',1)->where('parent_id',0)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'quick');
+				$missionQuick = $mission_All->missionInProgress;
+				// $missionCompleted = Mission::with(['child_missions','customer_details'])->where('parent_id',0)->where('status',5)->where('status','!=',10)->where($statusCond)->orderBy('id','DESC')->paginate($this->limit,['*'],'finished');        
+				$missionCompleted = $mission_All->missionCompleted;
+				$statusArr = Helper::getMissionStatus();
+				$statusArr = array_flip($statusArr);
+			}
+			
+			$params['archived_mission'] = $missionArchived;
+			$params['mission_all'] = $missionAll;
+			$params['mission_all_count'] = $mission_All->mission_all_count;
+			$params['future_mission'] = $missionFuture;
+			$params['quick_mission'] = $missionQuick;
+			$params['missionCompleted_count'] = $mission_All->missionCompleted_count;
+			$params['finished_mission'] = $missionCompleted;
+			$params['status_list'] = $statusArr;
+			
+			$params['limit'] = $this->limit;
+			$params['paginate_array'] = array();
+			// $params['page_name'] = 'all';
+			
 			return view('operator.missions',$params);
 		}catch(\Exception $e){
 			return redirect('operator/missions');

@@ -129,6 +129,7 @@ input:checked + .slider_bank:before {
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
 					{{Form::open(['url'=>url('operator/sand-custom-request/'.$mission->id),'id'=>'general_form'])}}
+					@if(empty($mission->assign_agents))
                     <div class="row custom-mission-request">
                       <div class="col-md-4 form-group">
                         <label>{{__('dashboard.agents.name')}}</label>
@@ -152,6 +153,41 @@ input:checked + .slider_bank:before {
 						<p class="action_icons"><i class="fas fa-plus-circle custom-mission-request" aria-hidden="true"></i></p>
                       </div>
                     </div>
+					@else
+						@foreach($mission->assign_agents as $keys => $assign_agent)
+						@if(!$keys)
+							<div class="row custom-mission-request">
+						@else
+							<div class="row">
+						@endif
+						  <div class="col-md-4 form-group">
+							@if(!$keys)<label>{{__('dashboard.agents.name')}}</label>@endif
+							<select name="agent_type[]" class="form-control">
+									<option value="">{{__('frontend.select')}}</option>
+									@foreach($agents as $agent)
+										<option value="{{$agent->id}}" @if($assign_agent->agent_id == $agent->id) selected @endif>{{$agent->username}}</option>
+									@endforeach
+							  </select>
+						  </div>
+						  <div class="col-md-3 form-group">
+							@if(!$keys)<label>From date</label>@endif
+							<input class="form-control datetimepicker" value="{{$assign_agent->start_date_time}}" placeholder="Date Time" name="start_date_time[]" type="text">
+						  </div>
+						  <div class="col-md-3 form-group">
+							@if(!$keys)<label>To date</label>@endif
+							<input class="form-control datetimepicker" value="{{$assign_agent->end_date_time}}" placeholder="Date Time" name="end_date_time[]" type="text">
+						  </div>
+						  @if(!$keys)
+						  <div class="col-md-2 plus-action_icons">
+							<label>Action</label>
+							<p class="action_icons"><i class="fas fa-plus-circle custom-mission-request" aria-hidden="true"></i></p>
+						  </div>
+						  @else
+							<div class="col-md-2"><p class="action_icons"><i class="fa fa-minus-circle custom-mission-request" aria-hidden="true"></i></p></div>
+						  @endif
+						</div>
+						@endforeach
+					@endif
 					<div class="row">
 							<div class="col-md-12 text-center">
                                   <button type="submit" class="button success_btn">{{__('dashboard.agents.assign')}}</button>

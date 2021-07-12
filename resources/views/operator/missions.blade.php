@@ -125,6 +125,23 @@
                                         </tbody>
                                     </table>
                                 </div>
+								<div class="row">
+                                    <div class="ml-auto mr-auto">
+                                        <nav class="navigation2 text-center" aria-label="Page navigation">
+                                            <ul class="pagination" role="navigation">
+													<li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
+														<span class="page-link" aria-hidden="true">‹</span>
+													</li>
+													<?php for($i=1; $i<=$mission_all_count; $i++){ ?>
+                                                    <li class="page-item @if($page_no == $i && $page_name == 'all') active @endif"><a class="page-link" href="{{ url('operator/missions?all='.$i) }}">{{$i}}</a></li>
+													<?php } ?>
+													<li class="page-item">
+														<a class="page-link" href="{{url('operator/missions?all='.$i)}}" rel="next" aria-label="Next »">›</a>
+													</li>
+											</ul>
+                                        </nav>
+                                    </div>
+                                </div>
                             </div>
                             <!-- Missions in progress tab -->
                             <div class="tab-pane fade show @if($page_name=='future') active @endif" id="nav-mission-future" role="tabpanel" aria-labelledby="nav-future-tab">
@@ -302,6 +319,23 @@
                                             @endforeach  
                                         </tbody>
                                     </table>
+                                </div>
+								<div class="row">
+                                    <div class="ml-auto mr-auto">
+                                        <nav class="navigation2 text-center" aria-label="Page navigation">
+                                            <ul class="pagination" role="navigation">
+													<li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
+														<span class="page-link" aria-hidden="true">‹</span>
+													</li>
+													<?php for($i=1; $i<=$missionCompleted_count; $i++){ ?>
+                                                    <li class="page-item @if($page_no == $i && $page_name == 'finished') active @endif"><a class="page-link" href="{{ url('operator/missions?finished='.$i) }}">{{$i}}</a></li>
+													<?php } ?>
+													<li class="page-item">
+														<a class="page-link" href="{{url('operator/missions?all='.$i)}}" rel="next" aria-label="Next »">›</a>
+													</li>
+											</ul>
+                                        </nav>
+                                    </div>
                                 </div>
                             </div>
                             

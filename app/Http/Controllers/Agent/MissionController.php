@@ -79,7 +79,21 @@ class MissionController extends Controller
 		$data['mission'] = $this->Make_GET('agent/mission/'.$mission_id)->data;
         return view('agent.view_mission_details',$data);
     }
-
+	
+	
+	/**
+     * @param $mission_id
+     * @return mixed
+     * @method customMissionDetails
+     * @purpose View custom mission details
+     */
+    public function customMissionDetails($mission_id){
+        $mission_id = Helper::decrypt($mission_id);
+		$data['mission'] = $this->Make_GET('agent/custom-mission-request/'.$mission_id)->data;
+        return view('agent.view_custom_mission_details',$data);
+    }
+	
+	
     /**
      * @param $request
      * @return mixed
@@ -90,34 +104,15 @@ class MissionController extends Controller
 		
 		Notification::where('agent_id',Auth::user()->profile->id)->where('type','cus_new_mission')->update(array('status'=>0));
 		$awaitingRequests = $this->Make_GET('agent/mission-requests');
-		
-        // $awaitingRequests = Mission::where('agent_id',\Auth::user()->agent_info->id)->where('status',0)
-							// ->where('payment_status',1)
-							// ->where(function ($query) {
-								// $query->where('payment_status',1)
-									  // ->orWhere('payment_status',2);
-							// })->orderBy('id','desc')->paginate($this->limit,['*'],'awaiting');
-        // $expiredRequests = MissionRequestsIgnored::where('agent_id',\Auth::user()->agent_info->id)->where('is_deleted',0)->orderBy('id','DESC')->paginate($this->limit,['*'],'expired');
-        
-		// echo '<pre>';
-		// print_r($awaitingRequests);
-		// die;
-		
+		$customRequests = $this->Make_GET('agent/custom-mission-requests')->data;
 		$params = [
             'awaiting_requests' => $awaitingRequests->data,
             'expired_requests' => $awaitingRequests->mission_expire,
+            'custom_requests' => $customRequests,
             'page_no' => 1,
             'page_name' => 'awaiting',
             'limit' => $this->limit
         ];
-        // if($request->isMethod('get')){
-            // if(!empty($request->all())){
-                // $pageName = array_keys($request->all());
-                // $pageNo = array_values($request->all());
-                // $params['page_no'] = $pageNo[0]; 
-                // $params['page_name'] = $pageName[0];
-            // }
-        // }
         return view('agent.mission_requests',$params);
     }
 	

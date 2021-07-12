@@ -84,6 +84,29 @@ class MissionController extends Controller
         }
     }
 	
+	public function missionRequestList(Request $request){
+		try{
+			$mission['results'] = $this->Make_GET('customer/custom-mission-list')->data;
+			return view('customer.mission_request',$mission);
+		}catch(\Exception $e){
+			return redirect('customer/profile');
+        }
+    }
+	
+	public function missionRequestFromId($mission_id){
+		try{
+			$mission_id = Helper::decrypt($mission_id);
+			// custom-mission-list/2
+			$mission['results'] = $this->Make_GET('customer/custom-mission-list/2')->data;
+			// echo '<pre>';
+			// print_r($mission);
+			// die;
+			return view('customer.mission_request_view',$mission);
+		}catch(\Exception $e){
+			return redirect('customer/profile');
+        }
+    }
+	
 	public function reportView($mission_id){
 		try{
 			$report = array();
