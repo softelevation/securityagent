@@ -70,9 +70,11 @@
                               </tr>
                           </thead>
                           <tbody>
+							@php $i = 0; @endphp
 							@foreach($results->agents as $result)
+							@php $i++; @endphp
 								<tr>
-								  <td>1.</td>
+								  <td>{{$i}}.</td>
 								  <td>{{$result->first_name.' '.$result->last_name}}</td>
 								  <td>{{$result->start_date_time}}</td>
 								  <td>{{$result->end_date_time}}</td>
