@@ -97,7 +97,7 @@ class MissionController extends Controller
 		try{
 			$mission_id = Helper::decrypt($mission_id);
 			// custom-mission-list/2
-			$mission['results'] = $this->Make_GET('customer/custom-mission-list/2')->data;
+			$mission['results'] = $this->Make_GET('customer/custom-mission-list/'.$mission_id)->data;
 			// echo '<pre>';
 			// print_r($mission);
 			// die;

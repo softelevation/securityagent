@@ -221,6 +221,7 @@ return [
 		'Guard_service' => 'Gardiennage',
 		'Intervention' => 'Intervention sur site',
 		'Security_patrol' => 'Ronde',
+		'request_for_payment' => 'Demande de paiement',
 	],
 
 	'billings' => [

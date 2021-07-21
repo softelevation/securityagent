@@ -222,6 +222,7 @@ return [
 		'Guard_service' => 'Guard service',
 		'Intervention' => 'Intervention',
 		'Security_patrol' => 'Security patrol',
+		'request_for_payment' => 'Request for payment',
 	],
 
 	'billings' => [

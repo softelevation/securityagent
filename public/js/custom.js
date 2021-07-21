@@ -435,12 +435,12 @@ $(document).ready(function () {
 				$('div[class="col-md-6 form-group security_patrol_field"]').remove();
 			}
 		});
-		
+		let io = 1;
 		$(document).on('click', 'i[class="fas fa-plus-circle custom-mission-request"]', function () {
 			let agent_type_all = $('select[name="agent_type[]"]').find('option');
-			let agent_type = '<div class="row"><div class="col-md-4 form-group">';
+			let agent_type = '<div class="row custom-mission-'+io+'"><div class="col-md-3 form-group">';
 				agent_type += '<select name="agent_type[]" class="form-control">';
-				console.log(agent_type_all);
+				// console.log(agent_type_all);
 				agent_type_all.map(function(key) {
 											agent_type +=  agent_type_all[key].outerHTML;
 									});
@@ -452,21 +452,55 @@ $(document).ready(function () {
 				agent_type += '</div>';
 				
 				agent_type += '<div class="col-md-3 form-group">';
-				agent_type += '<input class="form-control datetimepicker" placeholder="Date Time" name="end_date_time[]" type="text">';
+				agent_type += '<input class="form-control datetimepicker" id="end_date_time_'+io+'" placeholder="Date Time" name="end_date_time[]" type="text">';
 				agent_type += '</div>';
 				
-				agent_type += '<div class="col-md-2">';
+				agent_type += '<div class="col-md-2 form-group">';
+				agent_type += '<input class="form-control" placeholder="Amount" id="amount" name="amount[]" type="text">';
+				agent_type += '</div>';
+				
+				agent_type += '<div class="col-md-1">';
 				agent_type += '<p class="action_icons"><i class="fa fa-minus-circle custom-mission-request" aria-hidden="true"></i></p>';
 				agent_type += '</div></div>';
-			$('div[class="row custom-mission-request"]').after(agent_type);
+			$('.row.custom-mission-request').after(agent_type);
 			jQuery('.datetimepicker').datetimepicker({
 				format: 'd/m/Y H:i:s',
 				minDate: 0
 			});
+			io++;
 		});
-		
+	
 		$(document).on('click', 'i[class="fa fa-minus-circle custom-mission-request"]', function () {
 			$(this).parent().parent().parent().remove();
+		});
+		
+		$(document).on('blur', 'input[name="end_date_time[]"]', function () {
+			let current_id = $(this).attr('id');
+			current_id = current_id.substring(14);
+			let current_class = `custom-mission-${current_id}`;
+			let agent_id = $('.'+current_class+' select[name="agent_type[]"]').val();
+			let agent_type = $('option:selected','.'+current_class+' select[name="agent_type[]"]').data('agent_type');
+			let start_date_time = $('.'+current_class+' input[name="start_date_time[]"]').val();
+			let end_date_time = $('.'+current_class+' input[name="end_date_time[]"]').val();
+			$.ajax({
+				type: 'POST',
+				url: '/operator/custom-request-amount-cal',
+				dataType: 'json',
+				data: {
+						_token: $('meta[name="csrf-token"]').attr('content'),
+						agent_id:agent_id,
+						agent_type:agent_type,
+						start_date_time:start_date_time,
+						end_date_time:end_date_time
+				},
+				success: function (response) {
+					if(response.success){
+						$('.'+current_class+' input[name="amount[]"]').val(response.amount);
+						let sum_amount = $("input[id='amount']").map(function(){return parseFloat($(this).val());}).get();
+						$("#process_to_paid").html(sum_amount.reduce((a, b) => a + b));
+					}
+				}
+			});
 		});
 		
 		

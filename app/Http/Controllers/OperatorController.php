@@ -212,6 +212,30 @@ class OperatorController extends Controller
         return view('operator.view_mission_request_details',$data);
     }
 	
+	public function customRequestAmountCal(Request $request){
+		try{
+			$agent_type = explode(',',$request->agent_type);
+			$end_date_time = explode(' ',$request->end_date_time);
+			$start_date_time = explode(' ',$request->start_date_time);
+			$end_date = explode('/',$end_date_time[0]);
+			$end_time = explode(':',$end_date_time[1]);
+			$start_date = explode('/',$start_date_time[0]);
+			$start_time = explode(':',$start_date_time[1]);
+			$demo_end_date = strtotime(date($end_date[2].'-'.$end_date[1].'-'.$end_date[0].' '.$end_time[0].':'.$end_time[1].':'.$end_time[2]));
+			$demo_start_date = strtotime(date($start_date[2].'-'.$start_date[1].'-'.$start_date[0].' '.$start_time[0].':'.$start_time[1].':'.$start_time[2]));
+			if($demo_end_date > $demo_start_date){
+				$hourdiff = round(($demo_end_date - $demo_start_date)/3600, 1);
+				$baseRatePerHour = Helper::get_agent_rate($agent_type[0],0);
+				$response['amount'] = $baseRatePerHour * $hourdiff;
+			}else{
+				$response['amount'] = 0;
+			}
+			return $this->getSuccessResponse($response);
+		}catch(\Exception $e){
+			return response($this->getErrorResponse($e->getMessage()));
+		}
+	}
+	
 	
 	public function sandCustomRequest(Request $request,$id){
 		try{
@@ -219,6 +243,7 @@ class OperatorController extends Controller
 			$saveData = array(
 					'agent_id'=>$inputData['agent_type'],
 					'start_date_time'=>$inputData['start_date_time'],
+					'amount'=>$inputData['amount'],
 					'end_date_time'=>$inputData['end_date_time']
 			);
 			$result = $this->Make_POST('operator/mission-request/'.$id,$saveData);

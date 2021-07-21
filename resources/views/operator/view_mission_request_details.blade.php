@@ -1,66 +1,5 @@
 @extends('layouts.dashboard')
 @section('content')
-<style>
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider_bank {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider_bank:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider_bank {
-  background-color: #d6fb04;
-}
-
-input:focus + .slider_bank {
-  box-shadow: 0 0 1px #d6fb04;
-}
-
-input:checked + .slider_bank:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider_bank.round {
-  border-radius: 34px;
-}
-
-.slider_bank.round:before {
-  border-radius: 50%;
-}
-</style>
 <div class="profile">
     <div class="container">
         <div class="row">
@@ -108,15 +47,19 @@ input:checked + .slider_bank:before {
                         <span class="form-control">{{ucfirst($mission->customer->first_name.' '.$mission->customer->last_name)}}</span>
                       </div>
 					  <div class="col-md-6 form-group">
-                        <label>{{__('dashboard.agents.intervention')}}</label>
-                        <span class="form-control">{{__('dashboard.agents.'.$mission->intervention.'')}}</span>
+                        <label>{{__('frontend.mission_request.how_many_agents')}}</label>
+                        <span class="form-control">{{$mission->agent_count}}</span>
                       </div>
                       @if(isset($mission->start_date_time) && $mission->start_date_time!='')
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.start_time')}}</label>
-                        <span class="form-control">{{date('d/m/Y H:i:s', strtotime($mission->start_date_time))}}</span>
+                        <span class="form-control">{{$mission->start_date_time}}</span>
                       </div>
                       @endif
+					  <div class="col-md-6 form-group">
+                        <label>{{__('dashboard.mission.payment_status')}}</label>
+                        <span class="form-control">{{($mission->status) ? 'Paid': 'Not paid'}}</span>
+                      </div>
                       <div class="col-md-12 form-group">
                         <label>{{__('dashboard.mission.description')}}</label>
                         <span class="form-control">{{$mission->description}}</span>
@@ -130,13 +73,13 @@ input:checked + .slider_bank:before {
                   <div class="view_agent_details mt-4">
 					{{Form::open(['url'=>url('operator/sand-custom-request/'.$mission->id),'id'=>'general_form'])}}
 					@if(empty($mission->assign_agents))
-                    <div class="row custom-mission-request">
-                      <div class="col-md-4 form-group">
+                    <div class="row custom-mission-request custom-mission-0">
+                      <div class="col-md-3 form-group">
                         <label>{{__('dashboard.agents.name')}}</label>
 						<select name="agent_type[]" class="form-control">
 								<option value="">{{__('frontend.select')}}</option>
 								@foreach($agents as $agent)
-									<option value="{{$agent->id}}">{{$agent->username}}</option>
+									<option value="{{$agent->id}}" data-agent_type="{{$agent->agent_type}}">{{$agent->username}}</option>
 								@endforeach
 						  </select>
                       </div>
@@ -146,9 +89,13 @@ input:checked + .slider_bank:before {
                       </div>
 					  <div class="col-md-3 form-group">
                         <label>To date</label>
-                        <input class="form-control datetimepicker" placeholder="Date Time" name="end_date_time[]" type="text">
+                        <input class="form-control datetimepicker" id="end_date_time_0" placeholder="Date Time" name="end_date_time[]" type="text">
                       </div>
-					  <div class="col-md-2 plus-action_icons">
+					  <div class="col-md-2 form-group">
+                        <label>{{__('dashboard.amount')}}</label>
+						<input class="form-control" placeholder="{{__('dashboard.amount')}}" id="amount" name="amount[]" type="text">
+                      </div>
+					  <div class="col-md-1 plus-action_icons">
                         <label>Action</label>
 						<p class="action_icons"><i class="fas fa-plus-circle custom-mission-request" aria-hidden="true"></i></p>
                       </div>
@@ -156,16 +103,16 @@ input:checked + .slider_bank:before {
 					@else
 						@foreach($mission->assign_agents as $keys => $assign_agent)
 						@if(!$keys)
-							<div class="row custom-mission-request">
+							<div class="row custom-mission-request custom-mission-{{$keys}}">
 						@else
-							<div class="row">
+							<div class="row custom-mission-{{$keys}}">
 						@endif
-						  <div class="col-md-4 form-group">
+						  <div class="col-md-3 form-group">
 							@if(!$keys)<label>{{__('dashboard.agents.name')}}</label>@endif
 							<select name="agent_type[]" class="form-control">
 									<option value="">{{__('frontend.select')}}</option>
 									@foreach($agents as $agent)
-										<option value="{{$agent->id}}" @if($assign_agent->agent_id == $agent->id) selected @endif>{{$agent->username}}</option>
+										<option value="{{$agent->id}}" data-agent_type="{{$agent->agent_type}}" @if($assign_agent->agent_id == $agent->id) selected @endif>{{$agent->username}}</option>
 									@endforeach
 							  </select>
 						  </div>
@@ -175,22 +122,26 @@ input:checked + .slider_bank:before {
 						  </div>
 						  <div class="col-md-3 form-group">
 							@if(!$keys)<label>To date</label>@endif
-							<input class="form-control datetimepicker" value="{{$assign_agent->end_date_time}}" placeholder="Date Time" name="end_date_time[]" type="text">
+							<input class="form-control datetimepicker" id="end_date_time_{{$keys}}" value="{{$assign_agent->end_date_time}}" placeholder="Date Time" name="end_date_time[]" type="text">
+						  </div>
+						  <div class="col-md-2 form-group">
+							@if(!$keys)<label>{{__('dashboard.amount')}}</label>@endif
+							<input class="form-control" value="{{($assign_agent->amount) ? $assign_agent->amount : 0}}" id="amount" placeholder="{{__('dashboard.amount')}}" name="amount[]" type="text">
 						  </div>
 						  @if(!$keys)
-						  <div class="col-md-2 plus-action_icons">
+						  <div class="col-md-1 plus-action_icons">
 							<label>Action</label>
 							<p class="action_icons"><i class="fas fa-plus-circle custom-mission-request" aria-hidden="true"></i></p>
 						  </div>
 						  @else
-							<div class="col-md-2"><p class="action_icons"><i class="fa fa-minus-circle custom-mission-request" aria-hidden="true"></i></p></div>
+							<div class="col-md-1"><p class="action_icons"><i class="fa fa-minus-circle custom-mission-request" aria-hidden="true"></i></p></div>
 						  @endif
 						</div>
 						@endforeach
 					@endif
 					<div class="row">
 							<div class="col-md-12 text-center">
-                                  <button type="submit" class="button success_btn">{{__('dashboard.agents.assign')}}</button>
+                                  <button type="submit" class="button success_btn">{{__('dashboard.agents.request_for_payment')}} -(<span id="process_to_paid">{{$mission->amount}}</span>)</button>
                             </div>
 					</div>
 					{{Form::close()}}
