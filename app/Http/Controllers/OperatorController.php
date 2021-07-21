@@ -343,7 +343,7 @@ class OperatorController extends Controller
 			$statusArr = [];
 			$params = [];
 			$params['page_no'] = 1;
-			$params['page_name'] = '';
+			$params['page_name'] = 'all';
 			$api_url = "operator/mission";
 			
 			if($request->isMethod('get')){

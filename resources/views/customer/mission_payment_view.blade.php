@@ -77,6 +77,9 @@
                       <div class="payment">
                         <form id="general_form" method="post" action="{{url('customer/make-mission-payment')}}">
                           <input type="hidden" name="amount" value="{{Helper::encrypt($mission->amount)}}">
+						  @if(isset($mission->custom_mission))
+							<input type="hidden" name="type" value="custom">
+						  @endif
                           @csrf
                           <div class="row">
                             <div class="form-group col-md-8 owner">

@@ -58,7 +58,7 @@
                       @endif
 					  <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.payment_status')}}</label>
-                        <span class="form-control">{{($mission->status) ? 'Paid': 'Not paid'}}</span>
+                        <span class="form-control">{{($mission->payment_status) ? 'Paid': 'Not paid'}}</span>
                       </div>
                       <div class="col-md-12 form-group">
                         <label>{{__('dashboard.mission.description')}}</label>

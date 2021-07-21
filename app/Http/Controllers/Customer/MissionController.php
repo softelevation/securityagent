@@ -399,6 +399,30 @@ class MissionController extends Controller
         }
     }
 	
+	/**
+     * @param $id
+     * @return mixed
+     * @method customProceedToPayment
+     * @purpose View custom Payment and Mission Details
+     */
+    public function customProceedToPayment($id){
+        try{
+            $mission_id = Helper::decrypt($id);
+			$data['cards'] = array();
+			$data['mission'] = $this->Make_GET('customer/custom-mission-list/'.$mission_id)->data;
+			$data['cards'] = $this->Make_GET('customer/card-details')->data;
+			$data['profile'] = $this->Make_GET('profile')->data;
+			$data['mission']->total_mission_amount = $data['mission']->amount;
+			$data['mission']->custom_mission = true;
+            return view('customer.mission_payment_view',$data);
+        }catch(\Exception $e){
+            $res = $this->getErrorResponse($e->getMessage());
+            if($res['error']){
+                return Redirect::back()->withErrors(['Something went wrong with customer id!']);
+            }
+        }
+    }
+	
 	public function savePdfProceedToPayment($id){
 		try{
 			
@@ -481,6 +505,7 @@ class MissionController extends Controller
 	
     public function makeMissionPayment(Request $request){
         try{
+			$redirect_url = 'customer/missions';
 			if($request->form_type && $request->form_type == 'bank_transfer')
 			  {
 				$validation = $this->quickBankMissionValidations($request);
@@ -500,13 +525,16 @@ class MissionController extends Controller
 			$save_array = array(
 								'mission_id'=>$mission_id,'card_number'=>$request->card_number,
 								'exp_month'=>$request->expire_month,'exp_year'=>$request->expire_year,
-								'cvc'=>$request->cvc,'payment_type'=>1
+								'cvc'=>$request->cvc,'payment_type'=>1,'name'=>$request->name
 							);
 			if($request->save_card_deail){
 				$save_array['save_card'] = 1;
 			}
+			if($request->type && $request->type == 'custom'){
+				$save_array['type'] = 'custom';
+				$redirect_url = 'customer/mission-request-list';
+			}
 			$mission_payment = $this->Make_POST('customer/mission-make-payment',$save_array);
-			
             // $mission = Mission::where('id',$mission_id)->first();
             // $chargeAmount = $mission->amount;
             // if($mission->quick_book==0){
@@ -609,7 +637,7 @@ class MissionController extends Controller
             if($mission_payment->status){
                 $response['message'] = trans('messages.payment_completed');
                 $response['delayTime'] = 5000;
-                $response['url'] = url('customer/missions');
+                $response['url'] = url($redirect_url);
                 return $this->getSuccessResponse($response);
             }else{
                 $response['message'] = $mission_payment->data->raw->message;

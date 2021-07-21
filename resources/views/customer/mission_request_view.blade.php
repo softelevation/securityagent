@@ -86,8 +86,30 @@
                   </div>
                 </div>
 				@endif
-               
-				
+				@if($results->status && !$results->payment_status)
+				<h3>{{__('dashboard.payment.details')}}</h3>
+				<div class="pending-details">
+                  <div class="view_agent_details mt-4">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered">
+                          <tbody>
+                            <tr>
+                              <th width="50%" class="text-right">{{__('dashboard.payment.total')}}:</th>
+                              <th class="text-left">{{$results->amount}} <i class="fa fa-euro-sign"></i></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                  </div>
+                  <div class="text-center">
+					<div class="text-center pt-5 text_panel">
+						<input type="checkbox" class="checkbox1" name="terms_conditions_find_mission" value="1">{!! trans('frontend.term_and_condition_1') !!}</br>
+						<input type="checkbox" class="checkbox2" name="terms_conditions_find_mission" value="2">{!! trans('frontend.term_and_condition_2') !!}</br>
+					</div>
+                    <a href="{{url('customer/custom-proceed-payment/')}}/{{Helper::encrypt($results->id)}}" class="button success_btn proceed_success_btn disabled">{{__('dashboard.payment.proceed')}}</a>
+                  </div>
+                </div>
+				@endif
               </div>
             </div>
         </div>
