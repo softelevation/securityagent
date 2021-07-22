@@ -29,7 +29,7 @@
                                           <th>#</th>
                                           <th>{{__('dashboard.mission.title')}}</th>
                                           <th>{{__('dashboard.mission.location')}}</th>
-                                          <th>{{__('dashboard.vehicle_required')}}</th>
+                                          <th>{{__('dashboard.agents.assign')}}</th>
 										  <th>{{__('dashboard.mission.started_at')}}</th>
 										  <th>Action</th>
                                       </tr>
@@ -40,8 +40,8 @@
                                           <td>{{$key+1}}.</td>
                                           <td>{{$result->title}}</td>
                                           <td>{{$result->location}}</td>
-                                          <td>{{$result->vehicle_required}}</td>
-										  <td>{{date('d/m/Y H:i:s', strtotime($result->start_date_time))}}</td>
+                                          <td>{{$result->agent_count}}</td>
+										  <td>{{$result->start_date_time}}</td>
                                           <td><p><a href="{{url('customer/mission-requests/view')}}/{{Helper::encrypt($result->id)}}" class="action_icons" href="#"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a></p></td>
                                       </tr>
                                     @endforeach

@@ -56,12 +56,8 @@
 					<div class="row">
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.agents.type')}}</label>
-                          <select name="agent_type" class="form-control">
-								<option value="">{{__('frontend.select')}}</option>
-								@foreach(Helper::get_agent_type_list() as $key => $agent_list)
-									<option value="{{$agent_list}}">{{$agent_list}}</option>
-								@endforeach
-						  </select>
+						  @php $agentTypes = Helper::get_agent_type_list(); @endphp
+                          {{Form::select('agent_type',$agentTypes,null,['class'=>'form-control'])}}
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.hours_req')}}</label>

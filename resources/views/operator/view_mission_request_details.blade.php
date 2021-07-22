@@ -72,6 +72,7 @@
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
 					{{Form::open(['url'=>url('operator/sand-custom-request/'.$mission->id),'id'=>'general_form'])}}
+					@if(!$mission->payment_status)
 					@if(empty($mission->assign_agents))
                     <div class="row custom-mission-request custom-mission-0">
                       <div class="col-md-3 form-group">
@@ -139,10 +140,41 @@
 						</div>
 						@endforeach
 					@endif
+					@else
+						@foreach($mission->assign_agents as $keys => $assign_agent)
+						<div class="row custom-mission-request custom-mission-{{$keys}}">
+						  <div class="col-md-4 form-group">
+							@if(!$keys)<label>{{__('dashboard.agents.name')}}</label>@endif
+							<select name="agent_type[]" class="form-control" disabled>
+									<option value="">{{__('frontend.select')}}</option>
+									@foreach($agents as $agent)
+										<option value="{{$agent->id}}" data-agent_type="{{$agent->agent_type}}" @if($assign_agent->agent_id == $agent->id) selected @endif>{{$agent->username}}</option>
+									@endforeach
+							  </select>
+						  </div>
+						  <div class="col-md-3 form-group">
+							@if(!$keys)<label>From date</label>@endif
+							<input class="form-control datetimepicker" value="{{$assign_agent->start_date_time}}" placeholder="Date Time" name="start_date_time[]" type="text" disabled>
+						  </div>
+						  <div class="col-md-3 form-group">
+							@if(!$keys)<label>To date</label>@endif
+							<input class="form-control datetimepicker" id="end_date_time_{{$keys}}" value="{{$assign_agent->end_date_time}}" placeholder="Date Time" name="end_date_time[]" type="text" disabled>
+						  </div>
+						  <div class="col-md-2 form-group">
+							@if(!$keys)<label>{{__('dashboard.amount')}}</label>@endif
+							<input class="form-control" value="{{($assign_agent->amount) ? $assign_agent->amount : 0}}" id="amount" placeholder="{{__('dashboard.amount')}}" name="amount[]" type="text" disabled>
+						  </div>
+						</div>
+						@endforeach
+					@endif
 					<div class="row">
 							<div class="col-md-12 text-center">
-                                  <button type="submit" class="button success_btn">{{__('dashboard.agents.request_for_payment')}} -(<span id="process_to_paid">{{$mission->amount}}</span>)</button>
-                            </div>
+								  @if(!$mission->payment_status)
+									<button type="submit" class="button success_btn">{{__('dashboard.agents.request_for_payment')}} -(<span id="process_to_paid">{{$mission->amount}}</span>)</button>
+								  @else
+									<a href="{{ url('operator/custom-request-assign-agent/'.Helper::encrypt($mission->id)) }}" class="button success_btn">{{__('dashboard.assign')}}</a>
+								  @endif
+							</div>
 					</div>
 					{{Form::close()}}
                   </div>

@@ -211,6 +211,19 @@ class OperatorController extends Controller
         return view('operator.view_mission_request_details',$data);
     }
 	
+	/**
+     * @param $mission_id
+     * @return mixed
+     * @method customRequestAssignAgent
+     * @purpose View mission details
+     */
+    public function customRequestAssignAgent($mission_id){
+        $id = Helper::decrypt($mission_id);
+		$input = array('status'=>2);
+		$result = $this->Make_POST('operator/custom-mission-request/'.$id,$input);
+		return redirect('operator/mission-requests/view/'.$mission_id);
+    }
+	
 	public function customRequestAmountCal(Request $request){
 		try{
 			$agent_type = explode(',',$request->agent_type);
