@@ -207,8 +207,7 @@ class OperatorController extends Controller
     public function viewMissionRequestDetails($mission_id){
         $mission_id = Helper::decrypt($mission_id);
 		$data['mission'] = $this->Make_GET('operator/mission-request/view/'.$mission_id)->data;
-		$agent_All = $this->Make_GET('operator/agents')->data;
-		$data['agents'] = $agent_All->verified_agents;
+		$data['agents'] = $this->Make_GET('operator/agents-valid')->data;
         return view('operator.view_mission_request_details',$data);
     }
 	
