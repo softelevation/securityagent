@@ -89,7 +89,7 @@ class MissionController extends Controller
      */
     public function customMissionDetails($mission_id){
         $mission_id = Helper::decrypt($mission_id);
-		$data['mission'] = $this->Make_GET('agent/custom-mission-request/'.$mission_id)->data;
+		$data['mission'] = $this->Make_GET('agent/custom-mission-list/'.$mission_id)->data;
         return view('agent.view_custom_mission_details',$data);
     }
 	
@@ -104,7 +104,7 @@ class MissionController extends Controller
 		
 		Notification::where('agent_id',Auth::user()->profile->id)->where('type','cus_new_mission')->update(array('status'=>0));
 		$awaitingRequests = $this->Make_GET('agent/mission-requests');
-		$customRequests = $this->Make_GET('agent/custom-mission-requests')->data;
+		$customRequests = $this->Make_GET('agent/custom-mission-list')->data;
 		$params = [
             'awaiting_requests' => $awaitingRequests->data,
             'expired_requests' => $awaitingRequests->mission_expire,
