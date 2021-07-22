@@ -336,18 +336,15 @@ class MissionController extends Controller
 			$input_save = array(
 				'title'=>$request->general_info,'location'=>$request->request_location,'latitude'=>$request->latitude,
 				'longitude'=>$request->longitude,'description'=>$request->description,'agent_type'=>$request->agent_type,
-				'total_hours'=>$request->total_hours,'agent_count'=>$request->agent_count,'start_date_time'=>$request->start_date_time,
+				'total_hours'=>$request->total_hours,'agent_count'=>$request->agent_count,
 				'quick_book'=>$request->quick_book,'vehicle_required'=>$request->vehicle_required,'customer_id'=>$customer_id = Auth::user()->customer_info->id
 			);
-			
+			$start_date_time = $request->start_date_time;
+			$dt = explode(' ',$start_date_time);
+			$da_te = explode('/',$dt[0]);
+			$time = explode(':',$dt[1]);
+			$input_save['start_date_time'] = date($da_te[2].'-'.$da_te[1].'-'.$da_te[0].' '.$time[0].':'.$time[1].':'.$time[2]);
 			$mission_payment = $this->Make_POST('customer/mission-request',$input_save);
-			// $templateName = 'emails.mission_request';
-            // $toEmail = 'contact@ontimebe.com';
-			// $toEmail_1 = 'ontimebe@yopmail.com';
-            // $toName = 'Be On Time';
-            // $subject = trans('frontend.mission_request.mission_request');
-            // Helper::sendCommonMail($templateName,$input,$toEmail,$toName,$subject);
-            // Helper::sendCommonMail($templateName,$input,$toEmail_1,$toName,$subject);
 			$response['message'] = trans('messages.custom_request');
 			$response['delayTime'] = 5000;
 			$response['url'] = url('customer/mission-request');

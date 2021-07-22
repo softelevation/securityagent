@@ -61,17 +61,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.hours_req')}}</label>
-                          @php $hours[] = __('dashboard.mission.dont_know_hours') @endphp  
-                          @for($i=1; $i<=72; $i++)
-                            @php 
-                              if($i==1){
-                                $hours[$i] = $i.' '.__('dashboard.hr');  
-                              }else{
-                                $hours[$i] = $i.' '.__('dashboard.hrs');
-                              }
-                            @endphp
-                          @endfor
-                          {{Form::select('total_hours',$hours,null,['class'=>'form-control mission_hours'])}}
+						  {{Form::text('total_hours',null,['class'=>'form-control timepicker','placeholder'=>__('dashboard.mission.hours_req')])}}
                         </div>
 						<div class="col-md-6 form-group">
                             <label>{{__('frontend.mission_request.how_many_agents')}}</label>
