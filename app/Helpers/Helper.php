@@ -11,6 +11,7 @@ use App\Agent;
 use App\Notification;
 use App\PaymentApproval;
 use App\RefundRequest;
+use App\OperatorNotification;
 use Carbon\Carbon;
 use DB;
 use App;
@@ -413,13 +414,26 @@ class Helper {
 		$data = null;
 		if(Auth::check() && Auth::user()->role_id==3){
 		if($input == 'count'){
-					$data = Agent::where('status',0)->count();
+					$data = OperatorNotification::where('status',1)->count();
 			}else if($input == 'data'){
-				$data = Agent::where('status',0)->get();
+				$data = OperatorNotification::where('status',1)->orderBy('id','DESC')->get();
 			}
 		}
         return $data;
     }
+	
+	public static function get_operator_data_notification_url($input){
+		
+		$url = '';
+		if($input->type == 'registered'){
+			$url = url('operator/agent/view/'.self::encrypt($input->user_id));
+		}else if($input->type == 'mission_request'){
+			$url = url('operator/mission-requests/view/'.self::encrypt($input->mission_id));
+		}
+        return $url;
+    }
+	
+	
 	
 	public static function operator_request_message($id = null,$lang) {
 		$data = $id;

@@ -132,7 +132,7 @@ class CustomerController extends Controller
     public function processNotifications(Request $request){
         $id = $request->notification_id;
         $url = $request->notification_url;
-        $result = Notification::where('id',$id)->update(['status'=>0]);
+		$result = $this->Make_POST('operator/process-notification',array('notification_id'=>$request->notification_id));
         if($result){
             $response['message'] = trans('messages.please_wait');
             $response['delayTime'] = 1000;

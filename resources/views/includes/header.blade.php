@@ -137,7 +137,7 @@
 							  <ul class="dropdown-menu mission-requests">
 								@php $notifications = Helper::get_operator_notification('data'); @endphp
 								@foreach($notifications as $notification)
-								<li class="item"><a class="notification-item" href="javascript:void(0)" data-notification-url="{{url('operator/agent/view/')}}/{{Helper::encrypt($notification->id)}}" data-notification-id="{{$notification->id}}"><i class="fa fa-edit"></i> {{Helper::operator_request_message($notification->username,trans('frontend.language'))}}</a></li>
+								<li class="item"><a class="notification-item" href="javascript:void(0)" data-notification-url="{{Helper::get_operator_data_notification_url($notification)}}" data-notification-id="{{$notification->id}}"><i class="fa fa-edit"></i> {{Helper::operator_request_message($notification->message,trans('frontend.language'))}}</a></li>
 								@endforeach
 							  </ul>
 						  @endif
