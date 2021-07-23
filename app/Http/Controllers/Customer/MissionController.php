@@ -339,11 +339,13 @@ class MissionController extends Controller
 				'total_hours'=>$request->total_hours,'agent_count'=>$request->agent_count,
 				'quick_book'=>$request->quick_book,'vehicle_required'=>$request->vehicle_required,'customer_id'=>$customer_id = Auth::user()->customer_info->id
 			);
-			$start_date_time = $request->start_date_time;
-			$dt = explode(' ',$start_date_time);
-			$da_te = explode('/',$dt[0]);
-			$time = explode(':',$dt[1]);
-			$input_save['start_date_time'] = date($da_te[2].'-'.$da_te[1].'-'.$da_te[0].' '.$time[0].':'.$time[1].':'.$time[2]);
+			if($request->start_date_time){
+				$start_date_time = $request->start_date_time;
+				$dt = explode(' ',$start_date_time);
+				$da_te = explode('/',$dt[0]);
+				$time = explode(':',$dt[1]);
+				$input_save['start_date_time'] = date($da_te[2].'-'.$da_te[1].'-'.$da_te[0].' '.$time[0].':'.$time[1].':'.$time[2]);
+			}
 			$mission_payment = $this->Make_POST('customer/mission-request',$input_save);
 			$response['message'] = trans('messages.custom_request');
 			$response['delayTime'] = 5000;
