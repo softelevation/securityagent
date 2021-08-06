@@ -95,12 +95,12 @@
                     <!-- Notifications Dropdown -->
                     <div class="float-left dropdown pl-3 position-relative">
                       <div class="notification" data-toggle="dropdown">
-                        <span <?php if(Helper::get_customer_notification_count()==0){ ?> data-container="body" data-toggle="popover" data-placement="bottom" data-content="No new notification." data-html="true" data-trigger="hover" <?php } ?>><i class="fa fa-bell"></i></span>
-                        <?php if(Helper::get_customer_notification_count() > 0){ ?>
-                          <span class="badge"><?php echo Helper::get_customer_notification_count(); ?></span>
+                        <span <?php if(Helper::get_customer_notifications('count')==0){ ?> data-container="body" data-toggle="popover" data-placement="bottom" data-content="No new notification." data-html="true" data-trigger="hover" <?php } ?>><i class="fa fa-bell"></i></span>
+                        <?php if(Helper::get_customer_notifications('count') > 0){ ?>
+                          <span class="badge"><?php echo Helper::get_customer_notifications('count'); ?></span>
                         <?php } ?>
                       </div>
-                      <?php if(Helper::get_customer_notification_count() > 0){ ?>
+                      <?php if(Helper::get_customer_notifications('count') > 0){ ?>
                       <ul class="dropdown-menu mission-requests">
                         <?php $notifications = Helper::get_customer_notifications(); ?>
                         <?php foreach($notifications as $notification){ ?>

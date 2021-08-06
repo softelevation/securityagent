@@ -120,7 +120,7 @@
                                     <th>#</th>
                                     <th>{{__('dashboard.mission.title')}}</th>
                                     <th>{{__('dashboard.mission.location')}}</th>
-                                    <th>{{__('dashboard.mission.duration')}}</th>
+                                    <th>{{__('dashboard.mission.hours_req')}}</th>
                                     <th>{{__('dashboard.status')}}</th>
                                     <th>{{__('dashboard.action')}}</th>
                                 </tr>
@@ -135,8 +135,14 @@
                                     <td>{{$i}}.</td>
                                     <td>{{$custom_request->title}}</td>
                                     <td>{{$custom_request->location}}</td>
-                                    <td>2 {!!__('dashboard.hours')!!}</td>
-                                    <td><button class="btn btn-outline-success status_btn">{{__('dashboard.expired')}}</button></td>
+                                    <td>{{($custom_request->total_hours) ? date('H:i', strtotime($custom_request->total_hours)):'N/A'}}</td>
+									<td>
+									@if(strtotime($custom_request->start_date_time) > $current_date_str)
+										<button class="btn btn-outline-success status_outline">{{__('dashboard.mission.pending')}}</button>
+									@else
+										<button class="btn btn-outline-success status_btn">{{__('dashboard.expired')}}</button>
+									@endif
+									</td>
                                     <td>
                                       <a href="{{url('agent/custom-mission-details/view')}}/{{Helper::encrypt($custom_request->mission_id)}}" class="action_icons"><i class="fas fa-eye text-grey" aria-hidden="true"></i> {{__('dashboard.view')}} </a>
                                     </td>

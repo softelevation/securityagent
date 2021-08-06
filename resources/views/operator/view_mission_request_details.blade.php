@@ -40,7 +40,7 @@
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.mission_hours')}}</label>
-                        <span class="form-control">{{$mission->total_hours}} {{__('dashboard.hours')}}</span>
+                        <span class="form-control">{{($mission->total_hours) ? $mission->total_hours:'N/A'}} {{__('dashboard.hours')}}</span>
                       </div>
 					  <div class="col-md-6 form-group">
                         <label>{{__('dashboard.customer_name')}}</label>
@@ -48,7 +48,7 @@
                       </div>
 					  <div class="col-md-6 form-group">
                         <label>{{__('frontend.mission_request.how_many_agents')}}</label>
-                        <span class="form-control">{{$mission->agent_count}}</span>
+                        <span class="form-control">{{($mission->agent_count) ? $mission->agent_count:'N/A'}}</span>
                       </div>
                       @if(isset($mission->start_date_time) && $mission->start_date_time!='')
                       <div class="col-md-6 form-group">

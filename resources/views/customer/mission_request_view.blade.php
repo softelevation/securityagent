@@ -33,7 +33,7 @@
 					  @if($results->agent_type)
 					  <div class="col-md-6 form-group">
                         <label>{{__('dashboard.agents.type')}}</label>
-                        <span class="form-control">{{$results->agent_type}}</span>
+                        <span class="form-control">{{Helper::get_agent_type_name($results->agent_type)}}</span>
                       </div>
 					  @endif
 					  @if($results->total_hours)
@@ -65,6 +65,7 @@
                               <tr>
                                   <th>#</th>
                                   <th>{{__('dashboard.agents.username')}}</th>
+								  <th>{{__('dashboard.mission.hours_req')}}</th>
                                   <th>From date</th>
                                   <th>To date</th>
                               </tr>
@@ -76,6 +77,7 @@
 								<tr>
 								  <td>{{$i}}.</td>
 								  <td>{{$result->username}}</td>
+								  <td>{{$result->duration}}</td>
 								  <td>{{$result->start_date_time}}</td>
 								  <td>{{$result->end_date_time}}</td>
 								</tr>

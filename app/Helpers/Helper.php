@@ -435,36 +435,48 @@ class Helper {
 	
 	
 	
-	public static function operator_request_message($id = null,$lang) {
+	public static function operator_request_message($id = null,$type,$lang) {
 		$data = $id;
-		if ($lang == 'en') {
-			$data = $id.' request is pending';
-        }else{
-			$data = 'La demande '.$id.' est en attente';
+		if($type == 'registered'){
+			if ($lang == 'en') {
+				$data = $id.' request is pending';
+			}else{
+				$data = 'La demande '.$id.' est en attente';
+			}
+		}else{
+			if ($lang == 'en') {
+				$data = $id.' have a new mission request';
+			}else{
+				$data = $id.' a une nouvelle demande de mission';
+			}
 		}
         return $data;
     }
 	
-    public static function get_customer_notification_count(){
-        $count = 0;
-        if(Auth::check() && Auth::user()->role_id==1){
-            $customer_id = Auth::user()->profile->id;
-            $count = Notification::where('customer_id',$customer_id)
-                            ->where('status',1)->where('type','!=','cus_new_mission')
-                            ->count();
-        }
-        return $count;
-    }
+    // public static function get_customer_notification_count(){
+        // $count = 0;
+        // if(Auth::check() && Auth::user()->role_id==1){
+            // $customer_id = Auth::user()->profile->id;
+            // $count = Notification::where('customer_id',$customer_id)
+                            // ->where('status',1)->where('type','!=','cus_new_mission')
+                            // ->count();
+        // }
+        // return $count;
+    // }
 
     /**
      * @return integer
      * @method get_customer_notification_count
      */
-    public static function get_customer_notifications(){
+    public static function get_customer_notifications($input = null){
         $data = null;
         if(Auth::check() && Auth::user()->role_id==1){
-            $customer_id = Auth::user()->customer_info->id;
-            $data = Notification::where('customer_id',$customer_id)->where('status',1)->where('type','!=','cus_new_mission')->get();
+			$customer_id = Auth::user()->customer_info->id;
+			if($input == 'count'){
+				$data = Notification::where('customer_id',$customer_id)->where('status',1)->where('type','!=','cus_new_mission')->count();
+			}else{
+				$data = Notification::where('customer_id',$customer_id)->where('status',1)->where('type','!=','cus_new_mission')->get();
+			}
         }
         return $data;
     }

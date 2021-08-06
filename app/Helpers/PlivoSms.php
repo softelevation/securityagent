@@ -7,9 +7,9 @@ use Plivo\RestClient;
 class PlivoSms
 {
     
-    const PLIVO_KEY = "MAYZMWZDIYYMU5OGRHNJ";
-    const PLIVO_SECRET = "NzI1YWFhMjE1NjZhY2U4YTliYzJiZjFhNjY4ODkx";
-    const PLIVO_PHONE = '+33685151627';
+    const PLIVO_KEY = "MAMTG5ZWJLMME5NJFMYM";
+    const PLIVO_SECRET = "MGE1NWQ2YjEyYmY2MGFkZWRhZTA1NTNiZGY1M2Ix";
+    const PLIVO_PHONE = '+1 954-231-6797';
 //    const pLivoClient = '';
     protected $pLivoClient;
     

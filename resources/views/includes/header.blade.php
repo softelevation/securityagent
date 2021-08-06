@@ -99,12 +99,12 @@
                     <!-- Notifications Dropdown -->
                     <div class="float-left dropdown pl-3 position-relative">
                       <div class="notification" data-toggle="dropdown">
-                        <span @if(Helper::get_customer_notification_count()==0) data-container="body" data-toggle="popover" data-placement="bottom" data-content="No new notification." data-html="true" data-trigger="hover" @endif><i class="fa fa-bell"></i></span>
-                        @if(Helper::get_customer_notification_count() > 0)
-                          <span class="badge">{{Helper::get_customer_notification_count()}}</span>
+                        <span @if(Helper::get_customer_notifications('count')==0) data-container="body" data-toggle="popover" data-placement="bottom" data-content="No new notification." data-html="true" data-trigger="hover" @endif><i class="fa fa-bell"></i></span>
+                        @if(Helper::get_customer_notifications('count') > 0)
+                          <span class="badge">{{Helper::get_customer_notifications('count')}}</span>
                         @endif
                       </div>
-                      @if(Helper::get_customer_notification_count() > 0)
+                      @if(Helper::get_customer_notifications('count') > 0)
                       <ul class="dropdown-menu mission-requests">
                         @php $notifications = Helper::get_customer_notifications(); @endphp
                         @foreach($notifications as $notification)
@@ -137,7 +137,7 @@
 							  <ul class="dropdown-menu mission-requests">
 								@php $notifications = Helper::get_operator_notification('data'); @endphp
 								@foreach($notifications as $notification)
-								<li class="item"><a class="notification-item" href="javascript:void(0)" data-notification-url="{{Helper::get_operator_data_notification_url($notification)}}" data-notification-id="{{$notification->id}}"><i class="fa fa-edit"></i> {{Helper::operator_request_message($notification->message,trans('frontend.language'))}}</a></li>
+								<li class="item"><a class="notification-item" href="javascript:void(0)" data-notification-url="{{Helper::get_operator_data_notification_url($notification)}}" data-notification-id="{{$notification->id}}"><i class="fa fa-edit"></i> {{Helper::operator_request_message($notification->message,$notification->type,trans('frontend.language'))}}</a></li>
 								@endforeach
 							  </ul>
 						  @endif

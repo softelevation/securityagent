@@ -105,10 +105,12 @@ class MissionController extends Controller
 		Notification::where('agent_id',Auth::user()->profile->id)->where('type','cus_new_mission')->update(array('status'=>0));
 		$awaitingRequests = $this->Make_GET('agent/mission-requests');
 		$customRequests = $this->Make_GET('agent/custom-mission-list')->data;
+		$current_date_str = strtotime(Carbon::now()->toDateTimeString());
 		$params = [
             'awaiting_requests' => $awaitingRequests->data,
             'expired_requests' => $awaitingRequests->mission_expire,
             'custom_requests' => $customRequests,
+            'current_date_str' => $current_date_str,
             'page_no' => 1,
             'page_name' => 'awaiting',
             'limit' => $this->limit
