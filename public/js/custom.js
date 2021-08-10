@@ -440,10 +440,11 @@ $(document).ready(function () {
 			let agent_type_all = $('select[name="agent_type[]"]').find('option');
 			let agent_type = '<div class="row custom-mission-'+io+'"><div class="col-md-3 form-group">';
 				agent_type += '<select name="agent_type[]" class="form-control">';
-				// console.log(agent_type_all);
+				console.log(agent_type_all);
 				agent_type_all.map(function(key) {
 											agent_type +=  agent_type_all[key].outerHTML;
 									});
+				
 				agent_type += '</select>';
 				agent_type += '</div>';
 				

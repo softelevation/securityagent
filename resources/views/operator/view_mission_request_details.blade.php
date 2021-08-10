@@ -32,7 +32,7 @@
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.agent_needed')}}</label>
-                        <span class="form-control">{{$mission->agent_type}}</span>
+                        <span class="form-control">{{Helper::get_agent_type_name($mission->agent_type)}}</span>
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.vehicle_required')}}</label>
