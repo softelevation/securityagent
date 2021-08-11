@@ -173,7 +173,6 @@
 									<button type="submit" name="action_button" class="button success_btn" value="request_for_payment">{{__('dashboard.agents.request_for_payment')}} -(<span id="process_to_paid">{{$mission->amount}}</span>)</button>
 								  @else
 									<button type="submit" name="action_button" class="button success_btn" value="assign">{{__('dashboard.assign')}}</button>
-									<!--a href="{{ url('operator/custom-request-assign-agent/'.Helper::encrypt($mission->id)) }}" class="button success_btn">{{__('dashboard.assign')}}</a -->
 								  @endif
 							</div>
 					</div>

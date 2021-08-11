@@ -429,6 +429,8 @@ class Helper {
 			$url = url('operator/agent/view/'.self::encrypt($input->user_id));
 		}else if($input->type == 'mission_request'){
 			$url = url('operator/mission-requests/view/'.self::encrypt($input->mission_id));
+		}else if($input->type == 'custom_mission'){
+			$url = url('operator/mission-requests/view/'.self::encrypt($input->mission_id));
 		}
         return $url;
     }
