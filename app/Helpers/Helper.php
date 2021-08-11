@@ -443,7 +443,7 @@ class Helper {
 			}else{
 				$data = 'La demande '.$id.' est en attente';
 			}
-		}else{
+		}else if($type == 'mission_request'){
 			if ($lang == 'en') {
 				$data = $id.' have a new mission request';
 			}else{
