@@ -204,26 +204,14 @@ class OperatorController extends Controller
      * @method viewMissionDetails
      * @purpose View mission details
      */
-    public function viewMissionRequestDetails($mission_id){
-        $mission_id = Helper::decrypt($mission_id);
+    public function viewMissionRequestDetails($mission_in_id){
+        $mission_id = Helper::decrypt($mission_in_id);
 		$data['mission'] = $this->Make_GET('operator/mission-request/view/'.$mission_id)->data;
 		$data['agents'] = $this->Make_GET('operator/agents-valid')->data;
+		$data['mission_id'] = $mission_in_id;
         return view('operator.view_mission_request_details',$data);
     }
-	
-	/**
-     * @param $mission_id
-     * @return mixed
-     * @method customRequestAssignAgent
-     * @purpose View mission details
-     */
-    public function customRequestAssignAgent($mission_id){
-        $id = Helper::decrypt($mission_id);
-		$input = array('status'=>2);
-		$result = $this->Make_POST('operator/custom-mission-request/'.$id,$input);
-		return redirect('operator/mission-requests/view/'.$mission_id);
-    }
-	
+		
 	public function customRequestAmountCal(Request $request){
 		try{
 			$agent_type = explode(',',$request->agent_type);
@@ -252,17 +240,27 @@ class OperatorController extends Controller
 	public function sandCustomRequest(Request $request,$id){
 		try{
 			$inputData = $request->all();
-			$saveData = array(
-					'agent_id'=>$inputData['agent_type'],
-					'start_date_time'=>$inputData['start_date_time'],
-					'amount'=>$inputData['amount'],
-					'end_date_time'=>$inputData['end_date_time']
-			);
-			$result = $this->Make_POST('operator/mission-request/'.$id,$saveData);
-			$response['message'] = $result->message;
-            $response['delayTime'] = 2000;
-            $response['url'] = url('operator/mission-requests');
-            return $this->getSuccessResponse($response);
+			$mission_id = Helper::decrypt($id);
+			if($request->action_button == 'request_for_payment'){
+				$saveData = array(
+						'agent_id'=>$inputData['agent_type'],
+						'start_date_time'=>$inputData['start_date_time'],
+						'amount'=>$inputData['amount'],
+						'end_date_time'=>$inputData['end_date_time']
+				);
+				$result = $this->Make_POST('operator/mission-request/'.$mission_id,$saveData);
+				$response['message'] = $result->message;
+				$response['delayTime'] = 2000;
+				$response['url'] = url('operator/mission-requests/view/'.$id);
+				return $this->getSuccessResponse($response);
+			}else if($request->action_button == 'assign'){
+				$input = array('status'=>2);
+				$result = $this->Make_POST('operator/custom-mission-request/'.$mission_id,$input);
+				$response['message'] = $result->message;
+				$response['delayTime'] = 2000;
+				$response['url'] = url('operator/mission-requests');
+				return $this->getSuccessResponse($response);
+			}
 		}catch(\Exception $e){
             return response($this->getErrorResponse($e->getMessage()));
         }

@@ -108,7 +108,7 @@
                       <ul class="dropdown-menu mission-requests">
                         @php $notifications = Helper::get_customer_notifications(); @endphp
                         @foreach($notifications as $notification)
-                        <li class="item"><a class="notification-item" href="javascript:void(0)" data-notification-url="{{url('customer/mission-details/view/')}}/{{Helper::encrypt($notification->mission_id)}}" data-notification-id="{{$notification->id}}"><i class="fa fa-edit"></i> {{__($notification->message)}}</a></li>
+                        <li class="item"><a class="notification-item" href="javascript:void(0)" data-notification-url="{{Helper::get_customer_data_notification_url($notification)}}" data-notification-id="{{$notification->id}}"><i class="fa fa-edit"></i> {{__($notification->message)}}</a></li>
                         @endforeach
                       </ul>
                       @endif

@@ -95,7 +95,6 @@ Route::group(['prefix'=>'operator'], function () {
 		Route::get('/mission-requests/view/{mission_id}', 'OperatorController@viewMissionRequestDetails');
 		Route::post('/custom-request-amount-cal', 'OperatorController@customRequestAmountCal');
 		Route::post('/sand-custom-request/{mission_id}', 'OperatorController@sandCustomRequest');
-		Route::get('/custom-request-assign-agent/{mission_id}', 'OperatorController@customRequestAssignAgent');
         Route::get('/mission-details/view/{mission_id}', 'OperatorController@viewMissionDetails');
         Route::get('/assign-agent/{mission_id}', 'OperatorController@assignMissionAgent');
         Route::get('/sub-mission/{mission_id}', 'OperatorController@createSubMissions');

@@ -71,7 +71,7 @@
                 <h3>{{__('dashboard.agents.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
-					{{Form::open(['url'=>url('operator/sand-custom-request/'.$mission->id),'id'=>'general_form'])}}
+					{{Form::open(['url'=>url('operator/sand-custom-request/'.$mission_id),'id'=>'general_form'])}}
 					@if(!$mission->payment_status)
 					@if(empty($mission->assign_agents))
                     <div class="row custom-mission-request custom-mission-0">
@@ -170,9 +170,10 @@
 					<div class="row">
 							<div class="col-md-12 text-center">
 								  @if(!$mission->payment_status)
-									<button type="submit" class="button success_btn">{{__('dashboard.agents.request_for_payment')}} -(<span id="process_to_paid">{{$mission->amount}}</span>)</button>
+									<button type="submit" name="action_button" class="button success_btn" value="request_for_payment">{{__('dashboard.agents.request_for_payment')}} -(<span id="process_to_paid">{{$mission->amount}}</span>)</button>
 								  @else
-									<a href="{{ url('operator/custom-request-assign-agent/'.Helper::encrypt($mission->id)) }}" class="button success_btn">{{__('dashboard.assign')}}</a>
+									<button type="submit" name="action_button" class="button success_btn" value="assign">{{__('dashboard.assign')}}</button>
+									<!--a href="{{ url('operator/custom-request-assign-agent/'.Helper::encrypt($mission->id)) }}" class="button success_btn">{{__('dashboard.assign')}}</a -->
 								  @endif
 							</div>
 					</div>

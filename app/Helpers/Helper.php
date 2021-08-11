@@ -475,10 +475,20 @@ class Helper {
 			if($input == 'count'){
 				$data = Notification::where('customer_id',$customer_id)->where('status',1)->where('type','!=','cus_new_mission')->count();
 			}else{
-				$data = Notification::where('customer_id',$customer_id)->where('status',1)->where('type','!=','cus_new_mission')->get();
+				$data = Notification::where('customer_id',$customer_id)->where('status',1)->where('type','!=','cus_new_mission')->orderBy('id','DESC')->get();
 			}
         }
         return $data;
+    }
+	
+	public static function get_customer_data_notification_url($input){
+		$url = '';
+		if($input->type == 'custom_mission_request'){
+			$url = url('customer/mission-requests/view/'.self::encrypt($input->mission_id));
+		}else{
+			$url = url('customer/mission-details/view/'.self::encrypt($input->mission_id));
+		}
+        return $url;
     }
 
 
