@@ -187,15 +187,22 @@ class OperatorController extends Controller
      * @purpose Load customer list view
      */
     public function missionRequest(Request $request){
-        // $custom_req = CustomRequest::select('customers.first_name','customers.last_name','custom_requests.title','custom_requests.location')
-					// ->join('customers','customers.id','custom_requests.customer_id')->orderBy('custom_requests.id','DESC')->paginate($this->limit);
-        // $params = [
-            // 'data' => $custom_req,
-            // 'limit' => $this->limit,
-            // 'page_no' => 1
-        // ];
-		$mission['results'] = $this->Make_GET('operator/mission-requests')->data;
-        return view('operator.mission_request',$mission);
+		try {
+			$params = [];
+			$mission['page_name'] = 'all';
+			$mission_requests = $this->Make_GET('operator/mission-requests')->data;
+			$mission['missionAll'] = $mission_requests->missionAll;
+			
+			// echo '<pre>';
+			// print_r($mission['missionAll']);
+			// die;
+			$mission['future_mission'] = $mission_requests->missionPending;
+			$mission['quick_mission'] = $mission_requests->missionInProgress;
+			$mission['finished_mission'] = $mission_requests->missionCompleted;
+			return view('operator.mission_request',$mission);
+		}catch(\Exception $e){
+			return redirect('/');
+        }
     }
 	
 	/**

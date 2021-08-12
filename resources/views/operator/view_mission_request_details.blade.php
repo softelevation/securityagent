@@ -40,7 +40,7 @@
                       </div>
                       <div class="col-md-6 form-group">
                         <label>{{__('dashboard.mission.mission_hours')}}</label>
-                        <span class="form-control">{{($mission->total_hours) ? $mission->total_hours:'N/A'}} {{__('dashboard.hours')}}</span>
+                        <span class="form-control">{{($mission->total_hours) ? date('H:i', strtotime($mission->total_hours)):'N/A'}} {{__('dashboard.hours')}}</span>
                       </div>
 					  <div class="col-md-6 form-group">
                         <label>{{__('dashboard.customer_name')}}</label>
@@ -172,7 +172,9 @@
 								  @if(!$mission->payment_status)
 									<button type="submit" name="action_button" class="button success_btn" value="request_for_payment">{{__('dashboard.agents.request_for_payment')}} -(<span id="process_to_paid">{{$mission->amount}}</span>)</button>
 								  @else
-									<button type="submit" name="action_button" class="button success_btn" value="assign">{{__('dashboard.assign')}}</button>
+									  @if($mission->status == '1')
+										<button type="submit" name="action_button" class="button success_btn" value="assign">{{__('dashboard.assign')}}</button>
+									  @endif
 								  @endif
 							</div>
 					</div>
