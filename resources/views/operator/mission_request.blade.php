@@ -14,12 +14,25 @@
             @include('includes.operator_sidebar')
             <!-- /.col-md-4 -->
             <div class="col-md-9">
-              <div class="float-left">
-                  <h2>{{__('dashboard.mission_requests')}}</h2>
-              </div>
-              <div class="float-right pt-3">
-                  <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
-              </div>
+			  <div class="col-md-12 ">
+					<div class="col-md-2  float-left form-group">
+                        <h3>{{__('dashboard.requests')}}</h3>
+                    </div>
+					<form>
+					<div class="col-md-3  float-left form-group">
+                            <input type="text" name="from_date" value="{{app('request')->input('from_date')}}" class="form-control datepicker" placeholder="{{__('dashboard.report.from_date')}}"></input>
+                    </div>
+					<div class="col-md-3  float-left form-group">
+                            <input type="text" name="to_date" value="{{app('request')->input('to_date')}}" class="form-control datepicker" placeholder="{{__('dashboard.report.to_date')}}"></input>
+                    </div>
+					<div class="col-md-2  float-left form-group">
+                            <input type="submit" class="form-control" id="filterMissionStatus" value="{{__('dashboard.search')}}"></input>
+                    </div>
+					</form>
+					<div class="col-md-2 float-right pt-3">
+                        <a class="back_btn" href="{{URL::previous()}}"><i class="fa fa-arrow-alt-circle-left"></i> {{__('dashboard.back')}}</a>
+                    </div>
+			  </div>
               <div class="clearfix"></div>
               <div class="tab-pane">
                 <div class="border" id="myTabContent">
@@ -65,6 +78,23 @@
 											@endforeach
 										  </tbody>
 									  </table>
+                                </div>
+								<div class="row">
+                                    <div class="ml-auto mr-auto">
+                                        <nav class="navigation2 text-center" aria-label="Page navigation">
+                                            <ul class="pagination" role="navigation">
+													<li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
+														<span class="page-link" aria-hidden="true">‹</span>
+													</li>
+													<?php for($i=1; $i<=$mission_all_count; $i++){ ?>
+                                                    <li class="page-item @if($page_no == $i && $page_name == 'all') active @endif"><a class="page-link" href="{{ url('operator/mission-requests?all='.$i) }}">{{$i}}</a></li>
+													<?php } ?>
+													<li class="page-item">
+														<a class="page-link" href="{{url('operator/mission-requests?all='.$i)}}" rel="next" aria-label="Next »">›</a>
+													</li>
+											</ul>
+                                        </nav>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Missions in progress tab -->

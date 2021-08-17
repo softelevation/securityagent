@@ -4,6 +4,7 @@ return [
 	// Profile Tab
     'profile' => 'Profile',
     'mission_requests' => 'Mission Requests',
+    'requests' => 'Requests',
     'all_mission_requests' => 'All Mission Requests',
     'search_by_mission_status' => 'Search by Mission status',
     'i_have_mission_requests' => 'Mission Requests',

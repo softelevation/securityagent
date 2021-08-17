@@ -188,14 +188,26 @@ class OperatorController extends Controller
      */
     public function missionRequest(Request $request){
 		try {
-			$params = [];
+			$mission = [];
 			$mission['page_name'] = 'all';
-			$mission_requests = $this->Make_GET('operator/mission-requests')->data;
+			$mission['page_no'] = 1;
+			$api_url = "operator/mission-requests";
+			if($request->isMethod('get')){
+				if(isset($request->all)){
+					$mission['page_no'] = $request->all;
+					$mission['page_name'] = 'all';
+					$api_url .= '?type=mission_all&page='.$request->all;
+				}
+				if($request->from_date && $request->to_date){
+					$from_date = date("Y-m-d", strtotime($request->from_date));
+					$to_date = date("Y-m-d", strtotime($request->to_date));
+					$api_url .= '?from_date='.$from_date.'&to_date='.$to_date;
+				}
+			}
+			$mission_requests = $this->Make_GET($api_url)->data;
 			$mission['missionAll'] = $mission_requests->missionAll;
+			$mission['mission_all_count'] = $mission_requests->missionAll_count;
 			
-			// echo '<pre>';
-			// print_r($mission['missionAll']);
-			// die;
 			$mission['future_mission'] = $mission_requests->missionPending;
 			$mission['quick_mission'] = $mission_requests->missionInProgress;
 			$mission['finished_mission'] = $mission_requests->missionCompleted;
