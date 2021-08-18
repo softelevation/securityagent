@@ -86,7 +86,14 @@ class MissionController extends Controller
 	
 	public function missionRequestList(Request $request){
 		try{
-			$mission['results'] = $this->Make_GET('customer/custom-mission-list')->data;
+			$mission = [];
+			$mission['page_no'] = 1;
+			$mission['page_name'] = 'all';
+			$myrequest = $this->Make_GET('customer/custom-mission-list');
+			$mission['results'] = $myrequest->data;
+			$mission['missionPending'] = $myrequest->missionPending;
+			$mission['missionInProgress'] = $myrequest->missionInProgress;
+			$mission['missionCompleted'] = $myrequest->missionCompleted;
 			return view('customer.mission_request',$mission);
 		}catch(\Exception $e){
 			return redirect('customer/profile');
