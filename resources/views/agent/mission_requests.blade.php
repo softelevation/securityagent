@@ -137,9 +137,11 @@
                                     <td>{{$custom_request->location}}</td>
                                     <td>{{($custom_request->total_hours) ? date('H:i', strtotime($custom_request->total_hours)):'N/A'}}</td>
 									<td>
-									@if(strtotime($custom_request->start_date_time) > $current_date_str)
-										<button class="btn btn-outline-success status_outline">{{__('dashboard.mission.pending')}}</button>
-									@else
+									@if($custom_request->status==2)
+										<button class="btn btn-outline-danger status_btn">{{__('dashboard.mission.pending')}}</button>
+									@elseif($custom_request->status==3)
+										<button class="btn btn-outline-warning status_btn">{{__('dashboard.mission.in_progress')}}</button>
+									@elseif($custom_request->status==4)
 										<button class="btn btn-outline-success status_btn">{{__('dashboard.expired')}}</button>
 									@endif
 									</td>
