@@ -86,11 +86,11 @@
                       </div>
                       <div class="col-md-3 form-group">
                         <label>From date</label>
-                        <input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time[]" type="text">
+                        <input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time[]" type="text" autocomplete="off">
                       </div>
 					  <div class="col-md-3 form-group">
                         <label>To date</label>
-                        <input class="form-control datetimepicker" id="end_date_time_0" placeholder="Date Time" name="end_date_time[]" type="text">
+                        <input class="form-control datetimepicker" id="end_date_time_0" placeholder="Date Time" name="end_date_time[]" type="text" autocomplete="off">
                       </div>
 					  <div class="col-md-2 form-group">
                         <label>{{__('dashboard.amount')}}</label>
@@ -119,11 +119,11 @@
 						  </div>
 						  <div class="col-md-3 form-group">
 							@if(!$keys)<label>From date</label>@endif
-							<input class="form-control datetimepicker" value="{{$assign_agent->start_date_time}}" placeholder="Date Time" name="start_date_time[]" type="text">
+							<input class="form-control datetimepicker" value="{{$assign_agent->start_date_time}}" placeholder="Date Time" name="start_date_time[]" type="text" autocomplete="off">
 						  </div>
 						  <div class="col-md-3 form-group">
 							@if(!$keys)<label>To date</label>@endif
-							<input class="form-control datetimepicker" id="end_date_time_{{$keys}}" value="{{$assign_agent->end_date_time}}" placeholder="Date Time" name="end_date_time[]" type="text">
+							<input class="form-control datetimepicker" id="end_date_time_{{$keys}}" value="{{$assign_agent->end_date_time}}" placeholder="Date Time" name="end_date_time[]" type="text" autocomplete="off">
 						  </div>
 						  <div class="col-md-2 form-group">
 							@if(!$keys)<label>{{__('dashboard.amount')}}</label>@endif

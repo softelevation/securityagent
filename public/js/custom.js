@@ -448,11 +448,11 @@ $(document).ready(function () {
 				agent_type += '</div>';
 				
 				agent_type += '<div class="col-md-3 form-group">';
-				agent_type += '<input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time[]" type="text">';
+				agent_type += '<input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time[]" type="text" autocomplete="off">';
 				agent_type += '</div>';
 				
 				agent_type += '<div class="col-md-3 form-group">';
-				agent_type += '<input class="form-control datetimepicker" id="end_date_time_'+io+'" placeholder="Date Time" name="end_date_time[]" type="text">';
+				agent_type += '<input class="form-control datetimepicker" id="end_date_time_'+io+'" placeholder="Date Time" name="end_date_time[]" type="text" autocomplete="off">';
 				agent_type += '</div>';
 				
 				agent_type += '<div class="col-md-2 form-group">';
