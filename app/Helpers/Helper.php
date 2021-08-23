@@ -379,15 +379,35 @@ class Helper {
      * @return integer
      * @method get_misison_request_count
      */
-    public static function get_misison_request_count(){
+    public static function get_misison_request_count($input=null){
         $count = 0;
-        if(Auth::check() && Auth::user()->role_id==2){
-            $agent_id = Auth::user()->profile->id;
-            $count = Notification::where('agent_id',$agent_id)
-                            ->where('status',1)->where('type','cus_new_mission')
-                            ->count();
-        }
+			if(Auth::check() && Auth::user()->role_id==2){
+				$agent_id = Auth::user()->profile->id;
+				if($input && $input == 'count'){
+				$count = Notification::where('agent_id',$agent_id)
+								->where('status',1)->where('agent_badge',1)
+								->count();
+				}else{
+				$count = Notification::where('agent_id',$agent_id)
+								->where('status',1)->where('agent_badge',1)
+								->get();
+				}
+			}
         return $count;
+    }
+	
+	/**
+     * @return url
+     * @method get_misison_request_url for agent
+     */
+	public static function get_agent_notification_url($input){
+		$url = '';
+		if($input->type == 'cus_new_mission_request'){
+			$url = url('agent/custom-mission-details/view/'.self::encrypt($input->mission_id));
+		}else{
+			$url = url('agent/mission-details/view/'.self::encrypt($input->mission_id));
+		}
+        return $url;
     }
 
     /**

@@ -63,14 +63,17 @@
                     <!-- Notifications Dropdown -->
                     <div class="float-left dropdown pl-3 position-relative">
                       <div class="notification" data-toggle="dropdown">
-                        <span @if(Helper::get_misison_request_count()==0) data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{__('dashboard.no_notification')}}" data-html="true" data-trigger="hover" @endif><i class="fa fa-bell"></i></span>
-                        @if(Helper::get_misison_request_count() > 0)
-                          <span class="badge">{{Helper::get_misison_request_count()}}</span>
+                        <span @if(Helper::get_misison_request_count('count')==0) data-container="body" data-toggle="popover" data-placement="bottom" data-content="{{__('dashboard.no_notification')}}" data-html="true" data-trigger="hover" @endif><i class="fa fa-bell"></i></span>
+                        @if(Helper::get_misison_request_count('count') > 0)
+                          <span class="badge">{{Helper::get_misison_request_count('count')}}</span>
                         @endif
                       </div>
-                      @if(Helper::get_misison_request_count() > 0)
+                      @if(Helper::get_misison_request_count('count') > 0)
+					  @php $notifications = Helper::get_misison_request_count(); @endphp
                       <ul class="dropdown-menu mission-requests">
-                        <li class="item"><a href="{{url('agent/mission-requests')}}"><i class="fa fa-edit"></i> {{Helper::get_misison_request_count()}} {{__('frontend.new_mission_request')}}</a></li>
+						@foreach($notifications as $notification)
+                        <li class="item"><a class="notification-item" href="javascript:void(0)" data-notification-url="{{Helper::get_agent_notification_url($notification)}}" data-notification-id="{{$notification->id}}"><i class="fa fa-edit"></i> {{__($notification->message)}}</a></li>
+                        @endforeach
                       </ul>
                       @endif
                     </div>
