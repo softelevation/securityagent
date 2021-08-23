@@ -37,7 +37,7 @@
 						  </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('frontend.mission_request.request_title_object')}}</label> 
-                          {{Form::text('general_info',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.request_title_object')])}}
+                          {{Form::text('general_info',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.request_title_object'),'autocomplete'=>'off'])}}
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('frontend.mission_request.request_location')}}</label>
@@ -61,15 +61,15 @@
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.hours_req')}}</label>
-						  {{Form::text('total_hours',null,['class'=>'form-control timepicker','placeholder'=>__('dashboard.mission.hours_req')])}}
+						  {{Form::text('total_hours',null,['class'=>'form-control timepicker','placeholder'=>__('dashboard.mission.hours_req'),'autocomplete'=>'off'])}}
                         </div>
 						<div class="col-md-6 form-group">
                             <label>{{__('frontend.mission_request.how_many_agents')}}</label>
-                            {{Form::text('agent_count',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.how_many_agents')])}}
+                            {{Form::text('agent_count',null,['class'=>'form-control','placeholder'=>__('frontend.mission_request.how_many_agents'),'autocomplete'=>'off'])}}
                         </div>
                         <div id="misionStartEndDiv" class="col-md-6 form-group">
                             <label>{{__('frontend.mission_request.mission_date')}}</label>
-                            {{Form::text('start_date_time',null,['class'=>'form-control datetimepicker','placeholder'=>__('frontend.mission_request.mission_date')])}}
+                            {{Form::text('start_date_time',null,['class'=>'form-control datetimepicker','placeholder'=>__('frontend.mission_request.mission_date'),'autocomplete'=>'off'])}}
                         </div>
 						<div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.from_when_start')}}</label><br>

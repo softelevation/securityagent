@@ -32,7 +32,7 @@
                       <div class="row">
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.title')}}</label> 
-                          {{Form::text('title',null,['class'=>'form-control','placeholder'=>__('dashboard.mission.title_place')])}}
+                          {{Form::text('title',null,['class'=>'form-control','placeholder'=>__('dashboard.mission.title_place'),'autocomplete'=>'off'])}}
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.location')}}</label>
@@ -56,7 +56,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                           <label>{{__('dashboard.mission.hours_req')}}</label>
-						  {{Form::text('total_hours',null,['class'=>'form-control timepicker','placeholder'=>__('dashboard.mission.dont_know_hours')])}}
+						  {{Form::text('total_hours',null,['class'=>'form-control timepicker','placeholder'=>__('dashboard.mission.dont_know_hours'),'autocomplete'=>'off'])}}
 						  <span class="mission_hours_note @if(isset($mission->total_hours)) d-none @endif">{{__('dashboard.mission.note_hours')}}</span>
                         </div>
                         <div class="col-md-6 form-group">
@@ -72,7 +72,7 @@
                         </div>
                         <div id="misionStartEndDiv" class="col-md-6 form-group @if(!(isset($mission->start_date_time) && $mission->start_date_time!=null)) d-none @endif">
                             <label>{{__('dashboard.mission.start_time')}}</label>
-                            {{Form::text('start_date_time',null,['class'=>'form-control datetimepicker','placeholder'=>__('dashboard.mission.start_time')])}}
+                            {{Form::text('start_date_time',null,['class'=>'form-control datetimepicker','placeholder'=>__('dashboard.mission.start_time'),'autocomplete'=>'off'])}}
                         </div>
                         <div class="col-md-6 form-group create-new-mission">
                           <label>{{__('dashboard.mission.agent_vehicle')}}</label><br>
