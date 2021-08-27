@@ -388,9 +388,15 @@ class Helper {
 								->where('status',1)->where('agent_badge',1)
 								->count();
 				}else{
-				$count = Notification::where('agent_id',$agent_id)
-								->where('status',1)->where('agent_badge',1)
-								->get();
+					if(App::getLocale()=='fr'){
+						$count = Notification::select('id','message_fr as message','mission_id','type')->where('agent_id',$agent_id)
+										->where('status',1)->where('agent_badge',1)
+										->get();
+					}else{
+						$count = Notification::select('id','message','mission_id','type')->where('agent_id',$agent_id)
+										->where('status',1)->where('agent_badge',1)
+										->get();
+					}
 				}
 			}
         return $count;
@@ -497,7 +503,11 @@ class Helper {
 			if($input == 'count'){
 				$data = Notification::where('customer_id',$customer_id)->where('status',1)->where('type','!=','cus_new_mission')->count();
 			}else{
-				$data = Notification::where('customer_id',$customer_id)->where('status',1)->where('type','!=','cus_new_mission')->orderBy('id','DESC')->get();
+				if(App::getLocale()=='fr'){
+					$data = Notification::select('id','message_fr as message','mission_id','type')->where('customer_id',$customer_id)->where('status',1)->where('type','!=','cus_new_mission')->orderBy('id','DESC')->get();
+				}else{
+					$data = Notification::select('id','message','mission_id','type')->where('customer_id',$customer_id)->where('status',1)->where('type','!=','cus_new_mission')->orderBy('id','DESC')->get();
+				}
 			}
         }
         return $data;
