@@ -561,10 +561,10 @@ class Helper {
         if(App::getLocale()=='fr'){
             if($status==0){ $response = 'Non vérifié'; }
             if($status==1){ $response = 'Vérifié'; }
-            if($status==2){ $response = 'Rejeté'; }
-            if($status==3){ $response = 'Actif'; }
-            if($status==4){ $response = 'En cours'; }
-            if($status==5){ $response = 'Terminé'; }
+            if($status==2){ $response = 'Mission de voyage'; }
+            if($status==3){ $response = 'Mission arrivée'; }
+            if($status==4){ $response = 'Commencer la mission'; }
+            if($status==5){ $response = 'Mission accomplie'; }
             if($status==6){ $response = 'Annulé'; }
             if($status==7){ $response = 'Annulé'; }
             if($status==8){ $response = 'Annulé'; }
@@ -573,10 +573,10 @@ class Helper {
         }else{
             if($status==0){ $response = 'Unverified'; }
             if($status==1){ $response = 'Verified'; }
-            if($status==2){ $response = 'Rejected'; }
-            if($status==3){ $response = 'Active'; }
-            if($status==4){ $response = 'In Progress'; }
-            if($status==5){ $response = 'Completed'; }
+            if($status==2){ $response = 'Travel mission'; }
+            if($status==3){ $response = 'Arrived mission'; }
+            if($status==4){ $response = 'Start mission'; }
+            if($status==5){ $response = 'Completed mission'; }
             if($status==6){ $response = 'Cancelled'; }
             if($status==7){ $response = 'Cancelled'; }
             if($status==8){ $response = 'Cancelled'; }
