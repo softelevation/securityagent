@@ -31,10 +31,10 @@
                               <label>{{__('dashboard.report.period')}} : </label>
                             </div>
                             <div class="col-md-4 form-group">
-                              {{Form::text('from_date',null,['class'=>'form-control reportdatepicker','placeholder'=>__('dashboard.report.from_date')])}}
+                              {{Form::text('from_date',null,['class'=>'form-control reportdatepicker','placeholder'=>__('dashboard.report.from_date'),'autocomplete'=>'off'])}}
                             </div>
 							<div class="col-md-4 form-group">
-                              {{Form::text('to_date',null,['class'=>'form-control reportdatepicker','placeholder'=>__('dashboard.report.to_date')])}}
+                              {{Form::text('to_date',null,['class'=>'form-control reportdatepicker','placeholder'=>__('dashboard.report.to_date'),'autocomplete'=>'off'])}}
                             </div>
                           </div>
 						  

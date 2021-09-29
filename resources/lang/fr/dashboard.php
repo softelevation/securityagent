@@ -163,6 +163,7 @@ return [
 		'status' => 'Statut de la mission',
 		'create_sub' => 'Créer des sous-missions',
 		'without_agent_heading' => 'TOUTES LES MISSIONS SANS VUE LISTE DES AGENTS',
+		'missionreq_without_agent_heading' => 'TOUTES LES MISSIONS DEMANDE SANS AGENTS VUE LISTE',
 		'assign_delay_text' => "Cette mission est en attente d’être assignée à un agent depuis plus de 30 min.",
 		'start_delay_text' => "Cette mission est en attendre de démarrage par l’agent depuis plus d’une heure.",
 		'mission_completed' => 'Missions terminées',

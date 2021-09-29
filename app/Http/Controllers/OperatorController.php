@@ -480,10 +480,14 @@ class OperatorController extends Controller
      * @purpose Assign mission agent
      */
     public function assignMissionAgent($mission_id){
-        $mission_id = Helper::decrypt($mission_id);
-		$data = $this->Make_GET('operator/assign-agent/'.$mission_id);
-		$mission['mission'] = $data->data;
-        return view('operator.assign_agent',$mission);
+		try{
+			$mission_id = Helper::decrypt($mission_id);
+			$data = $this->Make_GET('operator/assign-agent/'.$mission_id);
+			$mission['mission'] = $data->data;
+			return view('operator.assign_agent',$mission);
+		}catch(\Exception $e){
+			return response($this->getErrorResponse($e->getMessage()));
+        }
     }
 
     public function bookAgentLaterMission(Request $request){
@@ -716,25 +720,24 @@ class OperatorController extends Controller
      */
     public function missionsListWithoutAgents(Request $request){
 		
-		
-			
-		$missions = (array)$this->Make_GET('operator/mission-without-agents')->data;
-			
-			
-        // $missions = Mission::whereDoesntHave('child_missions')->where('status',0)->where('agent_id',0)->where(function ($query) {
-					// $query->where('payment_status',1)->orWhere('payment_status',2);
-				// })->orderBy('id','DESC')->paginate($this->limit); 
-        $statusArr = Helper::getMissionStatus();
-        $params = [
-            'data' => $missions,
-            'status_list'=>$statusArr,
-            'limit' => $this->limit,
-            'page_no' => 1
-        ];
-        if(isset($request->page)){
-            $params['page_no'] = $request->page; 
+		try{
+			$missions = (array)$this->Make_GET('operator/mission-without-agents')->data;
+			$statusArr = Helper::getMissionStatus();
+			$params = [
+				'data' => $missions['mission'],
+				'mission_requests' => $missions['mission_request'],
+				'status_list'=>$statusArr,
+				'limit' => $this->limit,
+				'page_no' => 1,
+				'page_name' => 'pending'
+			];
+			if(isset($request->page)){
+				$params['page_no'] = $request->page; 
+			}
+			return view('operator.missions_without_agents',$params);
+		}catch(\Exception $e){
+			return response($this->getErrorResponse($e->getMessage()));
         }
-        return view('operator.missions_without_agents',$params);
     }
 
     /**
