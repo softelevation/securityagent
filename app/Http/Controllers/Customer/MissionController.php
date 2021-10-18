@@ -847,8 +847,8 @@ class MissionController extends Controller
                     // return $this->getSuccessResponse($response);
                 // }
             // }
-			$profile = (array)$this->Make_POST('customer/quick-create-mission',$data)->data;
-			$profile_s = $profile;
+			$profile_s = (array)$this->Make_POST('customer/quick-create-mission',$data)->data;
+			$profile_s['start_date_time'] = Carbon::createFromFormat('Y-m-d H:i:s',$data['start_date_time'])->format('d/m/Y H:i:s');
             Session::put('mission',$profile_s);
             $response['message'] = trans('messages.finding_agents');
             $response['delayTime'] = 2000;
