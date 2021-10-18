@@ -823,9 +823,16 @@ class MissionController extends Controller
                 return response($this->getErrorResponse(trans('messages.invalid_lat_long')));    
             }
             $data = array_except($request->all(),['_token']);
-			$data['start_date_time'] = Carbon::now()->toDateTimeString();
+			if($request->quick_book){
+				$data['start_date_time'] = Carbon::now()->toDateTimeString();
+			}else{
+				$data['start_date_time'] = Carbon::createFromFormat('d/m/Y H:i:s',$request->start_date_time)->format('Y-m-d H:i:s');
+			}
 			if(!$request->vehicle_required){
 				$data['vehicle_required'] = 1;
+			}
+			if(Session::has('mission') && Session::get('mission')['id']){
+				$data['id'] = Session::get('mission')['id'];
 			}
             // if($data['quick_book']==0){
 				// $date = str_replace('/', '-', $request->start_date_time);
@@ -840,7 +847,6 @@ class MissionController extends Controller
                     // return $this->getSuccessResponse($response);
                 // }
             // }
-			
 			$profile = (array)$this->Make_POST('customer/quick-create-mission',$data)->data;
 			$profile_s = $profile;
             Session::put('mission',$profile_s);

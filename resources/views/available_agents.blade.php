@@ -246,9 +246,9 @@
                             <span class="checkmark"></span>
                           </label>
                         </div>
-                        <div id="misionStartEndDiv" class="col-md-6 form-group d-none">
+                        <div id="misionStartEndDiv" class="col-md-6 form-group @if(Session::has('mission') && Session::get('mission')['quick_book']) d-none @endif">
                             <label>{{__('dashboard.mission.start_time')}}</label>
-                            <input class="form-control datetimepicker" placeholder="Date Time" name="start_date_time" type="text">
+							{{Form::text('start_date_time',null,['class'=>'form-control datetimepicker','placeholder'=>'Date Time'])}}
                         </div>
                         <div class="col-md-6 form-group create-new-mission">
                           <label>{{__('dashboard.mission.agent_vehicle')}}</label><br>
