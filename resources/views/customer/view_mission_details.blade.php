@@ -73,7 +73,7 @@
                     </div>
                   </div>
                 </div>
-                @if(isset($mission->agent))
+                @if((array)$mission->agent)
                 <h3>{{__('dashboard.agents.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">

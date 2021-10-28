@@ -101,7 +101,6 @@
                                             </div>
                                         </div>
                                     </div>
-									
                                 </div>
                             </div>
                             <div class="text-center no_avail_agent_message pt-3 d-none">
@@ -126,6 +125,15 @@
 								</center>
                             </div>
                         @endforelse
+							@if(!$search["quick_book"])
+								<div class="list_box agent_detail_{{$i}} agent_list_div">
+									<div class="row">
+										<div class="col-md-12">
+											<a href="javascript:void(0)" id="{{Helper::encrypt(0)}}" data-distance="0" class="btn_submit bookAgentBtn">{{__('frontend.text_162')}}</a>
+										</div>
+									</div>
+								</div>
+							@endif
                     @else
                         <div class="card text-center card_section" style="width: 96%;">
                           <div class="card-body">

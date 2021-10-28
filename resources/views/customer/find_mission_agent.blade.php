@@ -81,7 +81,7 @@
                     </div>
                   </div>
                 </div>
-                @if(isset($mission->agent))
+                @if((array)$mission->agent)
                 <h3>{{__('dashboard.agents.details')}}</h3>
                 <div class="pending-details">
                   <div class="view_agent_details mt-4">
@@ -117,10 +117,10 @@
                               <th class="text-left">{{$mission->total_mission_amount}} <i class="fa fa-euro-sign"></i></th>
                             </tr>
                             @if($mission->quick_book==0)
-                            <tr>
+                            <!--tr>
                               <th class="text-right">{{__('dashboard.payment.total_charge_amount')}}</th>
                               <th class="text-left">{{$charge_amount}} <i class="fa fa-euro-sign"></i></th>
-                            </tr>
+                            </tr -->
                             @endif
                           </tbody>
                         </table>

@@ -182,6 +182,7 @@ return [
 	"text_159" => "Do not hesitate to contact us directly by our message center available in your profile or by phone directly on 0183625214.",
 	"text_160" => "Our operator will find you a quick solution asap",
 	"text_161" => "If you have a custom request, please click on this button ",
+	"text_162" => "Send my request to operator",
 	"language" => "en",
 	"select" => "Select",
 	"succeeded" => "succeeded",

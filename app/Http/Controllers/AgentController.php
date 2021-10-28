@@ -141,49 +141,55 @@ class AgentController extends Controller
 	}
 	
     public function showAvailableAgents(Request $request){
-        $latitude = '48.8796835';
-        $longitude = '2.308955';
-        $location = 'France';
-        $zoom = 7;
-        $searchVal = false;
-        if(isset($request->latitude) && isset($request->longitude)){
-            $latitude = $request->latitude;
-            $longitude = $request->longitude;
-            $location = $request->location;
-            $searchVal = true;
-            $zoom = 11;
-        }else{
-            if(Session::has('mission')){
-                Session::forget('mission');
-            }
-            $request->request->set('latitude',$latitude);
-            $request->request->set('longitude',$longitude);
+		try{
+			$latitude = '48.8796835';
+			$longitude = '2.308955';
+			$location = 'France';
+			$zoom = 7;
+			$quick_book = 1;
+			$searchVal = false;
+			if(isset($request->latitude) && isset($request->longitude)){
+				$latitude = $request->latitude;
+				$longitude = $request->longitude;
+				$location = $request->location;
+				$searchVal = true;
+				$zoom = 11;
+			}else{
+				if(Session::has('mission')){
+					Session::forget('mission');
+				}
+				$request->request->set('latitude',$latitude);
+				$request->request->set('longitude',$longitude);
+			}
+			
+			if(Session::has('mission')){
+					$mission = Session::get('mission');
+					$quick_book = $mission['quick_book'];
+					$agent_All = $this->Make_Login('customer/available-agents',array('mission_id'=>$mission['id']))->data;
+				}else{
+					$agent_All = $this->Make_Login('customer/available-agents',array())->data;
+			}
+			$final_data = array();
+			foreach($agent_All as $agent_Al){
+				$final_data[] = array(
+							'username'=>$agent_Al->username,'avatar_icon'=>'https://beontime.io/avatars/dummy_avatar.jpg',
+							'image'=>$agent_Al->image,'agent_type'=>$agent_Al->agent_type,
+							'lat'=>$agent_Al->work_location_latitude,'long'=>$agent_Al->work_location_longitude,
+							'is_vehicle'=>$agent_Al->is_vehicle,'id'=>$agent_Al->id,'marker'=>'https://beontime.io/avatars/marker-male.png',
+							'distance'=>$agent_Al->distance,'work_location_address'=>$agent_Al->work_location_address,'agent_rating'=>5
+						);
+			}
+			$search['quick_book'] = $quick_book;
+			$search['latitude'] = $latitude;
+			$search['longitude'] = $longitude;
+			$search['location'] = $location;
+			$search['s_val'] = $searchVal;
+			$search['zoom'] = $zoom;
+			// $agents = $this->getAvailableAgents($request);
+			return view('available_agents',['data'=>json_encode($final_data),'search'=>$search]);
+		}catch(\Exception $e){
+			return response($this->getErrorResponse($e->getMessage()));
         }
-		
-		if(Session::has('mission')){
-                $mission = Session::get('mission');
-				$agent_All = $this->Make_Login('customer/available-agents',array('mission_id'=>$mission['id']))->data;
-            }else{
-				$agent_All = $this->Make_Login('customer/available-agents',array())->data;
-		}
-		$final_data = array();
-		foreach($agent_All as $agent_Al){
-			$final_data[] = array(
-						'username'=>$agent_Al->username,'avatar_icon'=>'https://beontime.io/avatars/dummy_avatar.jpg',
-						'image'=>$agent_Al->image,'agent_type'=>$agent_Al->agent_type,
-						'lat'=>$agent_Al->work_location_latitude,'long'=>$agent_Al->work_location_longitude,
-						'is_vehicle'=>$agent_Al->is_vehicle,'id'=>$agent_Al->id,'marker'=>'https://beontime.io/avatars/marker-male.png',
-						'distance'=>$agent_Al->distance,'work_location_address'=>$agent_Al->work_location_address,'agent_rating'=>5
-					);
-		}
-        $search['latitude'] = $latitude;
-        $search['longitude'] = $longitude;
-        $search['location'] = $location;
-        $search['s_val'] = $searchVal; 
-        $search['zoom'] = $zoom;
-        // $agents = $this->getAvailableAgents($request);
-        // $this->print($final_data);
-        return view('available_agents',['data'=>json_encode($final_data),'search'=>$search]);
     }
 
     /**

@@ -375,9 +375,9 @@ class MissionController extends Controller
         $id = Helper::decrypt($id);
 		$mission = $this->Make_GET('customer/mission-details/'.$id)->data;
 		$chargeAmount = $mission->amount;
-		if($mission->quick_book==0){
-            $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
-        }
+		// if($mission->quick_book==0){
+            // $chargeAmount = ($mission->amount*Helper::MISSION_ADVANCE_PERCENTAGE)/100;
+        // }
         $data['mission'] = $mission;
         $data['charge_amount'] = $chargeAmount;
         return view('customer.find_mission_agent',$data);
@@ -431,9 +431,7 @@ class MissionController extends Controller
 	
 	public function savePdfProceedToPayment($id){
 		try{
-			
 			$mission_id = Helper::decrypt($id);
-			
 			$missionData = $this->Make_GET('customer/mission-details/'.$mission_id);
             $mission = $missionData->data;
 			$data = $this->Make_GET('profile')->data;
@@ -688,10 +686,14 @@ class MissionController extends Controller
      * @purpose View mission details
      */
     public function viewMissionDetails($mission_id){
-        $dec_mission_id = Helper::decrypt($mission_id);
-        $data['mission'] = $this->Make_GET('customer/mission-details/'.$dec_mission_id)->data;
-        $data['mission_id'] = $mission_id;
-        return view('customer.view_mission_details',$data);
+		try{
+			$dec_mission_id = Helper::decrypt($mission_id);
+			$data['mission'] = $this->Make_GET('customer/mission-details/'.$dec_mission_id)->data;
+			$data['mission_id'] = $mission_id;
+			return view('customer.view_mission_details',$data);
+		}catch(\Exception $e){
+			return response($this->getErrorResponse($e->getMessage()));
+        }
     }
 	
 	

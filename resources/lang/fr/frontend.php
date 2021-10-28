@@ -184,6 +184,7 @@ return [
 	"text_159" => "N’hésitez pas tout de même à nous contacter via votre messagerie instantanée dans votre profil ou via notre numéro de numéro de téléphone 0183625214.",
 	"text_160" => "Nos opérateurs pourront vous trouver une solution à la dernière minute.",
 	"text_161" => "SI vous avez une demande particulière, veuillez cliquer ici",
+	"text_162" => "Envoyer ma demande à l'opérateur",
 	"language" => "fr",
 	"select" => "Choisir",
 	"succeeded" => "réussi",
