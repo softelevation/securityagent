@@ -167,7 +167,7 @@ class AgentController extends Controller
 					$quick_book = $mission['quick_book'];
 					$agent_All = $this->Make_Login('customer/available-agents',array('mission_id'=>$mission['id']))->data;
 				}else{
-					$agent_All = $this->Make_Login('customer/available-agents',array())->data;
+					$agent_All = $this->Make_Login('available-agents',array())->data;
 			}
 			$final_data = array();
 			foreach($agent_All as $agent_Al){
